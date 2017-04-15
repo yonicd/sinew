@@ -1,0 +1,4 @@
+Name: createOxygen
+Description: Create scaffolding for roxygen2 header
+Binding: oxygenAddin
+Interactive: false

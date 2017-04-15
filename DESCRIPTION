@@ -1,0 +1,21 @@
+Package: sinew
+Type: Package
+Title: Create 'Roxygen' Skeleton with information from function script
+Version: 1.0.0
+Date: 2017-04-14
+Author: Jonathan Sidi [aut, cre]
+Maintainer: Jonathan Sidi <yonis@metrumrg.com>
+Description: Create 'Roxygen' skeleton populated with information scraped from the within the function script. 
+  Also creates outputs for the import field for the DESCRIPTION and NAMESPACE files of the package.
+  The package can be run from the R console or through the 'RStudio' addin menu.
+Depends:
+    R (>= 2.3.0)
+Imports: 
+    rstudioapi,utils
+License: GPL-2 | GPL-3
+URL: https://github.com/yonicd/sinew
+BugReports: https://github.com/yonicd/sinew/issues
+LazyData: true
+NeedsCompilation: no
+Packaged: 2017-01-31 14:00:00 UTC; Yoni
+RoxygenNote: 6.0.1
