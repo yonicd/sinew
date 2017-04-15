@@ -4,7 +4,7 @@ Sinew is a R package that generates a Roxygen skeleton populated with informatio
 
 ## makeOxygen
 
-Function that returns the skeleton for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation including title, description, import and other fields populated with information scraped from the function script. 
+Function that returns the skeleton for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation including title, description, return, import and other fields populated with information scraped from the function script. 
 
 The addin `createOxygen` uses highlighted text in the active document of  RStudio as the object argument.
 
@@ -45,18 +45,20 @@ makeOxygen(lm)
 #' @param contrasts PARAM_DESCRIPTION, Default: NULL
 #' @param offset PARAM_DESCRIPTION
 #' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
 #' @importFrom stats model.frame
 ```
 
 #### Add_fields
 
-Control over which roxygen2 fields are added to the header is passed through `add_fields`. Currently the fields: concept, keyword, usage, export, details, examples, source, and seealso are supported.
+Control over which roxygen2 fields are added to the header is passed through `add_fields`.
 
 ```r
 makeOxygen(colourpicker:::colourPickerGadget,add_fields = c('export','details','examples'))
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param numCols PARAM_DESCRIPTION, Default: 3
+#' @return OUTPUT_DESCRIPTION
 #' @export
 #' @details DETAILS
 #' @examples
@@ -76,6 +78,7 @@ Passing `cut` to makeOxygen to return `import package ` instead of `importFrom p
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param numCols PARAM_DESCRIPTION, Default: 3
+#' @return OUTPUT_DESCRIPTION
 #' @export
 #' @details DETAILS
 #' @examples
@@ -99,6 +102,7 @@ When calling `addfields('seealso')` the function will give a guess of which func
 #' @param plotHeight PARAM_DESCRIPTION, Default: 800
 #' @param viewerType PARAM_DESCRIPTION, Default: 'paneViewer'
 #' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
 #' @seealso
 #'  \code{\link[DT]{dataTableOutput}},\code{\link[DT]{renderDataTable}}
 #'  \code{\link[tools]{file_path_sans_ext}}

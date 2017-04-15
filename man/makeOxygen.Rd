@@ -21,8 +21,8 @@ makeOxygen(obj, add_default = TRUE, add_fields = NULL, print = TRUE, ...)
 Creates Roxygen skeleton including title, description, import and other fields
 }
 \details{
-add_fields can include (concept,keyword,usage,export,details,examples). the order in add_fields
-determines the order of printout.
+add_fields can include any slot except for the defaults (title,description,param,return). 
+The order in add_fields determines the order of printout.
 }
 \examples{
 makeOxygen(stats::lm,add_default = TRUE,add_fields = c('export','examples'))

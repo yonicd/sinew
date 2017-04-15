@@ -5,23 +5,50 @@
 #' @param add_fields character vector to add additional roxygen fields, Default: NULL
 #' @param print logical write output to console, Default: TRUE
 #' @param ... arguments to be passed to makeImport
-#' @details add_fields can include (concept,keyword,usage,export,details,examples). the order in add_fields
-#' determines the order of printout.
+#' @details add_fields can include any slot except for the defaults (title,description,param,return). 
+#' The order in add_fields determines the order of printout.
 #' @export
 #' @examples 
 #' makeOxygen(stats::lm,add_default = TRUE,add_fields = c('export','examples'))
 makeOxygen=function(obj,add_default=TRUE, add_fields=NULL, print=TRUE, ...){
   
   header_add=c(
-    concept ="#' @concept CONCEPT_TERM",
-    keyword ="#' @keyword KEYWORD_TERM",
-    usage   ="#' @usage USAGE_DESCRIPTION",
-    export  ="#' @export",
-    details ="#' @details DETAILS",
-    examples="#' @examples\n#' EXAMPLE1 \n#'",
-    source  ="#' @source \\url{http://somewhere.important.com/}"
+    author            ="AUTHOR [AUTHOR_2]",
+    backref           ="src/filename.cpp",
+    concept           ="CONCEPT_TERM_1 [CONCEPT_TERM_2]",
+    describeIn        ="FUNCTION_NAME DESCRIPTION",
+    details           ="DETAILS",
+    #evalRd           ="",
+    example           ="path/relative/to/packge/root",
+    examples          ="\n#' EXAMPLE1 \n#'",
+    export            ="",
+    #exportClass      ="",
+    #exportMethod     ="",
+    family            ="FAMILY_TITLE",
+    field             ="FIELD_IN_S4_RefClass DESCRIPTION",
+    format            ="DATA_STRUCTURE",
+    importClassesFrom ="PACKAGE class_a class_b ...",
+    importMethodsFrom ="PACKAGE method_a method_b ...",
+    include           ="FILENAME.R [FILENAME_b.R]",
+    inherit           ="[PKG::]SOURCE_FUNCTION [FIELD_a FIELD_b]",
+    inheritDotParams  ="[PKG::]SOURCE_FUNCTION",
+    inheritSection    ="[PKG::]SOURCE_FUNCTION [SECTION_a SECTION_b]",
+    keywords          ="KEYWORD_TERM",
+    name              ="NAME",
+    #note             ="",
+    #noRd             ="",
+    #rawRd            ="",
+    #rawNamespace     ="",
+    rdname            ="FUNCTION_NAME",
+    references        ="BIB_CITATION",
+    section           ="SECTION_NAME",
+    source            ="\\url{http://somewhere.important.com/}",
+    slot              ="SLOTNAME DESCRIPTION",
+    template          ="FILENAME",
+    templateVar       ="NAME VALUE",
+    useDynLib         ="PACKAGE [routine_a routine_b]"
   )
-  
+
   lbl=deparse(substitute(obj))
   lbl=gsub('"','',lbl)
   
@@ -80,10 +107,18 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL, print=TRUE, ...){
     header=c(title="#' @title FUNCTION_TITLE",
              description="#' @description FUNCTION_DESCRIPTION")
 
-    ret=sprintf('%s\n%s\n%s\n%s',
+    footer=c(return="#' @return OUTPUT_DESCRIPTION")
+    
+    ret=sprintf('%s\n%s\n%s\n%s\n%s',
                 paste(header,collapse = '\n'),
                 paste(sprintf("#' @param %s %s",names(out),out),collapse='\n'),
-                ifelse(!is.null(add_fields),paste(header_add[add_fields],collapse = '\n'),''),
+                footer,
+                ifelse(!is.null(add_fields),{
+                  paste(sprintf("#' @%s %s",
+                                names(header_add[add_fields]),
+                                header_add[add_fields]),
+                        collapse = '\n')
+                },''),
                 import
     )
     
