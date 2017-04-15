@@ -18,8 +18,8 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL, print=TRUE, ...){
     usage   ="#' @usage USAGE_DESCRIPTION",
     export  ="#' @export",
     details ="#' @details DETAILS",
-    examples="#' @examples\n#' EXAMPLE1 \n",
-    source  ="#' @source \\url{http://somewhere.important.com/}\n"
+    examples="#' @examples\n#' EXAMPLE1 \n#'",
+    source  ="#' @source \\url{http://somewhere.important.com/}"
   )
   
   lbl=deparse(substitute(obj))
@@ -56,7 +56,7 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL, print=TRUE, ...){
     if(import=='list()') import=''
     
     cutOFF=ifelse('cut'%in%names(importList),importList$cut,3)
-    if('seealso'%in%add_fields) header_add=c(header_add,seealso=paste0(makeSeeAlso(obj,cutOFF=cutOFF),'\n',collapse='\n'))
+    if('seealso'%in%add_fields) header_add=c(header_add,seealso=paste0(makeSeeAlso(obj,cutOFF=cutOFF),collapse='\n'))
     
     str_out='PARAM_DESCRIPTION'
     
@@ -80,7 +80,7 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL, print=TRUE, ...){
     header=c(title="#' @title FUNCTION_TITLE",
              description="#' @description FUNCTION_DESCRIPTION")
 
-    ret=sprintf('%s\n%s\n%s%s',
+    ret=sprintf('%s\n%s\n%s\n%s',
                 paste(header,collapse = '\n'),
                 paste(sprintf("#' @param %s %s",names(out),out),collapse='\n'),
                 ifelse(!is.null(add_fields),paste(header_add[add_fields],collapse = '\n'),''),
