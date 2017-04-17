@@ -2,6 +2,7 @@
 
 export(makeImport)
 export(makeOxygen)
+export(tabular)
 importFrom(rstudioapi,getActiveDocumentContext)
 importFrom(rstudioapi,insertText)
 importFrom(utils,capture.output)

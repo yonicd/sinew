@@ -52,7 +52,7 @@ makeImport=function(script,cut=NULL,print=TRUE,format='oxygen'){
   }
   return(ret)
   })
-  
+
   if(format=='oxygen') ret=pkg
   
   if(format=='namespace'){
