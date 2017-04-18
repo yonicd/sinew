@@ -2,6 +2,8 @@
 
 export(makeImport)
 export(makeOxygen)
+export(paramsFromTemplate)
+export(suggestTemplate)
 export(tabular)
 importFrom(rstudioapi,getActiveDocumentContext)
 importFrom(rstudioapi,insertText)

@@ -25,7 +25,7 @@ add_fields can include any slot except for the defaults (title,description,param
 The order in add_fields determines the order of printout. The roxygen fields to add are list below, for more information goto
 \href{https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html}{Generating Rd files}
 \tabular{ll}{
-\strong{Field}    \tab \strong{Skeleton         }                  \cr
+\strong{Field}    \tab \strong{Skeleton}                           \cr
 author            \tab AUTHOR [AUTHOR_2]                           \cr
 backref           \tab src/filename.cpp                            \cr
 concept           \tab CONCEPT_TERM_1 [CONCEPT_TERM_2]             \cr
@@ -36,8 +36,8 @@ export            \tab                                             \cr
 family            \tab FAMILY_TITLE                                \cr
 field             \tab FIELD_IN_S4_RefClass DESCRIPTION            \cr
 format            \tab DATA_STRUCTURE                              \cr
-importClassesFrom \tab PKG CLASS_a [CLASS_b]                   \cr
-importMethodsFrom \tab PKG METHOD_a [METHOD_b]                 \cr
+importClassesFrom \tab PKG CLASS_a [CLASS_b]                       \cr
+importMethodsFrom \tab PKG METHOD_a [METHOD_b]                     \cr
 include           \tab FILENAME.R [FILENAME_b.R]                   \cr
 inherit           \tab [PKG::]SOURCE_FUNCTION [FIELD_a FIELD_b]    \cr
 inheritDotParams  \tab [PKG::]SOURCE_FUNCTION                      \cr
