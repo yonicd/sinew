@@ -4,7 +4,7 @@
 \alias{paramsFromTemplate}
 \title{Create roxygen parameter calls from subset of template}
 \usage{
-paramsFromTemplate(obj, template = "roxygen-man/template.R")
+paramsFromTemplate(obj, template = "man-roxygen/template.R")
 }
 \arguments{
 \item{obj}{function or name of a function}
@@ -19,5 +19,6 @@ Create roxygen parameter calls from the intersection of the parameters listed in
 and the formals of a function
 }
 \examples{
-paramsFromTemplate(sinew::makeOxygen)
+paramsFromTemplate(sinew::makeOxygen,
+template='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/template.R')
 }

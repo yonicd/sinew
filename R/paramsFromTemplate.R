@@ -5,9 +5,10 @@
 #' @param template character, path_to_template, Default: 'roxygen-man/template.R'
 #' @return character vector
 #' @examples 
-#' paramsFromTemplate(sinew::makeOxygen)
+#' paramsFromTemplate(sinew::makeOxygen,
+#' template='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/template.R')
 #' @export 
-paramsFromTemplate=function(obj,template='roxygen-man/template.R'){
+paramsFromTemplate=function(obj,template='man-roxygen/template.R'){
   template_lines=readLines(template,warn = FALSE)
   template_lines=grep("#' @param ",template_lines,value=TRUE)
   template_params=sapply(strsplit(gsub("#' @param ",'',template_lines),' '),'[',1)
