@@ -2,6 +2,12 @@
 
 Sinew is a R package that generates a Roxygen skeleton populated with information scraped from the function script.
 
+## Functionality
+
+  - **makeOxygen**: Create skeleton for Roxygen2 documentation populated with information scraped from within the package function scripts.
+  - **makeImport**: Create import calls for DESCRIPTION, NAMESPACE and Roxygen2
+  - **makeDictionary**: Creates an R file (similar to templates in Roxygen) of all the unique roxygen parameter fields in a package R subdirectory.
+
 ## makeOxygen
 
 Function that returns the skeleton for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation including title, description, return, import and other fields populated with information scraped from the function script. 
@@ -147,6 +153,23 @@ The function is written to work on single files or whole directories, like a pac
 
 The output can be set to return the format needed for either an roxygen header, NAMESPACE or the DESCRIPTION
 
+### DESCRIPTION
+
+```r
+makeImport(script=list.files('R',full.names = T),print = T,format = 'description')
+Imports: rstudioapi,utils
+```
+
+### NAMESPACE
+
+```r
+makeImport(script=list.files('R',full.names = T),print = T,format = 'namespace')
+ 
+importFrom(rstudioapi,getActiveDocumentContext)
+importFrom(rstudioapi,insertText)
+importFrom(utils,installed.packages)
+```
+
 ### Roxygen
 
 ```r
@@ -184,19 +207,27 @@ R/oxygenAddin.R
 #' @import rstudioapi
 ```
 
-### NAMESPACE
+### makeDictionary
+
+This function takes the idea of roxygen templates, but repurposes their use. It creates an R file of all the unique roxygen parameter fields in a package R subdirectory. This serves a few functions:
+
+  - Creates a general template for regular use with Roxygen2
+  - Simple way to check that there are no redundant parameter descriptions and that they are consistent.
+  - When present, this is used internally with **ls_param** to call parameter descriptions in bulk from a centralized template to populate makeOxygen skeletons.
+  
+For example in the [man-roxygen](https://github.com/yonicd/sinew/tree/master/man-roxygen) there is a Dictionary-1.R file that was created by **makeDictionary**. Using **ls_param** a query is run on the dictionary to return the param fields that intersect with the formals call to the functions. 
 
 ```r
-makeImport(script=list.files('R',full.names = T),print = T,format = 'namespace')
- 
-importFrom(rstudioapi,getActiveDocumentContext)
-importFrom(rstudioapi,insertText)
-importFrom(utils,installed.packages)
-```
+dict_loc='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/Dictionary-1.R'
 
-### DESCRIPTION
+ls_param(makeOxygen,dictionary = dict_loc)
 
-```r
-makeImport(script=list.files('R',full.names = T),print = T,format = 'description')
-Imports: rstudioapi,utils
+#' @param obj function or name of function
+#' @param add_default boolean to add defaults values to the end of the PARAM fields, Default: TRUE
+#' @param add_fields character vector to add additional roxygen fields, Default: NULL
+#' @param print boolean print output to console, Default: TRUE
+#' @param ... 
+
+names(formals(makeOxygen))
+[1] "obj"         "add_default" "add_fields"  "print"       "..." 
 ```

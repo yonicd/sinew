@@ -3,7 +3,7 @@
 #' @param obj function or name of function
 #' @param add_default boolean to add defaults values to the end of the PARAM fields, Default: TRUE
 #' @param add_fields character vector to add additional roxygen fields, Default: NULL
-#' @param print boolean write output to console, Default: TRUE
+#' @param print boolean print output to console, Default: TRUE
 #' @param ... arguments to be passed to makeImport
 #' @details add_fields can include any slot except for the defaults (title,description,param,return). 
 #' The order in add_fields determines the order of printout. The roxygen fields to add are list below, for more information goto

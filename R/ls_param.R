@@ -2,10 +2,10 @@
 #' @description Return roxygen parameter calls from the intersection of the parameters listed in
 #'  the package dictionary and the formals of a function
 #' @param obj function or name of function
-#' @param dictionary character, path_to_dictionary, Default: 'roxygen-man/Dictionary.R'
+#' @param dictionary character, path_to_dictionary, Default: 'roxygen-man/Dictionary-1.R'
 #' @return character vector
 #' @examples 
-#' dict_loc='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/Dictionary.R'
+#' dict_loc='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/Dictionary-1.R'
 #' ls_param(sinew::makeOxygen,dictionary=dict_loc)
 #' @export 
 ls_param=function(obj,dictionary='man-roxygen/Dictionary-1.R'){

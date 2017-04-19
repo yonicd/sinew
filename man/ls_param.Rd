@@ -9,7 +9,7 @@ ls_param(obj, dictionary = "man-roxygen/Dictionary-1.R")
 \arguments{
 \item{obj}{function or name of function}
 
-\item{dictionary}{character, path_to_dictionary, Default: 'roxygen-man/Dictionary.R'}
+\item{dictionary}{character, path_to_dictionary, Default: 'roxygen-man/Dictionary-1.R'}
 }
 \value{
 character vector
@@ -19,6 +19,6 @@ Return roxygen parameter calls from the intersection of the parameters listed in
  the package dictionary and the formals of a function
 }
 \examples{
-dict_loc='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/Dictionary.R'
+dict_loc='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/Dictionary-1.R'
 ls_param(sinew::makeOxygen,dictionary=dict_loc)
 }

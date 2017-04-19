@@ -13,7 +13,7 @@ makeOxygen(obj, add_default = TRUE, add_fields = NULL, print = TRUE, ...)
 
 \item{add_fields}{character vector to add additional roxygen fields, Default: NULL}
 
-\item{print}{boolean write output to console, Default: TRUE}
+\item{print}{boolean print output to console, Default: TRUE}
 
 \item{...}{arguments to be passed to makeImport}
 }
