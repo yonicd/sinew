@@ -9,11 +9,11 @@ makeOxygen(obj, add_default = TRUE, add_fields = NULL, print = TRUE, ...)
 \arguments{
 \item{obj}{function or name of function}
 
-\item{add_default}{logical to add defaults values to the end of the PARAM fields, Default: TRUE}
+\item{add_default}{boolean to add defaults values to the end of the PARAM fields, Default: TRUE}
 
 \item{add_fields}{character vector to add additional roxygen fields, Default: NULL}
 
-\item{print}{logical write output to console, Default: TRUE}
+\item{print}{boolean write output to console, Default: TRUE}
 
 \item{...}{arguments to be passed to makeImport}
 }
