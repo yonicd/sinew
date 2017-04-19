@@ -3,6 +3,7 @@
 #' @param obj function or name of function
 #' @param add_default boolean to add defaults values to the end of the PARAM fields, Default: TRUE
 #' @param add_fields character vector to add additional roxygen fields, Default: NULL
+#' @param use_dictionary character, path_to_dictionary, Default: NULL
 #' @param print boolean print output to console, Default: TRUE
 #' @param ... arguments to be passed to makeImport
 #' @details add_fields can include any slot except for the defaults (title,description,param,return). 
@@ -40,7 +41,7 @@
 #' @export
 #' @examples 
 #' makeOxygen(stats::lm,add_default = TRUE,add_fields = c('export','examples'))
-makeOxygen=function(obj,add_default=TRUE, add_fields=NULL, print=TRUE, ...){
+makeOxygen=function(obj,add_default=TRUE, add_fields=NULL,use_dictionary=NULL, print=TRUE, ...){
   
   header_add=c(
     author            ="AUTHOR [AUTHOR_2]",
@@ -117,31 +118,36 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL, print=TRUE, ...){
     
     str_out='PARAM_DESCRIPTION'
     
-    out=sapply(formals(obj),function(y){
-      cl=class(y)
-      out=as.character(y)
-      if(cl=='NULL') out='NULL'
-      if(cl=='character') out=sprintf("'%s'",as.character(y))
-      if(cl%in%c('if','call')) out=deparse(y)
-      out=paste0(out,collapse ="\n#'")
-      if(add_default){
-        if(nchar(out)>0){
-          out=sprintf(", Default: %s",out)
+    if(is.null(use_dictionary)){
+      out=sapply(formals(obj),function(y){
+        cl=class(y)
+        out=as.character(y)
+        if(cl=='NULL') out='NULL'
+        if(cl=='character') out=sprintf("'%s'",as.character(y))
+        if(cl%in%c('if','call')) out=deparse(y)
+        out=paste0(out,collapse ="\n#'")
+        if(add_default){
+          if(nchar(out)>0){
+            out=sprintf(", Default: %s",out)
+          }
+          str_out=sprintf('PARAM_DESCRIPTION%s',out)
         }
-        str_out=sprintf('PARAM_DESCRIPTION%s',out)
-      }
-      
-      return(str_out)
-    })
+        
+        return(str_out)
+      })
+      params=sprintf("#' @param %s %s",names(out),out)
+    }else{
+      params=ls_param(obj=obj,dictionary = use_dictionary,print = FALSE)
+    }
     
     header=c(title="#' @title FUNCTION_TITLE",
              description="#' @description FUNCTION_DESCRIPTION")
 
     footer=c(return="#' @return OUTPUT_DESCRIPTION")
-    
+
     ret=sprintf('%s\n%s\n%s\n%s\n%s',
                 paste(header,collapse = '\n'),
-                paste(sprintf("#' @param %s %s",names(out),out),collapse='\n'),
+                paste(params,collapse='\n'),
                 footer,
                 ifelse(!is.null(add_fields),{
                   paste(sprintf("#' @%s %s",

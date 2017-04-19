@@ -4,12 +4,14 @@
 \alias{ls_param}
 \title{Return roxygen parameter calls from parameter dictionary}
 \usage{
-ls_param(obj, dictionary = "man-roxygen/Dictionary-1.R")
+ls_param(obj, dictionary = "man-roxygen/Dictionary-1.R", print = TRUE)
 }
 \arguments{
 \item{obj}{function or name of function}
 
 \item{dictionary}{character, path_to_dictionary, Default: 'roxygen-man/Dictionary-1.R'}
+
+\item{print}{boolean print output to console, Default: TRUE}
 }
 \value{
 character vector

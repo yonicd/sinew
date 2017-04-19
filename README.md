@@ -124,6 +124,40 @@ When calling `addfields('seealso')` the function will give a guess of which func
 
 ```
 
+#### Dictionary
+
+A dictionary is an R file produced with [makeDictionary](https://github.com/yonicd/sinew#makedictionary). This R file contains  all the unique roxygen parameter fields in a package R subdirectory.
+
+```r
+makeOxygen(tabular,add_fields = c('examples','export'))
+
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param df PARAM_DESCRIPTION
+#' @param header PARAM_DESCRIPTION, Default: TRUE
+#' @param ... PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @examples 
+#' EXAMPLE1 
+#'
+#' @export 
+
+dict_loc='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/Dictionary-1.R'
+
+makeOxygen(tabular,use_dictionary = dict_loc,add_fields = c('examples','export'))
+
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param df data.frame to convert to table
+#' @param header boolean to control if header is created from names(df), Default: TRUE
+#' @param ...
+#' @return OUTPUT_DESCRIPTION
+#' @examples 
+#' EXAMPLE1 
+#'
+#' @export 
+```
+
 #### Data.frames
 
 makeOxygen also creates documentation for data.frames and tibble objects

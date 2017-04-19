@@ -4,7 +4,8 @@
 \alias{makeOxygen}
 \title{Creates skeleton Roxygen with information from within function script}
 \usage{
-makeOxygen(obj, add_default = TRUE, add_fields = NULL, print = TRUE, ...)
+makeOxygen(obj, add_default = TRUE, add_fields = NULL,
+  use_dictionary = NULL, print = TRUE, ...)
 }
 \arguments{
 \item{obj}{function or name of function}
@@ -12,6 +13,8 @@ makeOxygen(obj, add_default = TRUE, add_fields = NULL, print = TRUE, ...)
 \item{add_default}{boolean to add defaults values to the end of the PARAM fields, Default: TRUE}
 
 \item{add_fields}{character vector to add additional roxygen fields, Default: NULL}
+
+\item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
 \item{print}{boolean print output to console, Default: TRUE}
 

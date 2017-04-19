@@ -3,12 +3,13 @@
 #'  the package dictionary and the formals of a function
 #' @param obj function or name of function
 #' @param dictionary character, path_to_dictionary, Default: 'roxygen-man/Dictionary-1.R'
+#' @param print boolean print output to console, Default: TRUE
 #' @return character vector
 #' @examples 
 #' dict_loc='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/Dictionary-1.R'
 #' ls_param(sinew::makeOxygen,dictionary=dict_loc)
 #' @export 
-ls_param=function(obj,dictionary='man-roxygen/Dictionary-1.R'){
+ls_param=function(obj,dictionary='man-roxygen/Dictionary-1.R',print=TRUE){
   dictionary_lines=readLines(dictionary,warn = FALSE)
   dictionary_lines=grep("#' @param ",dictionary_lines,value=TRUE)
   dictionary_params=sapply(strsplit(gsub("#' @param ",'',dictionary_lines),' '),'[',1)
@@ -17,6 +18,6 @@ ls_param=function(obj,dictionary='man-roxygen/Dictionary-1.R'){
   nm=names(formals(obj))
   out=dictionary_lines[intersect(nm,dictionary_params)]
   names(out)<-NULL
+  if(print) cat(out,sep='\n')
   invisible(out)
-  cat(out,sep='\n')
 }
