@@ -6,7 +6,7 @@ Sinew is a R package that generates a Roxygen skeleton populated with informatio
 
   - [makeOxygen](https://github.com/yonicd/sinew#makeoxygen): Create skeleton for Roxygen2 documentation populated with information scraped from within the package function scripts.
   - [makeImport](https://github.com/yonicd/sinew#makeimport): Create import calls for DESCRIPTION, NAMESPACE and Roxygen2
-  - [makeDictionary](https://github.com/yonicd/sinew#makedictionary): Creates an R file (similar to templates in Roxygen) of all the unique roxygen parameter fields in a package R subdirectory.
+  - [makeDictionary](https://github.com/yonicd/sinew#makedictionary): Create an R file (similar to templates in Roxygen) of all the unique roxygen parameter fields in a package R subdirectory.
 
 ## makeOxygen
 
