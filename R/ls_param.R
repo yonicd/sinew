@@ -17,7 +17,9 @@ ls_param=function(obj,dictionary='man-roxygen/Dictionary-1.R',print=TRUE){
   if(is.character(obj)) obj=eval(parse(text=obj))
   nm=names(formals(obj))
   out=dictionary_lines[intersect(nm,dictionary_params)]
-  names(out)<-NULL
   if(print) cat(out,sep='\n')
+  out=mapply(function(nm,out) gsub(sprintf("^#' @param %s\\s+|, Default:.*$",nm),'',out),
+             nm=names(out),out=out)
+  #out=gsub("^#' @param(.*?),|, Default:.*$",'',out)
   invisible(out)
 }

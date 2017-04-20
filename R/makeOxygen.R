@@ -116,29 +116,32 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL,use_dictionary=NULL, p
     cutOFF=ifelse('cut'%in%names(importList),importList$cut,3)
     if('seealso'%in%add_fields) header_add=c(header_add,seealso=paste0(makeSeeAlso(obj,cutOFF=cutOFF),collapse='\n'))
     
-    str_out='PARAM_DESCRIPTION'
+    if(!is.null(use_dictionary)) param_desc=ls_param(obj=obj,dictionary = use_dictionary,print = FALSE)
+    fn=as.list(formals(obj))
     
-    if(is.null(use_dictionary)){
-      out=sapply(formals(obj),function(y){
-        cl=class(y)
-        out=as.character(y)
+      out=sapply(names(fn),function(name_y){
+        cl=class(fn[[name_y]])
+        out=as.character(fn[[name_y]])
         if(cl=='NULL') out='NULL'
-        if(cl=='character') out=sprintf("'%s'",as.character(y))
-        if(cl%in%c('if','call')) out=deparse(y)
+        if(cl=='character') out=sprintf("'%s'",as.character(fn[[name_y]]))
+        if(cl%in%c('if','call')) out=deparse(fn[[name_y]])
         out=paste0(out,collapse ="\n#'")
         if(add_default){
           if(nchar(out)>0){
             out=sprintf(", Default: %s",out)
           }
-          str_out=sprintf('PARAM_DESCRIPTION%s',out)
+          
+          if(!is.null(use_dictionary)&name_y%in%names(param_desc)){
+            p_desc=param_desc[name_y]
+          }else{
+            p_desc='PARAM_DESCRIPTION'
+          } 
+          str_out=sprintf('%s%s',p_desc,out)
         }
         
         return(str_out)
       })
       params=sprintf("#' @param %s %s",names(out),out)
-    }else{
-      params=ls_param(obj=obj,dictionary = use_dictionary,print = FALSE)
-    }
     
     header=c(title="#' @title FUNCTION_TITLE",
              description="#' @description FUNCTION_DESCRIPTION")
