@@ -4,9 +4,9 @@ Sinew is a R package that generates a Roxygen skeleton populated with informatio
 
 ## Functionality
 
-  - [makeOxygen](https://github.com/yonicd/sinew#makeoxygen): Create skeleton for Roxygen2 documentation populated with information scraped from within the package function scripts.
-  - [makeImport](https://github.com/yonicd/sinew#makeimport): Create import calls for DESCRIPTION, NAMESPACE and Roxygen2
-  - [makeDictionary](https://github.com/yonicd/sinew#makedictionary): Create an R file of all the unique roxygen parameter fields in a package R subdirectory.
+  - [makeOxygen](https://github.com/metrumresearchgroup/sinew#makeoxygen): Create skeleton for Roxygen2 documentation populated with information scraped from within the package function scripts.
+  - [makeImport](https://github.com/metrumresearchgroup/sinew#makeimport): Create import calls for DESCRIPTION, NAMESPACE and Roxygen2
+  - [makeDictionary](https://github.com/metrumresearchgroup/sinew#makedictionary): Create an R file of all the unique roxygen parameter fields in a package R subdirectory.
 
 ## makeOxygen
 
@@ -126,7 +126,7 @@ When calling `addfields('seealso')` the function will give a guess of which func
 
 #### Dictionary
 
-A dictionary is an R file produced with [makeDictionary](https://github.com/yonicd/sinew#makedictionary). This R file contains  all the unique roxygen parameter fields in a package R subdirectory.
+A dictionary is an R file produced with [makeDictionary](https://github.com/metrumresearchgroup/sinew#makedictionary). This R file contains  all the unique roxygen parameter fields in a package R subdirectory.
 
 ```r
 makeOxygen(tabular,add_fields = c('examples','export'))
@@ -142,7 +142,7 @@ makeOxygen(tabular,add_fields = c('examples','export'))
 #'
 #' @export 
 
-dict_loc='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/Dictionary-1.R'
+dict_loc='https://raw.githubusercontent.com/metrumresearchgroup/sinew/master/man-roxygen/Dictionary-1.R'
 
 makeOxygen(tabular,use_dictionary = dict_loc,add_fields = c('examples','export'))
 
@@ -249,10 +249,10 @@ This function takes the idea of roxygen templates, but repurposes their use. It 
   - Simple way to check that there are no redundant parameter descriptions and that they are consistent.
   - When present, this is used internally with **ls_param** to call parameter descriptions in bulk from a centralized template to populate makeOxygen skeletons.
   
-For example in the [man-roxygen](https://github.com/yonicd/sinew/tree/master/man-roxygen) there is a Dictionary-1.R file that was created by **makeDictionary**. Using **ls_param** a query is run on the dictionary to return the param fields that intersect with the formals call to the functions. 
+For example in the [man-roxygen](https://github.com/metrumresearchgroup/sinew/tree/master/man-roxygen) there is a Dictionary-1.R file that was created by **makeDictionary**. Using **ls_param** a query is run on the dictionary to return the param fields that intersect with the formals call to the functions. 
 
 ```r
-dict_loc='https://raw.githubusercontent.com/yonicd/sinew/master/man-roxygen/Dictionary-1.R'
+dict_loc='https://raw.githubusercontent.com/metrumresearchgroup/sinew/master/man-roxygen/Dictionary-1.R'
 
 ls_param(makeOxygen,dictionary = dict_loc)
 

@@ -116,6 +116,7 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL,use_dictionary=NULL, p
     cutOFF=ifelse('cut'%in%names(importList),importList$cut,3)
     if('seealso'%in%add_fields) header_add=c(header_add,seealso=paste0(makeSeeAlso(obj,cutOFF=cutOFF),collapse='\n'))
     
+    param_desc=NULL
     if(!is.null(use_dictionary)) param_desc=ls_param(obj=obj,dictionary = use_dictionary,print = FALSE)
     fn=as.list(formals(obj))
     
