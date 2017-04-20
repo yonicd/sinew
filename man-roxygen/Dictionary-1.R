@@ -1,4 +1,4 @@
-#' @param ...
+#' @param ... PARAM_DESCRIPTION
 #' @param add_default boolean to add defaults values to the end of the PARAM fields, Default: TRUE
 #' @param add_fields character vector to add additional roxygen fields, Default: NULL
 #' @param cut integer number of functions to write as importFrom until switches to import, Default: NULL
