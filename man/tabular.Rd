@@ -4,7 +4,7 @@
 \alias{tabular}
 \title{Tabular for roxygen}
 \source{
-\href{https://cran.r-project.org/web/packages/roxygen2/vignettes/formatting.html}{roxygen formatting}
+\href{https://CRAN.R-project.org/package=roxygen2/vignettes/roxygen2.html}{roxygen formatting}
 }
 \usage{
 tabular(df, header = TRUE, ...)
