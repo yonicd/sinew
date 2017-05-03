@@ -1,3 +1,7 @@
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/sinew)](https://cran.r-project.org/package=sinew)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active) 
+![downloads](http://cranlogs.r-pkg.org/badges/grand-total/sinew)
+
 # Sinew
 
 Sinew is a R package that generates a Roxygen skeleton populated with information scraped from the function script.
