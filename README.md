@@ -4,11 +4,11 @@
 
 # Sinew
 
-Sinew is a R package that generates a Roxygen skeleton populated with information scraped from the function script.
+Sinew is a R package that generates a roxygen2 skeleton populated with information scraped from the function script.
 
 ## Functionality
 
-  - [makeOxygen](https://github.com/metrumresearchgroup/sinew#makeoxygen): Create skeleton for Roxygen2 documentation populated with information scraped from within the package function scripts.
+  - [makeOxygen](https://github.com/metrumresearchgroup/sinew#makeoxygen): Create skeleton for roxygen2 documentation populated with information scraped from within the package function scripts.
   - [makeImport](https://github.com/metrumresearchgroup/sinew#makeimport): Create import calls for DESCRIPTION, NAMESPACE and Roxygen2
   - [makeDictionary](https://github.com/metrumresearchgroup/sinew#makedictionary): Create an R file of all the unique roxygen parameter fields in a package R subdirectory.
 
@@ -130,7 +130,7 @@ When calling `addfields('seealso')` the function will give a guess of which func
 
 #### Dictionary
 
-A dictionary is an R file produced with [makeDictionary](https://github.com/metrumresearchgroup/sinew#makedictionary). This R file contains  all the unique roxygen parameter fields in a package R subdirectory.
+A dictionary is an R file produced with [makeDictionary](https://github.com/metrumresearchgroup/sinew#makedictionary). This R file contains all the unique roxygen2 parameter fields in a package R subdirectory.
 
 ```r
 makeOxygen(tabular,add_fields = c('examples','export'))
@@ -183,7 +183,7 @@ makeOxygen(iris)
 
 ## makeImport
 
-When you are building a package to submit to cran and you need to have namespace calls for any function that is being imported. It is a pain to manually parse through the code looking for all the `*::*` and writing it in the roxygen header. This function does that for you. 
+When you are building a package to submit to cran and you need to have namespace calls for any function that is being imported. It is a pain to manually parse through the code looking for all the `*::*` and writing it in the roxygen2 header. This function does that for you. 
 
 You can write normally your script with the namespace calls and in the end run the function and you can paste the output into the header. (or use it as part of `makeOxygen`)
 
@@ -247,7 +247,7 @@ R/oxygenAddin.R
 
 ### makeDictionary
 
-This function takes the idea of roxygen templates, but repurposes their use. It creates an R file of all the unique roxygen parameter fields in a package R subdirectory. This serves a few functions:
+This function takes the idea of roxygen templates, but repurposes their use. It creates an R file of all the unique roxygen2 parameter fields in a package R subdirectory. This serves a few functions:
 
   - Creates a general template for regular use with Roxygen2
   - Simple way to check that there are no redundant parameter descriptions and that they are consistent.
