@@ -15,7 +15,7 @@ makeDictionary(path, save_path = FALSE)
 character/character vector of intersecting parameters
 }
 \description{
-Given list of R files function returns Roxygen template consisting of intersecting
+Given list of R files function returns roxygen2 template consisting of intersecting
 parameter definitions
 }
 \examples{

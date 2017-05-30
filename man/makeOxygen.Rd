@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOxygen.R
 \name{makeOxygen}
 \alias{makeOxygen}
-\title{Creates skeleton Roxygen with information from within function script}
+\title{Creates skeleton roxygen2 with information from within function script}
 \usage{
 makeOxygen(obj, add_default = TRUE, add_fields = NULL,
   use_dictionary = NULL, print = TRUE, ...)
@@ -12,7 +12,7 @@ makeOxygen(obj, add_default = TRUE, add_fields = NULL,
 
 \item{add_default}{boolean to add defaults values to the end of the PARAM fields, Default: TRUE}
 
-\item{add_fields}{character vector to add additional roxygen fields, Default: NULL}
+\item{add_fields}{character vector to add additional roxygen2 fields, Default: NULL}
 
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
@@ -21,12 +21,12 @@ makeOxygen(obj, add_default = TRUE, add_fields = NULL,
 \item{...}{arguments to be passed to makeImport}
 }
 \description{
-Creates Roxygen skeleton including title, description, import and other fields
+Creates roxygen2 skeleton including title, description, import and other fields
 }
 \details{
 add_fields can include any slot except for the defaults (title,description,param,return). 
-The order in add_fields determines the order of printout. The roxygen fields to add are list below, for more information goto
-\href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}
+The order in add_fields determines the order of printout. The roxygen2 fields to add are list below, 
+for more information go to \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}
 \tabular{ll}{
 \strong{Field}    \tab \strong{Skeleton}                           \cr
 author            \tab AUTHOR [AUTHOR_2]                           \cr

@@ -1,5 +1,5 @@
 #' @title Parse package R files to create dictionary of unique parameter definitions
-#' @description Given list of R files function returns Roxygen template consisting of intersecting
+#' @description Given list of R files function returns roxygen2 template consisting of intersecting
 #' parameter definitions
 #' @param path character or character vector of paths to files to parse
 #' @param save_path boolean that allows for function to write template to man-roxygen subdirectory, Default: FALSE

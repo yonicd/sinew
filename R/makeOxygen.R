@@ -1,14 +1,14 @@
-#' @title Creates skeleton Roxygen with information from within function script
-#' @description Creates Roxygen skeleton including title, description, import and other fields
+#' @title Creates skeleton roxygen2 with information from within function script
+#' @description Creates roxygen2 skeleton including title, description, import and other fields
 #' @param obj function or name of function
 #' @param add_default boolean to add defaults values to the end of the PARAM fields, Default: TRUE
-#' @param add_fields character vector to add additional roxygen fields, Default: NULL
+#' @param add_fields character vector to add additional roxygen2 fields, Default: NULL
 #' @param use_dictionary character, path_to_dictionary, Default: NULL
 #' @param print boolean print output to console, Default: TRUE
 #' @param ... arguments to be passed to makeImport
 #' @details add_fields can include any slot except for the defaults (title,description,param,return). 
-#' The order in add_fields determines the order of printout. The roxygen fields to add are list below, for more information goto
-#' \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}
+#' The order in add_fields determines the order of printout. The roxygen2 fields to add are list below, 
+#' for more information go to \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}
 #' \tabular{ll}{
 #' \strong{Field}    \tab \strong{Skeleton}                           \cr
 #' author            \tab AUTHOR [AUTHOR_2]                           \cr
@@ -51,7 +51,7 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL,use_dictionary=NULL, p
     details           ="DETAILS",
     #evalRd           ="",
     example           ="path_to_file/relative/to/packge/root",
-    examples          ="\n#' EXAMPLE1 \n#'",
+    examples          ="\n#' \\dontrun{\n#' if(interactive()){\n#'  EXAMPLE1\n#'  }\n#' }",
     export            ="",
     #exportClass      ="",
     #exportMethod     ="",

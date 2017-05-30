@@ -2,9 +2,9 @@
 % Please edit documentation in R/tabular.R
 \name{tabular}
 \alias{tabular}
-\title{Tabular for roxygen}
+\title{Tabular for roxygen2}
 \source{
-\href{https://CRAN.R-project.org/package=roxygen2/vignettes/roxygen2.html}{roxygen formatting}
+\href{https://CRAN.R-project.org/package=roxygen2/vignettes/roxygen2.html}{roxygen2 formatting}
 }
 \usage{
 tabular(df, header = TRUE, ...)
@@ -20,7 +20,7 @@ tabular(df, header = TRUE, ...)
 character
 }
 \description{
-Convert data.frame to roxygen tabular format
+Convert data.frame to roxygen2 tabular format
 }
 \examples{
 cat(tabular(mtcars[1:5, 1:5]))

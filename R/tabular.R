@@ -1,10 +1,10 @@
-#' @title Tabular for roxygen
-#' @description Convert data.frame to roxygen tabular format
+#' @title Tabular for roxygen2
+#' @description Convert data.frame to roxygen2 tabular format
 #' @param df data.frame to convert to table
 #' @param header boolean to control if header is created from names(df), Default: TRUE
 #' @param ... arguments to pass to format
 #' @return character
-#' @source \href{https://CRAN.R-project.org/package=roxygen2/vignettes/roxygen2.html}{roxygen formatting}
+#' @source \href{https://CRAN.R-project.org/package=roxygen2/vignettes/roxygen2.html}{roxygen2 formatting}
 #' @seealso \code{\link[base]{format}}
 #' @export
 #' @examples 

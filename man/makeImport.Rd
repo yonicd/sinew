@@ -16,7 +16,7 @@ makeImport(script, cut = NULL, print = TRUE, format = "oxygen")
 \item{format}{character the output format must be in c('oxygen','namespace','description'), Default: 'oxygen'}
 }
 \description{
-Scrape r script to create namespace calls for roxygen, namespace or description files
+Scrape r script to create namespace calls for roxygen2, namespace or description files
 }
 \examples{
 makeImport(list.files('R',full.names = TRUE),format = 'oxygen')

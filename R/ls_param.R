@@ -1,5 +1,5 @@
-#' @title Return roxygen parameter calls from parameter dictionary
-#' @description Return roxygen parameter calls from the intersection of the parameters listed in
+#' @title Return roxygen2 parameter calls from parameter dictionary
+#' @description Return roxygen2 parameter calls from the intersection of the parameters listed in
 #'  the package dictionary and the formals of a function
 #' @param obj function or name of function
 #' @param dictionary character, path_to_dictionary, Default: 'roxygen-man/Dictionary-1.R'

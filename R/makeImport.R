@@ -1,5 +1,5 @@
 #' @title Scrape R script to create namespace calls for R documentation
-#' @description Scrape r script to create namespace calls for roxygen, namespace or description files
+#' @description Scrape r script to create namespace calls for roxygen2, namespace or description files
 #' @param script character connection to pass to readLines, can be file path, directory path, url path
 #' @param cut integer number of functions to write as importFrom until switches to import, Default: NULL
 #' @param print boolean print output to console, Default: TRUE

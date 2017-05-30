@@ -2,7 +2,7 @@
 % Please edit documentation in R/ls_param.R
 \name{ls_param}
 \alias{ls_param}
-\title{Return roxygen parameter calls from parameter dictionary}
+\title{Return roxygen2 parameter calls from parameter dictionary}
 \usage{
 ls_param(obj, dictionary = "man-roxygen/Dictionary-1.R", print = TRUE)
 }
@@ -17,7 +17,7 @@ ls_param(obj, dictionary = "man-roxygen/Dictionary-1.R", print = TRUE)
 character vector
 }
 \description{
-Return roxygen parameter calls from the intersection of the parameters listed in
+Return roxygen2 parameter calls from the intersection of the parameters listed in
  the package dictionary and the formals of a function
 }
 \examples{
