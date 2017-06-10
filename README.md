@@ -6,6 +6,14 @@
 
 Sinew is a R package that generates a roxygen2 skeleton populated with information scraped from the function script.
 
+## Installation
+```r
+devtools::install_github('metrumresearchgroup/sinew')
+# or:
+# install.packages("sinew")
+```
+
+
 ## Functionality
 
   - [makeOxygen](https://github.com/metrumresearchgroup/sinew#makeoxygen): Create skeleton for roxygen2 documentation populated with information scraped from within the package function scripts.
