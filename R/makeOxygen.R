@@ -41,7 +41,7 @@
 #' @export
 #' @examples 
 #' makeOxygen(stats::lm,add_default = TRUE,add_fields = c('export','examples'))
-makeOxygen=function(obj,add_default=TRUE, add_fields=NULL,use_dictionary=NULL, print=TRUE, ...){
+makeOxygen=function(obj,add_default=TRUE, add_fields=c("details","examples","seealso","rdname","export"),use_dictionary=NULL, print=TRUE, ...){
   
   header_add=c(
     author            ="AUTHOR [AUTHOR_2]",
@@ -51,7 +51,7 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL,use_dictionary=NULL, p
     details           ="DETAILS",
     #evalRd           ="",
     example           ="path_to_file/relative/to/packge/root",
-    examples          ="\n#' \\dontrun{\n#' if(interactive()){\n#'  EXAMPLE1\n#'  }\n#' }",
+    examples          ="\n#' \\dontrun{\n#' if(interactive()){\n#'  #EXAMPLE1\n#'  }\n#' }",
     export            ="",
     #exportClass      ="",
     #exportMethod     ="",
@@ -119,7 +119,9 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL,use_dictionary=NULL, p
     param_desc=NULL
     if(!is.null(use_dictionary)) param_desc=ls_param(obj=obj,dictionary = use_dictionary,print = FALSE)
     fn=as.list(formals(obj))
-    
+  
+    if('rdname'%in%add_fields) header_add['rdname']=lbl
+      
       out=sapply(names(fn),function(name_y){
         cl=class(fn[[name_y]])
         out=as.character(fn[[name_y]])

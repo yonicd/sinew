@@ -4,8 +4,8 @@
 \alias{makeOxygen}
 \title{Creates skeleton roxygen2 with information from within function script}
 \usage{
-makeOxygen(obj, add_default = TRUE, add_fields = NULL,
-  use_dictionary = NULL, print = TRUE, ...)
+makeOxygen(obj, add_default = TRUE, add_fields = c("details", "examples",
+  "seealso", "rdname", "export"), use_dictionary = NULL, print = TRUE, ...)
 }
 \arguments{
 \item{obj}{function or name of function}
