@@ -3,6 +3,7 @@
 export(ls_param)
 export(makeDictionary)
 export(makeImport)
+export(makeOxyFile)
 export(makeOxygen)
 export(tabular)
 importFrom(rstudioapi,getActiveDocumentContext)
