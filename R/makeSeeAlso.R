@@ -5,5 +5,5 @@ x<-sapply(x,function(y){
   ret=strsplit(gsub('\\n|@importFrom|^\\s+','',y),' ')[[1]][-1]
   paste0(sprintf("\\code{\\link[%s]{%s}}",ret[1],ret[-1]),collapse=',')
   },USE.NAMES = F)
-c("#' @seealso",paste0("#'  ",x))
+paste0("\n#'  ",x)
 }
