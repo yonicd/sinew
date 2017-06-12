@@ -114,6 +114,7 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=c("details","examples","see
     if(import=='list()') import=''
     
     cutOFF=ifelse('cut'%in%names(importList),importList$cut,3)
+    if(import=='') add_fields=add_fields[!grepl('seealso',add_fields)]
     if('seealso'%in%add_fields) header_add=c(header_add,seealso=paste0(makeSeeAlso(obj,cutOFF=cutOFF),collapse='\n'))
     
     param_desc=NULL
