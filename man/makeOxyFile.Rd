@@ -22,6 +22,7 @@ Applies \code{makeOxygen} function to all functions/dataframes in supplied file(
 \details{
 If an object cannot be found, asks to sourse the file.
 Objects will be sourced into a temporary environment.
+If the file already contains roxygen2 comments they will be deleted to avoid duplication.
 Some functions may require attaching additional packages. For instance, if functions
 were defined with purrr's \code{compose} or \code{partial} functions, omission of \code{purr::} in definitions will
 require \code{library(purrr)} before proceding with \code{makeOxyFile}.
