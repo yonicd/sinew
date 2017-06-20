@@ -19,9 +19,7 @@ interOxyAddIn <- function() {
                    left = miniTitleBarButton( "qt", "Quit"),
                    right = miniTitleBarButton(inputId = "insrt","Insert",
                                               primary = TRUE)),
-    miniTabstripPanel(between = tags$p(),
-                      miniTabPanel(h6("add_fields"), icon = icon("list-ul"),
-                       miniContentPanel(
+                 miniContentPanel(
                          checkboxGroupInput(inputId = "fields",
                                             label = "include in add_fields:",
                                             choices = list("author",
@@ -52,37 +50,26 @@ interOxyAddIn <- function() {
                                                            "template",
                                                            "templateVar",
                                                            "useDynLib"),
-          selected = c("examples", "details", "seealso", "export", "rdname")))),
-  miniTabPanel(h6("more args"),
-   icon = icon("option-horizontal", lib = "glyphicon"),
-    miniContentPanel(padding = 25,
-      fillPage(
-        fillCol(flex = c(2,NA,1,NA,NA,NA,2), height = "100%",
-                fillRow(flex = c(9,2,9),
-                  radioButtons(inputId = "dflt", label = "add_default",
-                               choices = list(TRUE, FALSE), selected = TRUE),
-                  div(),
-                  radioButtons(inputId = "print", label = "print",
-                               choices = list(TRUE, FALSE), selected = FALSE)),
-                
-                hr(),
-    div(actionLink("butt", "use_dictionary",
-                   icon = icon("folder-open", "glyphicons")),
-        textOutput("dictfile")),
-    hr(style = "border-top: 3px solid #cccccc;"),
-    tags$strong(h5(align = "center","Parameters passed to makeImport():")),
-    br(),
-    fillRow(sliderInput(inputId = "cut", label = "cut",value = 0,
-                        min = 0,max = 20, step = 1, ticks = FALSE),
-            div(),
-            radioButtons("frmt", "format", list("oxygen","namespace","description"),
-                         selected = "oxygen"), flex = c(9,2,9))
-                      )))
-                      )
+          selected = c("examples", "details", "seealso", "export", "rdname")),
+      hr(style = "border-top: 3px solid #cccccc;"),
+      sliderInput(inputId = "cut", label = "cut",value = 0,
+                          min = 0,max = 20, step = 1, ticks = FALSE),
+      br(),
+      uiOutput("cutslider"),
+      br()
     )
-  )
+    )
+  
   
   server <- function(input, output, session) {
+    
+    output$cutslider <- renderUI({if (dir.exists("./man-roxygen")) {
+      div(actionLink("butt", "use_dictionary",
+                      icon = icon("folder-open", "glyphicons")),
+                                      textOutput("dictfile"))
+      } else {p()}
+      })
+    
     robj <- reactivePoll(1000, session,
                          checkFunc = rstudioapi::getSourceEditorContext,
                          valueFunc = function() {
@@ -111,7 +98,7 @@ interOxyAddIn <- function() {
     })
     
     rfile <- reactiveVal()
-    observeEvent(input$butt, {hh <- choose.files()
+    observeEvent(input$butt, {hh <- file.choose()
     rfile(hh)})
     
     output$dictfile <- renderText({rfile()})
