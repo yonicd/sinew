@@ -4,7 +4,9 @@
 #' @return Nothing. Overwrites files as a side effect
 #' @author Anton Grishin
 #' @examples 
+#' \donttest{
 #' rmOxygen("./myRfunctions/function1.R")
+#' }
 #' @export 
 #' @import rstudioapi
 rmOxygen <- function(.file){
