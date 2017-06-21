@@ -42,7 +42,7 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, ...) {
     lines <- readLines(FILE)
     lines <- lines[!grepl("^\\s*#'", lines)]
     objs <- gsub("\\s*([[:alnum:]._]+).*",
-                 "\\1", grep("^\\s*[[:alnum:]._]+\\s*<-", lines, value = TRUE))
+                 "\\1", grep("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines, value = TRUE))
     if (length(objs) == 0L) {stop(neg_msg, normalizePath(FILE), call. = FALSE)}
     if (!all(objs %in% ls(envir = parent.frame()))) {
       message(
@@ -71,7 +71,7 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, ...) {
     if (!any(sel_obj)) {warning(neg_msg, normalizePath(FILE))}
     objs <- objs[sel_obj]
     oxy_lst <- lapply(objs, makeOxygen, ...)
-    ins_id <- which(grepl("^\\s*[[:alnum:]._]+\\s*<-", lines)) - 1L
+    ins_id <- which(grepl("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines)) - 1L
     ins_id <- ins_id[sel0]
     ins_id <- ins_id[sel_obj]
     
