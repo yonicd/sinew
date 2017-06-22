@@ -10,10 +10,17 @@ interOxyAddIn()
 Nothing. Inserts roxygen2 comments in a file opened in the source editor.
 }
 \description{
-Launches an addin for interactive selection of parameters for \code{makeOxygen}
+Launches an interactive addin for insertion of roxygen2 comments in files.
+Allows selection of extra parameters for \code{makeOxygen}
 }
 \details{
-Add-in launches in the viewer panel of Rstudio. Select function's/dataset's name in the source editor. Choose parameters for \code{makeOxygen}. Click Insert. Select next object's name. Rinse.Repeat. Click Quit when done with the file.
+Open an .R file in Rstudio's source editor.
+Launch the add-in via Addins -> interactiveOxygen or interOxyAddIn() in the console.
+Add-in opens in the viewer panel.
+Select function's/dataset's name in the source editor.
+If objects cannot be found, the addin prompts to source the file.
+Choose parameters for \code{makeOxygen}. Click Insert.
+Select next object's name. Rinse.Repeat. Click Quit when done with the file.
 }
 \examples{
 interOxyAddIn() # launches interactive add-in, alternatively,
