@@ -7,7 +7,7 @@
 moga(path, ..., force.fields = NULL, dry.run = TRUE)
 }
 \arguments{
-\item{path}{characer path to R file}
+\item{path}{character path to R file}
 
 \item{...}{arguments to be passed to new makeOxygen}
 
