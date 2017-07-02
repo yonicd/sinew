@@ -4,7 +4,7 @@
 \alias{interOxyAddIn}
 \title{Interactive add-in}
 \usage{
-interOxyAddIn()
+interOxyAddIn(a = NULL)
 }
 \value{
 Nothing. Inserts roxygen2 comments in a file opened in the source editor.
@@ -30,5 +30,5 @@ Rstudio menu Addins -> 'interactiveOxygen'
 \code{View(sinew:::oxygenAddin)}
 }
 \author{
-Anton Grishin
+Anton Grishin, Jonathan Sidi
 }

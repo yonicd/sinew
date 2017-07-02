@@ -1,6 +1,6 @@
 #' @title Make Oxygen Great Again
 #' @description Update/append an R file that has roxygen2 headers already with updated information
-#' @param path characer path to R file
+#' @param path character path to R file
 #' @param ... arguments to be passed to new makeOxygen
 #' @param force.fields character, vector a field names that are in current header that are to be updated Default: NULL
 #' @param dry.run boolean, write lines to console the output, Default: TRUE
@@ -37,7 +37,9 @@ moga<-function(path, ... , force.fields=NULL, dry.run=TRUE){
     long_names<-which(names(this_oxy_vals)%in%c('importFrom','param'))
     if(length(long_names)>0){
       names(this_oxy_vals)[long_names]<-regmatches(this_oxy[long_names], regexpr('(?:\\S+\\s+){1}(\\S+)', this_oxy[long_names]))
-      this_oxy_vals[long_names]<-gsub('(?:\\S+\\s+){1}(\\S+)','',this_oxy[long_names])
+      this_oxy_vals[long_names]<-sapply(strsplit(this_oxy[long_names],'\\s+'),
+                                        function(x) paste(tail(x,-2),collapse = ' '),
+                                        USE.NAMES = FALSE)
     }
 
     this_oxy_vals
@@ -56,7 +58,7 @@ moga<-function(path, ... , force.fields=NULL, dry.run=TRUE){
   
   oxy_out <- sprintf("#' @%s %s",names(oxy_update),oxy_update)
   
-  invisible(oxy_out)
   if(dry.run) writeLines(oxy_out)
   
+  invisible(oxy_out)
 }
