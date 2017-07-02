@@ -7,7 +7,7 @@
 makeOxyFile(input = NULL, overwrite = FALSE, ...)
 }
 \arguments{
-\item{input}{character vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL, opens system dialogue for files selection}
+\item{input}{character vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL}
 
 \item{overwrite}{When TRUE overwrites file(s), FALSE writes "Oxy"- prefixed files in the same directory, Default: FALSE}
 
@@ -20,8 +20,7 @@ Nothing. Writes files with roxygen2 comments as a side effect
 Applies \code{makeOxygen} function to all functions/dataframes in supplied file(s)
 }
 \details{
-If an object cannot be found, asks to sourse the file.
-Objects will be sourced into a temporary environment.
+If an object cannot be found, asks to source the file. Objects will be sourced into a temporary environment.
 If the file already contains roxygen2 comments they will be deleted to avoid duplication.
 Some functions may require attaching additional packages. For instance, if functions
 were defined with purrr's \code{compose} or \code{partial} functions, omission of \code{purr::} in definitions will

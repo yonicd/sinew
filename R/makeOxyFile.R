@@ -1,12 +1,11 @@
 #' @title Inserts roxygen2 skeletons in file(s).
 #' @description Applies \code{makeOxygen} function to all functions/dataframes in supplied file(s)
-#' @param input character vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL, opens system dialogue for files selection
+#' @param input character vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL
 #' @param overwrite When TRUE overwrites file(s), FALSE writes "Oxy"- prefixed files in the same directory, Default: FALSE
 #' @param ... additional parameters passed to \code{makeOxygen}
 #' @return Nothing. Writes files with roxygen2 comments as a side effect
 #' @author Anton Grishin
-#' @details If an object cannot be found, asks to sourse the file.
-#' Objects will be sourced into a temporary environment.
+#' @details If an object cannot be found, asks to source the file. Objects will be sourced into a temporary environment.
 #' If the file already contains roxygen2 comments they will be deleted to avoid duplication.
 #' Some functions may require attaching additional packages. For instance, if functions
 #' were defined with purrr's \code{compose} or \code{partial} functions, omission of \code{purr::} in definitions will
@@ -45,10 +44,8 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, ...) {
                  "\\1", grep("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines, value = TRUE))
     if (length(objs) == 0L) {stop(neg_msg, normalizePath(FILE), call. = FALSE)}
     if (!all(objs %in% ls(envir = parent.frame()))) {
-      message(
-        paste0("makeOxygen() can't fine some objects in the global environment",
+      message("makeOxygen() can't fine some objects in the global environment",
                "\nwould you like to source ", basename(FILE), " file?")
-      )
       usr_inp <- readline("y/n ")
       if (usr_inp == "y") {
         nenv <- attach(NULL, name = "makeOxyFile_tempenv")
