@@ -19,7 +19,7 @@
 #' @import rstudioapi
 #' @import shiny
 #' @import miniUI
-interOxyAddIn <- function(a=NULL) {
+interOxyAddIn <- function() {
   
   #on.exit(detach("interOxyEnvir"))
   

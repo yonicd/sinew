@@ -4,7 +4,7 @@
 \alias{interOxyAddIn}
 \title{Interactive add-in}
 \usage{
-interOxyAddIn(a = NULL)
+interOxyAddIn()
 }
 \value{
 Nothing. Inserts roxygen2 comments in a file opened in the source editor.
