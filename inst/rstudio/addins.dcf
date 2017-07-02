@@ -7,4 +7,3 @@ Name: interactiveOxygen
 Description: Insert roxygen2 comments interactively
 Binding: interOxyAddIn
 Interactive: true
-
