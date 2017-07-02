@@ -23,8 +23,9 @@ Choose parameters for \code{makeOxygen}. Click Insert.
 Select next object's name. Rinse.Repeat. Click Quit when done with the file.
 }
 \examples{
-interOxyAddIn() # launches interactive add-in, alternatively,
-Rstudio menu Addins -> 'interactiveOxygen' 
+\donttest{
+if(interactive()) interOxyAddIn()
+}
 }
 \seealso{
 \code{View(sinew:::oxygenAddin)}

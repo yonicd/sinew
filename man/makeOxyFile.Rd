@@ -27,11 +27,18 @@ were defined with purrr's \code{compose} or \code{partial} functions, omission o
 require \code{library(purrr)} before proceding with \code{makeOxyFile}.
 }
 \examples{
+\donttest{
+\dontrun{
+if(interactive()){
  makeOxyFile() # default args, opens system file selection dialogue
+ }
  makeOxyFile("./myRfunctions/utils.R") # on one R file
  makeOxyFile("./myRfunctions/") # on all R files in directory
+ 
+ # adds more fields to deafaults, passes "cut" to makeImport
  myfields <- c("concept", "describeIn")
- makeOxyFile("./myRfunctions/utils.R", add_fields = myfields, cut = 5) # adds more fields to deafaults, passes "cut" to makeImport
+ makeOxyFile("./myRfunctions/utils.R", add_fields = myfields, cut = 5)
+ }}
 }
 \seealso{
 \code{\link{makeOxygen}}

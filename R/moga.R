@@ -14,6 +14,7 @@
 #' @seealso 
 #'  \code{\link[tools]{file_path_sans_ext}}
 #' @rdname moga
+#' @importFrom utils tail
 #' @export
 moga<-function(path, ... , force.fields=NULL, dry.run=TRUE){
   
@@ -38,7 +39,7 @@ moga<-function(path, ... , force.fields=NULL, dry.run=TRUE){
     if(length(long_names)>0){
       names(this_oxy_vals)[long_names]<-regmatches(this_oxy[long_names], regexpr('(?:\\S+\\s+){1}(\\S+)', this_oxy[long_names]))
       this_oxy_vals[long_names]<-sapply(strsplit(this_oxy[long_names],'\\s+'),
-                                        function(x) paste(tail(x,-2),collapse = ' '),
+                                        function(x) paste(utils::tail(x,-2),collapse = ' '),
                                         USE.NAMES = FALSE)
     }
 

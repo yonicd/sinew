@@ -10,14 +10,23 @@
 #' Some functions may require attaching additional packages. For instance, if functions
 #' were defined with purrr's \code{compose} or \code{partial} functions, omission of \code{purr::} in definitions will
 #' require \code{library(purrr)} before proceding with \code{makeOxyFile}. 
-#' @examples 
+#' @examples
+#' \donttest{
+#' \dontrun{
+#' if(interactive()){
 #'  makeOxyFile() # default args, opens system file selection dialogue
+#'  }
 #'  makeOxyFile("./myRfunctions/utils.R") # on one R file
 #'  makeOxyFile("./myRfunctions/") # on all R files in directory
+#'  
+#'  # adds more fields to deafaults, passes "cut" to makeImport
 #'  myfields <- c("concept", "describeIn")
-#'  makeOxyFile("./myRfunctions/utils.R", add_fields = myfields, cut = 5) # adds more fields to deafaults, passes "cut" to makeImport
+#'  makeOxyFile("./myRfunctions/utils.R", add_fields = myfields, cut = 5)
+#'  }}
 #' @export 
 #' @seealso \code{\link{makeOxygen}}
+#' @rdname makeOxyFile
+#' @importFrom rstudioapi isAvailable navigateToFile
 
 makeOxyFile <- function(input = NULL, overwrite = FALSE, ...) {
   
