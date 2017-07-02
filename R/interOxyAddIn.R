@@ -19,12 +19,12 @@
 #' @import rstudioapi
 #' @import shiny
 #' @import miniUI
-interOxyAddIn <- function() {
+interOxyAddIn <- function(a=NULL) {
   
   #on.exit(detach("interOxyEnvir"))
   
   tweaks <- 
-    list(tags$head(tags$style(HTML("
+    list(shiny::tags$head(shiny::tags$style(shiny::HTML("
                                    .multicol { 
                                    height: 300px;
                                    -webkit-column-count: 3; /* Chrome, Safari, Opera */ 
@@ -50,10 +50,10 @@ interOxyAddIn <- function() {
                  source = "\\url{http://somewhere.important.com/}", slot = "SLOTNAME DESCRIPTION", 
                  template = "FILENAME", templateVar = "NAME VALUE", useDynLib = "PKG [ROUTINE_a ROUTINE_b]")
   
-  controls<-list(h3("Select Fields to add to Oxygen Output"),
-                 tags$div(align = 'left', 
+  controls<-list(shiny::tags$h3("Select Fields to add to Oxygen Output"),
+                 shiny::tags$div(align = 'left', 
                           class = 'multicol',
-                          checkboxGroupInput(inputId = "fields",
+                          shiny::checkboxGroupInput(inputId = "fields",
                                              label = '',
                                              choices = names(header_add),
                                              selected = c("examples", "details", "seealso", "export", "rdname")))
@@ -61,49 +61,49 @@ interOxyAddIn <- function() {
   
   ui <- miniUI::miniPage(
     tweaks,
-    miniUI::gadgetTitleBar(textOutput("title", inline = TRUE),
+    miniUI::gadgetTitleBar(shiny::textOutput("title", inline = TRUE),
                            left = miniUI::miniTitleBarButton( "qt", "Quit"),
                            right = miniUI::miniTitleBarButton(inputId = "insrt","Insert",
                                                               primary = TRUE)),
     miniUI::miniContentPanel(
-      sidebarLayout(sidebarPanel = sidebarPanel(
-        radioButtons(inputId = 'action',label = 'Action',
+      shiny::sidebarLayout(sidebarPanel = shiny::sidebarPanel(
+        shiny::radioButtons(inputId = 'action',label = 'Action',
                      choices = c('Create','Update'),
                      selected = 'Create',inline = TRUE),
         controls,
-        hr(style = "border-top: 3px solid #cccccc;"),
-        sliderInput(inputId = "cut", label = "cut", value = 0,
+        shiny::tags$hr(style = "border-top: 3px solid #cccccc;"),
+        shiny::sliderInput(inputId = "cut", label = "cut", value = 0,
                     min = 0, max = 20, step = 1, ticks = FALSE),
-        br(),
-        uiOutput("cutslider"),
-        br(),width = 5 
+        shiny::br(),
+        shiny::uiOutput("cutslider"),
+        shiny::br(),width = 5 
       ),
-      mainPanel = mainPanel(
-        verbatimTextOutput('preview'),width=7
+      mainPanel = shiny::mainPanel(
+        shiny::verbatimTextOutput('preview'),width=7
       ))
     )
   )
   
   server <- function(input, output, session) {
     
-    output$title <- renderText({paste0("Select parameters in makeOxygen(\"",robj()$selection[[1]]$text,  "\"...)")})
-    observeEvent(input$no, stopApp())
-    rfile <- reactiveVal()
-    output$dictfile <- renderText({rfile()})
+    output$title <- shiny::renderText({paste0("Select parameters in makeOxygen(\"",robj()$selection[[1]]$text,  "\"...)")})
+    shiny::observeEvent(input$no, shiny::stopApp())
+    rfile <- shiny::reactiveVal()
+    output$dictfile <- shiny::renderText({rfile()})
     
-    output$cutslider <- renderUI({if (dir.exists("./man-roxygen")) {
-      div(div(actionLink("butt", "use_dictionary",
+    output$cutslider <- shiny::renderUI({if (dir.exists("./man-roxygen")) {
+      shiny::div(shiny::div(actionLink("butt", "use_dictionary",
                          icon = icon("folder-open", "glyphicons")),
-              textOutput("dictfile")), hr())
-    } else {p()}
+                         shiny::textOutput("dictfile")), hr())
+    } else {shiny::p()}
     })
     
-    robj <- reactivePoll(1000, session,
+    robj <- shiny::reactivePoll(1000, session,
                          checkFunc = rstudioapi::getActiveDocumentContext,
                          valueFunc = rstudioapi::getActiveDocumentContext
     )
     
-    observeEvent(robj(), {
+    shiny::observeEvent(robj(), {
       path <- robj()$path
       obj <- robj()$selection[[1]]$text
       
@@ -126,27 +126,27 @@ interOxyAddIn <- function() {
       
     })
     
-    observeEvent(input$qt, {
-      if ("interOxyEnvir" %in% search()) detach("interOxyEnvir"); stopApp()})
+    shiny::observeEvent(input$qt, {
+      if ("interOxyEnvir" %in% search()) detach("interOxyEnvir"); shiny::stopApp()})
     
-    observeEvent(input$ok, {
+    shiny::observeEvent(input$ok, {
       nenv <- attach(NULL, name = "interOxyEnvir")
       sys.source(rstudioapi::getSourceEditorContext()$path, nenv,
                  keep.source = TRUE)
-      removeModal()
+      shiny::removeModal()
     })
     
-    observeEvent(input$butt, {
+    shiny::observeEvent(input$butt, {
       hh <- NULL
       try(hh <- file.choose(), silent = TRUE)
       rfile(hh)})
     
-    observeEvent(input$insrt, {
+    shiny::observeEvent(input$insrt, {
       obj <- robj()$selection[[1]]$text
       if (!nzchar(obj) ||
           (is.null(get0(obj)) && "interOxyEnvir" %in% search())) {
-        showModal(modalDialog(
-          tags$h4(style = "color: red;","Make valid object selection!"),
+        shiny::showModal(modalDialog(
+          shiny::tags$h4(style = "color: red;","Make valid object selection!"),
           size = "s", easyClose = TRUE)
         )
       } else {
@@ -162,7 +162,7 @@ interOxyAddIn <- function() {
         rstudioapi::insertText(ctxt$selection[[c(1,1)]],paste0(ins_txt, "\n",obj),id = ctxt$id)
       }})
     
-      observeEvent(c(input$fields,robj(),input$cut,input$action),{
+    shiny::observeEvent(c(input$fields,robj(),input$cut,input$action),{
         switch(input$action,
                Update={ 
                  params <- list(
@@ -174,7 +174,7 @@ interOxyAddIn <- function() {
                  cut = input$cut
                )
                
-               output$preview<-renderText({
+               output$preview<-shiny::renderText({
                  if(nchar(params$path)>0){
                    x<-do.call(moga, params) 
                    paste(x,collapse = '\n')
@@ -189,7 +189,7 @@ interOxyAddIn <- function() {
                                 cut = input$cut
                  )
                  
-                 output$preview<-renderText({
+                 output$preview<-shiny::renderText({
                    if(nchar(params$obj)>0){
                      do.call(makeOxygen, params)
                    }
@@ -197,5 +197,5 @@ interOxyAddIn <- function() {
                })
       })  
   }
-  runGadget(ui, server, viewer = paneViewer(minHeight = 450))
+  shiny::runGadget(ui, server, viewer = shiny::paneViewer(minHeight = 450))
   }
