@@ -2,7 +2,7 @@
 #' @description Creates roxygen2 skeleton including title, description, import and other fields
 #' @param obj function or name of function
 #' @param add_default boolean to add defaults values to the end of the PARAM fields, Default: TRUE
-#' @param add_fields character vector to add additional roxygen2 fields, Default: NULL
+#' @param add_fields character vector to add additional roxygen2 fields, Default: c("details","examples","seealso","rdname","export")
 #' @param use_dictionary character, path_to_dictionary, Default: NULL
 #' @param print boolean print output to console, Default: TRUE
 #' @param ... arguments to be passed to makeImport
@@ -40,7 +40,7 @@
 #'}
 #' @export
 #' @examples 
-#' makeOxygen(stats::lm,add_default = TRUE,add_fields = c('export','examples'))
+#' makeOxygen(stats::lm)
 makeOxygen=function(obj,add_default=TRUE, add_fields=c("details","examples","seealso","rdname","export"),use_dictionary=NULL, print=TRUE, ...){
   
   header_add=c(
