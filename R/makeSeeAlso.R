@@ -1,3 +1,17 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param obj PARAM_DESCRIPTION
+#' @param cutOFF PARAM_DESCRIPTION, Default: 3
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname makeSeeAlso
+#' @export
 makeSeeAlso<-function(obj,cutOFF=3){
 x<-makeImport(obj,cut=cutOFF,print=FALSE)
 x<-grep('importFrom',strsplit(x,"#'")[[1]],value=TRUE)
