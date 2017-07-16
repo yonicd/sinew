@@ -56,8 +56,8 @@ interOxyAddIn <- function() {
                           class = 'multicol',
                           shiny::checkboxGroupInput(inputId = "fields",
                                              label = '',
-                                             choices = names(header_add),
-                                             selected = c("examples", "details", "seealso", "export", "rdname")))
+                                             choices = c(names(header_add),'seealso'),
+                                             selected = sinew_opts$get('add_fields')))
   )
   
   ui <- miniUI::miniPage(
@@ -163,24 +163,27 @@ interOxyAddIn <- function() {
         rstudioapi::insertText(ctxt$selection[[c(1,1)]],paste0(ins_txt, "\n",obj),id = ctxt$id)
       }})
     
-    shiny::observeEvent(c(input$fields,robj(),input$cut,input$action),{
+    shiny::observeEvent(list(input$action,input$fields,robj(),input$cut),{
         switch(input$action,
                Update={ 
-                 params <- list(
-                 path=robj()$path,
-                 add_fields = input$fields,
-                 add_default = TRUE,
-                 dry.run=FALSE,
-                 use_dictionary = rfile(),
-                 cut = input$cut
-               )
+                 
+                 params <- 
+                  list(
+                    path=robj()$path,
+                    add_fields = input$fields,
+                    add_default = TRUE,
+                    dry.run=FALSE,
+                    use_dictionary = rfile(),
+                    cut = input$cut
+                  )
                
                output$preview<-shiny::renderText({
                  if(nchar(params$path)>0){
                    x<-do.call(moga, params) 
                    paste(x,collapse = '\n')
                  }
-               })},
+               })
+               },
                Create={
                  params <- list(obj = robj()$selection[[1]]$text,
                                 add_fields = input$fields,

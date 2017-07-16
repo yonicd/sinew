@@ -4,15 +4,16 @@
 \alias{makeOxygen}
 \title{Creates skeleton roxygen2 with information from within function script}
 \usage{
-makeOxygen(obj, add_default = TRUE, add_fields = c("details", "examples",
-  "seealso", "rdname", "export"), use_dictionary = NULL, print = TRUE, ...)
+makeOxygen(obj, add_default = TRUE,
+  add_fields = sinew_opts$get("add_fields"), use_dictionary = NULL,
+  print = TRUE, ...)
 }
 \arguments{
 \item{obj}{function or name of function}
 
 \item{add_default}{boolean to add defaults values to the end of the PARAM fields, Default: TRUE}
 
-\item{add_fields}{character vector to add additional roxygen2 fields, Default: NULL}
+\item{add_fields}{character vector to add additional roxygen2 fields, Default: c("details","examples","seealso","rdname","export")}
 
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
@@ -58,5 +59,5 @@ useDynLib         \tab PKG [routine_a routine_b]
 }
 }
 \examples{
-makeOxygen(stats::lm,add_default = TRUE,add_fields = c('export','examples'))
+makeOxygen(stats::lm)
 }

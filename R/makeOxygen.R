@@ -41,7 +41,7 @@
 #' @export
 #' @examples 
 #' makeOxygen(stats::lm)
-makeOxygen=function(obj,add_default=TRUE, add_fields=c("details","examples","seealso","rdname","export"),use_dictionary=NULL, print=TRUE, ...){
+makeOxygen=function(obj,add_default=TRUE, add_fields=sinew_opts$get('add_fields'),use_dictionary=NULL, print=TRUE, ...){
   
   header_add=c(
     author            ="AUTHOR [AUTHOR_2]",
