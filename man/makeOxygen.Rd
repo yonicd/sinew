@@ -4,15 +4,15 @@
 \alias{makeOxygen}
 \title{Creates skeleton roxygen2 with information from within function script}
 \usage{
-makeOxygen(obj, add_default = TRUE, add_fields = c("details", "examples",
-  "seealso", "rdname", "export"), use_dictionary = NULL, print = TRUE, ...)
+makeOxygen(obj, add_default = TRUE, add_fields = NULL,
+  use_dictionary = NULL, print = TRUE, ...)
 }
 \arguments{
 \item{obj}{function or name of function}
 
 \item{add_default}{boolean to add defaults values to the end of the PARAM fields, Default: TRUE}
 
-\item{add_fields}{character vector to add additional roxygen2 fields, Default: NULL}
+\item{add_fields}{character vector to add additional roxygen2 fields, Default: c("details","examples","seealso","rdname","export")}
 
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
@@ -24,8 +24,8 @@ makeOxygen(obj, add_default = TRUE, add_fields = c("details", "examples",
 Creates roxygen2 skeleton including title, description, import and other fields
 }
 \details{
-add_fields can include any slot except for the defaults (title,description,param,return). 
-The order in add_fields determines the order of printout. The roxygen2 fields to add are list below, 
+add_fields can include any slot except for the defaults (title,description,param,return).
+The order in add_fields determines the order of printout. The roxygen2 fields to add are list below,
 for more information go to \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}
 \tabular{ll}{
 \strong{Field}    \tab \strong{Skeleton}                           \cr
@@ -54,9 +54,9 @@ source            \tab \\url\{http://somewhere.important.com/\}    \cr
 slot              \tab SLOTNAME DESCRIPTION                        \cr
 template          \tab FILENAME                                    \cr
 templateVar       \tab NAME VALUE                                  \cr
-useDynLib         \tab PKG [routine_a routine_b]               
+useDynLib         \tab PKG [routine_a routine_b]
 }
 }
 \examples{
-makeOxygen(stats::lm,add_default = TRUE,add_fields = c('export','examples'))
+makeOxygen(stats::lm)
 }
