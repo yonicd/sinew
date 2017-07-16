@@ -12,12 +12,12 @@ the @author field when calling `makeOxygen`. If NULL, resets the @author field t
 ("AUTHOR [AUTHOR_2]"), Default: NULL}
 }
 \description{
-function allowing to set the options()$sinew_DefaultAuthor to desired value (or
-reset it to default).
+function allowing to set a default value for the @author field created by
+ makeOxygen (or#' reset it to default).
 }
 \examples{
 \dontrun{
- # Create an "author" variable
+ # Create an "author" variable including two authors
  author <- c(person("John", "Smith, phD (2017)", role = "aut"),
              person(c("Mary", "D."), "Ripley", role = c("ctb")))
 
