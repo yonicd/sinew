@@ -166,7 +166,7 @@ interOxyAddIn <- function() {
     shiny::observeEvent(list(input$action,input$fields,robj(),input$cut),{
         switch(input$action,
                Update={ 
-                 
+                 #gsub('\\s{1}(.*?)$','',names(get_oxy(oxy_current)))
                  params <- 
                   list(
                     path=robj()$path,
