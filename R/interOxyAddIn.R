@@ -163,6 +163,13 @@ interOxyAddIn <- function() {
         rstudioapi::insertText(ctxt$selection[[c(1,1)]],paste0(ins_txt, "\n",obj),id = ctxt$id)
       }})
     
+    shiny::observeEvent(c(input$action,robj()),{
+      l <- readLines(robj()$path,warn = FALSE)
+      oxy_current <- paste0(grep("^#'",l,value=TRUE),collapse = '\n')
+      new_fields<-switch(input$action,Update={names(get_oxy(oxy_current))},Create={sinew_opts$get('add_fields')})
+      shiny::updateCheckboxGroupInput(session=session,inputId = "fields",selected=new_fields)
+    })
+    
     shiny::observeEvent(list(input$action,input$fields,robj(),input$cut),{
         switch(input$action,
                Update={ 

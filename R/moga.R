@@ -23,12 +23,12 @@ moga<-function(path, ... , force.fields=NULL, dry.run=TRUE){
   assign(fn_name,eval(parse(text=l[!grepl("^#'",l)])))
   
   oxy_current <- paste0(grep("^#'",l,value=TRUE),collapse = '\n')
-  
+
   oxy_new<-c()
   
   eval(parse(text=sprintf('oxy_new<-makeOxygen(%s,print=FALSE,...)',fn_name)))
   
-  oxy_list <- sapply(c(current=oxy_current,new=oxy_new),get_oxy)
+  oxy_list <- sapply(c(current=oxy_current,new=oxy_new),get_oxy,simplify = FALSE)
   
   if(!is.null(force.fields)){
     oxy_current_names <- names(oxy_list[[1]])
@@ -44,6 +44,6 @@ moga<-function(path, ... , force.fields=NULL, dry.run=TRUE){
   oxy_out <- sprintf("#' @%s %s",names(oxy_update),oxy_update)
   
   if(dry.run) writeLines(oxy_out)
-  
+
   invisible(oxy_out)
 }
