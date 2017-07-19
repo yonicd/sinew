@@ -43,43 +43,8 @@
 #' makeOxygen(stats::lm)
 makeOxygen=function(obj,add_default=TRUE, add_fields=sinew_opts$get('add_fields'),use_dictionary=NULL, print=TRUE, ...){
   
-  header_add=c(
-    author            ="AUTHOR [AUTHOR_2]",
-    backref           ="src/filename.cpp",
-    concept           ="CONCEPT_TERM_1 [CONCEPT_TERM_2]",
-    describeIn        ="FUNCTION_NAME DESCRIPTION",
-    details           ="DETAILS",
-    #evalRd           ="",
-    example           ="path_to_file/relative/to/packge/root",
-    examples          ="\n#' \\dontrun{\n#' if(interactive()){\n#'  #EXAMPLE1\n#'  }\n#' }",
-    export            ="",
-    #exportClass      ="",
-    #exportMethod     ="",
-    family            ="FAMILY_TITLE",
-    field             ="FIELD_IN_S4_RefClass DESCRIPTION",
-    format            ="DATA_STRUCTURE",
-    importClassesFrom ="PKG CLASS_a [CLASS_b]",
-    importMethodsFrom ="PKG METHOD_a [METHOD_b]",
-    include           ="FILENAME.R [FILENAME_b.R]",
-    inherit           ="[PKG::]SOURCE_FUNCTION [FIELD_a FIELD_b]",
-    inheritDotParams  ="[PKG::]SOURCE_FUNCTION",
-    inheritSection    ="[PKG::]SOURCE_FUNCTION [SECTION_a SECTION_b]",
-    keywords          ="KEYWORD_TERM",
-    name              ="NAME",
-    #note             ="",
-    #noRd             ="",
-    #rawRd            ="",
-    #rawNamespace     ="",
-    rdname            ="FUNCTION_NAME",
-    references        ="BIB_CITATION",
-    section           ="SECTION_NAME",
-    source            ="\\url{http://somewhere.important.com/}",
-    slot              ="SLOTNAME DESCRIPTION",
-    template          ="FILENAME",
-    templateVar       ="NAME VALUE",
-    useDynLib         ="PKG [ROUTINE_a ROUTINE_b]"
-  )
-
+  header_add<-sinew_opts$get()
+  
   lbl=deparse(substitute(obj))
   lbl=gsub('"','',lbl)
   
