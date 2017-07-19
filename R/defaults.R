@@ -9,6 +9,7 @@ new_defaults = function(value = list()) {
       }
     }
   }
+  
   set = function(...) {
     dots = list(...)
     if (length(dots) == 0) return()
@@ -17,10 +18,22 @@ new_defaults = function(value = list()) {
     defaults <<- merge(dots)
     invisible(NULL)
   }
+  
   merge = function(values) merge_list(defaults, values)
+  
   restore = function(target = value) defaults <<- target
   
-  list(get = get, set = set, merge = merge, restore = restore)
+  append = function(...) {
+    dots = list(...)
+    if (length(dots) == 0) return()
+    if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
+      if (length(dots <- dots[[1]]) == 0) return()
+    dots<-sapply(names(dots),function(x) dots[[x]]<-c(defaults[[x]],dots[[x]]),simplify = FALSE)
+    defaults <<- merge(dots)
+    invisible(NULL)
+  }
+  
+  list(get = get, set = set, append=append, merge = merge, restore = restore)
 }
 
 #' Default and current sinew options
@@ -97,5 +110,3 @@ merge_list = function(x, y) {
   x[names(y)] = y
   x
 }
-
-

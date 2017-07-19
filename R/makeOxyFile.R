@@ -20,8 +20,9 @@
 #'  makeOxyFile("./myRfunctions/") # on all R files in directory
 #'  
 #'  # adds more fields to deafaults, passes "cut" to makeImport
-#'  myfields <- c("concept", "describeIn")
-#'  makeOxyFile("./myRfunctions/utils.R", add_fields = myfields, cut = 5)
+#'  
+#'  sinew_opts$append(list(add_fields=c("concept", "describeIn")))
+#'  makeOxyFile("./myRfunctions/utils.R", cut = 5)
 #'  }}
 #' @export 
 #' @seealso \code{\link{makeOxygen}}
