@@ -1,3 +1,4 @@
+# forked from https://github.com/yihui/knitr/blob/master/R/defaults.R
 new_defaults = function(value = list()) {
   defaults = value
   
