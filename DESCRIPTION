@@ -1,7 +1,7 @@
 Package: sinew
 Type: Package
 Title: Create 'roxygen2' Skeleton with Information from Function Script
-Version: 0.3.0
+Version: 0.3.1
 Date: 2017-04-14
 Author: c(person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut", "cre")),
           person("Anton","Grishin",role = "ctb"))
@@ -12,7 +12,7 @@ Description: Create 'roxygen2' skeleton populated with information scraped from 
 Depends:
     R (>= 2.3.0)
 Imports: 
-    rstudioapi,miniUI,shiny,utils
+    rstudioapi,miniUI,shiny,utils,yaml
 Suggests:
     roxygen2
 License: GPL-2 | GPL-3

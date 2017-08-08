@@ -4,12 +4,14 @@
 \alias{makeOxyFile}
 \title{Inserts roxygen2 skeletons in file(s).}
 \usage{
-makeOxyFile(input = NULL, overwrite = FALSE, ...)
+makeOxyFile(input = NULL, overwrite = FALSE, verbose = TRUE, ...)
 }
 \arguments{
-\item{input}{character vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL}
+\item{input}{character, vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL}
 
-\item{overwrite}{When TRUE overwrites file(s), FALSE writes "Oxy"- prefixed files in the same directory, Default: FALSE}
+\item{overwrite}{boolean, If TRUE overwrites file(s), FALSE writes "Oxy"- prefixed files in the same directory, Default: FALSE}
+
+\item{verbose}{boolean, If TRUE will print output to console and open edited files in the editor viewer, Defulat: TRUE}
 
 \item{...}{additional parameters passed to \code{makeOxygen}}
 }
@@ -20,7 +22,7 @@ Nothing. Writes files with roxygen2 comments as a side effect
 Applies \code{makeOxygen} function to all functions/dataframes in supplied file(s)
 }
 \details{
-If an object cannot be found, asks to source the file. Objects will be sourced into a temporary environment.
+If an object cannot be found it will be sourced into a temporary environment.
 If the file already contains roxygen2 comments they will be deleted to avoid duplication.
 Some functions may require attaching additional packages. For instance, if functions
 were defined with purrr's \code{compose} or \code{partial} functions, omission of \code{purr::} in definitions will
@@ -35,7 +37,7 @@ if(interactive()){
  makeOxyFile("./myRfunctions/utils.R") # on one R file
  makeOxyFile("./myRfunctions/") # on all R files in directory
  
- # adds more fields to deafaults, passes "cut" to makeImport
+ # adds more fields to defaults, passes "cut" to makeImport
  
  sinew_opts$append(list(add_fields=c("concept", "describeIn")))
  makeOxyFile("./myRfunctions/utils.R", cut = 5)

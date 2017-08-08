@@ -29,7 +29,7 @@ new_defaults = function(value = list()) {
     if (length(dots) == 0) return()
     if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
       if (length(dots <- dots[[1]]) == 0) return()
-    dots<-sapply(names(dots),function(x) dots[[x]]<-c(defaults[[x]],dots[[x]]),simplify = FALSE)
+    for (i in names(dots)) dots[[i]] <- c(defaults[[i]], dots[[i]])
     defaults <<- merge(dots)
     invisible(NULL)
   }
@@ -110,4 +110,9 @@ sinew_opts_current = new_defaults()
 merge_list = function(x, y) {
   x[names(y)] = y
   x
+}
+
+setNames<-function(object = nm, nm){
+  names(object) <- nm
+  object
 }

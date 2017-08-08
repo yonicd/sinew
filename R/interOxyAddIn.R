@@ -20,44 +20,31 @@
 #' @import rstudioapi
 #' @import shiny
 #' @import miniUI
+#' @importFrom utils find
 interOxyAddIn <- function() {
   
-  #on.exit(detach("interOxyEnvir"))
+  nenv <- new.env()
   
   tweaks <- 
     list(shiny::tags$head(shiny::tags$style(shiny::HTML("
-                                   .multicol { 
-                                   height: 300px;
-                                   -webkit-column-count: 3; /* Chrome, Safari, Opera */ 
-                                   -moz-column-count: 3;    /* Firefox */ 
-                                   column-count: 3; 
-                                   -moz-column-fill: auto;
-                                   -column-fill: auto;
-                                   } 
-                                   ")) 
+                                                        .multicol { 
+                                                        height: 300px;
+                                                        -webkit-column-count: 3; /* Chrome, Safari, Opera */ 
+                                                        -moz-column-count: 3;    /* Firefox */ 
+                                                        column-count: 3; 
+                                                        -moz-column-fill: auto;
+                                                        -column-fill: auto;
+                                                        } 
+                                                        ")) 
     ))
-  
-  header_add = c(author = "AUTHOR [AUTHOR_2]", backref = "src/filename.cpp", 
-                 concept = "CONCEPT_TERM_1 [CONCEPT_TERM_2]", describeIn = "FUNCTION_NAME DESCRIPTION", 
-                 details = "DETAILS", example = "path_to_file/relative/to/packge/root", 
-                 examples = "\n#' \\dontrun{\n#' if(interactive()){\n#'  #EXAMPLE1\n#'  }\n#' }", 
-                 export = "", family = "FAMILY_TITLE", field = "FIELD_IN_S4_RefClass DESCRIPTION", 
-                 format = "DATA_STRUCTURE", importClassesFrom = "PKG CLASS_a [CLASS_b]", 
-                 importMethodsFrom = "PKG METHOD_a [METHOD_b]", include = "FILENAME.R [FILENAME_b.R]", 
-                 inherit = "[PKG::]SOURCE_FUNCTION [FIELD_a FIELD_b]", 
-                 inheritDotParams = "[PKG::]SOURCE_FUNCTION", inheritSection = "[PKG::]SOURCE_FUNCTION [SECTION_a SECTION_b]", 
-                 keywords = "KEYWORD_TERM", name = "NAME", rdname = "FUNCTION_NAME", 
-                 references = "BIB_CITATION", section = "SECTION_NAME", 
-                 source = "\\url{http://somewhere.important.com/}", slot = "SLOTNAME DESCRIPTION", 
-                 template = "FILENAME", templateVar = "NAME VALUE", useDynLib = "PKG [ROUTINE_a ROUTINE_b]")
-  
+
   controls<-list(shiny::tags$h3("Select Fields to add to Oxygen Output"),
                  shiny::tags$div(align = 'left', 
-                          class = 'multicol',
-                          shiny::checkboxGroupInput(inputId = "fields",
-                                             label = '',
-                                             choices = c(names(header_add),'seealso'),
-                                             selected = sinew_opts$get('add_fields')))
+                                 class = 'multicol',
+                                 shiny::checkboxGroupInput(inputId = "fields",
+                                                           label = '',
+                                                           choices = c(names(sinew_opts$get())[-1],'seealso'),
+                                                           selected = sinew_opts$get('add_fields')))
   )
   
   ui <- miniUI::miniPage(
@@ -69,12 +56,12 @@ interOxyAddIn <- function() {
     miniUI::miniContentPanel(
       shiny::sidebarLayout(sidebarPanel = shiny::sidebarPanel(
         shiny::radioButtons(inputId = 'action',label = 'Action',
-                     choices = c('Create','Update'),
-                     selected = 'Create',inline = TRUE),
+                            choices = c('Create','Update'),
+                            selected = 'Create',inline = TRUE),
         controls,
         shiny::tags$hr(style = "border-top: 3px solid #cccccc;"),
         shiny::sliderInput(inputId = "cut", label = "cut", value = 0,
-                    min = 0, max = 20, step = 1, ticks = FALSE),
+                           min = 0, max = 20, step = 1, ticks = FALSE),
         shiny::br(),
         shiny::uiOutput("cutslider"),
         shiny::br(),width = 5 
@@ -94,14 +81,14 @@ interOxyAddIn <- function() {
     
     output$cutslider <- shiny::renderUI({if (dir.exists("./man-roxygen")) {
       shiny::div(shiny::div(actionLink("butt", "use_dictionary",
-                         icon = icon("folder-open", "glyphicons")),
-                         shiny::textOutput("dictfile")), hr())
+                                       icon = icon("folder-open", "glyphicons")),
+                            shiny::textOutput("dictfile")), hr())
     } else {shiny::p()}
     })
     
     robj <- shiny::reactivePoll(1000, session,
-                         checkFunc = rstudioapi::getActiveDocumentContext,
-                         valueFunc = rstudioapi::getActiveDocumentContext
+                                checkFunc = rstudioapi::getActiveDocumentContext,
+                                valueFunc = rstudioapi::getActiveDocumentContext
     )
     
     shiny::observeEvent(robj(), {
@@ -116,22 +103,31 @@ interOxyAddIn <- function() {
         )
       }
       
-      if (nzchar(obj) && is.null(get0(obj)) && !"interOxyEnvir" %in% search()) {
-        showModal(modalDialog(title = paste(dQuote(obj), "not found!",
-                                            "Do you want to source", 
-                                            basename(rstudioapi::getSourceEditorContext()$path),
-                                            " file or quit add-in?"),
-                              footer = tagList(actionButton("no", "Quit Add-in"),
-                                               actionButton("ok","Source"))
-        ))}
+      if (nzchar(obj) && is.null(get0(obj))) {
+        # showModal(modalDialog(title = paste(dQuote(obj), "not found!",
+        #                                     "Do you want to source", 
+        #                                     basename(rstudioapi::getSourceEditorContext()$path),
+        #                                     " file or quit add-in?"),
+        #                       footer = tagList(actionButton("no", "Quit Add-in"),
+        #                                        actionButton("ok","Source"))
+        #))
+        
+        output$preview<-shiny::renderText({
+          paste(dQuote(obj), "not found! Trying to find source")
+        })
+        
+        sys.source(rstudioapi::getSourceEditorContext()$path, nenv,keep.source = TRUE)
+        }
       
     })
     
     shiny::observeEvent(input$qt, {
-      if ("interOxyEnvir" %in% search()) detach("interOxyEnvir"); shiny::stopApp()})
+      #if ("interOxyEnvir" %in% search()) detach("interOxyEnvir")
+      shiny::stopApp()
+      })
     
     shiny::observeEvent(input$ok, {
-      nenv <- attach(NULL, name = "interOxyEnvir")
+      #nenv <- attach(NULL, name = "interOxyEnvir")
       sys.source(rstudioapi::getSourceEditorContext()$path, nenv,
                  keep.source = TRUE)
       shiny::removeModal()
@@ -145,7 +141,7 @@ interOxyAddIn <- function() {
     shiny::observeEvent(input$insrt, {
       obj <- robj()$selection[[1]]$text
       if (!nzchar(obj) ||
-          (is.null(get0(obj)) && "interOxyEnvir" %in% search())) {
+          (is.null(get0(obj)) && "nenv" %in% ls())) {
         shiny::showModal(modalDialog(
           shiny::tags$h4(style = "color: red;","Make valid object selection!"),
           size = "s", easyClose = TRUE)
@@ -170,43 +166,49 @@ interOxyAddIn <- function() {
       shiny::updateCheckboxGroupInput(session=session,inputId = "fields",selected=new_fields)
     })
     
-    shiny::observeEvent(list(input$action,input$fields,robj(),input$cut),{
-        switch(input$action,
-               Update={ 
-                 #gsub('\\s{1}(.*?)$','',names(get_oxy(oxy_current)))
-                 params <- 
-                  list(
-                    path=robj()$path,
-                    add_fields = input$fields,
-                    add_default = TRUE,
-                    dry.run=FALSE,
-                    use_dictionary = rfile(),
-                    cut = input$cut
-                  )
+    shiny::observeEvent(list(input$action,input$fields,robj(),input$cut,input$ok),{
+      switch(input$action,
+             Update={ 
+               
+               obj_name <- robj()$selection[[1]]$text
+
+               params <- 
+                 list(
+                   path=robj()$path,
+                   add_fields = input$fields,
+                   add_default = TRUE,
+                   dry.run=FALSE,
+                   use_dictionary = rfile(),
+                   cut = input$cut
+                 )
                
                output$preview<-shiny::renderText({
                  if(nchar(params$path)>0){
-                   x<-do.call(moga, params) 
-                   paste(x,collapse = '\n')
+                   if(length(utils::find(obj_name,mode = 'function'))>0){
+                     x<-do.call(moga, params) 
+                     paste(x,collapse = '\n')  
+                   }
                  }
                })
-               },
-               Create={
-                 params <- list(obj = robj()$selection[[1]]$text,
-                                add_fields = input$fields,
-                                add_default = TRUE,
-                                print = FALSE,
-                                use_dictionary = rfile(),
-                                cut = input$cut
-                 )
-                 
-                 output$preview<-shiny::renderText({
-                   if(nchar(params$obj)>0){
-                     do.call(makeOxygen, params)
+             },
+             Create={
+
+              obj_name <- robj()$selection[[1]]$text
+              
+               output$preview<-shiny::renderText({
+                 if(length(obj_name)>0){
+                   test <- any(grepl(obj_name,ls(envir = nenv)))
+                   if(test){
+                     assign(obj_name,get(obj_name,envir = nenv))
+                     eval(parse(text=sprintf('makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)',obj_name)))
+                   }else{
+                     if(length(find(obj_name,mode = 'function'))>0)
+                       eval(parse(text=sprintf('makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)',obj_name)))                     
                    }
-                 })
+                 }
                })
-      })  
+             })
+    })  
   }
   shiny::runGadget(ui, server, viewer = shiny::paneViewer(minHeight = 450))
   }
