@@ -16,7 +16,7 @@ Nothing. Overwrites files as a side effect
 Strips .R files of roxygen2 style comments (#')
 }
 \examples{
-\donttest{
+\dontrun{
 rmOxygen("./myRfunctions/function1.R")
 }
 }

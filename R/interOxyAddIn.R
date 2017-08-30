@@ -11,9 +11,7 @@
 #' Choose parameters for \code{makeOxygen}. Click Insert.
 #' Select next object's name. Rinse.Repeat. Click Quit when done with the file.
 #' @examples
-#' \donttest{
 #' if(interactive()) interOxyAddIn()
-#' }
 #' @export 
 #' @rdname interOxyAddIn
 #' @seealso \code{View(sinew:::oxygenAddin)}
@@ -95,7 +93,9 @@ interOxyAddIn <- function() {
       path <- robj()$path
       obj <- robj()$selection[[1]]$text
       
-      if (!nzchar(path)) {
+      searchp <- any(grepl(obj,unlist(sapply(search(),function(x) ls(x)))))
+
+      if (!nzchar(path)&!searchp) {
         showModal(modalDialog(
           title = HTML(paste0("Open an .R file in the source editor and ",
                               "<strong><u>select</u></strong> object's name!")),
@@ -104,30 +104,19 @@ interOxyAddIn <- function() {
       }
       
       if (nzchar(obj) && is.null(get0(obj))) {
-        # showModal(modalDialog(title = paste(dQuote(obj), "not found!",
-        #                                     "Do you want to source", 
-        #                                     basename(rstudioapi::getSourceEditorContext()$path),
-        #                                     " file or quit add-in?"),
-        #                       footer = tagList(actionButton("no", "Quit Add-in"),
-        #                                        actionButton("ok","Source"))
-        #))
-        
         output$preview<-shiny::renderText({
           paste(dQuote(obj), "not found! Trying to find source")
         })
-        
         sys.source(rstudioapi::getSourceEditorContext()$path, nenv,keep.source = TRUE)
         }
       
     })
     
     shiny::observeEvent(input$qt, {
-      #if ("interOxyEnvir" %in% search()) detach("interOxyEnvir")
       shiny::stopApp()
       })
     
     shiny::observeEvent(input$ok, {
-      #nenv <- attach(NULL, name = "interOxyEnvir")
       sys.source(rstudioapi::getSourceEditorContext()$path, nenv,
                  keep.source = TRUE)
       shiny::removeModal()

@@ -26,10 +26,5 @@ Cross references fields already in the roxygen2 header and adds any new ones fro
 To force a change to a field add field name to force.fields.
 }
 \examples{
-\donttest{
  moga('https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/R/aesColour.R')
-} 
-}
-\seealso{
-\code{\link[tools]{file_path_sans_ext}}
 }

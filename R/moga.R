@@ -8,13 +8,8 @@
 #' @details Cross references fields already in the roxygen2 header and adds any new ones from the updated call. 
 #' To force a change to a field add field name to force.fields.
 #' @examples
-#' \donttest{
 #'  moga('https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/R/aesColour.R')
-#' } 
-#' @seealso 
-#'  \code{\link[tools]{file_path_sans_ext}}
 #' @rdname moga
-#' @importFrom utils tail
 #' @export
 moga<-function(path, ... , force.fields=NULL, dry.run=TRUE){
   

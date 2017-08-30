@@ -12,7 +12,6 @@
 #' were defined with purrr's \code{compose} or \code{partial} functions, omission of \code{purr::} in definitions will
 #' require \code{library(purrr)} before proceding with \code{makeOxyFile}. 
 #' @examples
-#' \donttest{
 #' \dontrun{
 #' if(interactive()){
 #'  makeOxyFile() # default args, opens system file selection dialogue
@@ -24,7 +23,7 @@
 #'  
 #'  sinew_opts$append(list(add_fields=c("concept", "describeIn")))
 #'  makeOxyFile("./myRfunctions/utils.R", cut = 5)
-#'  }}
+#'  }
 #' @export 
 #' @seealso \code{\link{makeOxygen}}
 #' @rdname makeOxyFile

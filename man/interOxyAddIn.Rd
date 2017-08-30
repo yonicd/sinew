@@ -23,9 +23,7 @@ Choose parameters for \code{makeOxygen}. Click Insert.
 Select next object's name. Rinse.Repeat. Click Quit when done with the file.
 }
 \examples{
-\donttest{
 if(interactive()) interOxyAddIn()
-}
 }
 \seealso{
 \code{View(sinew:::oxygenAddin)}

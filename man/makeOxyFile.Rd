@@ -29,7 +29,6 @@ were defined with purrr's \code{compose} or \code{partial} functions, omission o
 require \code{library(purrr)} before proceding with \code{makeOxyFile}.
 }
 \examples{
-\donttest{
 \dontrun{
 if(interactive()){
  makeOxyFile() # default args, opens system file selection dialogue
@@ -41,7 +40,7 @@ if(interactive()){
  
  sinew_opts$append(list(add_fields=c("concept", "describeIn")))
  makeOxyFile("./myRfunctions/utils.R", cut = 5)
- }}
+ }
 }
 \seealso{
 \code{\link{makeOxygen}}
