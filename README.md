@@ -13,7 +13,7 @@ install.packages("sinew")
 # devtools::install_github('metrumresearchgroup/sinew')
 ```
 
-##Updates
+## Updates
  Thanks to some great PRs and discussions with Anton Grishin (@grishin1), Lorenzo Busseto (@lbusett) and Devin Pastoor (@dpastoor) the package has improved API and an interactive UI. 
  
   - Interactive addin to access and create documentation for any function either on disk, searchpath or sourced on demand. (@grishin1)
