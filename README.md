@@ -17,6 +17,9 @@ install.packages("sinew")
  Thanks to some great PRs and discussions with Anton Grishin (@grishin1), Lorenzo Busseto (@lbusett) and Devin Pastoor (@dpastoor) the package has improved API and an interactive UI. 
  
   - Interactive addin to access and create documentation for any function either on disk, searchpath or sourced on demand. (@grishin1)
+  
+  ![](https://github.com/metrumresearchgroup/blob/master/Miscellaneous/interactiveAddin.gif?raw=true)
+  
   - Improved under-the-hood and API for makeOxygen calls (@lbusett)
   - Addition of functionality similar to `knitr::opts` called `sinew::sinew_opts`
     - can get, set, and append to global package options for a R session
