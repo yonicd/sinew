@@ -18,7 +18,7 @@ install.packages("sinew")
  
   - Interactive addin to access and create documentation for any function either on disk, searchpath or sourced on demand. (@grishin1)
   
-  ![](https://github.com/metrumresearchgroup/blob/master/Miscellaneous/interactiveAddin.gif?raw=true)
+  ![](https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/interactiveAddin.gif?raw=true)
   
   - Improved under-the-hood and API for makeOxygen calls (@lbusett)
   - Addition of functionality similar to `knitr::opts` called `sinew::sinew_opts`
