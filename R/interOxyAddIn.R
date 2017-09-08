@@ -144,7 +144,7 @@ interOxyAddIn <- function() {
 
       searchp <- any(grepl(obj,search.env))
 
-      if (!searchp) {
+      if (!searchp||!nzchar(obj)) {
         showModal(modalDialog(
           title = HTML(paste0("Open an .R file in the source editor and ",
                               "<strong><u>select</u></strong> object's name!")),
@@ -262,7 +262,8 @@ interOxyAddIn <- function() {
               obj_name <- robj()$selection[[1]]$text
               
                output$preview<-shiny::renderText({
-                 if(length(obj_name)>0){
+                 
+                 if(nzchar(obj_name)){
                    test <- any(grepl(obj_name,ls(envir = nenv)))
                    if(test){
                      assign(obj_name,get(obj_name,envir = nenv))
