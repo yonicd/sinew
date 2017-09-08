@@ -7,15 +7,34 @@
 #' @return list of seperate functions
 #' @examples 
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' txt <- "#some comment
+#' #' @import utils
+#' yy <- function(a=4){
+#'  utils::head(runif(10),a)
+#'  # a comment
+#' }
+#' 
+#' v <- 20
+#' 
+#' #another comment
+#' #' @import utils
+#' zz <- function(v=10,a=3){
+#'  utils::head(runif(v),pmin(a,v))
+#' }
+#' 
+#' zz(v)
+#' 
+#' "
+#' untangle(txt,dir.out = 'test')
+#' 
 #' }
 #' @rdname untangle
 #' @export 
 #' @author Jonathan Sidi
 #' @importFrom utils getParseData
 untangle <- function(text = NULL,file = "", dir.out = NULL, keep.body = TRUE){
+if(!is.null(text)&length(text)==1) 
+  text <- strsplit(text,'\n')[[1]]
 if(nzchar(file))
   text <- readLines(file,warn = FALSE)
 if(is.null(text)) return(NULL)
@@ -41,8 +60,12 @@ names(ret) <- sapply(p.split,function(x) x$name)
 
 if( keep.body ){
   body.text <- text[-unlist(lapply(p.split,'[',2))]
-  cat(body.text,file=file.path(dir.out,'body.R'),sep = '\n')
-  ret$body <- body.text
+  rm.empty <- grep('^$',body.text)
+  body.text <- body.text[-rm.empty[diff(rm.empty)==1]]
+  if(length(body.text)>0){
+    cat(body.text,file=file.path(dir.out,'body.R'),sep = '\n')
+    ret$body <- body.text
+    }
 }
 
 invisible(ret)

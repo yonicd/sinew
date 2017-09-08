@@ -4,7 +4,7 @@
 \alias{moga}
 \title{Make Oxygen Great Again}
 \usage{
-moga(path, ..., force.fields = NULL, dry.run = TRUE)
+moga(path, ..., force.fields = NULL, dry.run = TRUE, overwrite = FALSE)
 }
 \arguments{
 \item{path}{character path to R file}
@@ -14,6 +14,8 @@ moga(path, ..., force.fields = NULL, dry.run = TRUE)
 \item{force.fields}{character, vector a field names that are in current header that are to be updated Default: NULL}
 
 \item{dry.run}{boolean, write lines to console the output, Default: TRUE}
+
+\item{overwrite}{boolean, overwrite contents of input file, Default: FALSE}
 }
 \value{
 character
