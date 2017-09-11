@@ -110,14 +110,27 @@ interOxyAddIn <- function() {
     #Polling ----
     robj <- shiny::reactivePoll(1000, session,
                                 checkFunc = rstudioapi::getActiveDocumentContext,
-                                valueFunc = rstudioapi::getActiveDocumentContext
+                                valueFunc = function(){
+                                  this <- rstudioapi::getActiveDocumentContext()
+                                  obj <- this$selection[[1]]$text
+                                  
+                                  if(grepl('::',obj)){
+                                    check_attach(obj,nenv)
+                                    obj <- gsub('^(.*?)::','',obj)
+                                  }
+                                  
+                                  this$selection[[1]]$text <- obj
+                                  
+                                  return(this)
+                                  
+                                  }
     )
     
     #Lookup editor text for available objects ----
     shiny::observeEvent(robj(), {
       path <- robj()$path
       obj <- robj()$selection[[1]]$text
-      
+
       if(!nzchar(path)){
         td <- file.path(tempdir(),'_sinew')
         
@@ -280,5 +293,7 @@ interOxyAddIn <- function() {
   
   # Run Gadget ----
   shiny::runGadget(ui, server, viewer = shiny::paneViewer(minHeight = 450))
-  #on.exit(unlink(file.path(tempdir(),'_sinew'),recursive = TRUE),add = TRUE)
+  on.exit({
+    junk <- sapply(nenv$toUnload, detach, unload=TRUE, character.only = TRUE)
+  },add = TRUE)
   }
