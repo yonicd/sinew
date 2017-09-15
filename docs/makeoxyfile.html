@@ -159,6 +159,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="makeoxyfile" class="section level2">
 <h2><span class="header-section-number">4.3</span> makeOxyFile</h2>
+<p>Function authored by: Anton Grishin</p>
 <p>While <code>makeOxygen</code> is the workhorse for the package it does only print out to the console or a object in the current environment. <code>makeOxyFile</code> is a wrapper function for <code>makeOxygen</code> in order to actively insert <code>makeOxygen</code> outputs into existing or new files. By default <code>makeOxyFile</code> will not overwrite existing files, but will make a copy of the file and name it <code>oxy-filename.R</code>.</p>
 <p>An empty call will envoke the system file selection dialogue.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeOxyFile</span>()</code></pre></div>
