@@ -6,7 +6,7 @@
 #' @return character/character vector of intersecting parameters
 #' @export 
 #' @examples
-#' makeDictionary('./R')
+#' makeDictionary('R')
 makeDictionary=function(path,save_path=FALSE){
 
   if(is.null(names(path))) names(path)=sprintf('Dictionary-%s',1:length(path))
@@ -20,7 +20,7 @@ makeDictionary=function(path,save_path=FALSE){
   ret=sort(unique(unlist(ret)))
 
   if(save_path){
-    dl=unique(dirname(l))
+    dl=unique(dirname(normalizePath(l)))
     save_dir=gsub('/R','/man-roxygen',dl)
     if(!dir.exists(save_dir)) dir.create(save_dir)
     save_name=paste0(p,'.R')

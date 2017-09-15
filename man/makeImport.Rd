@@ -19,7 +19,7 @@ makeImport(script, cut = NULL, print = TRUE, format = "oxygen")
 Scrape r script to create namespace calls for roxygen2, namespace or description files
 }
 \examples{
-makeImport(list.files('R',full.names = TRUE),format = 'oxygen')
-makeImport(list.files('R',full.names = TRUE),format = 'namespace')
-makeImport(list.files('R',full.names = TRUE),format = 'description')
+makeImport('R',format = 'oxygen')
+makeImport('R',format = 'namespace')
+makeImport('R',format = 'description')
 }

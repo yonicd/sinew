@@ -5,52 +5,56 @@
 #' @param print boolean print output to console, Default: TRUE
 #' @param format character the output format must be in c('oxygen','namespace','description'), Default: 'oxygen'
 #' @examples 
-#' makeImport(list.files('R',full.names = TRUE),format = 'oxygen')
-#' makeImport(list.files('R',full.names = TRUE),format = 'namespace')
-#' makeImport(list.files('R',full.names = TRUE),format = 'description')
+#' makeImport('R',format = 'oxygen')
+#' makeImport('R',format = 'namespace')
+#' makeImport('R',format = 'description')
 #' @export
 #' @importFrom utils installed.packages capture.output
-makeImport=function(script,cut=NULL,print=TRUE,format='oxygen'){
+makeImport=function(script, cut=NULL, print=TRUE, format='oxygen'){
   rInst<-paste0(row.names(utils::installed.packages()),'::')
   
   if(inherits(script,'function')){
     file<-tempfile()
     utils::capture.output(print(script),file = file) 
   }else{
-    file=script
+    if(all(nzchar(tools::file_ext(script)))){
+      file=script  
+    }else{
+      file=list.files(script,full.names = TRUE,pattern = '\\.[R|r]$')
+    }
   }
   
   pkg=sapply(file,function(f){
-  x<-readLines(f,warn = F)
-  x=gsub('^\\s+','',x)
-  x=x[!grepl('^#',x)]
-  x=x[!grepl('^<',x)]
-  s0=sapply(paste0('\\b',rInst),grep,x=x,value=TRUE)
-  s1=s0[which(sapply(s0,function(y) length(y)>0))]
-  names(s1)=gsub('\\\\b','',names(s1))
-  ret=sapply(names(s1),function(nm){
-    out=unlist(lapply(s1[[nm]],function(x){
-      y=gsub('[\\",\\(\\)]','',unlist(regmatches(x,gregexpr(paste0(nm,'(.*?)[\\)\\(,]'),x))))
-      names(y)=NULL
-      if(any(y%in%paste0(nm,c('"',"'")))) y=NULL
-      y 
-    }))
-    out=gsub('\\$.*','',out)
-    out=unique(out)
-    
+    x<-readLines(f,warn = F)
+    x=gsub('^\\s+','',x)
+    x=x[!grepl('^#',x)]
+    x=x[!grepl('^<',x)]
+    s0=sapply(paste0('\\b',rInst),grep,x=x,value=TRUE)
+    s1=s0[which(sapply(s0,function(y) length(y)>0))]
+    names(s1)=gsub('\\\\b','',names(s1))
+    ret=sapply(names(s1),function(nm){
+      out=unlist(lapply(s1[[nm]],function(x){
+        y=gsub('[\\",\\(\\)]','',unlist(regmatches(x,gregexpr(paste0(nm,'(.*?)[\\)\\(,]'),x))))
+        names(y)=NULL
+        if(any(y%in%paste0(nm,c('"',"'")))) y=NULL
+        y 
+      }))
+      out=gsub('\\$.*','',out)
+      out=unique(out)
+      
+      if(format=='oxygen'){
+        ret=paste0("#' @importFrom ",gsub('::',' ',nm),gsub(nm,'',paste(unique(out),collapse = ' ')))
+        if(!is.null(cut)){
+          if(length(out)>=cut) ret=paste0("#' @import ",gsub('::','',nm))
+        } 
+        out=ret
+      }
+      return(out)
+    })
     if(format=='oxygen'){
-      ret=paste0("#' @importFrom ",gsub('::',' ',nm),gsub(nm,'',paste(unique(out),collapse = ' ')))
-      if(!is.null(cut)){
-        if(length(out)>=cut) ret=paste0("#' @import ",gsub('::','',nm))
-      } 
-      out=ret
+      if(print) writeLines(paste(' ',f,paste(ret,collapse='\n'),sep = '\n')) 
     }
-    return(out)
-  })
-  if(format=='oxygen'){
-    if(print) writeLines(paste(' ',f,paste(ret,collapse='\n'),sep = '\n')) 
-  }
-  return(ret)
+    return(ret)
   })
 
   if(format=='oxygen') ret=pkg

@@ -19,5 +19,5 @@ Given list of R files function returns roxygen2 template consisting of intersect
 parameter definitions
 }
 \examples{
-makeDictionary('./R')
+makeDictionary('R')
 }

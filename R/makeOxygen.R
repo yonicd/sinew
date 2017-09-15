@@ -65,8 +65,13 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=sinew_opts$get('add_fields'
       ret=sprintf('%s\n%s\n%s%s',
                   paste(header,collapse = '\n'),
                   sprintf("#' \\describe{\n%s \n#'}", items),
-                  ifelse(!is.null(add_fields),paste(header_add[add_fields],collapse = '\n'),''),
-                  sprintf('"%s"',lbl)
+                  ifelse(!is.null(add_fields),{
+                    paste(sprintf("#' @%s %s",
+                                  names(header_add[add_fields]),
+                                  header_add[add_fields]),
+                          collapse = '\n')
+                  },''),
+                  sprintf('\n"%s"',lbl)
       )
     }
   
