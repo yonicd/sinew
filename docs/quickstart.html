@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="addins.html">
-<link rel="next" href="interactiveoxygen-interactive.html">
+<link rel="prev" href="dev.html">
+<link rel="next" href="session-level-options.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -159,21 +159,55 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="createoxygen-static" class="section level2">
-<h2><span class="header-section-number">6.1</span> createOxygen (Static)</h2>
-<p>This addin will insert above the highlighted text the output of <code>makeOxygen</code>. It is useful to control the fields and their values with <code>sinew_opts</code>.</p>
-<div class="figure">
-<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/makeOxygen.gif?raw=true" />
+<div id="quickstart" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Quickstart</h1>
+<p><code>Sinew</code> can be used to solve a number of tasks with simple one liners</p>
+<ul>
+<li>Create import calls for DESCRIPTION, NAMESPACE and Roxygen2</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeImport</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">format =</span> <span class="st">&#39;description&#39;</span>)
 
-</div>
+<span class="kw">makeImport</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">format =</span> <span class="st">&#39;namespace&#39;</span>)
+
+<span class="kw">makeImport</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">format =</span> <span class="st">&#39;oxygen&#39;</span>)</code></pre></div>
+<ul>
+<li>Create skeleton for roxygen2 documentation populated with information scraped from within the package function scripts.</li>
+</ul>
+<p>Function or data.frame objects, names</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeOxygen</span>(lm)
+
+<span class="kw">makeOxygen</span>(<span class="st">&#39;lm&#39;</span>)
+
+<span class="kw">makeOxygen</span>(stats<span class="op">::</span>lm)
+
+<span class="kw">makeOxygen</span>(iris,<span class="dt">add_fields =</span> <span class="kw">c</span>(<span class="st">&#39;source&#39;</span>))</code></pre></div>
+<p>Writing directly to file(s) in a directory (batch mode)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeOxyFile</span>(<span class="op">&lt;</span>pathtofiles<span class="op">&gt;</span>)</code></pre></div>
+<ul>
+<li>Update existing roxygen2 documentation in a file</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moga</span>(<span class="op">&lt;</span>pathtofile.R<span class="op">&gt;</span>)</code></pre></div>
+<ul>
+<li>Split a long R file with multiple function definitions into multiple single function files</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untangle</span>(<span class="op">&lt;</span>pathtofile.R<span class="op">&gt;</span>, <span class="dt">dir.out=</span><span class="op">&lt;</span>path <span class="cf">for</span> output<span class="op">&gt;</span>)</code></pre></div>
+<ul>
+<li>Create an R file of all the unique roxygen parameter fields in a package R subdirectory</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#preview</span>
+<span class="kw">makeDictionary</span>(<span class="st">&#39;R&#39;</span>)
+
+<span class="co">#write to file man-roxygen subdirectory of package</span>
+<span class="kw">makeDictionary</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">save_path =</span> <span class="ot">TRUE</span>)</code></pre></div>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="addins.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="interactiveoxygen-interactive.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="dev.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="session-level-options.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -202,7 +236,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/05-simpleAddin.Rmd",
+"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/02-Basics.Rmd",
 "text": "Edit"
 },
 "download": ["sinewBook.pdf", "sinewBook.epub", "sinewBook.mobi"],
