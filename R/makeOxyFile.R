@@ -35,8 +35,8 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
       
   if (length(input) == 1L && file.info(input)$isdir) {
     
-    files <- list.files(path = input, pattern = ".+\\.R$", full.names = TRUE)
-    files <- grep("/(?!Oxy)\\w+\\.R$", files, perl = TRUE, value = TRUE)
+    files <- list.files(path = input, pattern = ".+\\.[rR]$", full.names = TRUE)
+    files <- grep("/(?!Oxy)\\w+\\.[rR]$", files, perl = TRUE, value = TRUE)
     
   } else {
     
@@ -44,7 +44,7 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
     
   }
   
-  if (!all(grepl("\\.R$", basename(files)))) 
+  if (!all(grepl("\\.[rR]$", basename(files)))) 
     stop("Supplied file(s) is not an .R file!", call. = FALSE)
   
   append_to_lines <- function(.id, .str){
