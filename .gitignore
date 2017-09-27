@@ -4,7 +4,6 @@
 .Ruserdata
 cran-comments.md
 *.Rproj
-.Rbuildignore
 test
 test.R
 Miscellaneous/b*

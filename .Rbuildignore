@@ -1,0 +1,13 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+Miscellaneous/*
+man-roxygen
+README.md
+^cran-comments\.md$
+^.*\.yml$
+test
+test.R
+moga_test*.R
+docs
+^\.travis\.yml$
+^appveyor\.yml$
