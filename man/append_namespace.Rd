@@ -7,9 +7,11 @@
 append_namespace(text = NULL, con = NULL, overwrite = FALSE)
 }
 \arguments{
-\item{overwrite}{boolean, overwrite original file, Default: FALSE}
+\item{text}{character, vector that contains script, Default: NULL}
 
-\item{file}{character, path to file or directory that contains script, Default: NULL}
+\item{con}{character, path to file or directory that contains script, Default: NULL}
+
+\item{overwrite}{boolean, overwrite original file, Default: FALSE}
 }
 \value{
 character
@@ -21,11 +23,17 @@ Autoappend namespace to functions in script by searchpath order
 searches for functions in the loadedNamespace and then in the remaining installed.packages
 }
 \examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
+txt <- '#some comment
+yy <- function(a=4){
+  head(runif(10),a)
+  # a comment
 }
+
+zz <- function(v=10,a=8){
+  head(runif(v),a)
+}'
+
+append_namespace(text=txt)
 }
 \seealso{
 \code{\link[stringi]{stri_sub}}

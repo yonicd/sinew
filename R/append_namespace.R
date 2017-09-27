@@ -1,15 +1,22 @@
 #' @title Append namespace to functions in script
 #' @description Autoappend namespace to functions in script by searchpath order
-#' @param file character, path to file or directory that contains script, Default: NULL
+#' @param text character, vector that contains script, Default: NULL
+#' @param con character, path to file or directory that contains script, Default: NULL
 #' @param overwrite boolean, overwrite original file, Default: FALSE
 #' @return character
 #' @details searches for functions in the loadedNamespace and then in the remaining installed.packages
 #' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' txt <- '#some comment
+#' yy <- function(a=4){
+#'   head(runif(10),a)
+#'   # a comment
 #' }
+#' 
+#' zz <- function(v=10,a=8){
+#'   head(runif(v),a)
+#' }'
+#' 
+#' append_namespace(text=txt)
 #' @seealso 
 #'  \code{\link[stringi]{stri_sub}}
 #'  \code{\link[utils]{getParseData}}
@@ -38,7 +45,9 @@ append_namespace <- function(text= NULL, con = NULL , overwrite = FALSE){
     
   }else{
     
-    TXT <- text
+    if(length(text)==1) TXT <- strsplit(text,'\n')
+    
+    names(TXT) <- sprintf('txt%s',1:length(TXT))
     
   }
   
@@ -113,7 +122,7 @@ append_namespace <- function(text= NULL, con = NULL , overwrite = FALSE){
     if(overwrite){
       cat(txt,sep='\n',file = nm) 
     }else{
-      cat(txt,sep='\n')
+      writeLines(txt)
     }
     
     txt
