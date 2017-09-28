@@ -1,8 +1,9 @@
 #' @title Append namespace to functions in script
 #' @description Autoappend namespace to functions in script by searchpath order
-#' @param text character, vector that contains script, Default: NULL
 #' @param con character, path to file or directory that contains script, Default: NULL
+#' @param text character, vector that contains script, Default: NULL
 #' @param overwrite boolean, overwrite original file, Default: FALSE
+#' @param check.installed boolean, check installed.packages for functions, Default: FALSE
 #' @return character
 #' @details searches for functions in the loadedNamespace and then in the remaining installed.packages
 #' @examples 
@@ -17,6 +18,7 @@
 #' }'
 #' 
 #' pretty_namespace(text=txt)
+#' 
 #' @seealso 
 #'  \code{\link[stringi]{stri_sub}}
 #'  \code{\link[utils]{getParseData}}
@@ -24,8 +26,9 @@
 #' @export 
 #' @author Jonathan Sidi
 #' @importFrom stringi stri_sub
-#' @importFrom utils getParseData
-pretty_namespace <- function(text= NULL, con = NULL , overwrite = FALSE){
+#' @importFrom utils getParseData setTxtProgressBar txtProgressBar
+#' 
+pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.installed = FALSE){
 
   if(is.null(text)&is.null(con)) return(NULL)
   
@@ -84,26 +87,58 @@ pretty_namespace <- function(text= NULL, con = NULL , overwrite = FALSE){
       
     }
     
+    
+    if(check.installed){
     if( length(funs)>0 ){
       
-      inst.pkgs <- INST[!INST%in%NMPATH]
+      prblm <- c('bsplus','lubridate')
+      
+      inst.pkgs <- INST[!INST%in%c(NMPATH,prblm)]
+    
+      message('still missing functions: ',paste0(unique(funs),collapse=','),
+              ', looking in other installed libraries (',
+              length(inst.pkgs),
+              ')... this could be a while')
+      
+      pb <- txtProgressBar(min = 1, max = length(inst.pkgs), initial = 1, style = 3)
+      
+      suppressMessages({
+        suppressWarnings({
       
       for( x in inst.pkgs ){
         
-        if(length(funs)==0) break
+        cat(paste0(x,','))
         
-        found <- funs%in%ls(envir=asNamespace(x))
+        if(length(funs)==0){
+          message('found all!')
+          break 
+        }
         
+        ns <- try(asNamespace(x),silent = TRUE)
+        
+        if(class(ns)!="try-error")
+          found <- funs%in%ls(envir=ns)
+
+        something(NMPATH)
+       
         sym.funs$namespace[sym.funs$text%in%funs[found]] <- x
         
         funs <- funs[!found]
+        
+        setTxtProgressBar(pb, match(x,inst.pkgs))
       }
       
+      close(pb)
+      
+      })
+    })
+      
     }
+  }
     
     sym.funs$new_text <- paste(sym.funs$namespace,sym.funs$text,sep='::')
     
-    idx <- which(!sym.funs$namespace%in%'base')
+    idx <- which(!sym.funs$namespace%in%c('base',NA))
     
     for(ii in 1:length(idx)){
       
@@ -121,6 +156,7 @@ pretty_namespace <- function(text= NULL, con = NULL , overwrite = FALSE){
      }
       
       stringi::stri_sub(txt[sym.funs$line1[i]], sym.funs$col1[i], sym.funs$col2[i]) <- sym.funs$new_text[i]
+      
     }
 
     if(overwrite){
@@ -128,6 +164,8 @@ pretty_namespace <- function(text= NULL, con = NULL , overwrite = FALSE){
     }else{
       writeLines(txt)
     }
+    
+    if(length(funs)) message('Not Found: ',paste0(unique(funs),collapse=','))
     
     txt
   

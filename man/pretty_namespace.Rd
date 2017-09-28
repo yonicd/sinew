@@ -4,14 +4,17 @@
 \alias{pretty_namespace}
 \title{Append namespace to functions in script}
 \usage{
-pretty_namespace(text = NULL, con = NULL, overwrite = FALSE)
+pretty_namespace(con = NULL, text = NULL, overwrite = FALSE,
+  check.installed = FALSE)
 }
 \arguments{
-\item{text}{character, vector that contains script, Default: NULL}
-
 \item{con}{character, path to file or directory that contains script, Default: NULL}
 
+\item{text}{character, vector that contains script, Default: NULL}
+
 \item{overwrite}{boolean, overwrite original file, Default: FALSE}
+
+\item{check.installed}{boolean, check installed.packages for functions, Default: FALSE}
 }
 \value{
 character
@@ -34,6 +37,7 @@ zz <- function(v=10,a=8){
 }'
 
 pretty_namespace(text=txt)
+
 }
 \seealso{
 \code{\link[stringi]{stri_sub}}
