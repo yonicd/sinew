@@ -16,16 +16,16 @@
 #'   head(runif(v),a)
 #' }'
 #' 
-#' append_namespace(text=txt)
+#' pretty_namespace(text=txt)
 #' @seealso 
 #'  \code{\link[stringi]{stri_sub}}
 #'  \code{\link[utils]{getParseData}}
-#' @rdname append_namespace
+#' @rdname pretty_namespace
 #' @export 
 #' @author Jonathan Sidi
 #' @importFrom stringi stri_sub
 #' @importFrom utils getParseData
-append_namespace <- function(text= NULL, con = NULL , overwrite = FALSE){
+pretty_namespace <- function(text= NULL, con = NULL , overwrite = FALSE){
 
   if(is.null(text)&is.null(con)) return(NULL)
   
@@ -110,10 +110,14 @@ append_namespace <- function(text= NULL, con = NULL , overwrite = FALSE){
       i <- idx[ii]
       
      if( ii>1 ){
-       if( (sym.funs$line1[i]-sym.funs$line1[i-1])==0 ){
-        sym.funs$col1[i] <- sym.funs$col1[i]+(nchar(sym.funs$new_text[i-1])-nchar(sym.funs$text[i-1]))
-        sym.funs$col2[i] <- sym.funs$col2[i]+(nchar(sym.funs$new_text[i-1])-nchar(sym.funs$text[i-1]))
+       
+       i1 <- idx[ii-1]
+       
+       if( (sym.funs$line1[i]-sym.funs$line1[i1])==0 ){
+        sym.funs$col1[i] <- sym.funs$col1[i]+(nchar(sym.funs$new_text[i1])-nchar(sym.funs$text[i1]))
+        sym.funs$col2[i] <- sym.funs$col2[i]+(nchar(sym.funs$new_text[i1])-nchar(sym.funs$text[i1]))
        }
+       
      }
       
       stringi::stri_sub(txt[sym.funs$line1[i]], sym.funs$col1[i], sym.funs$col2[i]) <- sym.funs$new_text[i]
