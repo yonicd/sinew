@@ -4,6 +4,7 @@
 #' @param text character, vector that contains script, Default: NULL
 #' @param overwrite boolean, overwrite original file, Default: FALSE
 #' @param check.installed boolean, check installed.packages for functions, Default: FALSE
+#' @param cache_path character, Directory in which to store cached items, Default: tempdir()
 #' @return character
 #' @details searches for functions in the loadedNamespace and then in the remaining installed.packages
 #' @examples 
@@ -27,8 +28,10 @@
 #' @author Jonathan Sidi
 #' @importFrom stringi stri_sub
 #' @importFrom utils getParseData setTxtProgressBar txtProgressBar
+#' @importFrom memoise memoise
+#' @importFrom stats na.omit
 #' 
-pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.installed = FALSE){
+pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.installed = FALSE, cache_path = tempdir()){
 
   if(is.null(text)&is.null(con)) return(NULL)
   
@@ -54,6 +57,26 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
     
   }
   
+  f <- function(x,pat){
+    ns <- try(
+      {ls(envir=asNamespace(x),pattern = sprintf('^(%s)$',paste0(pat,collapse='|')))},
+      silent = TRUE)
+    
+    if(class(ns)=="try-error") 
+      ns <- vector('character')
+    
+    ns
+  }
+  
+  mf <- memoise::memoise(f,cache = memoise::cache_filesystem(cache_path))
+  
+  f1 <- function(this_pkg){ c(this_pkg,
+                              tools::package_dependencies(this_pkg,
+                                                          which = c('Depends','Imports'),
+                                                          recursive = TRUE)[[1]])}
+  
+  dep_pkg <- memoise::memoise(f1,cache = memoise::cache_filesystem(cache_path))
+  
   NMPATH <- loadedNamespaces()
 
   INST <- rownames(installed.packages())
@@ -77,13 +100,12 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
     for(x in NMPATH){
       
       if(length(funs)==0) break
-      
-      found <- funs%in%ls(envir=asNamespace(x))
+    
+      found <- funs%in%mf(x,funs)
       
       sym.funs$namespace[sym.funs$text%in%funs[found]] <- x
       
       funs <- funs[!found]
-      
       
     }
     
@@ -91,47 +113,66 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
     if(check.installed){
     if( length(funs)>0 ){
       
-      prblm <- c('bsplus','lubridate')
+      inst.pkgs <- setdiff(INST,NMPATH)
       
-      inst.pkgs <- INST[!INST%in%c(NMPATH,prblm)]
-    
       message('still missing functions: ',paste0(unique(funs),collapse=','),
-              ', looking in other installed libraries (',
+              ', updating memoised index of other installed libraries (',
               length(inst.pkgs),
-              ')... this could be a while')
+              ')... the initial index may be a while\n')
       
-      pb <- txtProgressBar(min = 1, max = length(inst.pkgs), initial = 1, style = 3)
+      prblm=c('lubridate')
       
-      suppressMessages({
-        suppressWarnings({
+      FOUND = c()
       
-      for( x in inst.pkgs ){
+      while( length(inst.pkgs)>0 ){
         
-        cat(paste0(x,','))
+        this_pkg <- inst.pkgs[1]
+        
+        if(this_pkg=='nothing'){
+          inst.pkgs <- inst.pkgs[-stats::na.omit(match(this_pkg,inst.pkgs))]
+          next
+        }
+        
+        dep_x <- dep_pkg(this_pkg)
+        
+        check_x <- setdiff(c(NMPATH,dep_x),loadedNamespaces())
+        
+        if(prblm%in%check_x){
+          #message(this_pkg,' contains: ', paste0(intersect(prblm,check_x),collapse=', '), ' \n')
+          inst.pkgs <- inst.pkgs[-stats::na.omit(match(check_x,inst.pkgs))]
+          next
+        }
+        
+        suppressMessages({
+          suppressWarnings({
+            found <- unlist(sapply(check_x,mf,funs,simplify = FALSE))
+            
+            something(c(NMPATH,'lazyeval'))      
+          })
+        })
+        
+        if(length(found)>0){
+          FOUND <- c(FOUND,found)
+          funs <- funs[-match(found,funs)]
+        }
         
         if(length(funs)==0){
           message('found all!')
           break 
         }
         
-        ns <- try(asNamespace(x),silent = TRUE)
+        inst.pkgs <- inst.pkgs[-stats::na.omit(match(check_x,inst.pkgs))]
         
-        if(class(ns)!="try-error")
-          found <- funs%in%ls(envir=ns)
-
-        something(NMPATH)
-       
-        sym.funs$namespace[sym.funs$text%in%funs[found]] <- x
+        #cat(paste0(length(inst.pkgs),','))
         
-        funs <- funs[!found]
-        
-        setTxtProgressBar(pb, match(x,inst.pkgs))
       }
-      
-      close(pb)
-      
-      })
-    })
+     
+      if(length(FOUND)){
+        for(i in 1:length(FOUND)){
+          sym.funs$namespace[match(FOUND[i],sym.funs$text)] <- names(FOUND[i])    
+        }
+      }
+            
       
     }
   }

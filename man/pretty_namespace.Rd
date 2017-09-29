@@ -5,7 +5,7 @@
 \title{Append namespace to functions in script}
 \usage{
 pretty_namespace(con = NULL, text = NULL, overwrite = FALSE,
-  check.installed = FALSE)
+  check.installed = FALSE, cache_path = tempdir())
 }
 \arguments{
 \item{con}{character, path to file or directory that contains script, Default: NULL}
@@ -15,6 +15,8 @@ pretty_namespace(con = NULL, text = NULL, overwrite = FALSE,
 \item{overwrite}{boolean, overwrite original file, Default: FALSE}
 
 \item{check.installed}{boolean, check installed.packages for functions, Default: FALSE}
+
+\item{cache_path}{character, Directory in which to store cached items, Default: tempdir()}
 }
 \value{
 character
