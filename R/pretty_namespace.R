@@ -80,7 +80,9 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
   NMPATH <- loadedNamespaces()
 
   INST <- rownames(installed.packages())
-
+  
+  DYNPATH <- unlist(sapply(library.dynam(),'[',2))
+  
   RET <- sapply(names(TXT), function(nm){
 
     txt <- TXT[[nm]]
@@ -147,7 +149,24 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
           suppressWarnings({
             found <- unlist(sapply(check_x,mf,funs,simplify = FALSE))
             
-            something(c(NMPATH,'lazyeval'))      
+            something(c(NMPATH,'lazyeval'))
+            
+            dynpath <- unlist(sapply(library.dynam(),'[',2))
+            
+            rm.dynpath <- setdiff(dynpath,DYNPATH)
+            
+            if(length(rm.dynpath)>0){
+              
+              dyn.junk <- sapply(rm.dynpath,function(x){
+                
+                path <- gsub('/libs(.*?)$','',x)
+                pkg <- basename(path)
+                
+                library.dynam.unload(chname = pkg,libpath = path)   
+              })
+              
+            }
+            
           })
         })
         
@@ -210,7 +229,9 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
     
     txt
   
-  })
+  },simplify = FALSE)
+  
+  if(length(RET)==1) RET <- RET[[1]]
   
   invisible(RET)
   
