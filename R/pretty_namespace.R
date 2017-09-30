@@ -3,10 +3,10 @@
 #' @param con character, path to file or directory that contains script, Default: NULL
 #' @param text character, vector that contains script, Default: NULL
 #' @param overwrite boolean, overwrite original file, Default: FALSE
-#' @param check.installed boolean, check installed.packages for functions, Default: FALSE
-#' @param cache_path character, Directory in which to store cached items, Default: tempdir()
+# @param check.installed boolean, check installed.packages for functions, Default: FALSE
+# @param cache_path character, Directory in which to store cached items, Default: tempdir()
 #' @return character
-#' @details searches for functions in the loadedNamespace and then in the remaining installed.packages
+#' @details searches for functions in the loadedNamespace, help.search and then \code{\link[sos]{findFn}}
 #' @examples 
 #' txt <- '#some comment
 #' yy <- function(a=4){
@@ -21,18 +21,18 @@
 #' pretty_namespace(text=txt)
 #' 
 #' @seealso 
-#'  \code{\link[stringi]{stri_sub}}
-#'  \code{\link[utils]{getParseData}}
+#'  \code{\link[sos]{findFn}}
+#'  \code{\link[utils]{help.search}}
 #' @rdname pretty_namespace
 #' @export 
 #' @author Jonathan Sidi
 #' @importFrom stringi stri_sub
-#' @importFrom utils getParseData setTxtProgressBar txtProgressBar
-#' @importFrom memoise memoise
-#' @importFrom stats na.omit
-#' 
-pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.installed = FALSE, cache_path = tempdir()){
+#' @importFrom sos findFn
+#' @importFrom utils help.search
+pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE ){
 
+  #check.installed = FALSE, cache_path = tempdir()
+  
   if(is.null(text)&is.null(con)) return(NULL)
   
   if(is.null(text)){
@@ -57,25 +57,25 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
     
   }
   
-  f <- function(x,pat){
+  mf <- function(x,pat){
     ns <- try(
       {ls(envir=asNamespace(x),pattern = sprintf('^(%s)$',paste0(pat,collapse='|')))},
       silent = TRUE)
-    
-    if(class(ns)=="try-error") 
+
+    if(class(ns)=="try-error")
       ns <- vector('character')
-    
+
     ns
   }
-  
-  mf <- memoise::memoise(f,cache = memoise::cache_filesystem(cache_path))
-  
-  f1 <- function(this_pkg){ c(this_pkg,
-                              tools::package_dependencies(this_pkg,
-                                                          which = c('Depends','Imports'),
-                                                          recursive = TRUE)[[1]])}
-  
-  dep_pkg <- memoise::memoise(f1,cache = memoise::cache_filesystem(cache_path))
+  # 
+  # mf <- memoise::memoise(f,cache = memoise::cache_filesystem(cache_path))
+  # 
+  # f1 <- function(this_pkg){ c(this_pkg,
+  #                             tools::package_dependencies(this_pkg,
+  #                                                         which = c('Depends','Imports'),
+  #                                                         recursive = TRUE)[[1]])}
+  # 
+  # dep_pkg <- memoise::memoise(f1,cache = memoise::cache_filesystem(cache_path))
   
   NMPATH <- loadedNamespaces()
 
@@ -111,78 +111,39 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
       
     }
     
-    
-    if(check.installed){
     if( length(funs)>0 ){
-      
-      inst.pkgs <- setdiff(INST,NMPATH)
-      
-      message('still missing functions: ',paste0(unique(funs),collapse=','),
-              ', updating memoised index of other installed libraries (',
-              length(inst.pkgs),
-              ')... the initial index may be a while\n')
-      
-      prblm=c('lubridate','emo')
-      
-      FOUND = c()
-      
-      while( length(inst.pkgs)>0 ){
-        
-        this_pkg <- inst.pkgs[1]
-        
-        # cat(paste0(this_pkg,','))
-        
-        if(this_pkg=='nothing'){
-          inst.pkgs <- inst.pkgs[-stats::na.omit(match(this_pkg,inst.pkgs))]
-          next
-        }
-        
-        dep_x <- dep_pkg(this_pkg)
-        
-        check_x <- setdiff(c(NMPATH,dep_x),loadedNamespaces())
-        
-        if(any(prblm%in%check_x)){
-          #message(this_pkg,' contains: ', paste0(intersect(prblm,check_x),collapse=', '), ' \n')
-          inst.pkgs <- inst.pkgs[-stats::na.omit(match(check_x,inst.pkgs))]
-          next
-        }
-        
-        suppressMessages({
-          suppressWarnings({
-            found <- unlist(sapply(check_x,mf,funs,simplify = FALSE))
-            
-            something(NMPATH)
-            
-            something.dyn(DYNPATH)
-            
-          })
-        })
-        
-        if(length(found)>0){
-          FOUND <- c(FOUND,found)
-          funs <- funs[-match(found,funs)]
-        }
-        
-        if(length(funs)==0){
-          message('found all!')
-          break 
-        }
-        
-        inst.pkgs <- inst.pkgs[-stats::na.omit(match(check_x,inst.pkgs))]
-        
-        #cat(paste0(length(inst.pkgs),','))
-        
-      }
-     
-      if(length(FOUND)){
-        for(i in 1:length(FOUND)){
-          sym.funs$namespace[match(FOUND[i],sym.funs$text)] <- names(FOUND[i])    
+      for(fun in funs){
+        suppressWarnings(fun.help <- utils::help.search(sprintf('^%s$',fun),ignore.case = FALSE))
+        if(nrow(fun.help$matches)>0){
+          sym.funs$namespace[sym.funs$text%in%fun] <- fun.help$matches$Package[1]
+          funs <- funs[-match(fun,funs)]
         }
       }
-            
-      
     }
-  }
+    
+    if( length(funs)>0 ){
+      for(fun in funs){
+        suppressWarnings(fun.sos <- sos::findFn(fun,maxPages = 1,verbose = 0))
+        if(nrow(fun.sos)){
+          sym.funs$namespace[sym.funs$text%in%fun] <- fun.sos$Package[1]
+          funs <- funs[-match(fun,funs)]
+        }
+      }
+    }
+    
+    # if(check.installed){
+    #   if( length(funs)>0 ){
+    #   
+    #     FOUND <- active_search(funs, INST,NMPATH, DYNPATH)
+    #     
+    #     if(length(FOUND)){
+    #       for(i in 1:length(FOUND)){
+    #         sym.funs$namespace[match(FOUND[i],sym.funs$text)] <- names(FOUND[i])    
+    #       }
+    #     }
+    #     
+    #   }
+    # }
     
     sym.funs$new_text <- paste(sym.funs$namespace,sym.funs$text,sep='::')
     

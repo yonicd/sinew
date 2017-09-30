@@ -4,8 +4,7 @@
 \alias{pretty_namespace}
 \title{Append namespace to functions in script}
 \usage{
-pretty_namespace(con = NULL, text = NULL, overwrite = FALSE,
-  check.installed = FALSE, cache_path = tempdir())
+pretty_namespace(con = NULL, text = NULL, overwrite = FALSE)
 }
 \arguments{
 \item{con}{character, path to file or directory that contains script, Default: NULL}
@@ -13,10 +12,6 @@ pretty_namespace(con = NULL, text = NULL, overwrite = FALSE,
 \item{text}{character, vector that contains script, Default: NULL}
 
 \item{overwrite}{boolean, overwrite original file, Default: FALSE}
-
-\item{check.installed}{boolean, check installed.packages for functions, Default: FALSE}
-
-\item{cache_path}{character, Directory in which to store cached items, Default: tempdir()}
 }
 \value{
 character
@@ -25,7 +20,7 @@ character
 Autoappend namespace to functions in script by searchpath order
 }
 \details{
-searches for functions in the loadedNamespace and then in the remaining installed.packages
+searches for functions in the loadedNamespace, help.search and then \code{\link[sos]{findFn}}
 }
 \examples{
 txt <- '#some comment
@@ -42,8 +37,8 @@ pretty_namespace(text=txt)
 
 }
 \seealso{
-\code{\link[stringi]{stri_sub}}
- \code{\link[utils]{getParseData}}
+\code{\link[sos]{findFn}}
+ \code{\link[utils]{help.search}}
 }
 \author{
 Jonathan Sidi
