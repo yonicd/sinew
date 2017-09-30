@@ -122,13 +122,15 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
               length(inst.pkgs),
               ')... the initial index may be a while\n')
       
-      prblm=c('lubridate')
+      prblm=c('lubridate','emo')
       
       FOUND = c()
       
       while( length(inst.pkgs)>0 ){
         
         this_pkg <- inst.pkgs[1]
+        
+        # cat(paste0(this_pkg,','))
         
         if(this_pkg=='nothing'){
           inst.pkgs <- inst.pkgs[-stats::na.omit(match(this_pkg,inst.pkgs))]
@@ -139,7 +141,7 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
         
         check_x <- setdiff(c(NMPATH,dep_x),loadedNamespaces())
         
-        if(prblm%in%check_x){
+        if(any(prblm%in%check_x)){
           #message(this_pkg,' contains: ', paste0(intersect(prblm,check_x),collapse=', '), ' \n')
           inst.pkgs <- inst.pkgs[-stats::na.omit(match(check_x,inst.pkgs))]
           next
@@ -149,23 +151,9 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE , check.
           suppressWarnings({
             found <- unlist(sapply(check_x,mf,funs,simplify = FALSE))
             
-            something(c(NMPATH,'lazyeval'))
+            something(NMPATH)
             
-            dynpath <- unlist(sapply(library.dynam(),'[',2))
-            
-            rm.dynpath <- setdiff(dynpath,DYNPATH)
-            
-            if(length(rm.dynpath)>0){
-              
-              dyn.junk <- sapply(rm.dynpath,function(x){
-                
-                path <- gsub('/libs(.*?)$','',x)
-                pkg <- basename(path)
-                
-                library.dynam.unload(chname = pkg,libpath = path)   
-              })
-              
-            }
+            something.dyn(DYNPATH)
             
           })
         })
