@@ -59,14 +59,16 @@ ret <- sapply(p.split,function(x) text[x$text])
 names(ret) <- sapply(p.split,function(x) x$name)
 
 if( keep.body ){
-  body.text <- text[-unlist(lapply(p.split,'[',2))]
+  check.body <- unlist(lapply(p.split,'[',2))
+  if(!is.null(check.body)){
+  body.text <- text[-check.body]
   rm.empty <- grep('^$',body.text)
   if(length(rm.empty)>0)
     body.text <- body.text[-rm.empty[diff(rm.empty)==1]]
   if(length(body.text)>0){
     if(!is.null(dir.out)) cat(body.text,file=file.path(dir.out,'body.R'),sep = '\n')
     ret$body <- body.text
-    }
+    }}
 }
 
 invisible(ret)

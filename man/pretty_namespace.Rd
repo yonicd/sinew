@@ -4,7 +4,8 @@
 \alias{pretty_namespace}
 \title{Append namespace to functions in script}
 \usage{
-pretty_namespace(con = NULL, text = NULL, overwrite = FALSE)
+pretty_namespace(con = NULL, text = NULL, overwrite = FALSE,
+  sos = FALSE)
 }
 \arguments{
 \item{con}{character, path to file or directory that contains script, Default: NULL}
@@ -12,6 +13,8 @@ pretty_namespace(con = NULL, text = NULL, overwrite = FALSE)
 \item{text}{character, vector that contains script, Default: NULL}
 
 \item{overwrite}{boolean, overwrite original file, Default: FALSE}
+
+\item{sos}{boolean, apply sos search for uninstalled libraries, Default: FALSE}
 }
 \value{
 character

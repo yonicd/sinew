@@ -3,8 +3,7 @@
 #' @param con character, path to file or directory that contains script, Default: NULL
 #' @param text character, vector that contains script, Default: NULL
 #' @param overwrite boolean, overwrite original file, Default: FALSE
-# @param check.installed boolean, check installed.packages for functions, Default: FALSE
-# @param cache_path character, Directory in which to store cached items, Default: tempdir()
+#' @param sos boolean, apply sos search for uninstalled libraries, Default: FALSE
 #' @return character
 #' @details searches for functions in the loadedNamespace, help.search and then \code{\link[sos]{findFn}}
 #' @examples 
@@ -29,7 +28,7 @@
 #' @importFrom stringi stri_sub
 #' @importFrom sos findFn
 #' @importFrom utils help.search
-pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE ){
+pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE, sos = FALSE){
 
   #check.installed = FALSE, cache_path = tempdir()
   
@@ -121,7 +120,7 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE ){
       }
     }
     
-    if( length(funs)>0 ){
+    if( sos & length(funs)>0 ){
       for(fun in funs){
         suppressWarnings(fun.sos <- sos::findFn(fun,maxPages = 1,verbose = 0))
         if(nrow(fun.sos)){

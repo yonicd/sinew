@@ -3,19 +3,21 @@
 #' @param script character connection to pass to readLines, can be file path, directory path, url path
 #' @param cut integer number of functions to write as importFrom until switches to import, Default: NULL
 #' @param print boolean print output to console, Default: TRUE
-#' @param format character the output format must be in c('oxygen','namespace','description'), Default: 'oxygen'
+#' @param format character the output format must be in c('oxygen','description'), Default: 'oxygen'
 #' @examples 
 #' makeImport('R',format = 'oxygen')
-#' makeImport('R',format = 'namespace')
 #' makeImport('R',format = 'description')
 #' @export
-#' @importFrom utils installed.packages capture.output
+#' @importFrom utils installed.packages capture.output getParseData
+#' @importFrom tools file_ext
 makeImport=function(script, cut=NULL, print=TRUE, format='oxygen'){
   rInst<-paste0(row.names(utils::installed.packages()),'::')
   
   if(inherits(script,'function')){
-    file<-tempfile()
-    utils::capture.output(print(script),file = file) 
+    file <- tempfile()
+    utils::capture.output(print(script),file = file)
+    check.file <- readLines(file)
+    cat(check.file[!grepl('^<',check.file)],file = file,sep = '\n')
   }else{
     if(all(nzchar(tools::file_ext(script)))){
       file=script  
@@ -25,67 +27,55 @@ makeImport=function(script, cut=NULL, print=TRUE, format='oxygen'){
   }
   
   pkg=sapply(file,function(f){
-    x<-readLines(f,warn = F)
-    x=gsub('^\\s+','',x)
-    x=x[!grepl('^#',x)]
-    x=x[!grepl('^<',x)]
-    s0=sapply(paste0('\\b',rInst),grep,x=x,value=TRUE)
-    s1=s0[which(sapply(s0,function(y) length(y)>0))]
-    names(s1)=gsub('\\\\b','',names(s1))
-    ret=sapply(names(s1),function(nm){
-      out=unlist(lapply(s1[[nm]],function(x){
-        y=gsub('[\\",\\(\\)]','',unlist(regmatches(x,gregexpr(paste0(nm,'(.*?)[\\)\\(,]'),x))))
-        names(y)=NULL
-        if(any(y%in%paste0(nm,c('"',"'")))) y=NULL
-        y 
-      }))
-      out=gsub('\\$.*','',out)
-      out=unique(out)
+    parsed <- utils::getParseData(parse(f))
+    parsed_f <- parsed[parsed$parent%in%parsed$parent[grepl('SYMBOL_PACKAGE',parsed$token)],]
+    parsed_f <- parsed_f[!grepl('::',parsed_f$text),c('parent','token','text')]
+    
+    PKGS <- unique(parsed_f$text[grepl('PACKAGE$',parsed_f$token)])
+    
+    ret <- sapply(PKGS,function(pkg){
+      x <- parsed_f[parsed_f$parent%in%parsed_f$parent[grepl(sprintf('^%s$',pkg),parsed_f$text)],]
+      fns <- unique(x$text[grepl('CALL$',x$token)])
       
-      if(format=='oxygen'){
-        ret=paste0("#' @importFrom ",gsub('::',' ',nm),gsub(nm,'',paste(unique(out),collapse = ' ')))
-        if(!is.null(cut)){
-          if(length(out)>=cut) ret=paste0("#' @import ",gsub('::','',nm))
-        } 
-        out=ret
-      }
-      return(out)
-    })
+      data.frame(pkg=pkg,fns=fns,stringsAsFactors = FALSE)
+      
+    },simplify = FALSE)
+    
+    ret <- do.call('rbind',ret)
+    rownames(ret) <- NULL
+    
     if(format=='oxygen'){
+      
+      ret <- sapply(unique(ret$pkg),function(pkg){
+          fns <- ret$fns[ret$pkg==pkg]
+          ret <- sprintf("#' @importFrom %s %s",pkg,paste(fns,collapse=' '))
+          
+          if(!is.null(cut)){
+            if(length(fns)>=cut) ret <- sprintf("#' @import %s",pkg)
+          }
+        
+          ret
+          
+        })
+
       if(print) writeLines(paste(' ',f,paste(ret,collapse='\n'),sep = '\n')) 
     }
+    
     return(ret)
-  })
+  },simplify = FALSE)
 
-  if(format=='oxygen') ret=pkg
+  if(format=='oxygen') ret <- pkg
   
-  if(format=='namespace'){
-    pkg=sort(unique(unlist(pkg)))
-    pkgN=gsub(':.*','',pkg)
-    pkgC=table(pkgN)
-
-    ret=paste0('importFrom(',gsub('::',',',pkg),')')
-    
-    if(!is.null(cut)){
-      ret=sapply(names(pkgC),function(x){
-        if(pkgC[x]>=cut){
-          sprintf('import(%s)',unique(gsub(':.*','',x))) 
-        }else{
-          paste0('importFrom(',gsub('::',',',grep(x,pkg,value=T)),')')
-        }
-      })
-    }
-    retWrite=paste(' ',paste(unlist(ret),collapse='\n'),sep = '\n')
-    if(print) writeLines(retWrite)
-    } 
-    
   if(format=='description'){
-    ret=unique(gsub('::(.*?)$','',unlist(pkg)))
-    retWrite=sprintf('Imports: %s',paste(ret,collapse=','))
-    if(print) writeLines(retWrite)
+    ret <- do.call('rbind',pkg)
+
+    ret <- sprintf('Imports: %s',paste(unique(ret$pkg),collapse=','))  
+      
+    if(print) writeLines(ret)
+
   }
   
   if(inherits(script,'function')) unlink(file)
   
-  invisible(paste0(ret,collapse = '\n'))
+  invisible(sapply(ret,paste0,collapse = '\n'))
 }

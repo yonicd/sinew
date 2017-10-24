@@ -13,13 +13,12 @@ makeImport(script, cut = NULL, print = TRUE, format = "oxygen")
 
 \item{print}{boolean print output to console, Default: TRUE}
 
-\item{format}{character the output format must be in c('oxygen','namespace','description'), Default: 'oxygen'}
+\item{format}{character the output format must be in c('oxygen','description'), Default: 'oxygen'}
 }
 \description{
 Scrape r script to create namespace calls for roxygen2, namespace or description files
 }
 \examples{
 makeImport('R',format = 'oxygen')
-makeImport('R',format = 'namespace')
 makeImport('R',format = 'description')
 }
