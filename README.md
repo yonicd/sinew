@@ -36,3 +36,4 @@ https://metrumresearchgroup.github.io/sinew/
   - yml file that is placed in the package parent directory. This can be used to define any values for sinew_opts and they will override the sinew defaults. (@dpastoor)
   - `sinew::moga` (make oxygen great again!). This function will cross check the current documentation of an R script and the current script itself and update/add any parameters/defaults/imports discrepancies.
   - `sinew::makeOxyFile` (makeOxygen for a file or batchmode for a directory) (@grishin1)
+  - `sinew::pretty_namespace` (autoappend namespaces to function calls in the script by search path logic)
