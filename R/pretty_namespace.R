@@ -7,15 +7,15 @@
 #' @return character
 #' @details searches for functions in the loadedNamespace, help.search and then \code{\link[sos]{findFn}}
 #' @examples 
-# txt <- '#some comment
-# yy <- function(a=4){
-#   head(runif(10),a)
-#   # a comment
-# }
-# 
-# zz <- function(v=10,a=8){
-#   head(runif(v),a)
-# }'
+#' txt <- '#some comment
+#' yy <- function(a=4){
+#'   head(runif(10),a)
+#'   # a comment
+#' }
+#' 
+#' zz <- function(v=10,a=8){
+#'   head(runif(v),a)
+#' }'
 #' 
 #' pretty_namespace(text=txt)
 #' 
