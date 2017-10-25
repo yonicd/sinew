@@ -7,15 +7,15 @@
 #' @return character
 #' @details searches for functions in the loadedNamespace, help.search and then \code{\link[sos]{findFn}}
 #' @examples 
-#' txt <- '#some comment
-#' yy <- function(a=4){
-#'   head(runif(10),a)
-#'   # a comment
-#' }
-#' 
-#' zz <- function(v=10,a=8){
-#'   head(runif(v),a)
-#' }'
+# txt <- '#some comment
+# yy <- function(a=4){
+#   head(runif(10),a)
+#   # a comment
+# }
+# 
+# zz <- function(v=10,a=8){
+#   head(runif(v),a)
+# }'
 #' 
 #' pretty_namespace(text=txt)
 #' 
@@ -98,6 +98,10 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE, sos = F
     
     funs <- sym.funs$text[is.na(sym.funs$namespace)]
     
+    global.funs <- ls(envir = sys.frame(-4))[sapply(ls(envir = sys.frame(-4)),function(x) class(get(x))=='function')]
+
+    funs <- funs[!funs%in%global.funs]
+      
     for(x in NMPATH){
       
       if(length(funs)==0) break
