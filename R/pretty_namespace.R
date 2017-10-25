@@ -28,10 +28,8 @@
 #' @importFrom stringi stri_sub
 #' @importFrom sos findFn
 #' @importFrom utils help.search
-pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE, sos = FALSE){
+pretty_namespace <- function(con = NULL ,text= NULL, overwrite = FALSE, sos = FALSE){
 
-  #check.installed = FALSE, cache_path = tempdir()
-  
   if(is.null(text)&is.null(con)) return(NULL)
   
   if(is.null(text)){
@@ -66,16 +64,7 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE, sos = F
 
     ns
   }
-  # 
-  # mf <- memoise::memoise(f,cache = memoise::cache_filesystem(cache_path))
-  # 
-  # f1 <- function(this_pkg){ c(this_pkg,
-  #                             tools::package_dependencies(this_pkg,
-  #                                                         which = c('Depends','Imports'),
-  #                                                         recursive = TRUE)[[1]])}
-  # 
-  # dep_pkg <- memoise::memoise(f1,cache = memoise::cache_filesystem(cache_path))
-  
+
   NMPATH <- loadedNamespaces()
 
   INST <- rownames(installed.packages())
@@ -133,21 +122,7 @@ pretty_namespace <- function( con = NULL ,text= NULL, overwrite = FALSE, sos = F
         }
       }
     }
-    
-    # if(check.installed){
-    #   if( length(funs)>0 ){
-    #   
-    #     FOUND <- active_search(funs, INST,NMPATH, DYNPATH)
-    #     
-    #     if(length(FOUND)){
-    #       for(i in 1:length(FOUND)){
-    #         sym.funs$namespace[match(FOUND[i],sym.funs$text)] <- names(FOUND[i])    
-    #       }
-    #     }
-    #     
-    #   }
-    # }
-    
+
     sym.funs$new_text <- paste(sym.funs$namespace,sym.funs$text,sep='::')
     
     idx <- which(!sym.funs$namespace%in%c('base',NA))

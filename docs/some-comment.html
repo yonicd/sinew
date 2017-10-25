@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="using-sinewconfig-yml.html">
-<link rel="next" href="quick-turn-around.html">
+<link rel="prev" href="pretty-namespace.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -139,6 +139,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.8" data-path="untangle.html"><a href="untangle.html"><i class="fa fa-check"></i><b>7.8</b> untangle</a></li>
 <li class="chapter" data-level="7.9" data-path="pretty-namespace.html"><a href="pretty-namespace.html"><i class="fa fa-check"></i><b>7.9</b> pretty_namespace</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="some-comment.html"><a href="some-comment.html"><i class="fa fa-check"></i><b>8</b> some comment</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
 
@@ -159,27 +160,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="documentation-workflow" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Documentation Workflow</h1>
-<p>The suggested workflow for sinew is an extension of the <a href="http://r-pkgs.had.co.nz/man.html#man-workflow-2">alternative documentation workflow</a> described in the <a href="http://r-pkgs.had.co.nz/">R packages</a> book by Hadley Wickham.</p>
-<p>Initial Package Build</p>
-<ol style="list-style-type: decimal">
-<li>Create a _sinewconfig.yml file in package/project root folder. Set any persistent definitions such as author name and default fields to be generated for all functions.</li>
-<li>Develop R script for the package using proper namespacing definitions, i.e. <code>package::function</code>. Focus <em>only</em> on the function and package logic.</li>
-<li>Run <code>makeOxygen</code> (single file) or <code>makeOxyFile</code> (directory) to create skeletons</li>
-<li>Fill in the relevant descriptions and examples.</li>
-<li>Run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
-</ol>
-<p>Package Maintenance</p>
-<ol style="list-style-type: decimal">
-<li>Update functions as needed</li>
-<li>Run <code>moga</code> on updated functions</li>
-<li>Fill in the relevant descriptions and examples.<br />
-</li>
-<li>If needed run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
-</ol>
+<div id="some-comment" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> some comment</h1>
+<p>yy &lt;- function(a=4){ head(runif(10),a) # a comment }</p>
+<p>zz &lt;- function(v=10,a=8){ head(runif(v),a) }</p>
 
 </div>
             </section>
@@ -187,8 +171,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="using-sinewconfig-yml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="quick-turn-around.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="pretty-namespace.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -217,7 +201,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/04-workflow.Rmd",
+"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/05a-commandline.Rmd",
 "text": "Edit"
 },
 "download": ["sinewBook.pdf", "sinewBook.epub", "sinewBook.mobi"],
@@ -230,4 +214,4 @@ gitbook.start({
 
 </body>
 
-<!-- </html> -->
+</html>

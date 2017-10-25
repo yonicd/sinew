@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Sidi, Metrum Research Group">
 
 
-<meta name="date" content="2017-09-17">
+<meta name="date" content="2017-10-25">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -122,8 +122,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7" data-path="command-line-functions.html"><a href="command-line-functions.html"><i class="fa fa-check"></i><b>7</b> Command Line Functions</a><ul>
 <li class="chapter" data-level="7.1" data-path="makeimport.html"><a href="makeimport.html"><i class="fa fa-check"></i><b>7.1</b> makeImport</a><ul>
 <li class="chapter" data-level="7.1.1" data-path="makeimport.html"><a href="makeimport.html#description"><i class="fa fa-check"></i><b>7.1.1</b> DESCRIPTION</a></li>
-<li class="chapter" data-level="7.1.2" data-path="makeimport.html"><a href="makeimport.html#namespace"><i class="fa fa-check"></i><b>7.1.2</b> NAMESPACE</a></li>
-<li class="chapter" data-level="7.1.3" data-path="makeimport.html"><a href="makeimport.html#roxygen"><i class="fa fa-check"></i><b>7.1.3</b> Roxygen</a></li>
+<li class="chapter" data-level="7.1.2" data-path="makeimport.html"><a href="makeimport.html#roxygen"><i class="fa fa-check"></i><b>7.1.2</b> Roxygen</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="makeoxygen.html"><a href="makeoxygen.html"><i class="fa fa-check"></i><b>7.2</b> makeOxygen</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="makeoxygen.html"><a href="makeoxygen.html#basic-usage"><i class="fa fa-check"></i><b>7.2.1</b> Basic Usage</a></li>
@@ -138,6 +137,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.6" data-path="makedictionary.html"><a href="makedictionary.html"><i class="fa fa-check"></i><b>7.6</b> makeDictionary</a></li>
 <li class="chapter" data-level="7.7" data-path="tabular.html"><a href="tabular.html"><i class="fa fa-check"></i><b>7.7</b> tabular</a></li>
 <li class="chapter" data-level="7.8" data-path="untangle.html"><a href="untangle.html"><i class="fa fa-check"></i><b>7.8</b> untangle</a></li>
+<li class="chapter" data-level="7.9" data-path="pretty-namespace.html"><a href="pretty-namespace.html"><i class="fa fa-check"></i><b>7.9</b> pretty_namespace</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -169,66 +169,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="description" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> DESCRIPTION</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeImport</span>(<span class="dt">script=</span>myDir,<span class="dt">format =</span> <span class="st">&#39;description&#39;</span>)</code></pre></div>
-<pre><code>## Imports: utils,rstudioapi,miniUI,shiny,tools,yaml</code></pre>
-</div>
-<div id="namespace" class="section level3">
-<h3><span class="header-section-number">7.1.2</span> NAMESPACE</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeImport</span>(<span class="dt">script=</span>myDir,<span class="dt">format =</span> <span class="st">&#39;namespace&#39;</span>)</code></pre></div>
-<pre><code>##  
-## importFrom(miniUI,gadgetTitleBar)
-## importFrom(miniUI,miniContentPanel)
-## importFrom(miniUI,miniPage)
-## importFrom(miniUI,miniTitleBarButton)
-## importFrom(rstudioapi,document_position)
-## importFrom(rstudioapi,document_range)
-## importFrom(rstudioapi,getActiveDocumentContext)
-## importFrom(rstudioapi,getSourceEditorContext)
-## importFrom(rstudioapi,insertText)
-## importFrom(rstudioapi,isAvailable)
-## importFrom(rstudioapi,modifyRange)
-## importFrom(rstudioapi,navigateToFile)
-## importFrom(rstudioapi,setSelectionRanges)
-## importFrom(shiny,br)
-## importFrom(shiny,checkboxGroupInput)
-## importFrom(shiny,div)
-## importFrom(shiny,HTML)
-## importFrom(shiny,mainPanel)
-## importFrom(shiny,observeEvent)
-## importFrom(shiny,p)
-## importFrom(shiny,paneViewer)
-## importFrom(shiny,radioButtons)
-## importFrom(shiny,reactivePoll)
-## importFrom(shiny,reactiveVal)
-## importFrom(shiny,removeModal)
-## importFrom(shiny,renderText)
-## importFrom(shiny,renderUI)
-## importFrom(shiny,runGadget)
-## importFrom(shiny,showModal)
-## importFrom(shiny,sidebarLayout)
-## importFrom(shiny,sidebarPanel)
-## importFrom(shiny,sliderInput)
-## importFrom(shiny,stopApp)
-## importFrom(shiny,tags)
-## importFrom(shiny,textOutput)
-## importFrom(shiny,uiOutput)
-## importFrom(shiny,updateCheckboxGroupInput)
-## importFrom(shiny,verbatimTextOutput)
-## importFrom(tools,file_ext)
-## importFrom(utils,capture.output)
-## importFrom(utils,getParseData)
-## importFrom(utils,head)
-## importFrom(utils,installed.packages)
-## importFrom(utils,tail)
-## importFrom(yaml,yaml.load_file)</code></pre>
+<pre><code>## Imports:</code></pre>
 </div>
 <div id="roxygen" class="section level3">
-<h3><span class="header-section-number">7.1.3</span> Roxygen</h3>
+<h3><span class="header-section-number">7.1.2</span> Roxygen</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#single file</span>
 <span class="kw">makeImport</span>(<span class="dt">script=</span><span class="kw">file.path</span>(myDir,<span class="st">&#39;makeImport.R&#39;</span>),<span class="dt">format =</span> <span class="st">&#39;oxygen&#39;</span>)</code></pre></div>
 <pre><code>##  
-## ../../R/makeImport.R
-## #&#39; @importFrom tools file_ext
-## #&#39; @importFrom utils installed.packages capture.output</code></pre>
+## ../../R/makeImport.R</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#whole directory</span>
 <span class="kw">makeImport</span>(<span class="dt">script=</span>myDir,<span class="dt">format =</span> <span class="st">&#39;oxygen&#39;</span>)</code></pre></div>
 <pre><code>##  
@@ -239,15 +187,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ##  
 ## ../../R/get_oxy.R
-## #&#39; @importFrom utils tail
+## 
 ##  
 ## ../../R/importAddin.R
-## #&#39; @importFrom rstudioapi getActiveDocumentContext
+## 
 ##  
 ## ../../R/interOxyAddIn.R
-## #&#39; @importFrom miniUI miniPage gadgetTitleBar miniTitleBarButton miniContentPanel
-## #&#39; @importFrom rstudioapi getSourceEditorContext getActiveDocumentContext insertText setSelectionRanges
-## #&#39; @importFrom shiny tags HTML checkboxGroupInput textOutput sidebarLayout sidebarPanel radioButtons sliderInput br uiOutput mainPanel verbatimTextOutput renderText observeEvent stopApp reactiveVal renderUI div p removeModal reactivePoll showModal updateCheckboxGroupInput runGadget paneViewer
+## 
 ##  
 ## ../../R/ls_param.R
 ## 
@@ -256,11 +202,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ##  
 ## ../../R/makeImport.R
-## #&#39; @importFrom tools file_ext
-## #&#39; @importFrom utils installed.packages capture.output
+## 
 ##  
 ## ../../R/makeOxyFile.R
-## #&#39; @importFrom rstudioapi isAvailable navigateToFile
+## 
 ##  
 ## ../../R/makeOxygen.R
 ## 
@@ -272,36 +217,38 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ##  
 ## ../../R/oxygenAddin.R
-## #&#39; @importFrom rstudioapi getActiveDocumentContext insertText
+## 
+##  
+## ../../R/pretty_namespace.R
+## 
 ##  
 ## ../../R/rm_oxylines.R
-## #&#39; @importFrom rstudioapi document_position document_range modifyRange
-## #&#39; @importFrom utils head
+## 
 ##  
 ## ../../R/rmOxygen.R
-## #&#39; @importFrom rstudioapi isAvailable navigateToFile
+## 
+##  
+## ../../R/something.R
+## 
 ##  
 ## ../../R/tabular.R
 ## 
 ##  
 ## ../../R/untangle.R
-## #&#39; @importFrom utils getParseData
+## 
 ##  
-## ../../R/zzz.r
-## #&#39; @importFrom yaml yaml.load_file</code></pre>
+## ../../R/zzz.r</code></pre>
 <div id="importfrom-cutoff" class="section level4">
-<h4><span class="header-section-number">7.1.3.1</span> importFrom cutoff</h4>
+<h4><span class="header-section-number">7.1.2.1</span> importFrom cutoff</h4>
 <p>Setting the parameter <code>cut</code> to an integer value allows for control of how many functions to list in a package before concatenating the <code>importFrom</code> to an <code>import</code>. This is useful when there are many functions being used throughout the package from the same library and it is practically the same as just importing the whole library</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#without cut</span>
 <span class="kw">makeImport</span>(<span class="dt">script=</span><span class="kw">file.path</span>(myDir,<span class="st">&#39;oxygenAddin.R&#39;</span>),<span class="dt">format =</span> <span class="st">&#39;oxygen&#39;</span>)</code></pre></div>
 <pre><code>##  
-## ../../R/oxygenAddin.R
-## #&#39; @importFrom rstudioapi getActiveDocumentContext insertText</code></pre>
+## ../../R/oxygenAddin.R</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#with cut</span>
 <span class="kw">makeImport</span>(<span class="dt">script=</span><span class="kw">file.path</span>(myDir,<span class="st">&#39;oxygenAddin.R&#39;</span>),<span class="dt">format =</span> <span class="st">&#39;oxygen&#39;</span>,<span class="dt">cut=</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>##  
-## ../../R/oxygenAddin.R
-## #&#39; @import rstudioapi</code></pre>
+## ../../R/oxygenAddin.R</code></pre>
 </div>
 </div>
 </div>

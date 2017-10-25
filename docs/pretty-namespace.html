@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="using-sinewconfig-yml.html">
-<link rel="next" href="quick-turn-around.html">
+<link rel="prev" href="untangle.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -159,36 +159,47 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="documentation-workflow" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Documentation Workflow</h1>
-<p>The suggested workflow for sinew is an extension of the <a href="http://r-pkgs.had.co.nz/man.html#man-workflow-2">alternative documentation workflow</a> described in the <a href="http://r-pkgs.had.co.nz/">R packages</a> book by Hadley Wickham.</p>
-<p>Initial Package Build</p>
+<div id="pretty_namespace" class="section level2">
+<h2><span class="header-section-number">7.9</span> pretty_namespace</h2>
+<p>Autoappend namespace to functions in script by searchpath order. This function will search functions in the following order</p>
 <ol style="list-style-type: decimal">
-<li>Create a _sinewconfig.yml file in package/project root folder. Set any persistent definitions such as author name and default fields to be generated for all functions.</li>
-<li>Develop R script for the package using proper namespacing definitions, i.e. <code>package::function</code>. Focus <em>only</em> on the function and package logic.</li>
-<li>Run <code>makeOxygen</code> (single file) or <code>makeOxyFile</code> (directory) to create skeletons</li>
-<li>Fill in the relevant descriptions and examples.</li>
-<li>Run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
+<li>global environment</li>
+<li><a href="https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/ns-load">loadedNamespaces</a> (loaded packages)</li>
+<li><a href="https://www.rdocumentation.org/packages/Rdocumentation/versions/0.5/topics/help.search">help.search</a> (installed.packages)</li>
+<li>online via the <a href="https://cran.r-project.org/web/packages/sos/index.html">sos</a> package (CRAN packages)</li>
 </ol>
-<p>Package Maintenance</p>
-<ol style="list-style-type: decimal">
-<li>Update functions as needed</li>
-<li>Run <code>moga</code> on updated functions</li>
-<li>Fill in the relevant descriptions and examples.<br />
-</li>
-<li>If needed run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
-</ol>
+<p>The sos search is optional and is turned off by default.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">txt &lt;-<span class="st"> &#39;#some comment</span>
+<span class="st">yy &lt;- function(a=4){</span>
+<span class="st">  head(runif(10),a)</span>
+<span class="st">  # a comment</span>
+<span class="st">}</span>
 
+<span class="st">zz &lt;- function(v=10,a=8){</span>
+<span class="st">  head(runif(v),a)</span>
+<span class="st">}&#39;</span>
+
+<span class="kw">pretty_namespace</span>(<span class="dt">text=</span>txt)
+
+<span class="co"># #some comment</span>
+<span class="co"># yy &lt;- function(a=4){</span>
+<span class="co">#   utils::head(stats::runif(10),a)</span>
+<span class="co">#   # a comment</span>
+<span class="co"># }</span>
+<span class="co"># </span>
+<span class="co"># zz &lt;- function(v=10,a=8){</span>
+<span class="co">#   utils::head(stats::runif(v),a)</span>
+<span class="co"># }</span></code></pre></div>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="using-sinewconfig-yml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="quick-turn-around.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="untangle.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -217,7 +228,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/04-workflow.Rmd",
+"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/05a-commandline.Rmd",
 "text": "Edit"
 },
 "download": ["sinewBook.pdf", "sinewBook.epub", "sinewBook.mobi"],
