@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Sidi, Metrum Research Group">
 
 
-<meta name="date" content="2017-10-25">
+<meta name="date" content="2017-10-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -162,6 +162,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="using-_sinewconfig.yml" class="section level2">
 <h2><span class="header-section-number">3.2</span> Using _sinewconfig.yml</h2>
 <p>When loading the sinew package the file <code>_sinewconfig.yml</code> will be searched for in the working directory, if found settings found in it will be used instead of the package defaults.</p>
+<p>To create the <code>_sinewconfig.yml</code> file in the current project directory and update the <code>.Rbuildignore</code> automatically use the function <code>create_yml()</code>.</p>
 <p>In the example below the field <code>author</code> will be added to all roxygen2 headers returned by sinew and its value is <code>Jonathan Sidi</code>.</p>
 <pre><code>add_fields: [&quot;author&quot;]
 author: &#39;Jonathan Sidi&#39;</code></pre>

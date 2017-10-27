@@ -4,6 +4,7 @@
 #' @param file character, path to R file, Default: ''
 #' @param dir.out character, path to save new R files, Default: NULL
 #' @param keep.body boolean, if TRUE all non-funcitons will be saved to body.R, Default: TRUE
+#' @details body.R is written to the working directory and not dir.out .
 #' @return list of seperate functions
 #' @examples 
 #' \dontrun{
@@ -50,7 +51,7 @@ p.split <- sapply(p2$root,function(x,lines) {
   lout <- lines[y1]
   fn.name <- p1$text[which(p1$id==x)+1]
   if(!is.null(dir.out)){
-    file.name <- sprintf('%s.R',fn.name)
+    file.name <- sprintf('%s.R',gsub('[.]','_',fn.name))
     cat(lout,file=file.path(dir.out,file.name),sep = '\n')}
   return(list(name=fn.name,text=y1))
   },lines=text,simplify = FALSE)
@@ -66,7 +67,7 @@ if( keep.body ){
   if(length(rm.empty)>0)
     body.text <- body.text[-rm.empty[diff(rm.empty)==1]]
   if(length(body.text)>0){
-    if(!is.null(dir.out)) cat(body.text,file=file.path(dir.out,'body.R'),sep = '\n')
+    if(!is.null(dir.out)) cat(body.text,file=file.path(getwd(),'body.R'),sep = '\n')
     ret$body <- body.text
     }}
 }

@@ -21,6 +21,9 @@ list of seperate functions
 \description{
 Split a R script with multiple functions into multiple single function R files.
 }
+\details{
+body.R is written to the working directory and not dir.out .
+}
 \examples{
 \dontrun{
 txt <- "#some comment

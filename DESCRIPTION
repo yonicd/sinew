@@ -1,21 +1,19 @@
 Package: sinew
 Type: Package
 Title: Create 'roxygen2' Skeleton with Information from Function Script
-Version: 0.3.5
+Version: 0.3.5.1
 Date: 2017-09-25
-Author: c(person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut", "cre")),
-          person("Anton","Grishin",role = "ctb"),
-          person("Lorenzo","Busetto",role = "ctb"))
+Author: c(person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut",
+         "cre")), person("Anton","Grishin",role = "ctb"),
+         person("Lorenzo","Busetto",role = "ctb"))
 Maintainer: Jonathan Sidi <yonis@metrumrg.com>
-Description: Create 'roxygen2' skeleton populated with information scraped from the within the function script. 
-  Also creates field entries for imports in the 'DESCRIPTION' and import in the 'NAMESPACE' files.
-  Can be run from the R console or through the 'RStudio' 'addin' menu.
-Depends:
-    R (>= 2.3.0)
-Imports: 
-    rstudioapi,miniUI,shiny,stringi,utils,yaml,sos
-Suggests:
-    roxygen2
+Description: Create 'roxygen2' skeleton populated with information scraped from the
+         within the function script. Also creates field entries for imports in the
+         'DESCRIPTION' and import in the 'NAMESPACE' files. Can be run from the R
+         console or through the 'RStudio' 'addin' menu.
+Depends: R (>= 2.3.0)
+Imports: rstudioapi,utils,shiny,miniUI,tools,sos,stringi,yaml
+Suggests: roxygen2
 License: GPL-2 | GPL-3
 URL: https://github.com/metrumresearchgroup/sinew
 BugReports: https://github.com/metrumresearchgroup/sinew/issues

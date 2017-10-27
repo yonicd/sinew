@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Sidi, Metrum Research Group">
 
 
-<meta name="date" content="2017-10-25">
+<meta name="date" content="2017-10-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -170,6 +170,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">7.1.1</span> DESCRIPTION</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeImport</span>(<span class="dt">script=</span>myDir,<span class="dt">format =</span> <span class="st">&#39;description&#39;</span>)</code></pre></div>
 <pre><code>## Imports:</code></pre>
+<p>To write the output directly into the Imports field of the DESCRIPTION file, specify path to DESCRIPTION in desc_loc</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeImport</span>(myDir,<span class="dt">format =</span> <span class="st">&#39;description&#39;</span>, <span class="dt">desc_loc=</span><span class="st">&#39;&lt;PATH TO DESCRIPTION&gt;&#39;</span>)</code></pre></div>
 </div>
 <div id="roxygen" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> Roxygen</h3>
@@ -181,6 +183,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">makeImport</span>(<span class="dt">script=</span>myDir,<span class="dt">format =</span> <span class="st">&#39;oxygen&#39;</span>)</code></pre></div>
 <pre><code>##  
 ## ../../R/check_attach.R
+## 
+##  
+## ../../R/create_yml.R
 ## 
 ##  
 ## ../../R/defaults.R

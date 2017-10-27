@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Sidi, Metrum Research Group">
 
 
-<meta name="date" content="2017-10-25">
+<meta name="date" content="2017-10-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -166,6 +166,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Create import calls for DESCRIPTION, NAMESPACE and Roxygen2</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeImport</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">format =</span> <span class="st">&#39;description&#39;</span>)
+
+<span class="co"># To write the output directly into the DESCRIPTION file, </span>
+<span class="co"># specify path to DESCRIPTION in desc_loc </span>
+<span class="kw">makeImport</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">format =</span> <span class="st">&#39;description&#39;</span>, <span class="dt">desc_loc=</span><span class="st">&#39;.&#39;</span>)
 
 <span class="kw">makeImport</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">format =</span> <span class="st">&#39;oxygen&#39;</span>)</code></pre></div>
 <ul>

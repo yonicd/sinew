@@ -1,16 +1,18 @@
 #' @title Scrape R script to create namespace calls for R documentation
 #' @description Scrape r script to create namespace calls for roxygen2, namespace or description files
-#' @param script character connection to pass to readLines, can be file path, directory path, url path
-#' @param cut integer number of functions to write as importFrom until switches to import, Default: NULL
-#' @param print boolean print output to console, Default: TRUE
-#' @param format character the output format must be in c('oxygen','description'), Default: 'oxygen'
+#' @param script character, connection to pass to readLines, can be file path, directory path, url path
+#' @param cut integer, number of functions to write as importFrom until switches to import, Default: NULL
+#' @param print boolean, print output to console, Default: TRUE
+#' @param format character, the output format must be in c('oxygen','description'), Default: 'oxygen'
+#' @param desc_loc character, path to DESCRIPTION file, if not NULL then the Imports fields in
+#'  the DESCRIPTION file, Default: NULL
 #' @examples 
 #' makeImport('R',format = 'oxygen')
 #' makeImport('R',format = 'description')
 #' @export
 #' @importFrom utils installed.packages capture.output getParseData
 #' @importFrom tools file_ext
-makeImport=function(script, cut=NULL, print=TRUE, format='oxygen'){
+makeImport=function(script, cut=NULL, print=TRUE, format='oxygen', desc_loc=NULL){
   rInst<-paste0(row.names(utils::installed.packages()),'::')
   
   if(inherits(script,'function')){
@@ -73,6 +75,30 @@ makeImport=function(script, cut=NULL, print=TRUE, format='oxygen'){
       
     if(print) writeLines(ret)
 
+    if(!is.null(desc_loc)){
+      if(file.exists(file.path(desc_loc,'DESCRIPTION'))){
+        
+        desc <- read.dcf(file.path(desc_loc,'DESCRIPTION'))
+        
+        import_col <- grep('Imports',colnames(desc))
+        
+        if(length(import_col)==0){
+          
+          desc <- cbind( desc, gsub('Imports: ', '\n', ret)) 
+          
+          colnames(desc)[ncol(desc)] <- 'Imports'
+          
+        }else{
+          
+          desc[ ,'Imports'] <- gsub('Imports: ', '\n', ret)
+          
+        }
+        
+        write.dcf(desc,file = file.path(desc_loc,'DESCRIPTION'))
+        
+      }
+  }
+    
   }
   
   if(inherits(script,'function')) unlink(file)
