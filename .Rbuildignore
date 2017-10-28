@@ -11,3 +11,4 @@ docs
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^.*\.yml$
+News.Rmd
