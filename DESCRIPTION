@@ -2,7 +2,7 @@ Package: sinew
 Type: Package
 Title: Create 'roxygen2' Skeleton with Information from Function Script
 Version: 0.3.5.1
-Date: 2017-09-25
+Date: 2017-10-28
 Author: c(person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut",
          "cre")), person("Anton","Grishin",role = "ctb"),
          person("Lorenzo","Busetto",role = "ctb"))
