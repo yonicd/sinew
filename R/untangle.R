@@ -4,7 +4,8 @@
 #' @param file character, path to R file, Default: ''
 #' @param dir.out character, path to save new R files, Default: NULL
 #' @param keep.body boolean, if TRUE all non-funcitons will be saved to body.R, Default: TRUE
-#' @details body.R is written to the working directory and not dir.out .
+#' @details body.R is written to the working directory and not dir.out. Functions that
+#'  are objects in lists are treated as objects and will stay in body.R .
 #' @return list of seperate functions
 #' @examples
 #' \dontrun{
@@ -52,6 +53,10 @@ untangle <- function(text = NULL, file = "", dir.out = NULL, keep.body = TRUE) {
     y1 <- c(p1$line1[p1$parent %in% (-x)], y)
     lout <- lines[y1]
     fn.name <- p1$text[which(p1$id == x) + 1]
+    
+    if (!nzchar(fn.name)) #patch to find functions that are nested in lists that need to stay in the body
+      return(list(name = fn.name, text = NULL))
+    
     if (!is.null(dir.out)) {
       file.name <- sprintf("%s.R", gsub("[.]", "_", fn.name))
       cat(lout, file = file.path(dir.out, file.name), sep = "\n")

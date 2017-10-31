@@ -22,7 +22,8 @@ list of seperate functions
 Split a R script with multiple functions into multiple single function R files.
 }
 \details{
-body.R is written to the working directory and not dir.out .
+body.R is written to the working directory and not dir.out. Functions that
+ are objects in lists are treated as objects and will stay in body.R .
 }
 \examples{
 \dontrun{
