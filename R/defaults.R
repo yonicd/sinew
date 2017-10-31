@@ -1,40 +1,50 @@
 # forked from https://github.com/yihui/knitr/blob/master/R/defaults.R
-new_defaults = function(value = list()) {
-  defaults = value
-  
-  get = function(name, default = FALSE, drop = TRUE) {
-    if (default) defaults = value  # this is only a local version
-    if (missing(name)) defaults else {
-      if (drop && length(name) == 1) defaults[[name]] else {
+new_defaults <- function(value = list()) {
+  defaults <- value
+
+  get <- function(name, default = FALSE, drop = TRUE) {
+    if (default) defaults <- value # this is only a local version
+    if (missing(name)) {
+      defaults
+    } else {
+      if (drop && length(name) == 1) {
+        defaults[[name]]
+      } else {
         setNames(defaults[name], name)
       }
     }
   }
-  
-  set = function(...) {
-    dots = list(...)
+
+  set <- function(...) {
+    dots <- list(...)
     if (length(dots) == 0) return()
-    if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
-      if (length(dots <- dots[[1]]) == 0) return()
+    if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]])) {
+      if (length(dots <- dots[[1]]) == 0) {
+        return()
+      }
+    }
     defaults <<- merge(dots)
     invisible(NULL)
   }
-  
-  merge = function(values) merge_list(defaults, values)
-  
-  restore = function(target = value) defaults <<- target
-  
-  append = function(...) {
-    dots = list(...)
+
+  merge <- function(values) merge_list(defaults, values)
+
+  restore <- function(target = value) defaults <<- target
+
+  append <- function(...) {
+    dots <- list(...)
     if (length(dots) == 0) return()
-    if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
-      if (length(dots <- dots[[1]]) == 0) return()
+    if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]])) {
+      if (length(dots <- dots[[1]]) == 0) {
+        return()
+      }
+    }
     for (i in names(dots)) dots[[i]] <- c(defaults[[i]], dots[[i]])
     defaults <<- merge(dots)
     invisible(NULL)
   }
-  
-  list(get = get, set = set, append=append, merge = merge, restore = restore)
+
+  list(get = get, set = set, append = append, merge = merge, restore = restore)
 }
 
 #' Default and current sinew options
@@ -64,55 +74,55 @@ new_defaults = function(value = list()) {
 #'   \code{sinew_opts_current$get()}.
 #' @export
 #' @examples sinew_opts$get('add_fields')
-sinew_opts = new_defaults(list(
-  add_fields=c("details", "examples",  "seealso", "rdname", "export"),
-  author            ="AUTHOR [AUTHOR_2]",
-  backref           ="src/filename.cpp",
-  concept           ="CONCEPT_TERM_1 [CONCEPT_TERM_2]",
-  describeIn        ="FUNCTION_NAME DESCRIPTION",
-  details           ="DETAILS",
-  #evalRd           ="",
-  example           ="path_to_file/relative/to/packge/root",
-  examples          ="\n#' \\dontrun{\n#' if(interactive()){\n#'  #EXAMPLE1\n#'  }\n#' }",
-  export            ="",
-  #exportClass      ="",
-  #exportMethod     ="",
-  family            ="FAMILY_TITLE",
-  field             ="FIELD_IN_S4_RefClass DESCRIPTION",
-  format            ="DATA_STRUCTURE",
-  importClassesFrom ="PKG CLASS_a [CLASS_b]",
-  importMethodsFrom ="PKG METHOD_a [METHOD_b]",
-  include           ="FILENAME.R [FILENAME_b.R]",
-  inherit           ="[PKG::]SOURCE_FUNCTION [FIELD_a FIELD_b]",
-  inheritDotParams  ="[PKG::]SOURCE_FUNCTION",
-  inheritSection    ="[PKG::]SOURCE_FUNCTION [SECTION_a SECTION_b]",
-  keywords          ="KEYWORD_TERM",
-  name              ="NAME",
-  #note             ="",
-  #noRd             ="",
-  #rawRd            ="",
-  #rawNamespace     ="",
-  rdname            ="FUNCTION_NAME",
-  references        ="BIB_CITATION",
-  section           ="SECTION_NAME",
-  source            ="\\url{http://somewhere.important.com/}",
-  slot              ="SLOTNAME DESCRIPTION",
-  template          ="FILENAME",
-  templateVar       ="NAME VALUE",
-  useDynLib         ="PKG [ROUTINE_a ROUTINE_b]"
+sinew_opts <- new_defaults(list(
+  add_fields = c("details", "examples", "seealso", "rdname", "export"),
+  author = "AUTHOR [AUTHOR_2]",
+  backref = "src/filename.cpp",
+  concept = "CONCEPT_TERM_1 [CONCEPT_TERM_2]",
+  describeIn = "FUNCTION_NAME DESCRIPTION",
+  details = "DETAILS",
+  # evalRd           ="",
+  example = "path_to_file/relative/to/packge/root",
+  examples = "\n#' \\dontrun{\n#' if(interactive()){\n#'  #EXAMPLE1\n#'  }\n#' }",
+  export = "",
+  # exportClass      ="",
+  # exportMethod     ="",
+  family = "FAMILY_TITLE",
+  field = "FIELD_IN_S4_RefClass DESCRIPTION",
+  format = "DATA_STRUCTURE",
+  importClassesFrom = "PKG CLASS_a [CLASS_b]",
+  importMethodsFrom = "PKG METHOD_a [METHOD_b]",
+  include = "FILENAME.R [FILENAME_b.R]",
+  inherit = "[PKG::]SOURCE_FUNCTION [FIELD_a FIELD_b]",
+  inheritDotParams = "[PKG::]SOURCE_FUNCTION",
+  inheritSection = "[PKG::]SOURCE_FUNCTION [SECTION_a SECTION_b]",
+  keywords = "KEYWORD_TERM",
+  name = "NAME",
+  # note             ="",
+  # noRd             ="",
+  # rawRd            ="",
+  # rawNamespace     ="",
+  rdname = "FUNCTION_NAME",
+  references = "BIB_CITATION",
+  section = "SECTION_NAME",
+  source = "\\url{http://somewhere.important.com/}",
+  slot = "SLOTNAME DESCRIPTION",
+  template = "FILENAME",
+  templateVar = "NAME VALUE",
+  useDynLib = "PKG [ROUTINE_a ROUTINE_b]"
 ))
 
 #' @rdname sinew_opts
 #' @export
-sinew_opts_current = new_defaults()
+sinew_opts_current <- new_defaults()
 
 # merge elements of y into x with the same names
-merge_list = function(x, y) {
-  x[names(y)] = y
+merge_list <- function(x, y) {
+  x[names(y)] <- y
   x
 }
 
-setNames<-function(object = nm, nm){
+setNames <- function(object = nm, nm) {
   names(object) <- nm
   object
 }

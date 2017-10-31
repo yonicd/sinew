@@ -24,7 +24,7 @@ character
 Update/append an R file that has roxygen2 headers already with updated information
 }
 \details{
-Cross references fields already in the roxygen2 header and adds any new ones from the updated call. 
+Cross references fields already in the roxygen2 header and adds any new ones from the updated call.
 To force a change to a field add field name to force.fields.
 }
 \examples{
