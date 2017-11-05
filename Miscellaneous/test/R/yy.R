@@ -1,7 +1,7 @@
 #some comment
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
-#' @param a something, Default: 4
+#' @param a PARAM_DESCRIPTION, Default: 4
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
 #' @examples 
