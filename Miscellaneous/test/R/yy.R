@@ -1,7 +1,8 @@
 #some comment
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
-#' @param a PARAM_DESCRIPTION, Default: 4
+#' @param a numeric, set the head to trim from random unif Default: 4
+#' @param b PARAM_DESCRIPTION, Default: 2
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
 #' @examples 
@@ -17,8 +18,9 @@
 #' @export 
 #' @author Jonathan Sidi
 #' @importFrom utils head
-#' @importFrom stats runif
-yy <- function(a=4){
-  utils::head(stats::runif(10),a)
+#' @importFrom stats runif quantile
+yy <- function(a=4,b=2){
+  x <- utils::head(stats::runif(10*b),a)
+  stats::quantile(x,probs=.95)
   # a comment
 }
