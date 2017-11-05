@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="using-sinewconfig-yml.html">
-<link rel="next" href="quick-turn-around.html">
+<link rel="prev" href="motivation.html">
+<link rel="next" href="namespacing.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -170,36 +170,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="documentation-workflow" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Documentation Workflow</h1>
-<p>The suggested workflow for sinew is an extension of the <a href="http://r-pkgs.had.co.nz/man.html#man-workflow-2">alternative documentation workflow</a> described in the <a href="http://r-pkgs.had.co.nz/">R packages</a> book by Hadley Wickham.</p>
-<p>Initial Package Build</p>
-<ol style="list-style-type: decimal">
-<li>Create a _sinewconfig.yml file in package/project root folder. Set any persistent definitions such as author name and default fields to be generated for all functions.</li>
-<li>Develop R script for the package using proper namespacing definitions, i.e. <code>package::function</code>, or use <code>pretty_namespace</code>. Focus <em>only</em> on the function and package logic.</li>
-<li>Run <code>makeOxygen</code> (single file) or <code>makeOxyFile</code> (directory) to create skeletons. It is suggested to use the <a href="https://github.com/r-lib/styler">styler package</a> beforehand to have ensure proper R script syntax conventions.</li>
-<li>Fill in the relevant descriptions and examples.</li>
-<li>Run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
-</ol>
-<p>Package Maintenance</p>
-<ol style="list-style-type: decimal">
-<li>Update functions as needed</li>
-<li>Run <code>moga</code> on updated functions</li>
-<li>Fill in the relevant descriptions and examples.<br />
-</li>
-<li>If needed run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
-</ol>
+<div id="untangling-files" class="section level2">
+<h2><span class="header-section-number">2.1</span> Untangling Files</h2>
+<p>One of the first tasks for new developers is to move from long scripts that are intertwined with functions and body code into single function files in a R subdirectory and a clean body script that is easier to read.</p>
+<p>This task is probably a non-starter if you have more than a few hundered lines of code. This is where <a href="https://metrumresearchgroup.github.io/sinew/untangle.html">untangle</a> can save you time. <code>untangle</code> will separate the long script into single function files in a subdirectory and keep the body script intact.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untangle</span>(<span class="dt">file =</span> <span class="st">&#39;test.R&#39;</span>,<span class="dt">dir.out =</span> <span class="st">&#39;R&#39;</span>)</code></pre></div>
+<div class="figure">
+<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/untangle_test.gif?raw=true" />
 
+</div>
+<p>As we can see we got three new files. - <code>body.R</code> in the working directory - <code>yy.R</code> in the <code>R</code> subdirectory - <code>zz.R</code> in the <code>R</code> subdirectory</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="using-sinewconfig-yml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="quick-turn-around.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="motivation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="namespacing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -228,7 +216,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/04-workflow.Rmd",
+"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/02-Motivation.Rmd",
 "text": "Edit"
 },
 "download": ["sinewBook.pdf", "sinewBook.epub", "sinewBook.mobi"],

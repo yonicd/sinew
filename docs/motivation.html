@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="using-sinewconfig-yml.html">
-<link rel="next" href="quick-turn-around.html">
+<link rel="prev" href="dev.html">
+<link rel="next" href="untangling-files.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -170,36 +170,37 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="documentation-workflow" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Documentation Workflow</h1>
-<p>The suggested workflow for sinew is an extension of the <a href="http://r-pkgs.had.co.nz/man.html#man-workflow-2">alternative documentation workflow</a> described in the <a href="http://r-pkgs.had.co.nz/">R packages</a> book by Hadley Wickham.</p>
-<p>Initial Package Build</p>
-<ol style="list-style-type: decimal">
-<li>Create a _sinewconfig.yml file in package/project root folder. Set any persistent definitions such as author name and default fields to be generated for all functions.</li>
-<li>Develop R script for the package using proper namespacing definitions, i.e. <code>package::function</code>, or use <code>pretty_namespace</code>. Focus <em>only</em> on the function and package logic.</li>
-<li>Run <code>makeOxygen</code> (single file) or <code>makeOxyFile</code> (directory) to create skeletons. It is suggested to use the <a href="https://github.com/r-lib/styler">styler package</a> beforehand to have ensure proper R script syntax conventions.</li>
-<li>Fill in the relevant descriptions and examples.</li>
-<li>Run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
-</ol>
-<p>Package Maintenance</p>
-<ol style="list-style-type: decimal">
-<li>Update functions as needed</li>
-<li>Run <code>moga</code> on updated functions</li>
-<li>Fill in the relevant descriptions and examples.<br />
-</li>
-<li>If needed run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
-</ol>
+<div id="motivation" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Motivation</h1>
+<p>How can <code>sinew</code> help you?</p>
+<p><code>sinew</code> automates tasks that are part of R package documentation and maintance in order to help developers consistently create robust roxygen2 documentation and pass <code>R CMD check --as-cran</code>.</p>
+<p>To understand what <code>sinew</code> does let’s use a reproducible example. The goal is to convert raw script in a file called <a href="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/test/test.R">test.R</a> into a package.</p>
+<p>The file includes two functions <code>yy</code> and <code>zz</code> and some general script that uses them</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#some comment</span>
+yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>){
+  <span class="kw">head</span>(<span class="kw">runif</span>(<span class="dv">10</span>),a)
+  <span class="co"># a comment</span>
+}
 
+zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){
+  <span class="kw">head</span>(<span class="kw">runif</span>(v),a)
+}
+
+
+<span class="kw">yy</span>(<span class="dv">6</span>)
+
+<span class="kw">zz</span>(<span class="dv">30</span>,<span class="dv">3</span>)</code></pre></div>
+<p>To start we initialize a <code>R</code> subdirectory and a DESCRIPTION file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dir.create</span>(<span class="st">&#39;R&#39;</span>)
+devtools<span class="op">::</span><span class="kw">create_description</span>()</code></pre></div> 
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="using-sinewconfig-yml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="quick-turn-around.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="dev.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="untangling-files.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -228,7 +229,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/04-workflow.Rmd",
+"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/02-Motivation.Rmd",
 "text": "Edit"
 },
 "download": ["sinewBook.pdf", "sinewBook.epub", "sinewBook.mobi"],

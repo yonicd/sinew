@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="using-sinewconfig-yml.html">
-<link rel="next" href="quick-turn-around.html">
+<link rel="prev" href="namespacing.html">
+<link rel="next" href="description.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -170,36 +170,61 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="documentation-workflow" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Documentation Workflow</h1>
-<p>The suggested workflow for sinew is an extension of the <a href="http://r-pkgs.had.co.nz/man.html#man-workflow-2">alternative documentation workflow</a> described in the <a href="http://r-pkgs.had.co.nz/">R packages</a> book by Hadley Wickham.</p>
-<p>Initial Package Build</p>
-<ol style="list-style-type: decimal">
-<li>Create a _sinewconfig.yml file in package/project root folder. Set any persistent definitions such as author name and default fields to be generated for all functions.</li>
-<li>Develop R script for the package using proper namespacing definitions, i.e. <code>package::function</code>, or use <code>pretty_namespace</code>. Focus <em>only</em> on the function and package logic.</li>
-<li>Run <code>makeOxygen</code> (single file) or <code>makeOxyFile</code> (directory) to create skeletons. It is suggested to use the <a href="https://github.com/r-lib/styler">styler package</a> beforehand to have ensure proper R script syntax conventions.</li>
-<li>Fill in the relevant descriptions and examples.</li>
-<li>Run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
-</ol>
-<p>Package Maintenance</p>
-<ol style="list-style-type: decimal">
-<li>Update functions as needed</li>
-<li>Run <code>moga</code> on updated functions</li>
-<li>Fill in the relevant descriptions and examples.<br />
-</li>
-<li>If needed run <code>makeImport</code> to create the correct <code>Imports</code> in the DESCRIPTION file.</li>
-<li>Build the Package</li>
-</ol>
+<div id="documentation" class="section level2">
+<h2><span class="header-section-number">2.3</span> Documentation</h2>
+<p>Now we are ready to create the function documentation using roxygen2. We use <a href="file:///Users/jonathans/projects/sinew/Miscellaneous/docs/makeoxygen.html">makeOxygen</a> to create a skeleton for <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> documentation. This function returns a skeleton that includes title, description, return, import and other fields populated with information scraped from the function script. We can also run <code>makeOxygen</code> in batch mode using <a href="file:///Users/jonathans/projects/sinew/Miscellaneous/docs/makeoxyfile.html">makeOxyFile</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeOxyFile</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="figure">
+<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/oxy_test.gif?raw=true" />
 
+</div>
+<p>Lets see what we got back in <code>zz.R</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; @title FUNCTION_TITLE</span>
+<span class="co">#&#39; @description FUNCTION_DESCRIPTION</span>
+<span class="co">#&#39; @param v PARAM_DESCRIPTION, Default: 10</span>
+<span class="co">#&#39; @param a PARAM_DESCRIPTION, Default: 8</span>
+<span class="co">#&#39; @return OUTPUT_DESCRIPTION</span>
+<span class="co">#&#39; @details DETAILS</span>
+<span class="co">#&#39; @examples </span>
+<span class="co">#&#39; \dontrun{</span>
+<span class="co">#&#39; if(interactive()){</span>
+<span class="co">#&#39;  #EXAMPLE1</span>
+<span class="co">#&#39;  }</span>
+<span class="co">#&#39; }</span>
+<span class="co">#&#39; @seealso </span>
+<span class="co">#&#39;  \code{\link[utils]{head}}</span>
+<span class="co">#&#39;  \code{\link[stats]{runif}}</span>
+<span class="co">#&#39; @rdname zz</span>
+<span class="co">#&#39; @export </span>
+<span class="co">#&#39; @author Jonathan Sidi</span>
+<span class="co">#&#39; @importFrom utils head</span>
+<span class="co">#&#39; @importFrom stats runif</span>
+zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){
+  utils<span class="op">::</span><span class="kw">head</span>(stats<span class="op">::</span><span class="kw">runif</span>(v),a)
+}</code></pre></div>
+<p>The premise of <code>makeOxygen</code> is to expand on the default skeleton in RStudio, so basic fields are in the output by default. Each field is given with a relevant placeholder giving a hint what is expected. The following is the meat add to these bones:</p>
+<ul>
+<li>param default values:
+<ul>
+<li>If a default value is set for a function parameter it will be added to the end <code>@param</code> line.</li>
+</ul></li>
+<li>import/importFrom
+<ul>
+<li>The package scrapes the script with <code>makeImport</code> looking for declared namespaces to create the proper calls for <code>@import</code> and <code>@importFrom</code> which are placed at the bottom of the output.</li>
+</ul></li>
+<li>seealso
+<ul>
+<li>linking to other packages is also taken care of when adding the field <code>@seealso</code>. Any functions that are included in <code>@importFrom</code> will have a link to them by default.</li>
+</ul></li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="using-sinewconfig-yml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="quick-turn-around.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="namespacing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="description.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -228,7 +253,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/04-workflow.Rmd",
+"link": "https://github.com/metrumresearchgroup/sinew/edit/master/Miscellaneous/bookdown/02-Motivation.Rmd",
 "text": "Edit"
 },
 "download": ["sinewBook.pdf", "sinewBook.epub", "sinewBook.mobi"],

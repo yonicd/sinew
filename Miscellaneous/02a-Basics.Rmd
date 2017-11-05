@@ -1,0 +1,57 @@
+# Quickstart
+
+`Sinew` can be used to solve a number of tasks with simple one liners
+
+  - Create import calls for DESCRIPTION and Roxygen2
+  
+```r
+makeImport('R',format = 'description')
+
+# To write the output directly into the DESCRIPTION file, 
+# specify path to DESCRIPTION in desc_loc 
+makeImport('R',format = 'description', desc_loc='.')
+
+makeImport('R',format = 'oxygen')
+```
+
+  - Create skeleton for roxygen2 documentation populated with information scraped from within the package function scripts.
+
+Function or data.frame objects, names
+
+```r
+makeOxygen(lm)
+
+makeOxygen('lm')
+
+makeOxygen(stats::lm)
+
+makeOxygen(iris,add_fields = c('source'))
+```
+
+Writing directly to file(s) in a directory (batch mode)
+
+```r
+makeOxyFile(<pathtofiles>)
+```
+
+  - Update existing roxygen2 documentation in a file
+  
+```r
+moga(<pathtofile.R>)
+```
+
+  - Split a long R file with multiple function definitions into multiple single function files
+  
+```r
+untangle(<pathtofile.R>, dir.out=<path for output>)
+```
+
+  - Create an R file of all the unique roxygen parameter fields in a package R subdirectory
+  
+```r
+#preview
+makeDictionary('R')
+
+#write to file man-roxygen subdirectory of package
+makeDictionary('R',save_path = TRUE)
+```

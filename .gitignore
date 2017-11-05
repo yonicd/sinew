@@ -4,8 +4,6 @@
 .Ruserdata
 cran-comments.md
 *.Rproj
-test
-test.R
 Miscellaneous/b*
 Miscellaneous/docs
 moga_test.R
