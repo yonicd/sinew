@@ -6,6 +6,10 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## 0.3.5.2
+
+### Updated
+  - Fixed bug in `pretty_namespace` when global env is empty.
 
 ## 0.3.5.1
 

@@ -1,6 +1,13 @@
 Sinew News
 ================
 
+0.3.5.2
+-------
+
+### Updated
+
+-   Fixed bug in `pretty_namespace` when global env is empty.
+
 0.3.5.1
 -------
 

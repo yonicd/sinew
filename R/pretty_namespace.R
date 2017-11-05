@@ -84,10 +84,12 @@ pretty_namespace <- function(con = NULL, text= NULL, overwrite = FALSE, sos = FA
     if (length(funs)==0)
       return(txt)
     
-    global.funs <- ls(envir = sys.frame(-4))[sapply(ls(envir = sys.frame(-4)), function(x) class(get(x)) == "function")]
-
-    if (length(global.funs)>0)
-      funs <- funs[!funs %in% global.funs]
+    check_global <- ls(envir = sys.frame(-4))
+    
+    if (length(check_global)>0){
+      global.funs <- check_global[sapply(check_global, function(x) class(get(x)) == "function")]
+      funs <- funs[!funs %in% global.funs]  
+    }
 
     for (x in NMPATH) {
       if (length(funs) == 0) break
