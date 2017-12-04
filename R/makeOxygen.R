@@ -43,28 +43,29 @@
 #' makeOxygen(stats::lm)
 makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fields"), use_dictionary=NULL, print=TRUE, ...) {
   header_add <- sinew_opts$get()
-
+  
   lbl <- deparse(substitute(obj))
   lbl <- gsub('"', "", lbl)
-
+  
   if (is.character(obj)) obj <- eval(parse(text = obj))
-
+  
   if (inherits(obj, c("data.frame", "tibble"))) {
     cl <- sapply(obj, typeof)
-
+    add_fields <- c("details", "source")
+    
     # Write individual item description templates
-    items <- paste0(sprintf("#'   \\item{\\code{%s}}{%s COLUMN_DESCRIPTION}", names(cl), cl), collapse = "\n")
-
+    items <- paste0(sprintf("#'   \\cr  \\code{%s}  \\tab COLUMN_DESCRIPTION", names(cl), cl), collapse = "\n")
+    
     header <- c(
       title = "#' @title DATASET_TITLE",
       description = "#' @description DATASET_DESCRIPTION",
       format = sprintf("#' @format A data frame with %s rows and %s variables:", nrow(obj), length(cl))
     )
-
+    
     ret <- sprintf(
       "%s\n%s\n%s%s",
       paste(header, collapse = "\n"),
-      sprintf("#' \\describe{\n%s \n#'}", items),
+      sprintf("#' \\tabular{ll}{\n%s \n#'}", items),
       ifelse(!is.null(add_fields), {
         paste(
           sprintf(
@@ -78,24 +79,24 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
       sprintf('\n"%s"', lbl)
     )
   }
-
+  
   if (inherits(obj, c("function"))) {
     importList <- list(...)
     importList$script <- obj
     importList$print <- FALSE
     import <- do.call("makeImport", importList)
     if (import == "list()") import <- ""
-
+    
     cutOFF <- switch("cut" %in% names(importList), importList$cut, 3)
     if (import == "") add_fields <- add_fields[!grepl("seealso", add_fields)]
     if ("seealso" %in% add_fields) header_add <- c(header_add, seealso = paste0(makeSeeAlso(obj, cutOFF = cutOFF), collapse = "\n"))
-
+    
     param_desc <- NULL
     if (!is.null(use_dictionary)) param_desc <- ls_param(obj = obj, dictionary = use_dictionary, print = FALSE)
     fn <- as.list(formals(obj))
-
+    
     if ("rdname" %in% add_fields) header_add["rdname"] <- lbl
-
+    
     out <- sapply(names(fn), function(name_y) {
       cl <- class(fn[[name_y]])
       out <- as.character(fn[[name_y]])
@@ -107,7 +108,7 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
         if (nchar(out) > 0) {
           out <- sprintf(", Default: %s", out)
         }
-
+        
         if (!is.null(use_dictionary) & name_y %in% names(param_desc)) {
           p_desc <- param_desc[name_y]
         } else {
@@ -115,18 +116,18 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
         }
         str_out <- sprintf("%s%s", p_desc, out)
       }
-
+      
       return(str_out)
     })
     params <- sprintf("#' @param %s %s", names(out), out)
-
+    
     header <- c(
       title = "#' @title FUNCTION_TITLE",
       description = "#' @description FUNCTION_DESCRIPTION"
     )
-
+    
     footer <- c(return = "#' @return OUTPUT_DESCRIPTION")
-
+    
     ret <- sprintf(
       "%s\n%s\n%s\n%s\n%s",
       paste(header, collapse = "\n"),
@@ -145,8 +146,8 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
       import
     )
   }
-
+  
   if (print) writeLines(ret)
-
+  
   invisible(ret)
 }
