@@ -1,7 +1,7 @@
 Package: sinew
 Type: Package
 Title: Create 'roxygen2' Skeleton with Information from Function Script
-Version: 0.3.5.2
+Version: 0.3.5.3
 Date: 2017-11-05
 Author: c(person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut",
          "cre")), person("Anton","Grishin",role = "ctb"),
@@ -20,4 +20,4 @@ BugReports: https://github.com/metrumresearchgroup/sinew/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000

@@ -27,7 +27,8 @@ Creates roxygen2 skeleton including title, description, import and other fields
 \details{
 add_fields can include any slot except for the defaults (title,description,param,return).
 The order in add_fields determines the order of printout. The roxygen2 fields to add are list below,
-for more information go to \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}
+for more information go to \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}.
+If obj is 'data.frame' or 'tibble' then the fields c('export','examples','seealso','rdname') will be ignored.
 \tabular{ll}{
 \strong{Field}    \tab \strong{Skeleton}                           \cr
 author            \tab AUTHOR [AUTHOR_2]                           \cr

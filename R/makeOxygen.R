@@ -8,7 +8,8 @@
 #' @param ... arguments to be passed to makeImport
 #' @details add_fields can include any slot except for the defaults (title,description,param,return).
 #' The order in add_fields determines the order of printout. The roxygen2 fields to add are list below,
-#' for more information go to \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}
+#' for more information go to \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}.
+#' If obj is 'data.frame' or 'tibble' then the fields c('export','examples','seealso','rdname') will be ignored.
 #' \tabular{ll}{
 #' \strong{Field}    \tab \strong{Skeleton}                           \cr
 #' author            \tab AUTHOR [AUTHOR_2]                           \cr
@@ -61,6 +62,8 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
       format = sprintf("#' @format A data frame with %s rows and %s variables:", nrow(obj), length(cl))
     )
 
+    add_fields <- setdiff(add_fields,c('export','examples','seealso','rdname'))
+    
     ret <- sprintf(
       "%s\n%s\n%s%s",
       paste(header, collapse = "\n"),
