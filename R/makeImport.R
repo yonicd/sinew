@@ -37,7 +37,7 @@ makeImport <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=N
 
     ret <- sapply(PKGS, function(pkg) {
       x <- parsed_f[parsed_f$parent %in% parsed_f$parent[grepl(sprintf("^%s$", pkg), parsed_f$text)], ]
-      fns <- unique(x$text[grepl("CALL$", x$token)])
+      fns <- unique(x$text[!grepl("SYMBOL_PACKAGE", x$token)])
 
       data.frame(pkg = pkg, fns = fns, stringsAsFactors = FALSE)
     }, simplify = FALSE)

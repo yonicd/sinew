@@ -12,3 +12,4 @@ docs
 ^appveyor\.yml$
 ^.*\.yml$
 News.Rmd
+roxy_ex_to_file.R
