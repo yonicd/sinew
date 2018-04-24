@@ -6,8 +6,9 @@
 #' @return writes R file to disk
 #' @details If output is set to NULL then output returned as invisible character object.
 #' @export 
+#' @rdname untangle_examples
 #' @author Jonathan Sidi
-examples_to_file <- function(input, output = './roxy_ex_to_file.R'){
+untangle_examples <- function(input, output = './roxy_ex_to_file.R'){
   
   if (length(input) == 1L && file.info(input)$isdir) {
     files <- list.files(path = input, pattern = ".+\\.[rR]$", full.names = TRUE)
@@ -15,12 +16,27 @@ examples_to_file <- function(input, output = './roxy_ex_to_file.R'){
     files <- input
   }
   
- x <- lapply(files,function(f){
+  td <- file.path(tempdir(), "_sinew")
+  
+  if (!dir.exists(td)) {
+    dir.create(td)
+  }
+  
+  invisible(sapply(files,function(x) untangle(file = x, dir.out = td, keep.body = FALSE)))
+  
+  FILES <- list.files(td, full.names = TRUE)
+  
+  on.exit(expr = {
+    unlink(td,recursive = TRUE,force = TRUE)
+  },
+  add = TRUE)
+  
+ x <- lapply(FILES,function(f){
     l <- readLines(f)
     oxy_current <- paste0(grep("^#'", l, value = TRUE), collapse = "\n")
     out <- get_oxy(oxy_current)['examples']  
     out <- gsub("#'",'',out)
-    attr(out,'filename') <- f
+    attr(out,'filename') <- gsub('\\.R$','',basename(f))
     out
   })
   

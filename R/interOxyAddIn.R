@@ -163,7 +163,7 @@ interOxyAddIn <- function() {
           dir.create(td)
         }
 
-        path <- file.path(td, sprintf("_tempsrc.R"))
+        path <- file.path(td, "_tempsrc.R")
 
         cat(robj()$contents, file = path, sep = "\n")
 
