@@ -21,9 +21,6 @@ single output file.
 \details{
 If output is set to NULL then output returned as invisible character object.
 }
-\seealso{
-\code{\link[roxygen2]{parse_package}}
-}
 \author{
 Jonathan Sidi
 }
