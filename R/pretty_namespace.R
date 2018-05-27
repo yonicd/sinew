@@ -77,6 +77,9 @@ pretty_namespace <- function(con = NULL, text= NULL, overwrite = FALSE, sos = FA
 
     sym.funs <- p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
 
+    if (nrow(sym.funs)==0)
+      return(txt)
+    
     sym.funs$namespace <- NA
 
     funs <- sym.funs$text[is.na(sym.funs$namespace)]
