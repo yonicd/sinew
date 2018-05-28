@@ -77,6 +77,9 @@ pretty_namespace <- function(con = NULL, text= NULL, overwrite = FALSE, sos = FA
 
     sym.funs <- p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
 
+    if (length(sym.funs)==0)
+      return(txt)
+    
     if (nrow(sym.funs)==0)
       return(txt)
     
@@ -87,7 +90,7 @@ pretty_namespace <- function(con = NULL, text= NULL, overwrite = FALSE, sos = FA
     if (length(funs)==0)
       return(txt)
     
-    check_global <- ls(envir = sys.frames()[[1]])
+    check_global <- ls(envir = get(search()[1]))
     
     if (length(check_global)>0){
       global.funs <- check_global[sapply(check_global, function(x) class(get(x)) == "function")]
