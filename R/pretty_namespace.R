@@ -48,7 +48,12 @@ pretty_namespace <- function(con = NULL, text= NULL, overwrite = FALSE, sos = FA
   mf <- function(x, pat) {
     ns <- try(
       {
-        ls(envir = asNamespace(x), pattern = sprintf("^(%s)$", paste0(pat, collapse = "|")))
+        
+        if(!isNamespaceLoaded(x)){
+          y <- attachNamespace(x)  
+        }
+        
+        ls(envir = sprintf('pacakge:%s',x), pattern = sprintf("^(%s)$", paste0(pat, collapse = "|")))
       },
       silent = TRUE
     )
