@@ -136,21 +136,37 @@ pretty_namespace <- function(con = NULL, text= NULL, overwrite = FALSE, sos = FA
 
     idx <- which(!sym.funs$namespace %in% c("base", NA))
 
-    for (ii in 1:length(idx)) {
-      i <- idx[ii]
-
-      if (ii > 1) {
-        i1 <- idx[ii - 1]
-
-        if ((sym.funs$line1[i] - sym.funs$line1[i1]) == 0) {
-          sym.funs$col1[i] <- sym.funs$col1[i] + (nchar(sym.funs$new_text[i1]) - nchar(sym.funs$text[i1]))
-          sym.funs$col2[i] <- sym.funs$col2[i] + (nchar(sym.funs$new_text[i1]) - nchar(sym.funs$text[i1]))
+    sym.funs.i <- split(sym.funs[idx,],sym.funs$line1[idx])
+    
+    sym.funs.i.shift <- lapply(sym.funs.i,function(sf){
+      
+      x <- rep(0,nrow(sf))
+      
+      if(nrow(sf)>1){
+        for(i in 2:nrow(sf)){
+          
+          x[i:nrow(sf)] <- x[i] + (nchar(sf$new_text[i - 1]) - nchar(sf$text[i - 1]))
+          
         }
       }
-
-      stringi::stri_sub(txt[sym.funs$line1[i]], sym.funs$col1[i], sym.funs$col2[i]) <- sym.funs$new_text[i]
+      
+      sf$col_shift <- x
+      
+      sf
+    })
+    
+    sym.funs.shift <- do.call('rbind',sym.funs.i.shift)
+    
+    sym.funs.shift$col1 <- sym.funs.shift$col1 + sym.funs.shift$col_shift
+    sym.funs.shift$col2 <- sym.funs.shift$col2 + sym.funs.shift$col_shift
+    
+    for(i in 1:length(idx)){
+      stringi::stri_sub(
+        str = txt[sym.funs.shift$line1[i]],
+        from = sym.funs.shift$col1[i],
+        to = sym.funs.shift$col2[i]) <- sym.funs.shift$new_text[i]  
     }
-
+    
     if (overwrite) {
       cat(txt, sep = "\n", file = nm)
     } else {
