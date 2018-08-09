@@ -32,46 +32,30 @@
 #' @rdname pretty_namespace
 #' @export
 #' @author Jonathan Sidi
-#' @importFrom stringi stri_sub
-#' @importFrom sos findFn
-#' @importFrom utils help.search
-#' @importFrom crayon red
 pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE) {
   
   if (is.null(text) & is.null(con)) return(NULL)
 
   if (is.null(text)) {
+    
     if (length(con) == 1L && file.info(con)$isdir) {
+      
       files <- list.files(path = con, pattern = ".+\\.[rR]$", full.names = TRUE)
+      
     } else {
+      
       files <- con
+      
     }
 
     TXT <- sapply(files, readLines, warn = FALSE, simplify = FALSE)
+    
   } else {
-    if (length(text) == 1) TXT <- strsplit(text, "\n")
+    
+    if (length(text) == 1) 
+      TXT <- strsplit(text, "\n")
 
     names(TXT) <- sprintf("txt%s", 1:length(TXT))
-  }
-
-  mf <- function(x, pat) {
-    ns <- try(
-      {
-        
-        if(!isNamespaceLoaded(x)){
-          y <- attachNamespace(x)  
-        }
-        
-        ls(envir = sprintf('pacakge:%s',x), pattern = sprintf("^(%s)$", paste0(pat, collapse = "|")))
-      },
-      silent = TRUE
-    )
-
-    if (class(ns) == "try-error") {
-      ns <- vector("character")
-    }
-
-    ns
   }
 
   NMPATH <- loadedNamespaces()
@@ -81,16 +65,11 @@ pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NUL
   DYNPATH <- unlist(sapply(library.dynam(), "[", 2))
 
   RET <- sapply(names(TXT), function(nm) {
+    
     txt <- TXT[[nm]]
 
-    p <- parse(text = txt)
-
-    p1 <- utils::getParseData(p)
-
-    rmParent <- p1$parent[p1$token == "SYMBOL_PACKAGE"]
-
-    sym.funs <- p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
-
+    sym.funs <- pretty_parse(txt)
+    
     if (length(sym.funs)==0)
       return(txt)
     
@@ -104,102 +83,22 @@ pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NUL
     if (length(funs)==0)
       return(txt)
     
-    check_global <- ls(envir = get(search()[1]))
-    
-    if (length(check_global)>0){
-      global.funs <- check_global[sapply(check_global, function(x) class(get(x)) == "function")]
-      funs <- funs[!funs %in% global.funs]  
-    }
+    sym.funs <- pretty_find(
+      NMPATH = NMPATH,
+      sos = sos,
+      sym.funs = sym.funs,
+      funs = funs
+      )
 
-    for (x in NMPATH) {
-      if (length(funs) == 0) break
+    pretty_shift(
+      txt = txt,
+      sym.funs = sym.funs,
+      nm = nm,
+      overwrite = overwrite,
+      force = force,
+      ignore = ignore
+      )
 
-      found <- funs %in% mf(x, funs)
-
-      sym.funs$namespace[sym.funs$text %in% funs[found]] <- x
-
-      funs <- funs[!found]
-    }
-
-    if (length(funs) > 0) {
-      for (fun in funs) {
-        suppressWarnings(fun.help <- utils::help.search(sprintf("^%s$", fun), ignore.case = FALSE))
-        if (nrow(fun.help$matches) > 0) {
-          sym.funs$namespace[sym.funs$text %in% fun] <- fun.help$matches$Package[1]
-          funs <- funs[-match(fun, funs)]
-        }
-      }
-    }
-
-    if (sos & length(funs) > 0) {
-      for (fun in funs) {
-        suppressWarnings(fun.sos <- sos::findFn(fun, maxPages = 1, verbose = 0))
-        if (nrow(fun.sos)) {
-          sym.funs$namespace[sym.funs$text %in% fun] <- fun.sos$Package[1]
-          funs <- funs[-match(fun, funs)]
-        }
-      }
-    }
-
-    if(!is.null(force)){
-      sym.funs <- pretty_merge(sym.funs,force,'replace')
-    }
-
-    if(!is.null(ignore)){
-      sym.funs <- pretty_merge(sym.funs,ignore,'remove')
-    }
-    
-    sym.funs$new_text <- sprintf('%s::%s',sym.funs$namespace, sym.funs$text)  
-    
-    if(!overwrite){
-      sym.funs$new_text <- crayon::red(sym.funs$new_text)
-    }
-
-    idx <- which(!sym.funs$namespace %in% c("base", NA))
-
-    sym.funs.i <- split(sym.funs[idx,],sym.funs$line1[idx])
-    
-    sym.funs.i.shift <- lapply(sym.funs.i,function(sf){
-      
-      x <- rep(0,nrow(sf))
-      
-      if(nrow(sf)>1){
-        for(i in 2:nrow(sf)){
-          
-          x[i:nrow(sf)] <- x[i] + (nchar(sf$new_text[i - 1]) - nchar(sf$text[i - 1]))
-          
-        }
-      }
-      
-      sf$col_shift <- x
-      
-      sf
-    })
-    
-    sym.funs.shift <- do.call('rbind',sym.funs.i.shift)
-    
-    sym.funs.shift$col1 <- sym.funs.shift$col1 + sym.funs.shift$col_shift
-    sym.funs.shift$col2 <- sym.funs.shift$col2 + sym.funs.shift$col_shift
-    
-    for(i in 1:length(idx)){
-      stringi::stri_sub(
-        str = txt[sym.funs.shift$line1[i]],
-        from = sym.funs.shift$col1[i],
-        to = sym.funs.shift$col2[i]) <- sym.funs.shift$new_text[i]  
-    }
-    
-    if (overwrite) {
-      cat(txt, sep = "\n", file = nm)
-      summary_print(sym.funs,file = nm)
-    } else {
-      summary_print(sym.funs,file = nm)
-      writeLines(crayon::white(txt))
-    }
-
-    if (length(funs)) message("Not Found: ", paste0(unique(funs), collapse = ","))
-
-    txt
-    
   }, simplify = FALSE)
 
   if (length(RET) == 1) RET <- RET[[1]]
