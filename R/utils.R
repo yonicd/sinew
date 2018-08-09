@@ -31,3 +31,20 @@ numpad <- function(x){
   ret
 }
 
+pretty_merge <- function(e1,e2,action = 'relpace'){
+
+  e1 <- merge(e1,enframe_list(e2),by = 'text',all.x = TRUE)
+  
+  e1 <- switch(action,
+         'replace'={
+           e1$namespace[!is.na(e1$force_ns)] <- e1$force_ns[!is.na(e1$force_ns)]
+           e1
+         },
+         'remove'={
+           e1[is.na(e1$force_ns),]
+         })
+
+  e1$force_ns <- NULL
+  
+  e1[order(e1$id),]
+}

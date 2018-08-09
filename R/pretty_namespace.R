@@ -4,12 +4,15 @@
 #' @param text character, vector that contains script, Default: NULL
 #' @param force list, named list of functions to force over the
 #'  internal search (seee details), Default: NULL
+#' @param ignore list, named list of functions to ignore (seee details), Default: NULL
 #' @param overwrite boolean, overwrite original file, Default: FALSE
 #' @param sos boolean, apply sos search for uninstalled libraries, Default: FALSE
 #' @return character
 #' @details Searches for functions in the loadedNamespace, help.search and then \code{\link[sos]{findFn}}.
 #' If force is not NULL but a named list eg list(stats=c('rnorm','runif'),utils = 'head'),
 #' then the value pairs will be used in place of what was found using the search path.
+#' If ignore is not NULL but a named list eg list(stats=c('rnorm','runif'),utils = 'head'),
+#' then if the functions are found they will not have a namespace attached to them.
 #' @examples
 #' txt <- '#some comment
 #' yy <- function(a=4){
@@ -33,7 +36,7 @@
 #' @importFrom sos findFn
 #' @importFrom utils help.search
 #' @importFrom crayon red
-pretty_namespace <- function(con = NULL, text = NULL, force = NULL, overwrite = FALSE, sos = FALSE) {
+pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE) {
   
   if (is.null(text) & is.null(con)) return(NULL)
 
@@ -139,12 +142,11 @@ pretty_namespace <- function(con = NULL, text = NULL, force = NULL, overwrite = 
     }
 
     if(!is.null(force)){
-      force <- enframe_list(force)
-      sym.funs <- merge(sym.funs,force,by = 'text',all.x = TRUE)
-      sym.funs$namespace[!is.na(sym.funs$force_ns)] <- sym.funs$force_ns[!is.na(sym.funs$force_ns)]
-      sym.funs$force_ns <- NULL
-      
-      sym.funs <- sym.funs[order(sym.funs$id),]
+      sym.funs <- pretty_merge(sym.funs,force,'replace')
+    }
+
+    if(!is.null(ignore)){
+      sym.funs <- pretty_merge(sym.funs,ignore,'remove')
     }
     
     sym.funs$new_text <- sprintf('%s::%s',sym.funs$namespace, sym.funs$text)  
