@@ -188,9 +188,9 @@ pretty_namespace <- function(con = NULL, text = NULL, force = NULL, overwrite = 
     
     if (overwrite) {
       cat(txt, sep = "\n", file = nm)
-      summary_print(sym.funs)
+      summary_print(sym.funs,file = nm)
     } else {
-      summary_print(sym.funs)
+      summary_print(sym.funs,file = nm)
       writeLines(crayon::white(txt))
     }
 
