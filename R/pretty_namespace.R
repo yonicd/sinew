@@ -2,10 +2,14 @@
 #' @description Autoappend namespace to functions in script by searchpath order
 #' @param con character, path to file or directory that contains script, Default: NULL
 #' @param text character, vector that contains script, Default: NULL
+#' @param force list, named list of functions to force over the
+#'  internal search (seee details), Default: NULL
 #' @param overwrite boolean, overwrite original file, Default: FALSE
 #' @param sos boolean, apply sos search for uninstalled libraries, Default: FALSE
 #' @return character
-#' @details searches for functions in the loadedNamespace, help.search and then \code{\link[sos]{findFn}}
+#' @details Searches for functions in the loadedNamespace, help.search and then \code{\link[sos]{findFn}}.
+#' If force is not NULL but a named list eg list(stats=c('rnorm','runif'),utils = 'head'),
+#' then the value pairs will be used in place of what was found using the search path.
 #' @examples
 #' txt <- '#some comment
 #' yy <- function(a=4){
@@ -28,7 +32,9 @@
 #' @importFrom stringi stri_sub
 #' @importFrom sos findFn
 #' @importFrom utils help.search
-pretty_namespace <- function(con = NULL, text= NULL, overwrite = FALSE, sos = FALSE) {
+#' @importFrom crayon red
+pretty_namespace <- function(con = NULL, text = NULL, force = NULL, overwrite = FALSE, sos = FALSE) {
+  
   if (is.null(text) & is.null(con)) return(NULL)
 
   if (is.null(text)) {
@@ -132,7 +138,20 @@ pretty_namespace <- function(con = NULL, text= NULL, overwrite = FALSE, sos = FA
       }
     }
 
-    sym.funs$new_text <- paste(sym.funs$namespace, sym.funs$text, sep = "::")
+    if(!is.null(force)){
+      force <- enframe_list(force)
+      sym.funs <- merge(sym.funs,force,by = 'text',all.x = TRUE)
+      sym.funs$namespace[!is.na(sym.funs$force_ns)] <- sym.funs$force_ns[!is.na(sym.funs$force_ns)]
+      sym.funs$force_ns <- NULL
+      
+      sym.funs <- sym.funs[order(sym.funs$id),]
+    }
+    
+    sym.funs$new_text <- sprintf('%s::%s',sym.funs$namespace, sym.funs$text)  
+    
+    if(!overwrite){
+      sym.funs$new_text <- crayon::red(sym.funs$new_text)
+    }
 
     idx <- which(!sym.funs$namespace %in% c("base", NA))
 
@@ -169,13 +188,16 @@ pretty_namespace <- function(con = NULL, text= NULL, overwrite = FALSE, sos = FA
     
     if (overwrite) {
       cat(txt, sep = "\n", file = nm)
+      summary_print(sym.funs)
     } else {
-      writeLines(txt)
+      summary_print(sym.funs)
+      writeLines(crayon::white(txt))
     }
 
     if (length(funs)) message("Not Found: ", paste0(unique(funs), collapse = ","))
 
     txt
+    
   }, simplify = FALSE)
 
   if (length(RET) == 1) RET <- RET[[1]]
