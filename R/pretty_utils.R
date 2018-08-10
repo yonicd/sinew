@@ -152,6 +152,8 @@ enframe_list <- function(x){
 pretty_print <- function(obj,file){
   if(nrow(obj)==0)
     return(NULL)
+  
+  obj <- obj[!obj$namespace %in% c("base", NA),]
     
   cat(
     sprintf("\nfunctions changed in '%s':\n%s\n\n",
