@@ -1,15 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-Miscellaneous/*
 man-roxygen
 README.md
 ^cran-comments\.md$
-test
-test.R
-moga_test*.R
-docs
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^.*\.yml$
 News.Rmd
-roxy_ex_to_file.R

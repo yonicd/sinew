@@ -50,10 +50,19 @@ knitr::opts_chunk$set(echo = TRUE)
 ## 0.3.6
 
 <details>
+<summary>Added</summary>
+
+  - `pretty_namespace`
+    - add console summary output for changes in file
+
+</details>
+
+<details>
 <summary>Updated</summary>
 
   - Fixed bugs in `pretty_namespace`
     - correct shift in lines with multiple namespaces
     - search only exported namespace functions
+    - function split up into smaller functions found in pretty_utils
 
 </details>
