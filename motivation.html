@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Sinew: Simple R Package Documentation</title>
   <meta name="description" content="sinew user guide">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Sinew: Simple R Package Documentation" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Sidi, Metrum Research Group">
 
 
-<meta name="date" content="2017-12-04">
+<meta name="date" content="2018-08-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,41 +50,69 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -171,17 +199,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>You start a new project and open a file to develop your idea. Many functions later at the end of the day you look up and you have created a mess of a file.</li>
 </ul>
-<div class="figure">
-<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/Guy-Tangled-in-Lights.jpg?raw=true" />
-
-</div>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/Guy-Tangled-in-Lights.jpg?raw=true" /></p>
 <ul>
 <li>You recieve a mammoth 10,000 line uncommented file to decipher for QC - good luck.</li>
 </ul>
-<div class="figure">
-<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/xmaslights.gif?raw=true" />
-
-</div>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/xmaslights.gif?raw=true" /></p>
 <p><code>Sinew</code> can help turn the around that headache into a CRAN ready package in a few short steps</p>
 <ol style="list-style-type: decimal">
 <li>Open a package project in Rstudio</li>
@@ -197,77 +219,71 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">2.0.2</span> Working example</h3>
 <p>Lets use a reproducible example - <strong>The goal is to convert raw script in a file called <a href="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/test/test.R">test.R</a> into a package.</strong></p>
 <p>The file includes two functions <code>yy</code> and <code>zz</code> and some general script that uses them</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#some comment</span>
-yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>){
-  <span class="kw">head</span>(<span class="kw">runif</span>(<span class="dv">10</span>),a)
-  <span class="co"># a comment</span>
-}
-
-zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){
-  <span class="kw">head</span>(<span class="kw">runif</span>(v),a)
-}
-
-
-<span class="kw">yy</span>(<span class="dv">6</span>)
-
-<span class="kw">zz</span>(<span class="dv">30</span>,<span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">#some comment</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>){</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="kw">head</span>(<span class="kw">runif</span>(<span class="dv">10</span>),a)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="co"># a comment</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">  <span class="kw">head</span>(<span class="kw">runif</span>(v),a)</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="kw">yy</span>(<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="kw">zz</span>(<span class="dv">30</span>,<span class="dv">3</span>)</a></code></pre></div>
 <p>To start we initialize a <code>R</code> subdirectory and a DESCRIPTION file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dir.create</span>(<span class="st">&#39;R&#39;</span>)
-devtools<span class="op">::</span><span class="kw">create_description</span>()</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">dir.create</span>(<span class="st">&#39;R&#39;</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">create_description</span>()</a></code></pre></div>
 <div id="untangling-files" class="section level4">
 <h4><span class="header-section-number">2.0.2.1</span> Untangling Files</h4>
 <p>One of the first tasks for new developers is to move from long scripts that are intertwined with functions and body code into single function files in a R subdirectory and a clean body script that is easier to read.</p>
 <p>This task is probably a non-starter if you have more than a few hundered lines of code. This is where <a href="https://metrumresearchgroup.github.io/sinew/untangle.html">untangle</a> can save you time. <code>untangle</code> will separate the long script into single function files in a subdirectory and keep the body script intact.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untangle</span>(<span class="dt">file =</span> <span class="st">&#39;test.R&#39;</span>,<span class="dt">dir.out =</span> <span class="st">&#39;R&#39;</span>)</code></pre></div>
-<div class="figure">
-<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/untangle_test.gif?raw=true" />
-
-</div>
-<p>As we can see we got three new files. - <code>body.R</code> in the working directory - <code>yy.R</code> in the <code>R</code> subdirectory - <code>zz.R</code> in the <code>R</code> subdirectory</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">untangle</span>(<span class="dt">file =</span> <span class="st">&#39;test.R&#39;</span>,<span class="dt">dir.out =</span> <span class="st">&#39;R&#39;</span>)</a></code></pre></div>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/untangle_test.gif?raw=true" /></p>
+<p>As we can see we got three new files.
+- <code>body.R</code> in the working directory
+- <code>yy.R</code> in the <code>R</code> subdirectory
+- <code>zz.R</code> in the <code>R</code> subdirectory</p>
 </div>
 <div id="namespacing" class="section level4">
 <h4><span class="header-section-number">2.0.2.2</span> Namespacing</h4>
 <p>It has become common practice to use the namespace in function calls, and it is obligatory in order to pass a cran check. But, not everyone does it and if you’re not use to it, it’s a pain to go back and update your script.</p>
 <p>This is where <a href="https://metrumresearchgroup.github.io/sinew/pretty-namespace.html">pretty_namespace</a> comes in. This function will go through your script and attach namespaces for you, with the same logic as the search path.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pretty_namespace</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<div class="figure">
-<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/pretty_ns_test.gif?raw=true" />
-
-</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">pretty_namespace</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/pretty_ns_test.gif?raw=true" /></p>
 <p>So now we have separate files with functions appropriatly associated with namespaces, and now we can add roxygen2 headers.</p>
 </div>
 <div id="documentation" class="section level4">
 <h4><span class="header-section-number">2.0.2.3</span> Documentation</h4>
 <p>Now we are ready to create the function documentation using roxygen2. We use <a href="file:///Users/jonathans/projects/sinew/Miscellaneous/docs/makeoxygen.html">makeOxygen</a> to create a skeleton for <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> documentation. This function returns a skeleton that includes title, description, return, import and other fields populated with information scraped from the function script. We can also run <code>makeOxygen</code> in batch mode using <a href="file:///Users/jonathans/projects/sinew/Miscellaneous/docs/makeoxyfile.html">makeOxyFile</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeOxyFile</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<div class="figure">
-<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/oxy_test.gif?raw=true" />
-
-</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">makeOxyFile</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/oxy_test.gif?raw=true" /></p>
 <p>Lets see what we got back in <code>zz.R</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; @title FUNCTION_TITLE</span>
-<span class="co">#&#39; @description FUNCTION_DESCRIPTION</span>
-<span class="co">#&#39; @param v PARAM_DESCRIPTION, Default: 10</span>
-<span class="co">#&#39; @param a PARAM_DESCRIPTION, Default: 8</span>
-<span class="co">#&#39; @return OUTPUT_DESCRIPTION</span>
-<span class="co">#&#39; @details DETAILS</span>
-<span class="co">#&#39; @examples </span>
-<span class="co">#&#39; \dontrun{</span>
-<span class="co">#&#39; if(interactive()){</span>
-<span class="co">#&#39;  #EXAMPLE1</span>
-<span class="co">#&#39;  }</span>
-<span class="co">#&#39; }</span>
-<span class="co">#&#39; @seealso </span>
-<span class="co">#&#39;  \code{\link[utils]{head}}</span>
-<span class="co">#&#39;  \code{\link[stats]{runif}}</span>
-<span class="co">#&#39; @rdname zz</span>
-<span class="co">#&#39; @export </span>
-<span class="co">#&#39; @author Jonathan Sidi</span>
-<span class="co">#&#39; @importFrom utils head</span>
-<span class="co">#&#39; @importFrom stats runif</span>
-zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){
-  utils<span class="op">::</span><span class="kw">head</span>(stats<span class="op">::</span><span class="kw">runif</span>(v),a)
-}</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co">#&#39; @title FUNCTION_TITLE</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&#39; @description FUNCTION_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&#39; @param v PARAM_DESCRIPTION, Default: 10</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&#39; @param a PARAM_DESCRIPTION, Default: 8</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&#39; @return OUTPUT_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&#39; @details DETAILS</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&#39; @examples </span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&#39; \dontrun{</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&#39; if(interactive()){</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&#39;  #EXAMPLE1</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&#39;  }</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&#39; }</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&#39; @seealso </span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&#39;  \code{\link[utils]{head}}</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&#39;  \code{\link[stats]{runif}}</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&#39; @rdname zz</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&#39; @export </span></a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&#39; @author Jonathan Sidi</span></a>
+<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&#39; @importFrom utils head</span></a>
+<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="co">#&#39; @importFrom stats runif</span></a>
+<a class="sourceLine" id="cb9-21" data-line-number="21">zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){</a>
+<a class="sourceLine" id="cb9-22" data-line-number="22">  utils<span class="op">::</span><span class="kw">head</span>(stats<span class="op">::</span><span class="kw">runif</span>(v),a)</a>
+<a class="sourceLine" id="cb9-23" data-line-number="23">}</a></code></pre></div>
 <p>The premise of <code>makeOxygen</code> is to expand on the default skeleton in RStudio, so basic fields are in the output by default. Each field is given with a relevant placeholder giving a hint what is expected. The following is the meat add to these bones:</p>
 <ul>
 <li>param default values:
@@ -287,157 +303,151 @@ zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="d
 <div id="description" class="section level4">
 <h4><span class="header-section-number">2.0.2.4</span> DESCRIPTION</h4>
 <p>It is also important to update the package description file <code>Imports</code> field. This can be done for you with <a href="file:///Users/jonathans/projects/sinew/Miscellaneous/docs/makeimport.html#description">makeImport</a>, by either creating a new <code>Imports</code> field or updating an existing one.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeImport</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">format =</span> <span class="st">&#39;description&#39;</span>,<span class="dt">desc_loc =</span> <span class="st">&#39;.&#39;</span>)</code></pre></div>
-<div class="figure">
-<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/makeimport_test.gif?raw=true" />
-
-</div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">makeImport</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">format =</span> <span class="st">&#39;description&#39;</span>,<span class="dt">desc_loc =</span> <span class="st">&#39;.&#39;</span>)</a></code></pre></div>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/makeimport_test.gif?raw=true" /></p>
 </div>
 <div id="update-documentation" class="section level4">
 <h4><span class="header-section-number">2.0.2.5</span> Update documentation</h4>
 <p>An important part of maintaining a package is keeping the documentation updated. Using <a href="file:///Users/jonathans/projects/sinew/Miscellaneous/docs/moga.html">moga</a> we can achieve this painlessly. <code>moga</code> runs the same underlying script as <code>makeOxygen</code> but appends new information found into the current roxygen2 header instead of creating a new one.</p>
 <p>Lets say we updated <code>yy.R</code> to include another param and used another function from the <code>stats</code> package. So the roxygen2 header is now out of synch with the current script.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#some comment</span>
-<span class="co">#&#39; @title FUNCTION_TITLE</span>
-<span class="co">#&#39; @description FUNCTION_DESCRIPTION</span>
-<span class="co">#&#39; @param a numeric, set the head to trim from random unif Default: 4</span>
-<span class="co">#&#39; @return OUTPUT_DESCRIPTION</span>
-<span class="co">#&#39; @details DETAILS</span>
-<span class="co">#&#39; @examples </span>
-<span class="co">#&#39; \dontrun{</span>
-<span class="co">#&#39; if(interactive()){</span>
-<span class="co">#&#39;  #EXAMPLE1</span>
-<span class="co">#&#39;  }</span>
-<span class="co">#&#39; }</span>
-<span class="co">#&#39; @seealso </span>
-<span class="co">#&#39;  \code{\link[utils]{head}}</span>
-<span class="co">#&#39;  \code{\link[stats]{runif}}</span>
-<span class="co">#&#39; @rdname yy</span>
-<span class="co">#&#39; @export </span>
-<span class="co">#&#39; @author Jonathan Sidi</span>
-<span class="co">#&#39; @importFrom utils head</span>
-<span class="co">#&#39; @importFrom stats runif</span>
-yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>,<span class="dt">b=</span><span class="dv">2</span>){
-  x &lt;-<span class="st"> </span>utils<span class="op">::</span><span class="kw">head</span>(stats<span class="op">::</span><span class="kw">runif</span>(<span class="dv">10</span><span class="op">*</span>b),a)
-  stats<span class="op">::</span><span class="kw">quantile</span>(x,<span class="dt">probs=</span>.<span class="dv">95</span>)
-  <span class="co"># a comment</span>
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moga</span>(<span class="st">&#39;R/yy.r&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<div class="figure">
-<img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/moga_test.gif?raw=true" />
-
-</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">#some comment</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&#39; @title FUNCTION_TITLE</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&#39; @description FUNCTION_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&#39; @param a numeric, set the head to trim from random unif Default: 4</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&#39; @return OUTPUT_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&#39; @details DETAILS</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&#39; @examples </span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&#39; \dontrun{</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&#39; if(interactive()){</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&#39;  #EXAMPLE1</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&#39;  }</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#&#39; }</span></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&#39; @seealso </span></a>
+<a class="sourceLine" id="cb11-14" data-line-number="14"><span class="co">#&#39;  \code{\link[utils]{head}}</span></a>
+<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="co">#&#39;  \code{\link[stats]{runif}}</span></a>
+<a class="sourceLine" id="cb11-16" data-line-number="16"><span class="co">#&#39; @rdname yy</span></a>
+<a class="sourceLine" id="cb11-17" data-line-number="17"><span class="co">#&#39; @export </span></a>
+<a class="sourceLine" id="cb11-18" data-line-number="18"><span class="co">#&#39; @author Jonathan Sidi</span></a>
+<a class="sourceLine" id="cb11-19" data-line-number="19"><span class="co">#&#39; @importFrom utils head</span></a>
+<a class="sourceLine" id="cb11-20" data-line-number="20"><span class="co">#&#39; @importFrom stats runif</span></a>
+<a class="sourceLine" id="cb11-21" data-line-number="21">yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>,<span class="dt">b=</span><span class="dv">2</span>){</a>
+<a class="sourceLine" id="cb11-22" data-line-number="22">  x &lt;-<span class="st"> </span>utils<span class="op">::</span><span class="kw">head</span>(stats<span class="op">::</span><span class="kw">runif</span>(<span class="dv">10</span><span class="op">*</span>b),a)</a>
+<a class="sourceLine" id="cb11-23" data-line-number="23">  stats<span class="op">::</span><span class="kw">quantile</span>(x,<span class="dt">probs=</span>.<span class="dv">95</span>)</a>
+<a class="sourceLine" id="cb11-24" data-line-number="24">  <span class="co"># a comment</span></a>
+<a class="sourceLine" id="cb11-25" data-line-number="25">}</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">moga</span>(<span class="st">&#39;R/yy.r&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/moga_test.gif?raw=true" /></p>
 </div>
 <div id="oxygenize-and-check" class="section level4">
 <h4><span class="header-section-number">2.0.2.6</span> Oxygenize and Check</h4>
 <div id="oxygenize" class="section level5">
 <h5><span class="header-section-number">2.0.2.6.1</span> Oxygenize</h5>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">document</span>()
-Updating test documentation
-Loading test
-First time using roxygen2. Upgrading automatically...
-Updating roxygen version <span class="cf">in</span> <span class="op">/</span>Users<span class="op">/</span>jonathans<span class="op">/</span>projects<span class="op">/</span>sinew<span class="op">/</span>Miscellaneous<span class="op">/</span>test<span class="op">/</span>DESCRIPTION
-Writing NAMESPACE
-Writing yy.Rd
-Writing zz.Rd</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">document</span>()</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">Updating test documentation</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">Loading test</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">First time using roxygen2. Upgrading automatically...</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">Updating roxygen version <span class="cf">in</span> <span class="op">/</span>Users<span class="op">/</span>jonathans<span class="op">/</span>projects<span class="op">/</span>sinew<span class="op">/</span>Miscellaneous<span class="op">/</span>test<span class="op">/</span>DESCRIPTION</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">Writing NAMESPACE</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">Writing yy.Rd</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">Writing zz.Rd</a></code></pre></div>
 </div>
 <div id="r-cmd-check" class="section level5">
 <h5><span class="header-section-number">2.0.2.6.2</span> R CMD Check</h5>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">use_mit_license</span>()
-<span class="op">*</span><span class="st"> </span>Updating license field <span class="cf">in</span> DESCRIPTION.
-<span class="op">*</span><span class="st"> </span>Creating <span class="st">`</span><span class="dt">LICENSE</span><span class="st">`</span> from template.
-
-devtools<span class="op">::</span><span class="kw">check</span>(<span class="dt">cran =</span> <span class="ot">TRUE</span>)
-Updating test documentation
-Loading test
-Setting env vars <span class="op">-------------------------------------------------------</span>
-CFLAGS  <span class="op">:</span><span class="st"> </span><span class="op">-</span>Wall <span class="op">-</span>pedantic
-CXXFLAGS<span class="op">:</span><span class="st"> </span><span class="op">-</span>Wall <span class="op">-</span>pedantic
-Building test <span class="op">----------------------------------------------------------</span>
-<span class="st">&#39;/Library/Frameworks/R.framework/Resources/bin/R&#39;</span> <span class="op">--</span>no<span class="op">-</span>site<span class="op">-</span>file  \
-  <span class="op">--</span>no<span class="op">-</span>environ <span class="op">--</span>no<span class="op">-</span>save <span class="op">--</span>no<span class="op">-</span>restore <span class="op">--</span>quiet CMD build  \
-  <span class="st">&#39;/Users/jonathans/projects/sinew/Miscellaneous/test&#39;</span>  \
-  <span class="op">--</span>no<span class="op">-</span>resave<span class="op">-</span>data <span class="op">--</span>no<span class="op">-</span>manual 
-
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> file ‘<span class="op">/</span>Users<span class="op">/</span>jonathans<span class="op">/</span>projects<span class="op">/</span>sinew<span class="op">/</span>Miscellaneous<span class="op">/</span>test<span class="op">/</span>DESCRIPTION’ ... OK
-<span class="op">*</span><span class="st"> </span>preparing ‘test’<span class="op">:</span>
-<span class="er">*</span><span class="st"> </span>checking DESCRIPTION meta<span class="op">-</span>information ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> LF line<span class="op">-</span>endings <span class="cf">in</span> source and make files
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> empty or unneeded directories
-<span class="op">*</span><span class="st"> </span>building ‘test_<span class="fl">0.0</span>.<span class="fl">0.9000</span>.tar.gz’
-
-Setting env vars <span class="op">-------------------------------------------------------</span>
-_R_CHECK_CRAN_INCOMING_ <span class="op">:</span><span class="st"> </span><span class="ot">FALSE</span>
-_R_CHECK_FORCE_SUGGESTS_<span class="op">:</span><span class="st"> </span><span class="ot">FALSE</span>
-Checking test <span class="op">----------------------------------------------------------</span>
-<span class="st">&#39;/Library/Frameworks/R.framework/Resources/bin/R&#39;</span> <span class="op">--</span>no<span class="op">-</span>site<span class="op">-</span>file  \
-  <span class="op">--</span>no<span class="op">-</span>environ <span class="op">--</span>no<span class="op">-</span>save <span class="op">--</span>no<span class="op">-</span>restore <span class="op">--</span>quiet CMD check  \
-  <span class="st">&#39;/var/folders/4_/xhs9__yd49l4v4j4wdg9f0wr0000gp/T//Rtmp1KA1SX/test_0.0.0.9000.tar.gz&#39;</span>  \
-  <span class="op">--</span>as<span class="op">-</span>cran <span class="op">--</span>timings <span class="op">--</span>no<span class="op">-</span>manual 
-
-<span class="op">*</span><span class="st"> </span>using log directory ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span>4_<span class="op">/</span>xhs9__yd49l4v4j4wdg9f0wr0000gp<span class="op">/</span>T<span class="op">/</span>Rtmp1KA1SX<span class="op">/</span>test.Rcheck’
-<span class="op">*</span><span class="st"> </span>using R version <span class="fl">3.3</span>.<span class="dv">3</span> (<span class="dv">2017</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">06</span>)
-<span class="op">*</span><span class="st"> </span>using platform<span class="op">:</span><span class="st"> </span>x86_<span class="dv">64</span><span class="op">-</span>apple<span class="op">-</span><span class="kw">darwin13.4.0</span> (<span class="dv">64</span><span class="op">-</span>bit)
-<span class="op">*</span><span class="st"> </span>using session charset<span class="op">:</span><span class="st"> </span>UTF<span class="op">-</span><span class="dv">8</span>
-<span class="op">*</span><span class="st"> </span>using options ‘<span class="op">--</span>no<span class="op">-</span>manual <span class="op">--</span>as<span class="op">-</span>cran’
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> file ‘test<span class="op">/</span>DESCRIPTION’ ... OK
-<span class="op">*</span><span class="st"> </span>this is package ‘test’ version ‘<span class="fl">0.0</span>.<span class="fl">0.9000</span>’
-<span class="op">*</span><span class="st"> </span>package encoding<span class="op">:</span><span class="st"> </span>UTF<span class="op">-</span><span class="dv">8</span>
-<span class="op">*</span><span class="st"> </span>checking package namespace information ... OK
-<span class="op">*</span><span class="st"> </span>checking package dependencies ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">if</span> this is a source package ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">if</span> there is a namespace ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> executable files ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> hidden files and directories ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> portable file names ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> sufficient<span class="op">/</span>correct file permissions ... OK
-<span class="op">*</span><span class="st"> </span>checking whether package ‘test’ can be installed ... OK
-<span class="op">*</span><span class="st"> </span>checking installed package size ... OK
-<span class="op">*</span><span class="st"> </span>checking package directory ... OK
-<span class="op">*</span><span class="st"> </span>checking DESCRIPTION meta<span class="op">-</span>information ... OK
-<span class="op">*</span><span class="st"> </span>checking top<span class="op">-</span>level files ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> left<span class="op">-</span>over files ... OK
-<span class="op">*</span><span class="st"> </span>checking index information ... OK
-<span class="op">*</span><span class="st"> </span>checking package subdirectories ... OK
-<span class="op">*</span><span class="st"> </span>checking R files <span class="cf">for</span> non<span class="op">-</span>ASCII characters ... OK
-<span class="op">*</span><span class="st"> </span>checking R files <span class="cf">for</span> syntax errors ... OK
-<span class="op">*</span><span class="st"> </span>checking whether the package can be loaded ... OK
-<span class="op">*</span><span class="st"> </span>checking whether the package can be loaded with stated dependencies ... OK
-<span class="op">*</span><span class="st"> </span>checking whether the package can be unloaded cleanly ... OK
-<span class="op">*</span><span class="st"> </span>checking whether the namespace can be loaded with stated dependencies ... OK
-<span class="op">*</span><span class="st"> </span>checking whether the namespace can be unloaded cleanly ... OK
-<span class="op">*</span><span class="st"> </span>checking loading without being on the library search path ... OK
-<span class="op">*</span><span class="st"> </span>checking dependencies <span class="cf">in</span> R code ... OK
-<span class="op">*</span><span class="st"> </span>checking S3 generic<span class="op">/</span>method consistency ... OK
-<span class="op">*</span><span class="st"> </span>checking replacement functions ... OK
-<span class="op">*</span><span class="st"> </span>checking foreign <span class="cf">function</span> calls ... OK
-<span class="op">*</span><span class="st"> </span>checking R code <span class="cf">for</span> possible problems ... OK
-<span class="op">*</span><span class="st"> </span>checking Rd files ... OK
-<span class="op">*</span><span class="st"> </span>checking Rd metadata ... OK
-<span class="op">*</span><span class="st"> </span>checking Rd line widths ... OK
-<span class="op">*</span><span class="st"> </span>checking Rd cross<span class="op">-</span>references ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> missing documentation entries ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> code<span class="op">/</span>documentation mismatches ... OK
-<span class="op">*</span><span class="st"> </span>checking Rd \usage sections ... OK
-<span class="op">*</span><span class="st"> </span>checking Rd contents ... OK
-<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> unstated dependencies <span class="cf">in</span> examples ... OK
-<span class="op">*</span><span class="st"> </span>checking examples ... OK
-<span class="op">*</span><span class="st"> </span>DONE
-
-Status<span class="op">:</span><span class="st"> </span>OK
-
-R CMD check results
-<span class="dv">0</span> errors <span class="op">|</span><span class="st"> </span><span class="dv">0</span> warnings <span class="op">|</span><span class="st"> </span><span class="dv">0</span> notes</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">use_mit_license</span>()</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="op">*</span><span class="st"> </span>Updating license field <span class="cf">in</span> DESCRIPTION.</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="op">*</span><span class="st"> </span>Creating <span class="st">`</span><span class="dt">LICENSE</span><span class="st">`</span> from template.</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">devtools<span class="op">::</span><span class="kw">check</span>(<span class="dt">cran =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">Updating test documentation</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7">Loading test</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8">Setting env vars <span class="op">-------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9">CFLAGS  <span class="op">:</span><span class="st"> </span><span class="op">-</span>Wall <span class="op">-</span>pedantic</a>
+<a class="sourceLine" id="cb14-10" data-line-number="10">CXXFLAGS<span class="op">:</span><span class="st"> </span><span class="op">-</span>Wall <span class="op">-</span>pedantic</a>
+<a class="sourceLine" id="cb14-11" data-line-number="11">Building test <span class="op">----------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="st">&#39;/Library/Frameworks/R.framework/Resources/bin/R&#39;</span> <span class="op">--</span>no<span class="op">-</span>site<span class="op">-</span>file  \</a>
+<a class="sourceLine" id="cb14-13" data-line-number="13">  <span class="op">--</span>no<span class="op">-</span>environ <span class="op">--</span>no<span class="op">-</span>save <span class="op">--</span>no<span class="op">-</span>restore <span class="op">--</span>quiet CMD build  \</a>
+<a class="sourceLine" id="cb14-14" data-line-number="14">  <span class="st">&#39;/Users/jonathans/projects/sinew/Miscellaneous/test&#39;</span>  \</a>
+<a class="sourceLine" id="cb14-15" data-line-number="15">  <span class="op">--</span>no<span class="op">-</span>resave<span class="op">-</span>data <span class="op">--</span>no<span class="op">-</span>manual </a>
+<a class="sourceLine" id="cb14-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb14-17" data-line-number="17"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> file ‘<span class="op">/</span>Users<span class="op">/</span>jonathans<span class="op">/</span>projects<span class="op">/</span>sinew<span class="op">/</span>Miscellaneous<span class="op">/</span>test<span class="op">/</span>DESCRIPTION’ ... OK</a>
+<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="op">*</span><span class="st"> </span>preparing ‘test’<span class="op">:</span></a>
+<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="er">*</span><span class="st"> </span>checking DESCRIPTION meta<span class="op">-</span>information ... OK</a>
+<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> LF line<span class="op">-</span>endings <span class="cf">in</span> source and make files</a>
+<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> empty or unneeded directories</a>
+<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="op">*</span><span class="st"> </span>building ‘test_<span class="dv">0</span>.<span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">9000.</span>tar.gz’</a>
+<a class="sourceLine" id="cb14-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb14-24" data-line-number="24">Setting env vars <span class="op">-------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb14-25" data-line-number="25">_R_CHECK_CRAN_INCOMING_ <span class="op">:</span><span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb14-26" data-line-number="26">_R_CHECK_FORCE_SUGGESTS_<span class="op">:</span><span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb14-27" data-line-number="27">Checking test <span class="op">----------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb14-28" data-line-number="28"><span class="st">&#39;/Library/Frameworks/R.framework/Resources/bin/R&#39;</span> <span class="op">--</span>no<span class="op">-</span>site<span class="op">-</span>file  \</a>
+<a class="sourceLine" id="cb14-29" data-line-number="29">  <span class="op">--</span>no<span class="op">-</span>environ <span class="op">--</span>no<span class="op">-</span>save <span class="op">--</span>no<span class="op">-</span>restore <span class="op">--</span>quiet CMD check  \</a>
+<a class="sourceLine" id="cb14-30" data-line-number="30">  <span class="st">&#39;/var/folders/4_/xhs9__yd49l4v4j4wdg9f0wr0000gp/T//Rtmp1KA1SX/test_0.0.0.9000.tar.gz&#39;</span>  \</a>
+<a class="sourceLine" id="cb14-31" data-line-number="31">  <span class="op">--</span>as<span class="op">-</span>cran <span class="op">--</span>timings <span class="op">--</span>no<span class="op">-</span>manual </a>
+<a class="sourceLine" id="cb14-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb14-33" data-line-number="33"><span class="op">*</span><span class="st"> </span>using log directory ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">4</span>_<span class="op">/</span>xhs9__yd49l4v4j4wdg9f0wr0000gp<span class="op">/</span>T<span class="op">/</span>Rtmp1KA1SX<span class="op">/</span>test.Rcheck’</a>
+<a class="sourceLine" id="cb14-34" data-line-number="34"><span class="op">*</span><span class="st"> </span>using R version <span class="dv">3</span>.<span class="fl">3.3</span> (<span class="dv">2017-03-06</span>)</a>
+<a class="sourceLine" id="cb14-35" data-line-number="35"><span class="op">*</span><span class="st"> </span>using platform<span class="op">:</span><span class="st"> </span>x86_<span class="dv">64</span><span class="op">-</span>apple<span class="op">-</span><span class="kw">darwin13.4.0</span> (<span class="dv">64</span><span class="op">-</span>bit)</a>
+<a class="sourceLine" id="cb14-36" data-line-number="36"><span class="op">*</span><span class="st"> </span>using session charset<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></a>
+<a class="sourceLine" id="cb14-37" data-line-number="37"><span class="op">*</span><span class="st"> </span>using options ‘<span class="op">--</span>no<span class="op">-</span>manual <span class="op">--</span>as<span class="op">-</span>cran’</a>
+<a class="sourceLine" id="cb14-38" data-line-number="38"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> file ‘test<span class="op">/</span>DESCRIPTION’ ... OK</a>
+<a class="sourceLine" id="cb14-39" data-line-number="39"><span class="op">*</span><span class="st"> </span>this is package ‘test’ version ‘<span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span>’</a>
+<a class="sourceLine" id="cb14-40" data-line-number="40"><span class="op">*</span><span class="st"> </span>package encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></a>
+<a class="sourceLine" id="cb14-41" data-line-number="41"><span class="op">*</span><span class="st"> </span>checking package namespace information ... OK</a>
+<a class="sourceLine" id="cb14-42" data-line-number="42"><span class="op">*</span><span class="st"> </span>checking package dependencies ... OK</a>
+<a class="sourceLine" id="cb14-43" data-line-number="43"><span class="op">*</span><span class="st"> </span>checking <span class="cf">if</span> this is a source package ... OK</a>
+<a class="sourceLine" id="cb14-44" data-line-number="44"><span class="op">*</span><span class="st"> </span>checking <span class="cf">if</span> there is a namespace ... OK</a>
+<a class="sourceLine" id="cb14-45" data-line-number="45"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> executable files ... OK</a>
+<a class="sourceLine" id="cb14-46" data-line-number="46"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> hidden files and directories ... OK</a>
+<a class="sourceLine" id="cb14-47" data-line-number="47"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> portable file names ... OK</a>
+<a class="sourceLine" id="cb14-48" data-line-number="48"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> sufficient<span class="op">/</span>correct file permissions ... OK</a>
+<a class="sourceLine" id="cb14-49" data-line-number="49"><span class="op">*</span><span class="st"> </span>checking whether package ‘test’ can be installed ... OK</a>
+<a class="sourceLine" id="cb14-50" data-line-number="50"><span class="op">*</span><span class="st"> </span>checking installed package size ... OK</a>
+<a class="sourceLine" id="cb14-51" data-line-number="51"><span class="op">*</span><span class="st"> </span>checking package directory ... OK</a>
+<a class="sourceLine" id="cb14-52" data-line-number="52"><span class="op">*</span><span class="st"> </span>checking DESCRIPTION meta<span class="op">-</span>information ... OK</a>
+<a class="sourceLine" id="cb14-53" data-line-number="53"><span class="op">*</span><span class="st"> </span>checking top<span class="op">-</span>level files ... OK</a>
+<a class="sourceLine" id="cb14-54" data-line-number="54"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> left<span class="op">-</span>over files ... OK</a>
+<a class="sourceLine" id="cb14-55" data-line-number="55"><span class="op">*</span><span class="st"> </span>checking index information ... OK</a>
+<a class="sourceLine" id="cb14-56" data-line-number="56"><span class="op">*</span><span class="st"> </span>checking package subdirectories ... OK</a>
+<a class="sourceLine" id="cb14-57" data-line-number="57"><span class="op">*</span><span class="st"> </span>checking R files <span class="cf">for</span> non<span class="op">-</span>ASCII characters ... OK</a>
+<a class="sourceLine" id="cb14-58" data-line-number="58"><span class="op">*</span><span class="st"> </span>checking R files <span class="cf">for</span> syntax errors ... OK</a>
+<a class="sourceLine" id="cb14-59" data-line-number="59"><span class="op">*</span><span class="st"> </span>checking whether the package can be loaded ... OK</a>
+<a class="sourceLine" id="cb14-60" data-line-number="60"><span class="op">*</span><span class="st"> </span>checking whether the package can be loaded with stated dependencies ... OK</a>
+<a class="sourceLine" id="cb14-61" data-line-number="61"><span class="op">*</span><span class="st"> </span>checking whether the package can be unloaded cleanly ... OK</a>
+<a class="sourceLine" id="cb14-62" data-line-number="62"><span class="op">*</span><span class="st"> </span>checking whether the namespace can be loaded with stated dependencies ... OK</a>
+<a class="sourceLine" id="cb14-63" data-line-number="63"><span class="op">*</span><span class="st"> </span>checking whether the namespace can be unloaded cleanly ... OK</a>
+<a class="sourceLine" id="cb14-64" data-line-number="64"><span class="op">*</span><span class="st"> </span>checking loading without being on the library search path ... OK</a>
+<a class="sourceLine" id="cb14-65" data-line-number="65"><span class="op">*</span><span class="st"> </span>checking dependencies <span class="cf">in</span> R code ... OK</a>
+<a class="sourceLine" id="cb14-66" data-line-number="66"><span class="op">*</span><span class="st"> </span>checking S3 generic<span class="op">/</span>method consistency ... OK</a>
+<a class="sourceLine" id="cb14-67" data-line-number="67"><span class="op">*</span><span class="st"> </span>checking replacement functions ... OK</a>
+<a class="sourceLine" id="cb14-68" data-line-number="68"><span class="op">*</span><span class="st"> </span>checking foreign <span class="cf">function</span> calls ... OK</a>
+<a class="sourceLine" id="cb14-69" data-line-number="69"><span class="op">*</span><span class="st"> </span>checking R code <span class="cf">for</span> possible problems ... OK</a>
+<a class="sourceLine" id="cb14-70" data-line-number="70"><span class="op">*</span><span class="st"> </span>checking Rd files ... OK</a>
+<a class="sourceLine" id="cb14-71" data-line-number="71"><span class="op">*</span><span class="st"> </span>checking Rd metadata ... OK</a>
+<a class="sourceLine" id="cb14-72" data-line-number="72"><span class="op">*</span><span class="st"> </span>checking Rd line widths ... OK</a>
+<a class="sourceLine" id="cb14-73" data-line-number="73"><span class="op">*</span><span class="st"> </span>checking Rd cross<span class="op">-</span>references ... OK</a>
+<a class="sourceLine" id="cb14-74" data-line-number="74"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> missing documentation entries ... OK</a>
+<a class="sourceLine" id="cb14-75" data-line-number="75"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> code<span class="op">/</span>documentation mismatches ... OK</a>
+<a class="sourceLine" id="cb14-76" data-line-number="76"><span class="op">*</span><span class="st"> </span>checking Rd \usage sections ... OK</a>
+<a class="sourceLine" id="cb14-77" data-line-number="77"><span class="op">*</span><span class="st"> </span>checking Rd contents ... OK</a>
+<a class="sourceLine" id="cb14-78" data-line-number="78"><span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> unstated dependencies <span class="cf">in</span> examples ... OK</a>
+<a class="sourceLine" id="cb14-79" data-line-number="79"><span class="op">*</span><span class="st"> </span>checking examples ... OK</a>
+<a class="sourceLine" id="cb14-80" data-line-number="80"><span class="op">*</span><span class="st"> </span>DONE</a>
+<a class="sourceLine" id="cb14-81" data-line-number="81"></a>
+<a class="sourceLine" id="cb14-82" data-line-number="82">Status<span class="op">:</span><span class="st"> </span>OK</a>
+<a class="sourceLine" id="cb14-83" data-line-number="83"></a>
+<a class="sourceLine" id="cb14-84" data-line-number="84">R CMD check results</a>
+<a class="sourceLine" id="cb14-85" data-line-number="85"><span class="dv">0</span> errors <span class="op">|</span><span class="st"> </span><span class="dv">0</span> warnings <span class="op">|</span><span class="st"> </span><span class="dv">0</span> notes</a></code></pre></div>
 </div>
 <div id="does-it-work" class="section level5">
 <h5><span class="header-section-number">2.0.2.6.3</span> Does it work?</h5>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test<span class="op">::</span><span class="kw">yy</span>()
-      <span class="dv">95</span>% 
-<span class="fl">0.4104221</span> 
-
-test<span class="op">::</span><span class="kw">zz</span>()
-[<span class="dv">1</span>] <span class="fl">0.84515305</span> <span class="fl">0.72393508</span> <span class="fl">0.74036634</span> <span class="fl">0.03006037</span> <span class="fl">0.67631049</span> <span class="fl">0.71084114</span>
-[<span class="dv">7</span>] <span class="fl">0.86142639</span> <span class="fl">0.12371146</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">test<span class="op">::</span><span class="kw">yy</span>()</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">      <span class="dv">95</span>% </a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="fl">0.4104221</span> </a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">test<span class="op">::</span><span class="kw">zz</span>()</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">[<span class="dv">1</span>] <span class="fl">0.84515305</span> <span class="fl">0.72393508</span> <span class="fl">0.74036634</span> <span class="fl">0.03006037</span> <span class="fl">0.67631049</span> <span class="fl">0.71084114</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7">[<span class="dv">7</span>] <span class="fl">0.86142639</span> <span class="fl">0.12371146</span></a></code></pre></div>
 
 </div>
 </div>
@@ -467,10 +477,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -491,4 +502,4 @@ gitbook.start({
 
 </body>
 
-<!-- </html> -->
+</html>
