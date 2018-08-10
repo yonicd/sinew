@@ -76,6 +76,7 @@ new_defaults <- function(value = list()) {
 #' @examples sinew_opts$get('add_fields')
 sinew_opts <- new_defaults(list(
   add_fields = c("details", "examples", "seealso", "rdname", "export"),
+  pretty_print = TRUE,
   author = "AUTHOR [AUTHOR_2]",
   backref = "src/filename.cpp",
   concept = "CONCEPT_TERM_1 [CONCEPT_TERM_2]",

@@ -12,7 +12,7 @@ Description: Create 'roxygen2' skeleton populated with information scraped from 
          'DESCRIPTION' and import in the 'NAMESPACE' files. Can be run from the R
          console or through the 'RStudio' 'addin' menu.
 Depends: R (>= 2.3.0)
-Imports: rstudioapi,utils,shiny,miniUI,tools,sos,stringi,yaml,crayon
+Imports: rstudioapi,utils,shiny,miniUI,tools,sos,stringi,yaml,crayon,cli
 License: GPL-2 | GPL-3
 Suggests: roxygen2,
     testthat

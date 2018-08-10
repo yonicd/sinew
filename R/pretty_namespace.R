@@ -13,6 +13,10 @@
 #' then the value pairs will be used in place of what was found using the search path.
 #' If ignore is not NULL but a named list eg list(stats=c('rnorm','runif'),utils = 'head'),
 #' then if the functions are found they will not have a namespace attached to them.
+#' 
+#' If you want to toggle off the summary console printing you can set it globally via 
+#' sinew_opts$set(pretty_print=FALSE).
+#' 
 #' @examples
 #' txt <- '#some comment
 #' yy <- function(a=4){

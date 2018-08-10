@@ -56,15 +56,20 @@ pretty_shift <- function(txt, sym.funs, nm, overwrite, force, ignore){
   if (overwrite) {
     cat(txt, sep = "\n", file = nm)
     pretty_print(sym.funs,file = nm)
+    
   } else {
+    
     pretty_print(sym.funs,file = nm)
     writeLines(crayon::white(txt))
+    
   }
   
   txt
 }
 
 pretty_manip <- function(sym.funs, force, ignore){
+  
+  sym.funs$action <- ''
   
   if(!is.null(force)){
     sym.funs <- pretty_merge(sym.funs,force,'replace')
@@ -79,6 +84,7 @@ pretty_manip <- function(sym.funs, force, ignore){
   sym.funs
 }
 
+#' @importFrom cli symbol
 pretty_merge <- function(e1,e2,action = 'relpace'){
 
   e1 <- merge(e1,enframe_list(e2),by = 'text',all.x = TRUE)
@@ -92,6 +98,8 @@ pretty_merge <- function(e1,e2,action = 'relpace'){
            e1[is.na(e1$force_ns),]
          })
 
+  e1$action[!is.na(e1$force_ns)] <- cli::symbol$checkbox_on
+  
   e1$force_ns <- NULL
   
   e1[order(e1$id),]
@@ -138,8 +146,6 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs){
     }
   }
   
-  if (length(funs)) message("Not Found: ", paste0(unique(funs), collapse = ","))
-  
   sym.funs
   
 }
@@ -148,23 +154,51 @@ enframe_list <- function(x){
   do.call('rbind',lapply(names(x),function(y) data.frame(force_ns = y, text = x[[y]],stringsAsFactors = FALSE)))
 }
 
-#' @importFrom crayon red
+#' @importFrom crayon red strip_style
+#' @importFrom cli symbol
 pretty_print <- function(obj,file){
+  
+  if(!sinew_opts$get('pretty_print'))
+    return(NULL)
+  
   if(nrow(obj)==0)
     return(NULL)
   
-  obj <- obj[!obj$namespace %in% c("base", NA),]
+  if(!grepl('\\.[rR]$',file))
+    file <- 'text object'
+  
+  obj <- obj[!obj$namespace %in% c("base"),]
+    
+  obj$new_text <- crayon::strip_style(obj$new_text)
+  
+  obj$symbol <- ifelse(is.na(obj$namespac),crayon::red(cli::symbol$cross),cli::symbol$tick)
+  
+  obj$new_text <- gsub('^NA::','',obj$new_text)
+
+  tbl <- table(obj$new_text)
+
+  counts <- setNames(as.numeric(tbl),names(tbl))
+    
+  obj <- obj[!duplicated(obj$new_text),]
+
+  obj$counts <- NA
+  
+  obj$counts[match(obj$new_text,names(counts))] <- counts
+  
+  obj$out_text <- sprintf(' %s %s (%s) %s',
+                          obj$symbol,
+                          numpad(obj$new_text),
+                          numpad(obj$counts),
+                          obj$action
+                          )
     
   cat(
-    sprintf("\nfunctions changed in '%s':\n%s\n\n",
+    sprintf("\nfunctions changed in '%s':\n\n%s: found, %s: not found, (): instances, %s: user intervention\n\n%s\n\n",
             file,
-            paste0(
-              sprintf('  %s (line: %s cols: [%s-%s])',
-                      crayon::red(numpad(obj$new_text)),
-                      numpad(obj$line1),
-                      numpad(obj$col1),
-                      numpad(obj$col2)),
-              collapse = '\n')
+            cli::symbol$tick,
+            crayon::red(cli::symbol$cross),
+            cli::symbol$checkbox_on,
+            paste0(obj$out_text,collapse = '\n')
     )
   )
 }
@@ -204,3 +238,4 @@ mf <- function(x, pat) {
   
   ns
 }
+
