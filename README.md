@@ -1,8 +1,3 @@
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/sinew)](https://cran.r-project.org/package=sinew)
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active) 
-![downloads](http://cranlogs.r-pkg.org/badges/sinew)
-[![Travis-CI Build Status](https://travis-ci.org/metrumresearchgroup/sinew.svg?branch=master)](https://travis-ci.org/metrumresearchgroup/sinew)
-[![Covrpage Summary](https://img.shields.io/badge/covrpage-Initialized-orange.svg)](https://github.com/metrumresearchgroup/sinew/tree/master/tests/README.md)
 # Sinew
 
 Sinew is a R package that generates a roxygen2 skeleton populated with information scraped from the function script.
@@ -32,11 +27,11 @@ Two common scenarios arise in package development
 
   - You start a new project and open a file to develop your idea. Many functions later at the end of the day you look up and you have created a mess of a file. 
   
-![](https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/Guy-Tangled-in-Lights.jpg?raw=true)
+![](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/Guy-Tangled-in-Lights.jpg?raw=true)
 
   - You recieve a mammoth 10,000 line uncommented file to decipher for QC - good luck. 
   
-![](https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/xmaslights.gif?raw=true)
+![](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/xmaslights.gif?raw=true)
   
 `Sinew` can help turn the around that headache into a CRAN ready package in a few short steps
 
@@ -51,7 +46,7 @@ This should get you far enough to make the impossible problem of understanding w
 
 ### Working example
 
-Lets use a reproducible example - **The goal is to convert raw script in a file called [test.R](https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/test/test.R) into a package.**
+Lets use a reproducible example - **The goal is to convert raw script in a file called [test.R](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/test/test.R) into a package.**
 
 The file includes two functions `yy` and `zz` and some general script that uses them
 
@@ -89,7 +84,7 @@ This task is probably a non-starter if you have more than a few hundered lines o
 untangle(file = 'test.R',dir.out = 'R')
 ```
 
-![](https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/untangle_test.gif?raw=true)
+![](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/untangle_test.gif?raw=true)
 
 As we can see we got three new files. 
     - `body.R` in the working directory
@@ -106,7 +101,7 @@ This is where [pretty_namespace](https://metrumresearchgroup.github.io/sinew/pre
 pretty_namespace('R',overwrite = TRUE)
 ```
 
-![](https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/pretty_ns_test.gif?raw=true)
+![](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/pretty_ns_test.gif?raw=true)
 
 So now we have separate files with functions appropriatly associated with namespaces, and now we can add roxygen2 headers.
 
@@ -118,7 +113,7 @@ Now we are ready to create the function documentation using roxygen2. We use [ma
 makeOxyFile('R',overwrite = TRUE)
 ```
 
-![](https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/oxy_test.gif?raw=true)
+![](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/oxy_test.gif?raw=true)
 
 Lets see what we got back in `zz.R`:
 
@@ -165,7 +160,7 @@ It is also important to update the package description file `Imports` field. Thi
 makeImport('R',format = 'description',desc_loc = '.')
 ```
 
-![](https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/makeimport_test.gif?raw=true)
+![](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/makeimport_test.gif?raw=true)
 
 #### Update documentation
 
@@ -205,7 +200,7 @@ yy <- function(a=4,b=2){
 moga('R/yy.r',overwrite = TRUE)
 ```
 
-![](https://github.com/metrumresearchgroup/sinew/blob/master/Miscellaneous/moga_test.gif?raw=true)
+![](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/moga_test.gif?raw=true)
 
 #### Oxygenize and Check
 
