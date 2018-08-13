@@ -87,6 +87,15 @@ pretty_manip <- function(sym.funs, force, ignore){
 #' @importFrom cli symbol
 pretty_merge <- function(e1,e2,action = 'relpace'){
 
+  #fill in for NULL lists
+  e2 <- sapply(names(e2),function(x){
+    if(is.null(e2[[x]])){
+      unique(e1$text[e1$namespace%in%names(e2)]) 
+    }else{
+      e2[[x]]
+    } 
+  },simplify = FALSE)
+  
   e1 <- merge(e1,enframe_list(e2),by = 'text',all.x = TRUE)
   
   e1 <- switch(action,

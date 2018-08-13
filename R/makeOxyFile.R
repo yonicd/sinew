@@ -19,7 +19,7 @@
 #'  makeOxyFile("./myRfunctions/utils.R") # on one R file
 #'  makeOxyFile("./myRfunctions/") # on all R files in directory
 #'
-#'  # adds more fields to defaults, passes "cut" to makeImport
+#'  # adds more fields to defaults, passes "cut" to make_import
 #'
 #'  sinew_opts$append(list(add_fields=c("concept", "describeIn")))
 #'  makeOxyFile("./myRfunctions/utils.R", cut = 5)

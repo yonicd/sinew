@@ -1,4 +1,4 @@
-rm.oxylines <- function(this) {
+rm_oxylines <- function(this) {
   idx <- grep("^\\s*#'", this$contents)
   if (length(idx) > 0) {
     seq.idx <- seqle(idx)

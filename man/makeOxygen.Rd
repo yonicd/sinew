@@ -19,7 +19,7 @@ makeOxygen(obj, add_default = TRUE,
 
 \item{print}{boolean print output to console, Default: TRUE}
 
-\item{...}{arguments to be passed to makeImport}
+\item{...}{arguments to be passed to make_import}
 }
 \description{
 Creates roxygen2 skeleton including title, description, import and other fields

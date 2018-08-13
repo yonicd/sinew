@@ -9,6 +9,6 @@ importAddin <- function() {
     context$path <- f
   }
 
-  makeImport(context$path, print = TRUE, format = "oxygen")
+  make_import(context$path, print = TRUE, format = "oxygen")
   if (exists("f")) unlink(f)
 }

@@ -1,6 +1,7 @@
 #' @title Remove roxygen2 Comments From an .R File
 #' @description Strips .R files of roxygen2 style comments (#')
-#' @param .file, path to an .R file, character vector of length 1
+#' @param .file character, path to an .R file, character vector of length 1
+#' @param showonexit boolean, open file in viewer on function exit, Default: TRUE
 #' @return Nothing. Overwrites files as a side effect
 #' @author Anton Grishin
 #' @examples
@@ -8,21 +9,38 @@
 #' rmOxygen("./myRfunctions/function1.R")
 #' }
 #' @export
-#' @import rstudioapi
-rmOxygen <- function(.file) {
-  if (!file.exists(.file)) stop("Enter a valid path to .R file!", call. = FALSE)
+#' @importFrom rstudioapi isAvailable navigateToFile
+rmOxygen <- function(.file, showonexit = TRUE) {
+  
+  if(showonexit){
+    on.exit({
+      if (rstudioapi::isAvailable()) {
+        rstudioapi::navigateToFile(.file)
+      } else {
+        file.show(.file)
+      }
+    },add = TRUE)
+    }
+  
+  
+  if (!file.exists(.file)) 
+    stop("Enter a valid path to .R file!", call. = FALSE)
+  
   if (!endsWith(.file, ".R")) {
     stop(paste0(
       dQuote(basename(.file)),
       " is not an .R file!"
     ), call. = FALSE)
   }
+  
   lines <- readLines(.file)
+  
   lines <- lines[!grepl("^\\s*#'", lines)]
-  writeLines(lines, .file)
-  if (rstudioapi::isAvailable()) {
-    rstudioapi::navigateToFile(.file)
-  } else {
-    file.show(.file)
-  }
+  
+  cat(
+    lines,
+    file = .file,
+    sep = '\n'
+    )
+
 }

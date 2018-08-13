@@ -7,12 +7,15 @@
 #' @param desc_loc character, path to DESCRIPTION file, if not NULL then the Imports fields in
 #'  the DESCRIPTION file, Default: NULL
 #' @examples
-#' makeImport('R',format = 'oxygen')
-#' makeImport('R',format = 'description')
+#' make_import('R',format = 'oxygen')
+#' make_import('R',format = 'description')
 #' @export
 #' @importFrom utils installed.packages capture.output getParseData
 #' @importFrom tools file_ext
-makeImport <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=NULL) {
+make_import <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=NULL) {
+
+  fmt <- pmatch(format,c('oxygen','description'))
+  
   rInst <- paste0(row.names(utils::installed.packages()), "::")
 
   if (inherits(script, "function")) {
@@ -45,7 +48,7 @@ makeImport <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=N
     ret <- do.call("rbind", ret)
     rownames(ret) <- NULL
 
-    if (format == "oxygen") {
+    if (fmt==1) {
       ret <- sapply(unique(ret$pkg), function(pkg) {
         fns <- ret$fns[ret$pkg == pkg]
         ret <- sprintf("#' @importFrom %s %s", pkg, paste(fns, collapse = " "))
@@ -63,9 +66,10 @@ makeImport <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=N
     return(ret)
   }, simplify = FALSE)
 
-  if (format == "oxygen") ret <- pkg
+  if (fmt==1) ret <- pkg
 
-  if (format == "description") {
+  if (fmt==2) {
+    
     ret <- do.call("rbind", pkg)
 
     ret <- sprintf("Imports: %s", paste(unique(ret$pkg), collapse = ","))
@@ -94,4 +98,20 @@ makeImport <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=N
   if (inherits(script, "function")) unlink(file)
 
   invisible(sapply(ret, paste0, collapse = "\n"))
+}
+
+#' @title Scrape R script to create namespace calls for R documentation
+#' @description Scrape r script to create namespace calls for roxygen2, namespace or description files
+#' @param script_path character, directory path to R scripts. Default: 'R'
+#' @param desc_loc character, path to DESCRIPTION file, if not NULL then the Imports fields in
+#'  the DESCRIPTION file, Default: getwd()
+#' @examples
+#' \dontrun{
+#' make_desc()
+#' }
+#' @export
+make_desc <- function(script_path = 'R', desc_loc = getwd()){
+  
+  make_import(script_path, format="d", desc_loc = desc_loc)
+  
 }

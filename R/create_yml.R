@@ -8,14 +8,13 @@
 #' @rdname create_yml
 #' @export
 #' @author Jonathan Sidi
-#' @importFrom rstudioapi getActiveProject
+#' @importFrom here here
 create_yml <- function() {
-  if (is.null(rstudioapi::getActiveProject())) {
-    stop("Not in RStudio Project")
-  }
+  
+  yml <- here::here("_sinewconfig.yml")
+  
+  ignore <- here::here(".Rbuildignore")
 
-  yml <- file.path(rstudioapi::getActiveProject(), "_sinewconfig.yml")
-  ignore <- file.path(rstudioapi::getActiveProject(), ".Rbuildignore")
   no_ignore <- !file.exists(ignore)
 
   if (!file.exists(yml)) {

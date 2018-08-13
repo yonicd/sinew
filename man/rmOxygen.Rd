@@ -4,10 +4,12 @@
 \alias{rmOxygen}
 \title{Remove roxygen2 Comments From an .R File}
 \usage{
-rmOxygen(.file)
+rmOxygen(.file, showonexit = TRUE)
 }
 \arguments{
-\item{.file, }{path to an .R file, character vector of length 1}
+\item{.file}{character, path to an .R file, character vector of length 1}
+
+\item{showonexit}{boolean, open file in viewer on function exit, Default: TRUE}
 }
 \value{
 Nothing. Overwrites files as a side effect
