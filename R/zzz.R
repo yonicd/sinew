@@ -10,6 +10,9 @@
     }
     if (length(config) > 0) sinew_opts$set(config)
   }
+  
+    rc.options(custom.completer = completeme)
+    register_completion(thispkg = populate)
 }
 
 .onAttach <- function(libname, pkgname) {
