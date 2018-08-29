@@ -170,13 +170,13 @@ pretty_print <- function(obj,file){
   if(!sinew_opts$get('pretty_print'))
     return(NULL)
   
-  if(nrow(obj)==0)
-    return(NULL)
-  
   if(!grepl('\\.[rR]$',file))
     file <- 'text object'
   
   obj <- obj[!obj$namespace %in% c("base"),]
+  
+  if(nrow(obj)==0)
+    return(NULL)
     
   obj$new_text <- crayon::strip_style(obj$new_text)
   

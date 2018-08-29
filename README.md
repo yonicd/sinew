@@ -2,7 +2,7 @@
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active) 
 ![downloads](http://cranlogs.r-pkg.org/badges/sinew)
 [![Travis-CI Build Status](https://travis-ci.org/metrumresearchgroup/sinew.svg?branch=master)](https://travis-ci.org/metrumresearchgroup/sinew)
-[![Covrpage Summary](https://img.shields.io/badge/covrpage-Last_Build_2018_08_13-brightgreen.svg)](https://github.com/metrumresearchgroup/sinew/tree/master/tests/README.md)
+[![Covrpage Summary](https://img.shields.io/badge/covrpage-Last_Build_2018_08_29-brightgreen.svg)](https://github.com/metrumresearchgroup/sinew/tree/master/tests/README.md)
 # Sinew
 
 Sinew is a R package that generates a roxygen2 skeleton populated with information scraped from the function script.

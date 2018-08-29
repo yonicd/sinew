@@ -1,24 +1,14 @@
 testthat::context('remove oxygen')
 
-  td_root <- tempdir()
-
-  td <- file.path(td_root,'sinew_test')
-  
-  if(!dir.exists(td))
-    dir.create(td,showWarnings = FALSE,recursive = TRUE)
-  
-  tf_oxy <- tempfile(pattern = 'baseline',fileext = '.R')
-  tf_txt <- tempfile(pattern = 'baseline',fileext = '.txt')
-  
-  file.copy(
-    from = system.file('tests/assets/baseline_oxy.R',package = 'sinew'),
-    tf_oxy)
-  
-  file.copy(
-    from = system.file('tests/assets/baseline_oxy.R',package = 'sinew'),
-    tf_txt)
-  
   testthat::describe('rm valid actions',{
+    
+    tf_oxy <- tempfile(pattern = 'baseline',fileext = '.R')
+    
+    file.copy(
+      from = '../assets/baseline_oxy.R',
+      tf_oxy,overwrite = TRUE)
+    
+ #   skip_if_not_rstudio()
     
     it('no show file',{
       
@@ -26,7 +16,7 @@ testthat::context('remove oxygen')
       
       testthat::expect_equal(
         readLines(tf_oxy),
-        readLines(system.file('tests/assets/baseline_clean.R',package = 'sinew'))
+        readLines('../assets/baseline_clean.R')
       )
     })
     
@@ -36,7 +26,7 @@ testthat::context('remove oxygen')
       
       testthat::expect_equal(
         readLines(tf_oxy),
-        readLines(system.file('tests/assets/baseline_clean.R',package = 'sinew'))
+        readLines('../assets/baseline_clean.R')
       )
       
     })
@@ -44,6 +34,14 @@ testthat::context('remove oxygen')
   })
   
   testthat::describe('rm invalid actions',{
+    
+ #   skip_if_not_rstudio()
+    
+    tf_txt <- tempfile(pattern = 'baseline',fileext = '.txt')
+    
+    file.copy(
+      from = '../assets/baseline_oxy.R',
+      tf_txt,overwrite = TRUE)
     
     it('extension',{
       
