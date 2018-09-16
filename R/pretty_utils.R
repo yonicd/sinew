@@ -64,7 +64,7 @@ pretty_shift <- function(txt, sym.funs, nm, overwrite, force, ignore){
     
   }
   
-  txt
+  sym.funs
 }
 
 pretty_manip <- function(sym.funs, force, ignore){
@@ -145,6 +145,7 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs){
       }
     }
   }
+
   
   sym.funs
   
@@ -168,7 +169,10 @@ pretty_print <- function(obj,file){
     file <- 'text object'
   
   obj <- obj[!obj$namespace %in% c("base"),]
-    
+  
+  if(nrow(obj)==0)
+    return(NULL)
+   
   obj$new_text <- crayon::strip_style(obj$new_text)
   
   obj$symbol <- ifelse(is.na(obj$namespac),crayon::red(cli::symbol$cross),cli::symbol$tick)
