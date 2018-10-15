@@ -62,8 +62,10 @@ pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NUL
     names(TXT) <- sprintf("txt%s", 1:length(TXT))
   }
 
-  NMPATH <- loadedNamespaces()
-
+  SPATH <- basename(grep('library',searchpaths(),value = TRUE))
+  
+  NMPATH <- c(SPATH,setdiff(loadedNamespaces(),SPATH))
+  
   INST <- rownames(installed.packages())
 
   DYNPATH <- unlist(sapply(library.dynam(), "[", 2))
