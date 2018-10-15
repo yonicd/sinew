@@ -3,12 +3,13 @@
 #' @param script character, connection to pass to readLines, can be file path, directory path, url path
 #' @param cut integer, number of functions to write as importFrom until switches to import, Default: NULL
 #' @param print boolean, print output to console, Default: TRUE
-#' @param format character, the output format must be in c('oxygen','description'), Default: 'oxygen'
+#' @param format character, the output format must be in c('oxygen','description','import'), Default: 'oxygen'
 #' @param desc_loc character, path to DESCRIPTION file, if not NULL then the Imports fields in
 #'  the DESCRIPTION file, Default: NULL
 #' @examples
 #' makeImport('R',format = 'oxygen')
 #' makeImport('R',format = 'description')
+#' makeImport('R',format = 'import')
 #' @export
 #' @importFrom utils installed.packages capture.output getParseData
 #' @importFrom tools file_ext
@@ -45,15 +46,18 @@ makeImport <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=N
     ret <- do.call("rbind", ret)
     rownames(ret) <- NULL
 
-    if (format == "oxygen") {
+    if (format %in% c("oxygen", "import")) {
       ret <- sapply(unique(ret$pkg), function(pkg) {
         fns <- ret$fns[ret$pkg == pkg]
-        ret <- sprintf("#' @importFrom %s %s", pkg, paste(fns, collapse = " "))
-
-        if (!is.null(cut)) {
-          if (length(fns) >= cut) ret <- sprintf("#' @import %s", pkg)
+        if (format == "oxygen") {
+          if (!is.null(cut) && length(fns) >= cut) {
+            ret <- sprintf("#' @import %s", pkg)
+          } else {
+            ret <- sprintf("#' @importFrom %s %s", pkg, paste(fns, collapse = " "))
+          }
+        } else if (format == "import") {
+          ret <- sprintf("import::from(%s, %s)", pkg, paste(fns, collapse = ", "))
         }
-
         ret
       })
 
@@ -63,7 +67,7 @@ makeImport <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=N
     return(ret)
   }, simplify = FALSE)
 
-  if (format == "oxygen") ret <- pkg
+  if (format %in% c("oxygen", "import")) ret <- pkg
 
   if (format == "description") {
     ret <- do.call("rbind", pkg)
