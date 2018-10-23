@@ -98,7 +98,7 @@ As we can see we got three new files.
 
 #### Namespacing
 
-It has become common practice to  use the namespace in function calls, and it is obligatory in order to pass a cran check. But, not everyone does it and if you're not use to it, it's a pain to go back and update your script.
+It has become a common practice to use the namespace in function calls, and it is obligatory in order to pass a cran check. But, not everyone does it and if you're not used to it, it's a pain to go back and update your script.
 
 This is where [pretty_namespace](https://metrumresearchgroup.github.io/sinew/pretty-namespace.html) comes in. This function will go through your script and attach namespaces for you, with the same logic as the search path. 
 
@@ -112,7 +112,7 @@ So now we have separate files with functions appropriatly associated with namesp
 
 #### Documentation
 
-Now we are ready to create the function documentation using roxygen2. We use [makeOxygen](file:///Users/jonathans/projects/sinew/Miscellaneous/docs/makeoxygen.html) to create a skeleton for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation. This function returns a skeleton that includes title, description, return, import and other fields populated with information scraped from the function script. We can also run `makeOxygen` in batch mode using [makeOxyFile](file:///Users/jonathans/projects/sinew/Miscellaneous/docs/makeoxyfile.html).
+Now we are ready to create the function documentation using roxygen2. We use [makeOxygen](https://metrumresearchgroup.github.io/sinew/makeoxygen.html) to create a skeleton for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation. This function returns a skeleton that includes title, description, return, import and other fields populated with information scraped from the function script. We can also run `makeOxygen` in batch mode using [makeOxyFile](https://metrumresearchgroup.github.io/sinew/makeoxyfile.html).
 
 ```r
 makeOxyFile('R',overwrite = TRUE)
@@ -159,7 +159,7 @@ The premise of `makeOxygen` is to expand on the default skeleton in RStudio, so 
 
 ####  DESCRIPTION
 
-It is also important to update the package description file `Imports` field. This can be done for you with [makeImport](file:///Users/jonathans/projects/sinew/Miscellaneous/docs/makeimport.html#description), by either creating a new `Imports` field or updating an existing one.
+It is also important to update the package description file `Imports` field. This can be done for you with [makeImport](https://metrumresearchgroup.github.io/sinew/makeimport.html#description), by either creating a new `Imports` field or updating an existing one.
 
 ```r
 makeImport('R',format = 'description',desc_loc = '.')
@@ -169,7 +169,7 @@ makeImport('R',format = 'description',desc_loc = '.')
 
 #### Update documentation
 
-An important part of maintaining a package is keeping the documentation updated. Using [moga](file:///Users/jonathans/projects/sinew/Miscellaneous/docs/moga.html) we can achieve this painlessly. `moga` runs the same underlying script as `makeOxygen` but appends new information found into the current roxygen2 header instead of creating a new one.
+An important part of maintaining a package is keeping the documentation updated. Using [moga](https://metrumresearchgroup.github.io/sinew/moga.html) we can achieve this painlessly. `moga` runs the same underlying script as `makeOxygen` but appends new information found into the current roxygen2 header instead of creating a new one.
 
 Lets say we updated `yy.R` to include another param and used another function from the `stats` package. So the roxygen2 header is now out of synch with the current script.
 
