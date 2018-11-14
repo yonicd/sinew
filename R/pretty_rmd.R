@@ -6,6 +6,11 @@
 #' @param \dots arguments to pass to pretty_namespace
 #' @return character
 #' @details if output is NULL then the returned lines are printed to console. 
+#' @examples 
+#' if(interactive()){
+#' rstudioapi::navigateToFile(system.file('example.Rmd',package = 'sinew'))
+#' pretty_rmd(input = system.file('example.Rmd',package = 'sinew'))
+#' }
 #' @seealso 
 #'  \code{\link[sinew]{pretty_namespace}}
 #' @rdname pretty_rmd
