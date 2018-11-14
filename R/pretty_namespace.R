@@ -62,52 +62,7 @@ pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NUL
     names(TXT) <- sprintf("txt%s", 1:length(TXT))
   }
   
-  SPATH <- basename(grep('library',searchpaths(),value = TRUE))
-  
-  NMPATH <- c(SPATH,setdiff(loadedNamespaces(),SPATH))
-  
-  INST <- rownames(installed.packages())
-  
-  DYNPATH <- unlist(sapply(library.dynam(), "[", 2))
-  
-  RET <- sapply(names(TXT), function(nm) {
-    
-    txt <- TXT[[nm]]
-    
-    sym.funs <- pretty_parse(txt)
-    
-    if (length(sym.funs)==0)
-      return(txt)
-    
-    if (nrow(sym.funs)==0)
-      return(txt)
-    
-    sym.funs$namespace <- NA
-    
-    funs <- sym.funs$text[is.na(sym.funs$namespace)]
-    
-    if (length(funs)==0)
-      return(txt)
-    
-    sym.funs <- pretty_find(
-      NMPATH = NMPATH,
-      sos = sos,
-      sym.funs = sym.funs,
-      funs = funs
-    )
-    
-    pretty_shift(
-      txt = txt,
-      sym.funs = sym.funs,
-      nm = nm,
-      overwrite = overwrite,
-      force = force,
-      ignore = ignore
-    )
-    
-  }, simplify = FALSE)
-  
-  if (length(RET) == 1) RET <- RET[[1]]
-  
+  RET <- prettify(TXT, force, ignore, overwrite, sos)
+
   invisible(RET)
 }

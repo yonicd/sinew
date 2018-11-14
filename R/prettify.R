@@ -1,7 +1,9 @@
 #' @importFrom crayon strip_style
 prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE){
   
-  NMPATH <- loadedNamespaces()
+  SPATH <- basename(grep('library',searchpaths(),value = TRUE))
+  
+  NMPATH <- c(SPATH,setdiff(loadedNamespaces(),SPATH))
   
   INST <- rownames(installed.packages())
   
