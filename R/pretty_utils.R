@@ -229,7 +229,7 @@ mf <- function(x, pat) {
       }
       
       ls(
-        envir = sprintf('pacakge:%s',x),
+        name = sprintf('package:%s',x),
         pattern = sprintf("^(%s)$", paste0(pat, collapse = "|"))
         )
     },

@@ -39,10 +39,75 @@
 pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE) {
   
   if (is.null(text) & is.null(con)) return(NULL)
-
-  TXT <- pretty_setup(con,text)
-
-  RET <- prettify(TXT,force = force, ignore = ignore, overwrite = overwrite, sos = sos)
-
+  
+  if (is.null(text)) {
+    
+    if (length(con) == 1L && file.info(con)$isdir) {
+      
+      files <- list.files(path = con, pattern = ".+\\.[rR]$", full.names = TRUE)
+      
+    } else {
+      
+      files <- con
+      
+    }
+    
+    TXT <- sapply(files, readLines, warn = FALSE, simplify = FALSE)
+    
+  } else {
+    
+    if (length(text) == 1) 
+      TXT <- strsplit(text, "\n")
+    
+    names(TXT) <- sprintf("txt%s", 1:length(TXT))
+  }
+  
+  SPATH <- basename(grep('library',searchpaths(),value = TRUE))
+  
+  NMPATH <- c(SPATH,setdiff(loadedNamespaces(),SPATH))
+  
+  INST <- rownames(installed.packages())
+  
+  DYNPATH <- unlist(sapply(library.dynam(), "[", 2))
+  
+  RET <- sapply(names(TXT), function(nm) {
+    
+    txt <- TXT[[nm]]
+    
+    sym.funs <- pretty_parse(txt)
+    
+    if (length(sym.funs)==0)
+      return(txt)
+    
+    if (nrow(sym.funs)==0)
+      return(txt)
+    
+    sym.funs$namespace <- NA
+    
+    funs <- sym.funs$text[is.na(sym.funs$namespace)]
+    
+    if (length(funs)==0)
+      return(txt)
+    
+    sym.funs <- pretty_find(
+      NMPATH = NMPATH,
+      sos = sos,
+      sym.funs = sym.funs,
+      funs = funs
+    )
+    
+    pretty_shift(
+      txt = txt,
+      sym.funs = sym.funs,
+      nm = nm,
+      overwrite = overwrite,
+      force = force,
+      ignore = ignore
+    )
+    
+  }, simplify = FALSE)
+  
+  if (length(RET) == 1) RET <- RET[[1]]
+  
   invisible(RET)
 }
