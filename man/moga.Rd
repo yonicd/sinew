@@ -4,7 +4,8 @@
 \alias{moga}
 \title{Make Oxygen Great Again}
 \usage{
-moga(path, ..., force.fields = NULL, dry.run = TRUE, overwrite = FALSE)
+moga(path, ..., force.fields = NULL, dry.run = TRUE,
+  overwrite = FALSE)
 }
 \arguments{
 \item{path}{character path to R file}

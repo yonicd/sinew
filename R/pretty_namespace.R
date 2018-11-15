@@ -2,6 +2,8 @@
 #' @description Autoappend namespace to functions in script by searchpath order
 #' @param con character, path to file or directory that contains script, Default: NULL
 #' @param text character, vector that contains script, Default: NULL
+#' @param ask boolean, If TRUE then a \code{\link[utils]{menu}} will be created for the use to
+#'  choose between competing namespaces for a function, Default: TRUE
 #' @param force list, named list of functions to force over the
 #'  internal search (seee details), Default: NULL
 #' @param ignore list, named list of functions to ignore (seee details), Default: NULL
@@ -36,7 +38,7 @@
 #' @rdname pretty_namespace
 #' @export
 #' @author Jonathan Sidi
-pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE) {
+pretty_namespace <- function(con = NULL, text = NULL, ask = TRUE, force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE) {
   
   if (is.null(text) & is.null(con)) return(NULL)
   
@@ -62,7 +64,10 @@ pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NUL
     names(TXT) <- sprintf("txt%s", 1:length(TXT))
   }
   
-  RET <- prettify(TXT, force, ignore, overwrite, sos)
+  
+  askenv <- new.env()
+  
+  RET <- prettify(TXT, force, ignore, overwrite, sos, ask, askenv)
 
   invisible(RET)
 }
