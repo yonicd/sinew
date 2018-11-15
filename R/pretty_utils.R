@@ -6,7 +6,10 @@ pretty_parse <- function(txt){
   
   rmParent <- p1$parent[p1$token == "SYMBOL_PACKAGE"]
   
-  p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
+  ret <- p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
+  
+  #clean out list functions
+  ret[sapply(sprintf('\\$%s',ret$text),function(p) !any(grepl(pattern = p,x=txt))),]
   
 }
 
@@ -106,8 +109,8 @@ pretty_merge <- function(e1,e2,action = 'relpace'){
 }
 
 #' @importFrom sos findFn
-#' @importFrom utils help.search
-pretty_find <- function(NMPATH, sos, sym.funs, funs){
+#' @importFrom utils help.search menu
+pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
   
   check_global <- ls(envir = get(search()[1]))
   
@@ -130,7 +133,46 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs){
     for (fun in funs) {
       suppressWarnings(fun.help <- utils::help.search(sprintf("^%s$", fun), ignore.case = FALSE))
       if (nrow(fun.help$matches) > 0) {
-        sym.funs$namespace[sym.funs$text %in% fun] <- fun.help$matches$Package[1]
+        
+        if(length(fun.help$matches$Package)>1&ask){
+          
+          choices <- sprintf('%s::%s',fun.help$matches$Package,fun)
+          
+          persistent_choices <- ls(envir = askenv)
+          
+          intersect_choices <- intersect(persistent_choices,choices)
+          
+          if(length(intersect_choices)>0){
+            
+            choice <- intersect_choices
+            
+          }else{
+          
+            menu_choices <- c(sprintf('%s(*)',choices),choices)
+            
+            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
+            
+            choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
+            
+            choice <- menu_choices[choice_idx]
+            
+            if(grepl('\\(*\\)$',choice)){
+              clean_choice <- gsub('\\(\\*\\)$','',choice)
+              assign(clean_choice,TRUE,askenv)
+            }
+              
+          }
+          
+          pkg_choice <- gsub(':(.*?)$','',choice)  
+          
+        }else{
+          
+          pkg_choice <- fun.help$matches$Package[1]
+          
+        }
+        
+        sym.funs$namespace[sym.funs$text %in% fun] <- pkg_choice
+        
         funs <- funs[-match(fun, funs)]
       }
     }
@@ -224,7 +266,7 @@ mf <- function(x, pat) {
   ns <- try(
     {
       
-      if(!isNamespaceLoaded(x)){
+      if((!isNamespaceLoaded(x))|(!x%in%basename(searchpaths()))){
         y <- attachNamespace(x)  
       }
       

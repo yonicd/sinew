@@ -1,5 +1,5 @@
 #' @importFrom crayon strip_style
-prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE){
+prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE, ask = TRUE,askenv = NULL){
   
   SPATH <- basename(grep('library',searchpaths(),value = TRUE))
   
@@ -18,6 +18,8 @@ prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = F
                 ignore = ignore, 
                 overwrite = overwrite, 
                 sos = sos,
+                ask = ask,
+                askenv = askenv, 
                 simplify = FALSE)
   
   RET <- lapply(RET,function(x){
@@ -31,7 +33,7 @@ prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = F
 }
 
 
-prettify_elem <- function(nm,TXT,NMPATH,INST,DYNPATH,force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE) {
+prettify_elem <- function(nm,TXT,NMPATH,INST,DYNPATH,force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE, ask = TRUE, askenv = NULL) {
   
   txt <- TXT[[nm]]
   
@@ -54,7 +56,9 @@ prettify_elem <- function(nm,TXT,NMPATH,INST,DYNPATH,force = NULL, ignore = NULL
     NMPATH = NMPATH,
     sos = sos,
     sym.funs = sym.funs,
-    funs = funs
+    funs = funs,
+    ask = ask,
+    askenv = askenv
   )
   
   pretty_shift(
