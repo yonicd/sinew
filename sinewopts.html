@@ -152,7 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>3</b> Document Workflow</a></li>
 <li class="chapter" data-level="4" data-path="sinewopts.html"><a href="sinewopts.html"><i class="fa fa-check"></i><b>4</b> Session level options</a><ul>
 <li class="chapter" data-level="4.1" data-path="sinewopts.html"><a href="sinewopts.html#using-sinew_opts"><i class="fa fa-check"></i><b>4.1</b> Using sinew_opts</a></li>
-<li class="chapter" data-level="4.2" data-path="sinewopts.html"><a href="sinewopts.html#using-_sinewconfig.yml-sinewconfig"><i class="fa fa-check"></i><b>4.2</b> Using _sinewconfig.yml {#sinewconfig}</a></li>
+<li class="chapter" data-level="4.2" data-path="sinewopts.html"><a href="sinewopts.html#using-_sinewconfig.yml"><i class="fa fa-check"></i><b>4.2</b> Using _sinewconfig.yml</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="addins.html"><a href="addins.html"><i class="fa fa-check"></i><b>5</b> Addins</a><ul>
 <li class="chapter" data-level="5.1" data-path="addins.html"><a href="addins.html#createoxygen-static"><i class="fa fa-check"></i><b>5.1</b> createOxygen (Static)</a></li>
@@ -325,8 +325,8 @@ sinew_opts<span class="op">$</span><span class="kw">get</span>(<span class="kw">
 ## $author
 ## [1] &quot;AUTHOR [AUTHOR_2]&quot;</code></pre>
 </div>
-<div id="using-_sinewconfig.yml-sinewconfig" class="section level2">
-<h2><span class="header-section-number">4.2</span> Using _sinewconfig.yml {#sinewconfig}</h2>
+<div id="using-_sinewconfig.yml" class="section level2">
+<h2><span class="header-section-number">4.2</span> Using _sinewconfig.yml</h2>
 <p>When loading the <code>sinew</code> package the file <code>_sinewconfig.yml</code> will be searched for in the working directory, if found settings found in it will be used instead of the package defaults.</p>
 <p>To create the <code>_sinewconfig.yml</code> file in the current project directory and update the <code>.Rbuildignore</code> automatically use the function <code>create_yml()</code>.</p>
 <p>In the example below the field author will be added to all <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> headers returned by <code>sinew</code> and its value is <code>Jonathan Sidi</code>.</p>

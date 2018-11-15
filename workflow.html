@@ -152,7 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>3</b> Document Workflow</a></li>
 <li class="chapter" data-level="4" data-path="sinewopts.html"><a href="sinewopts.html"><i class="fa fa-check"></i><b>4</b> Session level options</a><ul>
 <li class="chapter" data-level="4.1" data-path="sinewopts.html"><a href="sinewopts.html#using-sinew_opts"><i class="fa fa-check"></i><b>4.1</b> Using sinew_opts</a></li>
-<li class="chapter" data-level="4.2" data-path="sinewopts.html"><a href="sinewopts.html#using-_sinewconfig.yml-sinewconfig"><i class="fa fa-check"></i><b>4.2</b> Using _sinewconfig.yml {#sinewconfig}</a></li>
+<li class="chapter" data-level="4.2" data-path="sinewopts.html"><a href="sinewopts.html#using-_sinewconfig.yml"><i class="fa fa-check"></i><b>4.2</b> Using _sinewconfig.yml</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="addins.html"><a href="addins.html"><i class="fa fa-check"></i><b>5</b> Addins</a><ul>
 <li class="chapter" data-level="5.1" data-path="addins.html"><a href="addins.html#createoxygen-static"><i class="fa fa-check"></i><b>5.1</b> createOxygen (Static)</a></li>
@@ -204,7 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The suggested workflow for sinew is an extension of the <a href="http://r-pkgs.had.co.nz/man.html#man-workflow-2">alternative documentation workflow</a> described in the <a href="http://r-pkgs.had.co.nz/">R packages</a> book by Hadley Wickham.</p>
 <p><strong>Initial Package Build</strong></p>
 <ol style="list-style-type: decimal">
-<li>Create a <a href="#sinewconfig">_sinewconfig.yml</a> file in package/project root folder. Set any persistent definitions such as author name and default fields to be generated for all functions.</li>
+<li>Create a <a href="sinewopts.html#sinewopts">_sinewconfig.yml</a> file in package/project root folder. Set any persistent definitions such as author name and default fields to be generated for all functions.</li>
 <li>Develop <code>R</code> script for the package using proper namespacing definitions, i.e. <code>package::function</code>, or use <a href="commandline.html#prettyns">pretty_namespace</a>. Focus <em>only</em> on the function and package logic.</li>
 <li>Run <a href="commandline.html#makeoxygen">makeOxygen</a> (single file) or <a href="commandline.html#makeoxyfile">makeOxyFile</a> (directory) to create skeletons. It is suggested to use the <a href="https://github.com/r-lib/styler">styler</a> package beforehand to have ensure proper R script syntax conventions.</li>
 <li>Fill in the relevant descriptions and examples.
