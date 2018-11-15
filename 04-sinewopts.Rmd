@@ -55,7 +55,7 @@ sinew_opts$restore()
 sinew_opts$get(c('add_fields','author'))
 ```
 
-## Using _sinewconfig.yml {#sinewconfig}
+## Using _sinewconfig.yml
 
 When loading the `sinew` package the file `_sinewconfig.yml` will be searched for in the working directory, if found settings found in it will be used instead of the package defaults.
 
