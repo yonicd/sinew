@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sinew: Simple R Package Documentation</title>
+  <meta name="description" content="Sinew User Manual">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Sinew: Simple R Package Documentation" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Sinew User Manual" />
+  <meta name="github-repo" content="metrumresearchgroup/sinew" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Sinew: Simple R Package Documentation" />
+  
+  <meta name="twitter:description" content="Sinew User Manual" />
+  
+
+<meta name="author" content="Jonathan Sidi, Metrum Research Group">
+
+
+<meta name="date" content="2018-11-15">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="install.html">
+<link rel="next" href="workflow.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sinew User Manual</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>1</b> Installation</a><ul>
+<li class="chapter" data-level="1.1" data-path="install.html"><a href="install.html#cran"><i class="fa fa-check"></i><b>1.1</b> CRAN</a></li>
+<li class="chapter" data-level="1.2" data-path="install.html"><a href="install.html#development"><i class="fa fa-check"></i><b>1.2</b> Development</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="motive.html"><a href="motive.html"><i class="fa fa-check"></i><b>2</b> Motivation</a><ul>
+<li class="chapter" data-level="2.1" data-path="motive.html"><a href="motive.html#quick-turnaraound"><i class="fa fa-check"></i><b>2.1</b> Quick Turnaraound</a></li>
+<li class="chapter" data-level="2.2" data-path="motive.html"><a href="motive.html#working-example"><i class="fa fa-check"></i><b>2.2</b> Working Example</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="motive.html"><a href="motive.html#untangling-files"><i class="fa fa-check"></i><b>2.2.1</b> Untangling Files</a></li>
+<li class="chapter" data-level="2.2.2" data-path="motive.html"><a href="motive.html#namespacing"><i class="fa fa-check"></i><b>2.2.2</b> Namespacing</a></li>
+<li class="chapter" data-level="2.2.3" data-path="motive.html"><a href="motive.html#documentation"><i class="fa fa-check"></i><b>2.2.3</b> Documentation</a></li>
+<li class="chapter" data-level="2.2.4" data-path="motive.html"><a href="motive.html#description"><i class="fa fa-check"></i><b>2.2.4</b> Description</a></li>
+<li class="chapter" data-level="2.2.5" data-path="motive.html"><a href="motive.html#update-documentation"><i class="fa fa-check"></i><b>2.2.5</b> Update documentation</a></li>
+<li class="chapter" data-level="2.2.6" data-path="motive.html"><a href="motive.html#oxygenize-and-check"><i class="fa fa-check"></i><b>2.2.6</b> Oxygenize and Check</a></li>
+<li class="chapter" data-level="2.2.7" data-path="motive.html"><a href="motive.html#does-it-work"><i class="fa fa-check"></i><b>2.2.7</b> Does it work?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>3</b> Document Workflow</a></li>
+<li class="chapter" data-level="4" data-path="sinewopts.html"><a href="sinewopts.html"><i class="fa fa-check"></i><b>4</b> Session level options</a><ul>
+<li class="chapter" data-level="4.1" data-path="sinewopts.html"><a href="sinewopts.html#using-sinew_opts"><i class="fa fa-check"></i><b>4.1</b> Using sinew_opts</a></li>
+<li class="chapter" data-level="4.2" data-path="sinewopts.html"><a href="sinewopts.html#using-_sinewconfig.yml-sinewconfig"><i class="fa fa-check"></i><b>4.2</b> Using _sinewconfig.yml {#sinewconfig}</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="addins.html"><a href="addins.html"><i class="fa fa-check"></i><b>5</b> Addins</a><ul>
+<li class="chapter" data-level="5.1" data-path="addins.html"><a href="addins.html#createoxygen-static"><i class="fa fa-check"></i><b>5.1</b> createOxygen (Static)</a></li>
+<li class="chapter" data-level="5.2" data-path="addins.html"><a href="addins.html#interactiveoxygen-interactive"><i class="fa fa-check"></i><b>5.2</b> InteractiveOxygen (Interactive)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="commandline.html"><a href="commandline.html"><i class="fa fa-check"></i><b>6</b> Reference</a><ul>
+<li class="chapter" data-level="6.1" data-path="commandline.html"><a href="commandline.html#makeimport"><i class="fa fa-check"></i><b>6.1</b> makeImport</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="commandline.html"><a href="commandline.html#description-1"><i class="fa fa-check"></i><b>6.1.1</b> DESCRIPTION</a></li>
+<li class="chapter" data-level="6.1.2" data-path="commandline.html"><a href="commandline.html#roxygen2"><i class="fa fa-check"></i><b>6.1.2</b> roxygen2</a></li>
+<li class="chapter" data-level="6.1.3" data-path="commandline.html"><a href="commandline.html#importfrom-cutoff"><i class="fa fa-check"></i><b>6.1.3</b> importFrom cutoff</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="commandline.html"><a href="commandline.html#makeoxygen"><i class="fa fa-check"></i><b>6.2</b> makeOxygen</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="commandline.html"><a href="commandline.html#basic-usage"><i class="fa fa-check"></i><b>6.2.1</b> Basic Usage</a></li>
+<li class="chapter" data-level="6.2.2" data-path="commandline.html"><a href="commandline.html#simple-call"><i class="fa fa-check"></i><b>6.2.2</b> Simple call</a></li>
+<li class="chapter" data-level="6.2.3" data-path="commandline.html"><a href="commandline.html#add_fields"><i class="fa fa-check"></i><b>6.2.3</b> Add_fields</a></li>
+<li class="chapter" data-level="6.2.4" data-path="commandline.html"><a href="commandline.html#cut"><i class="fa fa-check"></i><b>6.2.4</b> Cut</a></li>
+<li class="chapter" data-level="6.2.5" data-path="commandline.html"><a href="commandline.html#seealso"><i class="fa fa-check"></i><b>6.2.5</b> Seealso</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="commandline.html"><a href="commandline.html#makeoxyfile"><i class="fa fa-check"></i><b>6.3</b> makeOxyFile</a></li>
+<li class="chapter" data-level="6.4" data-path="commandline.html"><a href="commandline.html#moga"><i class="fa fa-check"></i><b>6.4</b> moga</a></li>
+<li class="chapter" data-level="6.5" data-path="commandline.html"><a href="commandline.html#rmoxygen"><i class="fa fa-check"></i><b>6.5</b> rmOxygen</a></li>
+<li class="chapter" data-level="6.6" data-path="commandline.html"><a href="commandline.html#makedictionary"><i class="fa fa-check"></i><b>6.6</b> makeDictionary</a></li>
+<li class="chapter" data-level="6.7" data-path="commandline.html"><a href="commandline.html#tabular"><i class="fa fa-check"></i><b>6.7</b> tabular</a></li>
+<li class="chapter" data-level="6.8" data-path="commandline.html"><a href="commandline.html#untangle"><i class="fa fa-check"></i><b>6.8</b> untangle</a></li>
+<li class="chapter" data-level="6.9" data-path="commandline.html"><a href="commandline.html#prettyns"><i class="fa fa-check"></i><b>6.9</b> pretty_namespace</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sinew: Simple R Package Documentation</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="motive" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Motivation</h1>
+<p>How can <code>sinew</code> help you?</p>
+<p><code>sinew</code> automates tasks that are part of <code>R</code> package documentation and maintance in order to help developers consistently create robust <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> documentation and pass <code>R CMD check --as-cran</code>.</p>
+<div id="quick-turnaraound" class="section level2">
+<h2><span class="header-section-number">2.1</span> Quick Turnaraound</h2>
+<p>Two common scenarios arise in package development</p>
+<ul>
+<li>You start a new project and open a file to develop your idea. Many functions later at the end of the day you look up and you have created a mess of a file.</li>
+</ul>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/Guy-Tangled-in-Lights.jpg?raw=true" /></p>
+<ul>
+<li>You recieve a mammoth 10,000 line uncommented file to decipher for QC - good luck.</li>
+</ul>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/xmaslights.gif?raw=true" /></p>
+<p>Sinew can help turn the around that headache into a CRAN ready package in a few short steps</p>
+<ol style="list-style-type: decimal">
+<li>Open a package project in Rstudio.</li>
+<li>Place the file in the <code>data-raw</code> folder.</li>
+<li>Run untangle on the large script with the destination directory <code>../R</code>. This will separate the core functions in the body into single function files (named as the function) and keep the body in <code>body.R</code></li>
+<li>Run <code>pretty_namespace</code> to append any missing namespaces in the function scripts.</li>
+<li>Run <code>makeOxyFile</code> with the path set to <code>R</code>.</li>
+<li>Run <code>makeImport</code> to create the correct Imports in the <code>DESCRIPTION</code> file and paste it in the the <code>DESCRIPTION</code> file.</li>
+</ol>
+<p>This should get you far enough to make the impossible problem of understanding what is in that file to a manageable task, with the added benefit of producing a new package ready for distribution.</p>
+</div>
+<div id="working-example" class="section level2">
+<h2><span class="header-section-number">2.2</span> Working Example</h2>
+<p>Lets use a reproducible example - The goal is to convert raw script in a file called <a href="https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/test/test.R">test.R</a> into a package.</p>
+<p>The file includes two functions <code>yy</code> and <code>zz</code> and some general script that uses them</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#some comment</span>
+yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>){
+  <span class="kw">head</span>(<span class="kw">runif</span>(<span class="dv">10</span>),a)
+  <span class="co"># a comment</span>
+}
+
+zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){
+  <span class="kw">head</span>(<span class="kw">runif</span>(v),a)
+}
+
+
+<span class="kw">yy</span>(<span class="dv">6</span>)
+
+<span class="kw">zz</span>(<span class="dv">30</span>,<span class="dv">3</span>)</code></pre>
+<p>To start we initialize a R subdirectory and a DESCRIPTION file.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dir.create</span>(<span class="st">&#39;R&#39;</span>)
+devtools<span class="op">::</span><span class="kw">create_description</span>()</code></pre>
+<div id="untangling-files" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Untangling Files</h3>
+<p>One of the first tasks for new developers is to move from long scripts that are intertwined with functions and body code into single function files in a R subdirectory and a clean body script that is easier to read.</p>
+<p>This task is probably a non-starter if you have more than a few hundered lines of code. This is where <a href="untangle" class="uri">untangle</a> can save you time. <a href="untangle" class="uri">untangle</a> will separate the long script into single function files in a subdirectory and keep the body script intact.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untangle</span>(<span class="dt">file =</span> <span class="st">&#39;test.R&#39;</span>,<span class="dt">dir.out =</span> <span class="st">&#39;R&#39;</span>)</code></pre>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/untangle_test.gif?raw=true" /></p>
+<p>As we can see we got three new files.</p>
+<ul>
+<li><code>body.R</code> in the working directory</li>
+<li><code>yy.R</code> in the R subdirectory</li>
+<li><code>zz.R</code> in the <code>R</code> subdirectory</li>
+</ul>
+</div>
+<div id="namespacing" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Namespacing</h3>
+<p>It has become common practice to use the namespace in function calls, and it is obligatory in order to pass a cran check. But, not everyone does it and if you’re not use to it, it’s a pain to go back and update your script.</p>
+<p>This is where <a href="commandline.html#prettyns">pretty_namespace</a> comes in. This function will go through your script and attach namespaces for you, with the same logic as the search path.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pretty_namespace</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/pretty_ns_test.gif?raw=true" /></p>
+<p>So now we have separate files with functions appropriatly associated with namespaces, and now we can add <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> headers.</p>
+</div>
+<div id="documentation" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Documentation</h3>
+<p>Now we are ready to create the function documentation using <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a>. We use <a href="commandline.html#makeoxygen">makeOxygen</a> to create a skeleton for <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> documentation. This function returns a skeleton that includes title, description, return, import and other fields populated with information scraped from the function script. We can also run <a href="commandline.html#makeoxygen">makeOxygen</a> in batch mode using <a href="commandline.html#makeoxyfile">makeOxyfile</a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeOxyFile</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/oxy_test.gif?raw=true" /></p>
+<p>Lets see what we got back in <code>zz.R</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; @title FUNCTION_TITLE</span>
+<span class="co">#&#39; @description FUNCTION_DESCRIPTION</span>
+<span class="co">#&#39; @param v PARAM_DESCRIPTION, Default: 10</span>
+<span class="co">#&#39; @param a PARAM_DESCRIPTION, Default: 8</span>
+<span class="co">#&#39; @return OUTPUT_DESCRIPTION</span>
+<span class="co">#&#39; @details DETAILS</span>
+<span class="co">#&#39; @examples </span>
+<span class="co">#&#39; \dontrun{</span>
+<span class="co">#&#39; if(interactive()){</span>
+<span class="co">#&#39;  #EXAMPLE1</span>
+<span class="co">#&#39;  }</span>
+<span class="co">#&#39; }</span>
+<span class="co">#&#39; @seealso </span>
+<span class="co">#&#39;  \code{\link[utils]{head}}</span>
+<span class="co">#&#39;  \code{\link[stats]{runif}}</span>
+<span class="co">#&#39; @rdname zz</span>
+<span class="co">#&#39; @export </span>
+<span class="co">#&#39; @author Jonathan Sidi</span>
+<span class="co">#&#39; @importFrom utils head</span>
+<span class="co">#&#39; @importFrom stats runif</span>
+zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){
+  utils<span class="op">::</span><span class="kw">head</span>(stats<span class="op">::</span><span class="kw">runif</span>(v),a)
+}</code></pre>
+<p>The premise of <a href="commandline.html#makeoxygen">makeOxygen</a> is to expand on the default skeleton in <code>RStudio</code>, so basic fields are in the output by default. Each field is given with a relevant placeholder giving a hint what is expected. The following is the meat add to these bones:</p>
+<ul>
+<li>param default values:
+<ul>
+<li>If a default value is set for a function parameter it will be added to the end <code>@param</code> line.</li>
+</ul></li>
+<li>import/importFrom
+<ul>
+<li>The package scrapes the script with makeImport looking for declared namespaces to create the proper calls for <code>@import</code> and <code>@importFrom</code> which are placed at the bottom of the output.</li>
+</ul></li>
+<li>seealso
+<ul>
+<li>linking to other packages is also taken care of when adding the field <code>@seealso</code>. Any functions that are included in <code>@importFrom</code> will have a link to them by default.</li>
+</ul></li>
+</ul>
+</div>
+<div id="description" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Description</h3>
+<p>It is also important to update the package description file Imports field. This can be done for you with <a href="commandline.html#makeimport">makeImport</a>, by either creating a new Imports field or updating an existing one.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">makeImport</span>(<span class="st">&#39;R&#39;</span>,<span class="dt">format =</span> <span class="st">&#39;description&#39;</span>,<span class="dt">desc_loc =</span> <span class="st">&#39;.&#39;</span>)</code></pre>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/makeimport_test.gif?raw=true" /></p>
+</div>
+<div id="update-documentation" class="section level3">
+<h3><span class="header-section-number">2.2.5</span> Update documentation</h3>
+<p>An important part of maintaining a package is keeping the documentation updated. Using <a href="commandline.html#moga">moga</a> we can achieve this painlessly. <a href="commandline.html#moga">moga</a> runs the same underlying script as <a href="commandline.html#moga">moga</a> but appends new information found into the current <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> header instead of creating a new one.</p>
+<p>Lets say we updated <code>yy.R</code> to include another param and used another function from the <code>stats</code> package. So the <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> header is now out of synch with the current script.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#some comment</span>
+<span class="co">#&#39; @title FUNCTION_TITLE</span>
+<span class="co">#&#39; @description FUNCTION_DESCRIPTION</span>
+<span class="co">#&#39; @param a numeric, set the head to trim from random unif Default: 4</span>
+<span class="co">#&#39; @return OUTPUT_DESCRIPTION</span>
+<span class="co">#&#39; @details DETAILS</span>
+<span class="co">#&#39; @examples </span>
+<span class="co">#&#39; \dontrun{</span>
+<span class="co">#&#39; if(interactive()){</span>
+<span class="co">#&#39;  #EXAMPLE1</span>
+<span class="co">#&#39;  }</span>
+<span class="co">#&#39; }</span>
+<span class="co">#&#39; @seealso </span>
+<span class="co">#&#39;  \code{\link[utils]{head}}</span>
+<span class="co">#&#39;  \code{\link[stats]{runif}}</span>
+<span class="co">#&#39; @rdname yy</span>
+<span class="co">#&#39; @export </span>
+<span class="co">#&#39; @author Jonathan Sidi</span>
+<span class="co">#&#39; @importFrom utils head</span>
+<span class="co">#&#39; @importFrom stats runif</span>
+yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>,<span class="dt">b=</span><span class="dv">2</span>){
+  x &lt;-<span class="st"> </span>utils<span class="op">::</span><span class="kw">head</span>(stats<span class="op">::</span><span class="kw">runif</span>(<span class="dv">10</span><span class="op">*</span>b),a)
+  stats<span class="op">::</span><span class="kw">quantile</span>(x,<span class="dt">probs=</span>.<span class="dv">95</span>)
+  <span class="co"># a comment</span>
+}</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moga</span>(<span class="st">&#39;R/yy.r&#39;</span>,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre>
+<p><img src="https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/moga_test.gif?raw=true" /></p>
+</div>
+<div id="oxygenize-and-check" class="section level3">
+<h3><span class="header-section-number">2.2.6</span> Oxygenize and Check</h3>
+<div id="oxygenize" class="section level4">
+<h4><span class="header-section-number">2.2.6.1</span> Oxygenize</h4>
+<pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">document</span>()
+Updating test documentation
+Loading test
+First time using roxygen2. Upgrading automatically...
+Updating roxygen version <span class="cf">in</span> <span class="op">/</span>Users<span class="op">/</span>jonathans<span class="op">/</span>projects<span class="op">/</span>sinew<span class="op">/</span>Miscellaneous<span class="op">/</span>test<span class="op">/</span>DESCRIPTION
+Writing NAMESPACE
+Writing yy.Rd
+Writing zz.Rd</code></pre>
+</div>
+<div id="r-cmd-check" class="section level4">
+<h4><span class="header-section-number">2.2.6.2</span> R CMD Check</h4>
+<pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">use_mit_license</span>()
+<span class="op">*</span><span class="st"> </span>Updating license field <span class="cf">in</span> DESCRIPTION.
+<span class="op">*</span><span class="st"> </span>Creating <span class="st">`</span><span class="dt">LICENSE</span><span class="st">`</span> from template.
+
+devtools<span class="op">::</span><span class="kw">check</span>(<span class="dt">cran =</span> <span class="ot">TRUE</span>)
+Updating test documentation
+Loading test
+Setting env vars <span class="op">-------------------------------------------------------</span>
+CFLAGS  <span class="op">:</span><span class="st"> </span><span class="op">-</span>Wall <span class="op">-</span>pedantic
+CXXFLAGS<span class="op">:</span><span class="st"> </span><span class="op">-</span>Wall <span class="op">-</span>pedantic
+Building test <span class="op">----------------------------------------------------------</span>
+<span class="st">&#39;/Library/Frameworks/R.framework/Resources/bin/R&#39;</span> <span class="op">--</span>no<span class="op">-</span>site<span class="op">-</span>file  \
+  <span class="op">--</span>no<span class="op">-</span>environ <span class="op">--</span>no<span class="op">-</span>save <span class="op">--</span>no<span class="op">-</span>restore <span class="op">--</span>quiet CMD build  \
+  <span class="st">&#39;/Users/jonathans/projects/sinew/Miscellaneous/test&#39;</span>  \
+  <span class="op">--</span>no<span class="op">-</span>resave<span class="op">-</span>data <span class="op">--</span>no<span class="op">-</span>manual 
+
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> file ‘<span class="op">/</span>Users<span class="op">/</span>jonathans<span class="op">/</span>projects<span class="op">/</span>sinew<span class="op">/</span>Miscellaneous<span class="op">/</span>test<span class="op">/</span>DESCRIPTION’ ... OK
+<span class="op">*</span><span class="st"> </span>preparing ‘test’<span class="op">:</span>
+<span class="er">*</span><span class="st"> </span>checking DESCRIPTION meta<span class="op">-</span>information ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> LF line<span class="op">-</span>endings <span class="cf">in</span> source and make files
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> empty or unneeded directories
+<span class="op">*</span><span class="st"> </span>building ‘test_<span class="dv">0</span>.<span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">9000.</span>tar.gz’
+
+Setting env vars <span class="op">-------------------------------------------------------</span>
+_R_CHECK_CRAN_INCOMING_ <span class="op">:</span><span class="st"> </span><span class="ot">FALSE</span>
+_R_CHECK_FORCE_SUGGESTS_<span class="op">:</span><span class="st"> </span><span class="ot">FALSE</span>
+Checking test <span class="op">----------------------------------------------------------</span>
+<span class="st">&#39;/Library/Frameworks/R.framework/Resources/bin/R&#39;</span> <span class="op">--</span>no<span class="op">-</span>site<span class="op">-</span>file  \
+  <span class="op">--</span>no<span class="op">-</span>environ <span class="op">--</span>no<span class="op">-</span>save <span class="op">--</span>no<span class="op">-</span>restore <span class="op">--</span>quiet CMD check  \
+  <span class="st">&#39;/var/folders/4_/xhs9__yd49l4v4j4wdg9f0wr0000gp/T//Rtmp1KA1SX/test_0.0.0.9000.tar.gz&#39;</span>  \
+  <span class="op">--</span>as<span class="op">-</span>cran <span class="op">--</span>timings <span class="op">--</span>no<span class="op">-</span>manual 
+
+<span class="op">*</span><span class="st"> </span>using log directory ‘<span class="op">/</span>private<span class="op">/</span>var<span class="op">/</span>folders<span class="op">/</span><span class="dv">4</span>_<span class="op">/</span>xhs9__yd49l4v4j4wdg9f0wr0000gp<span class="op">/</span>T<span class="op">/</span>Rtmp1KA1SX<span class="op">/</span>test.Rcheck’
+<span class="op">*</span><span class="st"> </span>using R version <span class="dv">3</span>.<span class="fl">3.3</span> (<span class="dv">2017-03-06</span>)
+<span class="op">*</span><span class="st"> </span>using platform<span class="op">:</span><span class="st"> </span>x86_<span class="dv">64</span><span class="op">-</span>apple<span class="op">-</span><span class="kw">darwin13.4.0</span> (<span class="dv">64</span><span class="op">-</span>bit)
+<span class="op">*</span><span class="st"> </span>using session charset<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span>
+<span class="op">*</span><span class="st"> </span>using options ‘<span class="op">--</span>no<span class="op">-</span>manual <span class="op">--</span>as<span class="op">-</span>cran’
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> file ‘test<span class="op">/</span>DESCRIPTION’ ... OK
+<span class="op">*</span><span class="st"> </span>this is package ‘test’ version ‘<span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span>’
+<span class="op">*</span><span class="st"> </span>package encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span>
+<span class="op">*</span><span class="st"> </span>checking package namespace information ... OK
+<span class="op">*</span><span class="st"> </span>checking package dependencies ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">if</span> this is a source package ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">if</span> there is a namespace ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> executable files ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> hidden files and directories ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> portable file names ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> sufficient<span class="op">/</span>correct file permissions ... OK
+<span class="op">*</span><span class="st"> </span>checking whether package ‘test’ can be installed ... OK
+<span class="op">*</span><span class="st"> </span>checking installed package size ... OK
+<span class="op">*</span><span class="st"> </span>checking package directory ... OK
+<span class="op">*</span><span class="st"> </span>checking DESCRIPTION meta<span class="op">-</span>information ... OK
+<span class="op">*</span><span class="st"> </span>checking top<span class="op">-</span>level files ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> left<span class="op">-</span>over files ... OK
+<span class="op">*</span><span class="st"> </span>checking index information ... OK
+<span class="op">*</span><span class="st"> </span>checking package subdirectories ... OK
+<span class="op">*</span><span class="st"> </span>checking R files <span class="cf">for</span> non<span class="op">-</span>ASCII characters ... OK
+<span class="op">*</span><span class="st"> </span>checking R files <span class="cf">for</span> syntax errors ... OK
+<span class="op">*</span><span class="st"> </span>checking whether the package can be loaded ... OK
+<span class="op">*</span><span class="st"> </span>checking whether the package can be loaded with stated dependencies ... OK
+<span class="op">*</span><span class="st"> </span>checking whether the package can be unloaded cleanly ... OK
+<span class="op">*</span><span class="st"> </span>checking whether the namespace can be loaded with stated dependencies ... OK
+<span class="op">*</span><span class="st"> </span>checking whether the namespace can be unloaded cleanly ... OK
+<span class="op">*</span><span class="st"> </span>checking loading without being on the library search path ... OK
+<span class="op">*</span><span class="st"> </span>checking dependencies <span class="cf">in</span> R code ... OK
+<span class="op">*</span><span class="st"> </span>checking S3 generic<span class="op">/</span>method consistency ... OK
+<span class="op">*</span><span class="st"> </span>checking replacement functions ... OK
+<span class="op">*</span><span class="st"> </span>checking foreign <span class="cf">function</span> calls ... OK
+<span class="op">*</span><span class="st"> </span>checking R code <span class="cf">for</span> possible problems ... OK
+<span class="op">*</span><span class="st"> </span>checking Rd files ... OK
+<span class="op">*</span><span class="st"> </span>checking Rd metadata ... OK
+<span class="op">*</span><span class="st"> </span>checking Rd line widths ... OK
+<span class="op">*</span><span class="st"> </span>checking Rd cross<span class="op">-</span>references ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> missing documentation entries ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> code<span class="op">/</span>documentation mismatches ... OK
+<span class="op">*</span><span class="st"> </span>checking Rd \usage sections ... OK
+<span class="op">*</span><span class="st"> </span>checking Rd contents ... OK
+<span class="op">*</span><span class="st"> </span>checking <span class="cf">for</span> unstated dependencies <span class="cf">in</span> examples ... OK
+<span class="op">*</span><span class="st"> </span>checking examples ... OK
+<span class="op">*</span><span class="st"> </span>DONE
+
+Status<span class="op">:</span><span class="st"> </span>OK
+
+R CMD check results
+<span class="dv">0</span> errors <span class="op">|</span><span class="st"> </span><span class="dv">0</span> warnings <span class="op">|</span><span class="st"> </span><span class="dv">0</span> notes</code></pre>
+</div>
+</div>
+<div id="does-it-work" class="section level3">
+<h3><span class="header-section-number">2.2.7</span> Does it work?</h3>
+<pre class="sourceCode r"><code class="sourceCode r">test<span class="op">::</span><span class="kw">yy</span>()
+      <span class="dv">95</span>% 
+<span class="fl">0.4104221</span> 
+
+test<span class="op">::</span><span class="kw">zz</span>()
+[<span class="dv">1</span>] <span class="fl">0.84515305</span> <span class="fl">0.72393508</span> <span class="fl">0.74036634</span> <span class="fl">0.03006037</span> <span class="fl">0.67631049</span> <span class="fl">0.71084114</span>
+[<span class="dv">7</span>] <span class="fl">0.86142639</span> <span class="fl">0.12371146</span></code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="install.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/metrumresearchgroup/sinew/blob/gh-pages/edit/master/02-motive.Rmd",
+"text": "Edit"
+},
+"download": ["sinew-book.pdf", "sinew-book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

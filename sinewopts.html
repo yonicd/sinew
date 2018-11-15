@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="install.html">
+<link rel="prev" href="workflow.html">
+<link rel="next" href="addins.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -199,33 +199,149 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Sinew: Simple R Package Documentation</h1>
-<p class="author"><em>Jonathan Sidi, Metrum Research Group</em></p>
-<p class="date"><em>2018-11-15</em></p>
+<div id="sinewopts" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Session level options</h1>
+<p><code>Sinew</code> options can be set to remain persistent across sessions or at a global level within a session</p>
+<p>For those familiar with <code>knitr</code> <code>sinew</code> follows the same option logic, and instead of <code>knitr::opts_chunk</code> we define <code>sinew::sinew_opts</code>.</p>
+<p>The defaults settings for the core function parameters in <code>sinew</code> are defined in <code>sinew_opts</code>. These include the <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> fields and their values to include by default in the function header.</p>
+<p>These settings will persist for a <code>R</code> session.</p>
+<p>If the user needs the settings to persist across sessions, like in package development, sinew reads on load a file called <code>_sinewconfig.yml</code>, placed in the working directory.</p>
+<div id="using-sinew_opts" class="section level2">
+<h2><span class="header-section-number">4.1</span> Using sinew_opts</h2>
+<p>Retrieve all current values</p>
+<pre class="sourceCode r"><code class="sourceCode r">sinew_opts<span class="op">$</span><span class="kw">get</span>()</code></pre>
+<pre><code>## $add_fields
+## [1] &quot;details&quot;  &quot;examples&quot; &quot;seealso&quot;  &quot;rdname&quot;   &quot;export&quot;  
+## 
+## $pretty_print
+## [1] TRUE
+## 
+## $author
+## [1] &quot;AUTHOR [AUTHOR_2]&quot;
+## 
+## $backref
+## [1] &quot;src/filename.cpp&quot;
+## 
+## $concept
+## [1] &quot;CONCEPT_TERM_1 [CONCEPT_TERM_2]&quot;
+## 
+## $describeIn
+## [1] &quot;FUNCTION_NAME DESCRIPTION&quot;
+## 
+## $details
+## [1] &quot;DETAILS&quot;
+## 
+## $example
+## [1] &quot;path_to_file/relative/to/packge/root&quot;
+## 
+## $examples
+## [1] &quot;\n#&#39; \\dontrun{\n#&#39; if(interactive()){\n#&#39;  #EXAMPLE1\n#&#39;  }\n#&#39; }&quot;
+## 
+## $export
+## [1] &quot;&quot;
+## 
+## $family
+## [1] &quot;FAMILY_TITLE&quot;
+## 
+## $field
+## [1] &quot;FIELD_IN_S4_RefClass DESCRIPTION&quot;
+## 
+## $format
+## [1] &quot;DATA_STRUCTURE&quot;
+## 
+## $importClassesFrom
+## [1] &quot;PKG CLASS_a [CLASS_b]&quot;
+## 
+## $importMethodsFrom
+## [1] &quot;PKG METHOD_a [METHOD_b]&quot;
+## 
+## $include
+## [1] &quot;FILENAME.R [FILENAME_b.R]&quot;
+## 
+## $inherit
+## [1] &quot;[PKG::]SOURCE_FUNCTION [FIELD_a FIELD_b]&quot;
+## 
+## $inheritDotParams
+## [1] &quot;[PKG::]SOURCE_FUNCTION&quot;
+## 
+## $inheritSection
+## [1] &quot;[PKG::]SOURCE_FUNCTION [SECTION_a SECTION_b]&quot;
+## 
+## $keywords
+## [1] &quot;KEYWORD_TERM&quot;
+## 
+## $name
+## [1] &quot;NAME&quot;
+## 
+## $rdname
+## [1] &quot;FUNCTION_NAME&quot;
+## 
+## $references
+## [1] &quot;BIB_CITATION&quot;
+## 
+## $section
+## [1] &quot;SECTION_NAME&quot;
+## 
+## $source
+## [1] &quot;\\url{http://somewhere.important.com/}&quot;
+## 
+## $slot
+## [1] &quot;SLOTNAME DESCRIPTION&quot;
+## 
+## $template
+## [1] &quot;FILENAME&quot;
+## 
+## $templateVar
+## [1] &quot;NAME VALUE&quot;
+## 
+## $useDynLib
+## [1] &quot;PKG [ROUTINE_a ROUTINE_b]&quot;</code></pre>
+<p>Retrieve a specific field</p>
+<pre class="sourceCode r"><code class="sourceCode r">sinew_opts<span class="op">$</span><span class="kw">get</span>(<span class="st">&#39;author&#39;</span>)</code></pre>
+<pre><code>## [1] &quot;AUTHOR [AUTHOR_2]&quot;</code></pre>
+<p>Retrieve a multiple fields</p>
+<pre class="sourceCode r"><code class="sourceCode r">sinew_opts<span class="op">$</span><span class="kw">get</span>(<span class="kw">c</span>(<span class="st">&#39;author&#39;</span>,<span class="st">&#39;source&#39;</span>))</code></pre>
+<pre><code>## $author
+## [1] &quot;AUTHOR [AUTHOR_2]&quot;
+## 
+## $source
+## [1] &quot;\\url{http://somewhere.important.com/}&quot;</code></pre>
+<p>Set a value</p>
+<pre class="sourceCode r"><code class="sourceCode r">sinew_opts<span class="op">$</span><span class="kw">set</span>(<span class="kw">list</span>(<span class="dt">author=</span><span class="st">&#39;Jonathan Sidi&#39;</span>))
+sinew_opts<span class="op">$</span><span class="kw">get</span>(<span class="st">&#39;author&#39;</span>)</code></pre>
+<pre><code>## [1] &quot;Jonathan Sidi&quot;</code></pre>
+<p>Append a new value to the current field values</p>
+<pre class="sourceCode r"><code class="sourceCode r">sinew_opts<span class="op">$</span><span class="kw">get</span>(<span class="st">&#39;add_fields&#39;</span>)</code></pre>
+<pre><code>## [1] &quot;details&quot;  &quot;examples&quot; &quot;seealso&quot;  &quot;rdname&quot;   &quot;export&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">sinew_opts<span class="op">$</span><span class="kw">append</span>(<span class="dt">add_fields=</span><span class="st">&#39;source&#39;</span>)
+sinew_opts<span class="op">$</span><span class="kw">get</span>(<span class="st">&#39;add_fields&#39;</span>)</code></pre>
+<pre><code>## [1] &quot;details&quot;  &quot;examples&quot; &quot;seealso&quot;  &quot;rdname&quot;   &quot;export&quot;   &quot;source&quot;</code></pre>
+<p>Reset fields to package defaults</p>
+<pre class="sourceCode r"><code class="sourceCode r">sinew_opts<span class="op">$</span><span class="kw">restore</span>()
+sinew_opts<span class="op">$</span><span class="kw">get</span>(<span class="kw">c</span>(<span class="st">&#39;add_fields&#39;</span>,<span class="st">&#39;author&#39;</span>))</code></pre>
+<pre><code>## $add_fields
+## [1] &quot;details&quot;  &quot;examples&quot; &quot;seealso&quot;  &quot;rdname&quot;   &quot;export&quot;  
+## 
+## $author
+## [1] &quot;AUTHOR [AUTHOR_2]&quot;</code></pre>
 </div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<blockquote>
-<p>Sinew</p>
-<p>noun | sin·ew | sin-yü</p>
-<p>A tendon or sinew is a tough band of fibrous connective tissue that usually connects muscle to bone and is capable of withstanding tension.</p>
-<p>— Wikipedia</p>
-</blockquote>
-<p>At the core of creating reproducible research is the daunting process of documentation, and working with <code>R</code> presents no exception. The standardized <code>R</code> package documentation is part of the appeal for new (and experienced) users, where concise, clear instructions are cherished. Packages are great for reusing scripts in a consistent fashion and for developers, package creation helps organizing and maintaining their ideas.</p>
-<p>The barrier to entry for package maintenance and documentation, however may be too high for <code>R</code> users embarking on the task of package creation, thereby discouraging them from development. The out-of-the-box <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> skeleton supplied by <code>RStudio</code> gives the bare bones road map of what should be part of function documentation.</p>
-<p>The goal of <code>sinew</code> is to automate nearly all of the manual tasks needed to document functions, properly set up the import fields for oxygenation, and make it easier to attain documentation consistency across functions and packages.</p>
-<p>Once the initial documentation is set, <code>sinew</code> can be used as part of the natural maintenance workflow to automatically change and append updated parameters, definitions, defaults, add namespacing to functions and dependencies, making your documentation great - again!</p>
-<p><code>Sinew</code> is built for both command line and interactive users through a Shiny gadget that can be called from the addin menu. The addin can be used on any function either installed, in the search path, one you just wrote, or one your need to update.</p>
+<div id="using-_sinewconfig.yml-sinewconfig" class="section level2">
+<h2><span class="header-section-number">4.2</span> Using _sinewconfig.yml {#sinewconfig}</h2>
+<p>When loading the <code>sinew</code> package the file <code>_sinewconfig.yml</code> will be searched for in the working directory, if found settings found in it will be used instead of the package defaults.</p>
+<p>To create the <code>_sinewconfig.yml</code> file in the current project directory and update the <code>.Rbuildignore</code> automatically use the function <code>create_yml()</code>.</p>
+<p>In the example below the field author will be added to all <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> headers returned by <code>sinew</code> and its value is <code>Jonathan Sidi</code>.</p>
+<pre class="sourceCode yml"><code class="sourceCode yaml"><span class="fu">add_fields:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;author&quot;</span><span class="kw">]</span>
+<span class="fu">author:</span><span class="at"> </span><span class="st">&#39;Jonathan Sidi&#39;</span></code></pre>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="install.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="workflow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="addins.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -255,7 +371,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/sinew/blob/gh-pages/edit/master/index.Rmd",
+"link": "https://github.com/metrumresearchgroup/sinew/blob/gh-pages/edit/master/04-sinewopts.Rmd",
 "text": "Edit"
 },
 "download": ["sinew-book.pdf", "sinew-book.epub"],

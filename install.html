@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="install.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="motive.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -199,33 +199,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Sinew: Simple R Package Documentation</h1>
-<p class="author"><em>Jonathan Sidi, Metrum Research Group</em></p>
-<p class="date"><em>2018-11-15</em></p>
+<div id="install" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Installation</h1>
+<div id="cran" class="section level2">
+<h2><span class="header-section-number">1.1</span> CRAN</h2>
+<p>The <code>CRAN</code> package homepage</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&#39;sinew&#39;</span>)</code></pre>
+<p>For a quick example, run the following:</p>
+<pre class="sourceCode r"><code class="sourceCode r">sinew<span class="op">::</span><span class="kw">makeOxygen</span>(<span class="st">&#39;lm&#39;</span>)</code></pre>
 </div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<blockquote>
-<p>Sinew</p>
-<p>noun | sin·ew | sin-yü</p>
-<p>A tendon or sinew is a tough band of fibrous connective tissue that usually connects muscle to bone and is capable of withstanding tension.</p>
-<p>— Wikipedia</p>
-</blockquote>
-<p>At the core of creating reproducible research is the daunting process of documentation, and working with <code>R</code> presents no exception. The standardized <code>R</code> package documentation is part of the appeal for new (and experienced) users, where concise, clear instructions are cherished. Packages are great for reusing scripts in a consistent fashion and for developers, package creation helps organizing and maintaining their ideas.</p>
-<p>The barrier to entry for package maintenance and documentation, however may be too high for <code>R</code> users embarking on the task of package creation, thereby discouraging them from development. The out-of-the-box <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> skeleton supplied by <code>RStudio</code> gives the bare bones road map of what should be part of function documentation.</p>
-<p>The goal of <code>sinew</code> is to automate nearly all of the manual tasks needed to document functions, properly set up the import fields for oxygenation, and make it easier to attain documentation consistency across functions and packages.</p>
-<p>Once the initial documentation is set, <code>sinew</code> can be used as part of the natural maintenance workflow to automatically change and append updated parameters, definitions, defaults, add namespacing to functions and dependencies, making your documentation great - again!</p>
-<p><code>Sinew</code> is built for both command line and interactive users through a Shiny gadget that can be called from the addin menu. The addin can be used on any function either installed, in the search path, one you just wrote, or one your need to update.</p>
+<div id="development" class="section level2">
+<h2><span class="header-section-number">1.2</span> Development</h2>
+<p>The package is currently under continuous development for the most up to date version run the script below.</p>
+<p>The github package homepage</p>
+<pre class="sourceCode r"><code class="sourceCode r">remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;metrumresearchgroup/sinew&quot;</span>)</code></pre>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="install.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="motive.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -255,7 +252,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/sinew/blob/gh-pages/edit/master/index.Rmd",
+"link": "https://github.com/metrumresearchgroup/sinew/blob/gh-pages/edit/master/01-install.Rmd",
 "text": "Edit"
 },
 "download": ["sinew-book.pdf", "sinew-book.epub"],
