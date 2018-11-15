@@ -1,0 +1,23 @@
+## makeDictionary
+
+This function takes the idea of [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) templates, but repurposes their use. It creates an `R` file of all the unique [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) parameter fields in a package `R` subdirectory. This serves a few functions:
+
+  - Creates a general template for regular use with [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html)
+  - Simple way to check that there are no redundant parameter descriptions and that they are consistent.
+  - When present, this is used internally with ls_param to call parameter descriptions in bulk from a centralized template to populate makeOxygen skeletons.
+
+For example in the [man-roxygen](https://github.com/metrumresearchgroup/sinew/tree/gh-pages/man-roxygen) there is a `Dictionary-1.R` file that was created by `makeDictionary`. Using `ls_param` a query is run on the dictionary to return the param fields that intersect with the formals call to the functions.
+
+```{r,eval=FALSE}
+dict_loc <- 'https://github.com/metrumresearchgroup/sinew/blob/master/man-roxygen/Dictionary-1.R'
+```
+
+```{r,eval=FALSE}
+#without dictionary
+makeOxygen(makeImport)
+```
+
+```{r,eval=FALSE}
+#with dictionary
+makeOxygen(makeImport,use_dictionary = dict_loc)
+```

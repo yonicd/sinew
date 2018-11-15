@@ -1,0 +1,11 @@
+## tabular
+
+Utility function to convert a `data.frame` to [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) tabular format
+
+```{r}
+cat(sinew::tabular(mtcars[1:5, 1:5]))
+```
+
+```{r}
+cat(sinew::tabular(mtcars[1:5, 1:5],header=FALSE))
+```

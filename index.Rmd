@@ -1,0 +1,45 @@
+--- 
+title: "Sinew: Simple R Package Documentation"
+author: "Jonathan Sidi, Metrum Research Group"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: metrumresearchgroup/sinew
+description: "Sinew User Manual"
+---
+
+```{r,include=FALSE}
+library(sinew)
+```
+
+# Preface {-}
+
+> Sinew
+> 
+> noun | sin·ew | sin-yü
+> 
+> A tendon or sinew is a tough band of fibrous connective tissue that usually connects muscle to bone and is capable of withstanding tension.
+> 
+> — Wikipedia
+
+At the core of creating reproducible research is the daunting process of documentation, and working with `R` presents no exception. The standardized `R` package documentation is part of the appeal for new (and experienced) users, where concise, clear instructions are cherished. Packages are great for reusing scripts in a consistent fashion and for developers, package creation helps organizing and maintaining their ideas.
+
+The barrier to entry for package maintenance and documentation, however may be too high for `R` users embarking on the task of package creation, thereby discouraging them from development. The out-of-the-box [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) skeleton supplied by `RStudio` gives the bare bones road map of what should be part of function documentation.
+
+The goal of `sinew` is to automate nearly all of the manual tasks needed to document functions, properly set up the import fields for oxygenation, and make it easier to attain documentation consistency across functions and packages.
+
+Once the initial documentation is set, `sinew` can be used as part of the natural maintenance workflow to automatically change and append updated parameters, definitions, defaults, add namespacing to functions and dependencies, making your documentation great - again!
+
+`Sinew` is built for both command line and interactive users through a Shiny gadget that can be called from the addin menu. The addin can be used on any function either installed, in the search path, one you just wrote, or one your need to update.
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

@@ -1,5 +1,9 @@
 .Rproj.user
-.Ruserdata
-*.Rproj
-*.DS_Store
-bookdown*
+.Rhistory
+.RData
+_publish.R
+_book
+_bookdown_files
+rsconnect
+temp
+.DS_Store

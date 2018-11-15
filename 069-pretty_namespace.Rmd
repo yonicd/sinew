@@ -1,0 +1,33 @@
+## pretty_namespace{#prettyns}
+
+Autoappend namespace to functions in script by searchpath order. This function will search functions in the following order
+
+  1. global environment
+  1. [loadedNamespaces](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/ns-load) (loaded packages)
+  1. [help.search](https://www.rdocumentation.org/packages/Rdocumentation/versions/0.5/topics/help.search) (installed.packages)
+  1. online via the [sos](https://cran.r-project.org/web/packages/sos/index.html) package (CRAN packages)
+  
+The `sos` search is optional and is turned off by default.
+
+```{r,include=FALSE}
+library(utils)
+library(stats)
+```
+
+```{r}
+txt <- '#some comment
+yy <- function(a=4){
+  head(runif(10),a)
+  # a comment
+}
+
+zz <- function(v=10,a=8){
+  head(runif(v),a)
+}'
+
+x <- sinew::pretty_namespace(text=txt)
+```
+
+```{r}
+x
+```

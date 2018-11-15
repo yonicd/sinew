@@ -1,0 +1,52 @@
+## makeOxygen
+
+Function that returns the skeleton for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation including title, description, return, import and other fields populated with information scraped from the function script.
+
+### Basic Usage
+
+`makeOxygen` is the main function in the package. Running the default setting returns a skeleton with minimal required fields to run `devtools::check(build_args = '--as-cran')`: title, description, and param.
+
+Adding Some Meat to the Bones…
+
+The added value of sinew is that it scrapes the script and fills in many important holes in the documentation:
+
+  - param default values:
+    - if a default value is set for a function parameter it will be added to the end `@param` line.
+  - import/importFrom
+    - It is assumed that the developer is abiding by the `CRAN` rules and uses the proper namespace syntax package::function when calling functions in the script. The package scrapes the script with makeImport to create the proper calls for `@import` and `@importFrom` which are placed at the bottom of the output. The user has control the number of functions that are listed in importFrom package function1 [ function2 ...] until only `@import` package is returned (more below).
+  - seealso
+    - linking to other packages is also taken care of when adding the field `@seealso`. Any functions that are included in `@importFrom` will have a link to them by default.
+
+Examples showing different parameter specification in makeOxygen
+
+### Simple call
+
+```{r}
+makeOxygen(lm)
+```
+
+### Add_fields
+
+Control over which [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) fields are added to the header is passed through `add_fields`.
+
+```{r}
+makeOxygen(lm, add_fields = c('author'))
+```
+
+### Cut
+
+Passing `cut` to `makeOxygen` to return import package instead of `importFrom package function1 [function2 ...]` for packages that call more than the value assigned to cut.
+
+```{r}
+makeOxygen(lm, cut=1)
+```
+
+### Seealso
+
+When calling `addfields('seealso')` the function will give a guess of which functions to add conditional on what value cut it set to. That is any function returned with importFrom will also have a seealso link created for it.
+
+```{r}
+makeOxygen(lm,add_fields = 'seealso')
+```
+
+

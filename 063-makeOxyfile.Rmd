@@ -1,0 +1,29 @@
+## makeOxyFile
+
+Function authored by: Anton Grishin
+
+While [makeOxygen](#makeoxygen) is the workhorse for the package it does only print out to the console or a object in the current environment. `makeOxyFile` is a wrapper function for [makeOxygen](#makeoxygen) in order to actively insert [makeOxygen](#makeoxygen) outputs into existing or new files. By default `makeOxyFile` will not overwrite existing files, but will make a copy of the file and name it `oxy-filename.R`.
+
+An empty call will envoke the system file selection dialogue.
+
+```{r,eval=FALSE}
+makeOxyFile()
+```
+
+Single File
+
+```{r,eval=FALSE}
+makeOxyFile("./myRfunctions/utils.R")
+```
+
+Batch mode for a directory
+
+```{r,eval=FALSE}
+makeOxyFile("./myRfunctions")
+```
+
+Additional parameters to [makeOxygen](#makeoxygen) can be passed through
+
+```{r,eval=FALSE}
+makeOxyFile("./myRfunctions/utils.R", cut = 5)
+```

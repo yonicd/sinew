@@ -1,0 +1,51 @@
+## makeImport
+
+When you are building a package to submit to CRAN and you need to have namespace calls for any function that is being imported. It is a pain to manually parse through the code looking for all the *::* and writing it in the [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) header. This function does that for you.
+
+You can write normally your script with the __namespace__ calls and in the end run the function and you can paste the output into the header. (or use it as part of [makeOxygen](#makeoxygen) or [makeOxyFile](#makeoxyfile))
+
+The function is written to work on single files or whole directories, like a package `R` subdirectory.
+
+The output can be set to return the format needed for either an [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) header, `NAMESPACE` or the `DESCRIPTION`
+
+```{r, eval=FALSE}
+myDir <- '../../R'
+```
+
+### DESCRIPTION
+
+```{r,eval=FALSE}
+makeImport(script=myDir,format = 'description')
+```
+
+To write the output directly into the Imports field of the `DESCRIPTION` file, specify path to `DESCRIPTION` in `desc_loc`
+
+```{r,eval=FALSE}
+makeImport(myDir,format = 'description', desc_loc='<PATH TO DESCRIPTION>')
+```
+
+### roxygen2
+
+```{r,eval=FALSE}
+#single file
+makeImport(script=file.path(myDir,'makeImport.R'),format = 'oxygen')
+```
+
+```{r,eval=FALSE}
+#whole directory
+makeImport(script=myDir,format = 'oxygen')
+```
+
+### importFrom cutoff
+
+Setting the parameter `cut` to an integer value allows for control of how many functions to list in a package before concatenating the `importFrom` to an import. This is useful when there are many functions being used throughout the package from the same library and it is practically the same as just importing the whole library
+
+```{r,eval=FALSE}
+#without cut
+makeImport(script=file.path(myDir,'oxygenAddin.R'),format = 'oxygen')
+```
+
+```{r,eval=FALSE}
+#with cut
+makeImport(script=file.path(myDir,'oxygenAddin.R'),format = 'oxygen',cut=2)
+```

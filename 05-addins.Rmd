@@ -1,0 +1,39 @@
+# Addins {#addins}
+
+There are two addins in sinew both work off of the same principle. The user highlights a text in the *Source* editor and sinew will interpret that as the input object of [makeOxygen](#makeoxygen) or [moga](#moga).
+
+To access the addins load `sinew` (`library(sinew)`) and then two addins are appended to the `Addins menu` of `RStudio`.
+
+## createOxygen (Static)
+
+This addin will insert above the highlighted text the output of [makeOxygen](#makeoxygen). It is useful to control the fields and their values with [sinew_opts](#sinewopts).
+
+![](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/makeOxygen.gif?raw=true)
+
+## InteractiveOxygen (Interactive)
+
+This addin invokes a shiny gadget.
+
+```{r,echo=FALSE}
+knitr::include_url("https://www.youtube.com/embed/cabOtf191OQ")
+```
+![]()
+
+The user can select to either create a new skeleton or update an existing file. The application search for highlighted text in a number of locations in order to create the documentation.
+
+The application has checkboxes to control what fields are in the documentation, and there is a reactive preview tab to see what the documentation looks like as fields are inserted or removed. It is useful to control the fields checked on by default and their values with [sinew_opts](#sinewopts).
+
+Once the user is happy with the documention skeleton it can be inserted into the editor.
+
+Creating a new skeleton:
+
+  - Script within the source editor can be in either named tabs (saved files) or unnamed tabs (`untitled1`)
+  - Highlighted text can be functions that are one of following
+    - compiled
+    - uncompiled
+    - attached namespace (package in search path)
+    - unattached namespace (package that is installed)
+    
+Updating existing documentation on disk
+
+  - In this case there has to be a physical location for the application to read. If one can not be found then nothing is displayed in the preview tab.

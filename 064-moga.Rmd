@@ -1,0 +1,25 @@
+## moga
+
+After initially getting the documentation just right there comes the endless task of package maintanance. Revising functions is a natural part of the workflow, but a collateral effect of updating script is that the documentation needs to be updated too. This can include changes to the parameter inputs (function formals) or switching the internal function dependency from on package to another.
+
+This is where `moga` can help. `moga` is an acronym for __make oxygen great again__. `moga` will rerun cross check the current documentation of an `R` script and the current script itself and update/add any parameters/defaults/imports discrepancies. This allows the developer to focus on function improvment without having to interrupt the train of thought to focus on documentation.
+
+`moga` can print to console for dry runs or it can overwrite the current file.
+
+The example below shows a function that a parameter (a) was added to the formals, and there is a value already in the `@return` field.
+
+```{r,eval=FALSE}
+readLines('../moga_test_cli.R')
+```
+
+We see that the new parameter was added belows `@param v` and the `@return` field was preserved.
+
+```{r,eval=FALSE}
+moga(path = '../moga_test_cli.R')
+```
+
+If you need to force an existing field to have the default `sinew` value, then use the `force.fields` option
+
+```{r,eval=FALSE}
+moga('../moga_test_cli.R',force.fields = 'return')
+```

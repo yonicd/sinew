@@ -1,0 +1,9 @@
+## rmOxygen
+
+Function authored by: Anton Grishin
+
+Strip `roxygen2` preambles from a file
+
+```{r,eval=FALSE}
+rmOxygen("./myRfunctions/function1.R")
+```

@@ -1,0 +1,51 @@
+## untangle
+
+Utility function that splits a `R` script with multiple functions into multiple single function `R` files. This is great for when you recieve endlessly long `R` scripts that you need to organize quickly.
+
+`untangle` can be used in conjunction with [makeOxyFile](#makeoxyfile) in batch mode to quickly turn around long `R` files into a `CRAN` ready package within minutes.
+
+```{r,eval=FALSE}
+txt <- "#some comment
+#' @import utils
+yy <- function(a=4){
+ utils::head(runif(10),a)
+ # a comment
+}
+
+v <- 20
+
+#another comment
+#' @import utils
+zz <- function(v=10,a=3){
+ utils::head(runif(v),pmin(a,v))
+}
+
+zz(v)
+
+"
+x <- untangle(text = txt)
+
+sapply(x,cat,sep='\n')
+
+#$yy
+# #some comment
+# #' @import utils
+# yy <- function(a=4){
+#   utils::head(runif(10),a)
+#   # a comment
+# }
+#
+#$zz
+# #another comment
+# #' @import utils
+# zz <- function(v=10,a=3){
+#   utils::head(runif(v),pmin(a,v))
+# }
+#
+#$body
+#v <- 20
+#
+#zz(v)
+```
+
+![](https://github.com/metrumresearchgroup/sinew/blob/gh-pages/Miscellaneous/untangle.gif?raw=true)

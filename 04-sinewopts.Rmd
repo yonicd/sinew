@@ -1,0 +1,69 @@
+# Session level options {#sinewopts}
+
+`Sinew` options can be set to remain persistent across sessions or at a global level within a session
+
+For those familiar with `knitr` `sinew` follows the same option logic, and instead of `knitr::opts_chunk` we define `sinew::sinew_opts`.
+
+The defaults settings for the core function parameters in `sinew` are defined in `sinew_opts`. These include the [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) fields and their values to include by default in the function header.
+
+These settings will persist for a `R` session.
+
+If the user needs the settings to persist across sessions, like in package development, sinew reads on load a file called `_sinewconfig.yml`, placed in the working directory.
+
+## Using sinew_opts
+
+Retrieve all current values
+
+```{r}
+sinew_opts$get()
+```
+
+Retrieve a specific field
+
+```{r}
+sinew_opts$get('author')
+```
+
+Retrieve a multiple fields
+
+```{r}
+sinew_opts$get(c('author','source'))
+```
+
+Set a value
+
+```{r}
+sinew_opts$set(list(author='Jonathan Sidi'))
+sinew_opts$get('author')
+```
+
+Append a new value to the current field values
+
+```{r}
+sinew_opts$get('add_fields')
+```
+
+```{r}
+sinew_opts$append(add_fields='source')
+sinew_opts$get('add_fields')
+```
+
+Reset fields to package defaults
+
+```{r}
+sinew_opts$restore()
+sinew_opts$get(c('add_fields','author'))
+```
+
+## Using _sinewconfig.yml {#sinewconfig}
+
+When loading the `sinew` package the file `_sinewconfig.yml` will be searched for in the working directory, if found settings found in it will be used instead of the package defaults.
+
+To create the `_sinewconfig.yml` file in the current project directory and update the `.Rbuildignore` automatically use the function `create_yml()`.
+
+In the example below the field author will be added to all [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) headers returned by `sinew` and its value is `Jonathan Sidi`.
+
+```yml
+add_fields: ["author"]
+author: 'Jonathan Sidi'
+```

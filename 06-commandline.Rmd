@@ -1,0 +1,7 @@
+# Reference {#commandline}
+
+`Sinew` can be used either as a command line tool or with a GUI interface through a `Shiny` gadget. In this chapter we will describe in detail all the command line functionality.
+
+The goal of these functions is to reliably produce `CRAN` ready documentation and namespace managment that is compatible with [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html).
+
+**But at the end of the day this package is only meant to create a fleshed out skeleton and the actual content is up to the developer.**

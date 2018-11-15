@@ -1,0 +1,25 @@
+# Installation {#install}
+
+## CRAN
+
+The `CRAN` package homepage
+
+```{r,eval=FALSE}
+install.packages('sinew')
+```
+
+For a quick example, run the following:
+
+```{r,eval=FALSE}
+sinew::makeOxygen('lm')
+```
+
+## Development
+
+The package is currently under continuous development for the most up to date version run the script below.
+
+The github package homepage
+
+```{r,eval = FALSE}
+remotes::install_github("metrumresearchgroup/sinew")
+```
