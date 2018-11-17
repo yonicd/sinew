@@ -43,6 +43,14 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
     stop("Supplied file(s) is not an .R file!", call. = FALSE)
   }
 
+  neg_msg <- "No functions found in\n"
+  
+  files <- files[sapply(files,scan_for_content)]
+  
+  if(length(files)==0){
+    return(invisible(NULL))
+  }
+  
   append_to_lines <- function(.id, .str) {
     unlist(append(
       .str, strsplit(
@@ -52,20 +60,18 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
       after = .id
     ))
   }
-
-  neg_msg <- "No functions or data frames found in\n"
-
+  
   for (FILE in files) {
+    
     lines <- readLines(FILE, warn = FALSE)
+    
     lines <- lines[!grepl("^\\s*#'", lines)]
-
+    
     objs <- gsub(
       "\\s*([[:alnum:]._]+).*",
       "\\1", grep("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines, value = TRUE)
     )
-
-    if (length(objs) == 0L) stop(neg_msg, normalizePath(FILE), call. = FALSE)
-
+    
     if (!all(objs %in% ls(envir = parent.frame()))) {
       nenv <- new.env()
       sys.source(FILE, nenv, keep.source = TRUE)
@@ -127,4 +133,23 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
       )
     }
   }
+}
+
+scan_for_content <- function(FILE, neg_msg = "No functions found in\n"){
+  
+  lines <- readLines(FILE, warn = FALSE)
+  
+  lines <- lines[!grepl("^\\s*#'", lines)]
+  
+  objs <- gsub(
+    "\\s*([[:alnum:]._]+).*",
+    "\\1", grep("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines, value = TRUE)
+  )
+  
+  res <- length(objs) == 0L
+  
+  if(res)
+    warning(neg_msg, normalizePath(FILE), call. = FALSE)
+  
+  return(!res)
 }
