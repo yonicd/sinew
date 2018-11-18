@@ -11,18 +11,16 @@
 #' @examples
 #' \dontrun{
 #' txt <- "#some comment
-#' #' @import utils
 #' yy <- function(a=4){
-#'  utils::head(runif(10),a)
+#'  head(runif(10),a)
 #'  # a comment
 #' }
 #'
 #' v <- 20
 #'
 #' #another comment
-#' #' @import utils
 #' zz <- function(v=10,a=3){
-#'  utils::head(runif(v),pmin(a,v))
+#'  head(runif(v),pmin(a,v))
 #' }
 #'
 #' zz(v)
