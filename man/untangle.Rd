@@ -13,7 +13,7 @@ untangle(file = "", text = NULL, dir.out = NULL, keep.body = TRUE)
 
 \item{dir.out}{character, path to save new R files, Default: NULL}
 
-\item{keep.body}{boolean, if TRUE all non-funcitons will be saved to body.R in the parent 
+\item{keep.body}{boolean, if TRUE all non-functions will be saved to body.R in the parent 
 directory of dir.out, Default: TRUE}
 }
 \value{
@@ -29,18 +29,16 @@ body.R is written to the working directory and not dir.out. Functions that
 \examples{
 \dontrun{
 txt <- "#some comment
-#' @import utils
 yy <- function(a=4){
- utils::head(runif(10),a)
+ head(runif(10),a)
  # a comment
 }
 
 v <- 20
 
 #another comment
-#' @import utils
 zz <- function(v=10,a=3){
- utils::head(runif(v),pmin(a,v))
+ head(runif(v),pmin(a,v))
 }
 
 zz(v)

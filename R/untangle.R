@@ -3,7 +3,7 @@
 #' @param file character, path to R file, Default: ''
 #' @param text character, vector of R commands, Default: NULL
 #' @param dir.out character, path to save new R files, Default: NULL
-#' @param keep.body boolean, if TRUE all non-funcitons will be saved to body.R in the parent 
+#' @param keep.body boolean, if TRUE all non-functions will be saved to body.R in the parent 
 #' directory of dir.out, Default: TRUE
 #' @details body.R is written to the working directory and not dir.out. Functions that
 #'  are objects in lists are treated as objects and will stay in body.R .
