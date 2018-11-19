@@ -32,7 +32,6 @@ prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = F
   RET
 }
 
-
 prettify_elem <- function(nm,TXT,NMPATH,INST,DYNPATH,force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE, ask = TRUE, askenv = NULL) {
   
   txt <- TXT[[nm]]

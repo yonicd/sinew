@@ -4,8 +4,9 @@
 \alias{pretty_namespace}
 \title{Append namespace to functions in script}
 \usage{
-pretty_namespace(con = NULL, text = NULL, ask = TRUE, force = NULL,
-  ignore = NULL, overwrite = FALSE, sos = FALSE)
+pretty_namespace(con = NULL, text = NULL, ask = TRUE,
+  askenv = new.env(), force = NULL, ignore = NULL,
+  overwrite = FALSE, sos = FALSE)
 }
 \arguments{
 \item{con}{character, path to file or directory that contains script, Default: NULL}
@@ -14,6 +15,9 @@ pretty_namespace(con = NULL, text = NULL, ask = TRUE, force = NULL,
 
 \item{ask}{boolean, If TRUE then a \code{\link[utils]{menu}} will be created for the use to
 choose between competing namespaces for a function, Default: TRUE}
+
+\item{askenv}{environment, environment that stores names of functions to force in ask,
+Default: new.env()}
 
 \item{force}{list, named list of functions to force over the
 internal search (seee details), Default: NULL}

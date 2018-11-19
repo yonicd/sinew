@@ -63,7 +63,9 @@ pretty_shift <- function(txt, sym.funs, nm, overwrite, force, ignore){
   } else {
     
     pretty_print(sym.funs,file = nm)
-    writeLines(crayon::white(txt))
+    
+    if(sinew_opts$get('pretty_print'))
+      writeLines(crayon::white(txt))
     
   }
   
