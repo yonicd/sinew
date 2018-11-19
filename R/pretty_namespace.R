@@ -4,6 +4,8 @@
 #' @param text character, vector that contains script, Default: NULL
 #' @param ask boolean, If TRUE then a \code{\link[utils]{menu}} will be created for the use to
 #'  choose between competing namespaces for a function, Default: TRUE
+#' @param askenv environment, environment that stores names of functions to force in ask,
+#'  Default: new.env()
 #' @param force list, named list of functions to force over the
 #'  internal search (seee details), Default: NULL
 #' @param ignore list, named list of functions to ignore (seee details), Default: NULL
@@ -38,7 +40,14 @@
 #' @rdname pretty_namespace
 #' @export
 #' @author Jonathan Sidi
-pretty_namespace <- function(con = NULL, text = NULL, ask = TRUE, force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE) {
+pretty_namespace <- function(con = NULL,
+                             text = NULL,
+                             ask = TRUE,
+                             askenv = new.env(),
+                             force = NULL,
+                             ignore = NULL,
+                             overwrite = FALSE,
+                             sos = FALSE) {
   
   if (is.null(text) & is.null(con)) return(NULL)
   
@@ -63,9 +72,6 @@ pretty_namespace <- function(con = NULL, text = NULL, ask = TRUE, force = NULL, 
     
     names(TXT) <- sprintf("txt%s", 1:length(TXT))
   }
-  
-  
-  askenv <- new.env()
   
   RET <- prettify(TXT, force, ignore, overwrite, sos, ask, askenv)
 
