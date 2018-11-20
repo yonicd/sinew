@@ -32,56 +32,15 @@ pretty_rmd <- function(input, output = tempfile(fileext = '.Rmd'), open_output =
   
   askenv <- new.env()
   
+  pretty_f <- pretty_rmd_inline
+  
   if(create_library){
     
-    userlibs <- gsub('library\\(|\\)','',grep('library\\((.*?)\\)',x,value = TRUE))
-    
-    pp <- sinew_opts$get('pretty_print')
-    sinew_opts$set(pretty_print = FALSE)
-    
-    y <- lapply(idx,function(y,libs,askenv){
-      tf <- tempfile(fileext = '.R')
-      on.exit({unlink(tf)},add = TRUE)
-      cat(x[y],file = tf,sep = '\n')
-    
-      x <- pretty_namespace(con = tf,..., askenv = askenv)
-      
-      x$namespace
-    },
-    libs   = userlibs,
-    askenv = askenv
-    )
-    sinew_opts$set(pretty_print = pp)
-    
-    pkgs <- unique(unlist(y))
-    pkgs <- pkgs[!is.na(pkgs)]
-    pkgs <- setdiff(pkgs,c('base',userlibs))
-    
-    pkgs <- utils::select.list(
-      choices = pkgs,
-      multiple = TRUE,
-      title = 'These unspecified namespaces were found in the document, choose the ones that are relevant')
-    
-    if(length(pkgs)>0){
-      
-      libs <- paste0(sprintf('library(%s)',pkgs),collapse = '\n')
-      
-      x[FROM[1]-1] <- sprintf('```{r sinew libraries}\n%s\n```\n\n%s',libs,x[FROM[1]-1])  
-    }
+    pretty_f <- pretty_rmd_library
 
-  }else{
-    y <- lapply(idx,function(y){
-      tf <- tempfile(fileext = '.R')
-      on.exit({unlink(tf)},add = TRUE)
-      cat(x[y],file = tf,sep = '\n')
-      pretty_namespace(con = tf,...,overwrite = TRUE, askenv = askenv)
-      readLines(tf,warn = FALSE)
-    })
-    
-    for(i in seq_along(FROM)){
-      x[FROM[i]:TO[i]] <- y[[i]]
-    }  
   }
+  
+  x <- pretty_f(x, FROM, TO, idx, askenv, input,...)
 
   ret <- paste0(x,collapse = '\n')
   
@@ -102,5 +61,69 @@ rm_lib_chunk <- function(x){
     x <- x[-c((this-1):others[which(this%in%others)+1])]    
   }
   
+  x
+}
+
+
+pretty_rmd_library <- function(x, FROM , TO, idx, askenv, input,...){
+  userlibs <- gsub('library\\(|\\)','',grep('library\\((.*?)\\)',x,value = TRUE))
+  
+  pp <- sinew_opts$get('pretty_print')
+  sinew_opts$set(pretty_print = FALSE)
+  
+  y <- lapply(idx,function(y,libs,askenv){
+    tf <- tempfile(fileext = '.R')
+    on.exit({unlink(tf)},add = TRUE)
+    cat(x[y],file = tf,sep = '\n')
+    
+    x <- pretty_namespace(con = tf,..., askenv = askenv)
+    
+    x
+  },
+  libs   = userlibs,
+  askenv = askenv
+  )
+  sinew_opts$set(pretty_print = pp)
+  
+  invisible(sapply(seq_along(y),function(x,input) if(length(y[[x]]$new_text)>0){
+    pretty_print(
+      y[[x]],
+      file = input,
+      chunk = sprintf('chunk %02d',as.numeric(x))
+    )
+  },input=input))
+  
+  y_text <- sapply(y,function(x) if(length(x$new_text)>0) x$namespace[!(x$namespace%in%c(NA,'base'))])
+  
+  pkgs <- unique(unlist(y_text))
+  pkgs <- setdiff(pkgs,userlibs)
+  
+  pkgs <- utils::select.list(
+    choices = pkgs,
+    multiple = TRUE,
+    title = 'These unspecified namespaces were found in the document, see above output to locate relevant chunks\n choose the libraries to add to the top of the document')
+  
+  if(length(pkgs)>0){
+    
+    libs <- paste0(sprintf('library(%s)',pkgs),collapse = '\n')
+    
+    x[FROM[1]-1] <- sprintf('```{r sinew libraries}\n%s\n```\n\n%s',libs,x[FROM[1]-1])  
+  }
+  x
+}
+
+
+pretty_rmd_inline <- function(x, FROM , TO, idx, askenv,input,...){
+  y <- lapply(idx,function(y){
+    tf <- tempfile(fileext = '.R')
+    on.exit({unlink(tf)},add = TRUE)
+    cat(x[y],file = tf,sep = '\n')
+    pretty_namespace(con = tf,...,overwrite = TRUE, askenv = askenv)
+    readLines(tf,warn = FALSE)
+  })
+  
+  for(i in seq_along(FROM)){
+    x[FROM[i]:TO[i]] <- y[[i]]
+  }  
   x
 }

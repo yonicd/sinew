@@ -10,7 +10,10 @@ pretty_parse <- function(txt){
   
   if(length(ret)>0){
     #clean out list functions
-    ret <- ret[sapply(sprintf('\\$%s',ret$text),function(p) !any(grepl(pattern = p,x=txt))),]    
+    clean_idx <- sapply(sprintf('\\$%s',ret$text),function(p) !any(grepl(pattern = p,x=txt)))
+    if(length(clean_idx)>0){
+      ret <- ret[clean_idx,]
+    }
   }
   
   ret
@@ -205,7 +208,7 @@ enframe_list <- function(x){
 
 #' @importFrom crayon red strip_style
 #' @importFrom cli symbol
-pretty_print <- function(obj,file){
+pretty_print <- function(obj,file,chunk=NULL){
   
   if(!sinew_opts$get('pretty_print'))
     return(NULL)
@@ -213,8 +216,12 @@ pretty_print <- function(obj,file){
   if(nrow(obj)==0)
     return(NULL)
   
-  if(!grepl('\\.[rR]$',file))
+  if(!grepl('\\.r$|\\.rmd$',tolower(file)))
     file <- 'text object'
+
+  if(!is.null(chunk)){
+    file <- sprintf('%s (%s)',file,chunk)
+  }
   
   obj <- obj[!obj$namespace %in% c("base"),]
   
