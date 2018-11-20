@@ -8,7 +8,7 @@ pretty_parse <- function(txt){
   
   ret <- p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
   
-  if(nrow(ret)>0){
+  if(length(ret)>0){
     #clean out list functions
     ret <- ret[sapply(sprintf('\\$%s',ret$text),function(p) !any(grepl(pattern = p,x=txt))),]    
   }
