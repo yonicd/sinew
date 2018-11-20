@@ -17,6 +17,7 @@
 #' @rdname pretty_rmd
 #' @export 
 #' @importFrom rstudioapi navigateToFile
+#' @importFrom utils select.list
 #' @author Jonathan Sidi
 pretty_rmd <- function(input, output = tempfile(fileext = '.Rmd'), open_output = TRUE, create_library = TRUE, ...){
   
@@ -25,7 +26,7 @@ pretty_rmd <- function(input, output = tempfile(fileext = '.Rmd'), open_output =
   x <- rm_lib_chunk(x)
   
   FROM <- grep('^```\\{(.*?)r',x)+1
-  TO <- grep('^```$',x)-1
+  TO <- grep('^```$|^```\\s{1,}$',x)-1
   
   idx <- mapply(seq,from=FROM,to=TO)
   
@@ -53,12 +54,21 @@ pretty_rmd <- function(input, output = tempfile(fileext = '.Rmd'), open_output =
     sinew_opts$set(pretty_print = pp)
     
     pkgs <- unique(unlist(y))
+    pkgs <- pkgs[!is.na(pkgs)]
     pkgs <- setdiff(pkgs,c('base',userlibs))
     
-    libs <- paste0(sprintf('library(%s)',pkgs),collapse = '\n')
-
-    x[FROM[1]-1] <- sprintf('```{r sinew libraries}\n%s\n```\n\n%s',libs,x[FROM[1]-1])
+    pkgs <- utils::select.list(
+      choices = pkgs,
+      multiple = TRUE,
+      title = 'These unspecified namespaces were found in the document, choose the ones that are relevant')
     
+    if(length(pkgs)>0){
+      
+      libs <- paste0(sprintf('library(%s)',pkgs),collapse = '\n')
+      
+      x[FROM[1]-1] <- sprintf('```{r sinew libraries}\n%s\n```\n\n%s',libs,x[FROM[1]-1])  
+    }
+
   }else{
     y <- lapply(idx,function(y){
       tf <- tempfile(fileext = '.R')

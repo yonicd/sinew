@@ -8,8 +8,12 @@ pretty_parse <- function(txt){
   
   ret <- p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
   
-  #clean out list functions
-  ret[sapply(sprintf('\\$%s',ret$text),function(p) !any(grepl(pattern = p,x=txt))),]
+  if(nrow(ret)>0){
+    #clean out list functions
+    ret <- ret[sapply(sprintf('\\$%s',ret$text),function(p) !any(grepl(pattern = p,x=txt))),]    
+  }
+  
+  ret
   
 }
 
@@ -117,7 +121,7 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
   check_global <- ls(envir = get(search()[1]))
   
   if (length(check_global)>0){
-    global.funs <- check_global[sapply(check_global, function(x) class(get(x)) == "function")]
+    global.funs <- check_global[sapply(check_global, function(x) inherits(get(x),what="function"))]
     funs <- funs[!funs %in% global.funs]  
   }
   
