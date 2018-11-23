@@ -7,3 +7,8 @@ Name: interactiveOxygen
 Description: Insert roxygen2 comments interactively
 Binding: interOxyAddIn
 Interactive: true
+
+Name: namespace
+Description: Attach namespace information to Rmd or R files
+Binding: pretty_addin
+Interactive: true
