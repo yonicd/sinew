@@ -66,7 +66,7 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
       choices = c('Yes','No'),
       title = 'RcppExports.R was found, do you want to run makeOxyFile on it?')
     
-    if(rccp_ans==1){
+    if(rccp_ans==2){
       files <- files[-which('RcppExports.R'%in%basename(files))]
     }
   }
