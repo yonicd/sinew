@@ -61,6 +61,16 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
     ))
   }
   
+  if('RcppExports.R'%in%basename(files)){
+    rccp_ans <- utils::menu(
+      choices = c('Yes','No'),
+      title = 'RcppExports.R was found, do you want to run makeOxyFile on it?')
+    
+    if(rccp_ans==1){
+      files <- files[-which('RcppExports.R'%in%basename(files))]
+    }
+  }
+  
   for (FILE in files) {
     
     lines <- readLines(FILE, warn = FALSE)
@@ -114,11 +124,13 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
     }
     writeLines(lines, new_name)
   }
+  
   oxyfiles <- if (overwrite) {
     files
   } else {
     file.path(dirname(files), paste("oxy", basename(files), sep = "-"))
   }
+  
   if (length(input) > 0L) {
     if (verbose) {
       if (rstudioapi::isAvailable()) {
@@ -133,6 +145,7 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
       )
     }
   }
+  
 }
 
 scan_for_content <- function(FILE, neg_msg = "No functions found in\n"){
