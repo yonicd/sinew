@@ -1,21 +1,15 @@
-#' @title Interactively run pretty functions
+#' @title Interactively run pretty functions in R files
 #' @description Addin that scans the file source contents and attaches namespace
 #' information.
 #' @details
 #' 
-#' Either saved or untitled R and Rmd files in the source editor may be used.
+#' Either saved or untitled R files in the source editor may be used.
 #' 
-#' In R files you can highlight specific text, or not highlight at all and
-#' the whole document will be used.
-#' 
-#' In Rmd files if you highlight text it must be within a single chunk, or not highlight at all and
-#' the whole document will be used to create a new chunk at the top of the document with 
-#' the libraries needed to run the document.
-#'
+#' Highlight specific text, or not highlight at all and the whole document will be used.
 #' 
 #' @return NULL
 #' @rdname pretty_addin
-#' @importFrom rstudioapi getSourceEditorContext sendToConsole modifyRange
+#' @importFrom rstudioapi getSourceEditorContext sendToConsole
 #' @export
 pretty_addin <- function(){
   
@@ -23,50 +17,71 @@ pretty_addin <- function(){
   
   on.exit(rstudioapi::sendToConsole(''),add = TRUE)
   
+  if(is_rmd(adc)){
+    pretty_addin_rmd(adc)  
+  }else{
+    pretty_addin_r(adc) 
+  }
+  
+}
+
+#' @importFrom rstudioapi modifyRange
+pretty_addin_r <- function(adc){
+  
   file_path <- adc$path
   rng       <- adc$selection[[1]]$range
   txt       <- adc$selection[[1]]$text
-  saved     <- nzchar(adc$path)
-  file_type <- ifelse(is_rmd(adc),'rmd','r')
-  file_type <- ifelse(range_null(rng),file_type,'r')
   
   if(range_null(rng)){
     
     rng <- doc_range(adc)
     txt <- adc$contents
     
-  }else{
-    
-    if(( file_type == 'r' ) & ( grepl('```\\{(.*?)r',txt) ) ){
-      message('Highlighting text in a Rmd file is limited to within a single chunk')
-      message('To run on whole file do not highlight any text')
-      return(invisible(NULL))
-    }
-    
   }
   
-  tf <- tempfile(sprintf('.%s',file_type))
+  tf <- tempfile(fileext = '.r')
   cat(txt,file=tf,sep='\n')
+  pretty_namespace(tf,ask = TRUE,overwrite = TRUE)
   
-  if(file_type=='rmd'){
-    
-    output <- ifelse(saved,file_path,tf)
+  rstudioapi::modifyRange(
+    location = range_map(rng),
+    text = readLines(tf), 
+    id = adc$id
+  )
+  
+}
 
-    pretty_rmd(tf,output = output, open_output = saved)
+#' @importFrom rstudioapi modifyRange
+pretty_addin_rmd <- function(adc){
+  
+  file_path <- adc$path
+  rng       <- adc$selection[[1]]$range
+  txt       <- adc$selection[[1]]$text
+  saved     <- nzchar(adc$path)
+  rng       <- doc_range(adc)
+  txt       <- adc$contents
+  tf        <- tempfile(fileext = '.rmd')
+  output    <- ifelse(saved,file_path,tf)
+  
+  cat(txt,file = tf,sep='\n')
+  
+  
+  chunks    <- find_chunks(adc)
+  libraries <- is.null(chunks)
+  
+  pretty_rmd(
+    input = tf,
+    output = output, 
+    open_output = saved,
+    create_library = libraries,
+    chunks = chunks
+    )
     
-    if(!saved){
+  if((!saved)&libraries){
       pad_doc(adc,pad_width(tf,adc))
       rng[[2]][[1]] <- rng[[2]][[1]] + pad_width(tf,adc)
-    }else{
-      return(invisible(NULL))  
-    }
+  }
     
-  }
-  
-  if(file_type%in%c('r')){
-    pretty_namespace(tf,ask = TRUE,overwrite = TRUE)
-  }
-  
   rstudioapi::modifyRange(
     location = range_map(rng),
     text = readLines(tf), 
