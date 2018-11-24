@@ -9,6 +9,6 @@ Binding: interOxyAddIn
 Interactive: true
 
 Name: namespace
-Description: Attach namespace information to Rmd or R files
+Description: Attach namespace information to R or Rmd files
 Binding: pretty_addin
-Interactive: true
+Interactive: false

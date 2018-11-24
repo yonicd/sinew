@@ -5,7 +5,7 @@
 \title{Attach namespacing to Rmarkdown chunks}
 \usage{
 pretty_rmd(input, output = tempfile(fileext = ".Rmd"),
-  open_output = TRUE, create_library = TRUE, ...)
+  open_output = TRUE, create_library = TRUE, chunks = NULL, ...)
 }
 \arguments{
 \item{input}{character, path to input Rmd file}
@@ -16,6 +16,8 @@ pretty_rmd(input, output = tempfile(fileext = ".Rmd"),
 
 \item{create_library}{boolean, create library chunk, Default: TRUE}
 
+\item{chunks}{numeric, indicies of chunks to run on, Default: NULL}
+
 \item{\dots}{arguments to pass to pretty_namespace}
 }
 \value{
@@ -25,7 +27,8 @@ character
 Apply pretty_namespace to Rmarkdown document
 }
 \details{
-if output is NULL then the returned lines are printed to console.
+If output is NULL then the returned lines are printed to console. 
+If chunks is NULL then all the chunks are used.
 }
 \examples{
 if(interactive()){

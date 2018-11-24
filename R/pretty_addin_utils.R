@@ -51,3 +51,15 @@ pad_width <- function(tf,adc){
 is_rmd <- function(adc){
   any(grepl('^```\\{(.*?)r',adc$contents))
 }
+
+find_chunks <- function(adc){
+  lc <- list_chunks(adc$contents)
+  ld <- do.call('rbind',lapply(seq_along(lc),function(x) data.frame(id=x,idx = lc[[x]])))
+  rng <- get_range_rows(adc$selection[[1]]$range)[1]:get_range_rows(adc$selection[[1]]$range)[2]
+  ret <- unique(ld$id[which(ld$idx%in%rng)])
+  if(length(ret)==0){
+    ret <- NULL
+  }
+  
+  return(ret)
+}

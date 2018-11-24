@@ -4,9 +4,14 @@
 #' @param output character, path to output Rmd file, Default: NULL
 #' @param open_output boolean, open the output on.exit, Default: TRUE
 #' @param create_library boolean, create library chunk, Default: TRUE
+#' @param chunks numeric, indicies of chunks to run on, Default: NULL
 #' @param \dots arguments to pass to pretty_namespace
 #' @return character
-#' @details if output is NULL then the returned lines are printed to console. 
+#' @details 
+#' 
+#' If output is NULL then the returned lines are printed to console. 
+#' If chunks is NULL then all the chunks are used.
+#' 
 #' @examples 
 #' if(interactive()){
 #' rstudioapi::navigateToFile(system.file('example.Rmd',package = 'sinew'))
@@ -19,18 +24,20 @@
 #' @importFrom rstudioapi navigateToFile
 #' @importFrom utils select.list
 #' @author Jonathan Sidi
-pretty_rmd <- function(input, output = tempfile(fileext = '.Rmd'), open_output = TRUE, create_library = TRUE, ...){
+pretty_rmd <- function(input, 
+                       output = tempfile(fileext = '.Rmd'), 
+                       open_output = TRUE, 
+                       create_library = TRUE,
+                       chunks = NULL,
+                       ...){
   
-  x <- readLines(input,warn = FALSE)
+  x        <- readLines(input,warn = FALSE)
   
-  x <- rm_lib_chunk(x)
+  x        <- rm_lib_chunk(x)
   
-  FROM <- grep('^```\\{(.*?)r',x)+1
-  TO <- grep('^```$|^```\\s{1,}$',x)-1
+  idx      <- list_chunks(x)
   
-  idx <- mapply(seq,from=FROM,to=TO)
-  
-  askenv <- new.env()
+  askenv   <- new.env()
   
   pretty_f <- pretty_rmd_inline
   
@@ -40,7 +47,7 @@ pretty_rmd <- function(input, output = tempfile(fileext = '.Rmd'), open_output =
 
   }
   
-  x <- pretty_f(x, FROM, TO, idx, askenv, input,...)
+  x <- pretty_f(x, idx, askenv, input, chunks,...)
 
   ret <- paste0(x,collapse = '\n')
   
@@ -50,6 +57,14 @@ pretty_rmd <- function(input, output = tempfile(fileext = '.Rmd'), open_output =
     rstudioapi::navigateToFile(output)
   
   invisible(x)
+}
+
+list_chunks <- function(x){
+  
+  FROM <- grep('^```\\{(.*?)r',x)+1
+  TO <- grep('^```$|^```\\s{1,}$',x)-1
+  
+  mapply(seq,from=FROM,to=TO)
 }
 
 rm_lib_chunk <- function(x){
@@ -64,11 +79,12 @@ rm_lib_chunk <- function(x){
   x
 }
 
-
-pretty_rmd_library <- function(x, FROM , TO, idx, askenv, input,...){
+pretty_rmd_library <- function(x, idx, askenv, input, chunks,...){
+  
   userlibs <- gsub('library\\(|\\)','',grep('library\\((.*?)\\)',x,value = TRUE))
   
   pp <- sinew_opts$get('pretty_print')
+  
   sinew_opts$set(pretty_print = FALSE)
   
   y <- lapply(idx,function(y,libs,askenv){
@@ -83,6 +99,7 @@ pretty_rmd_library <- function(x, FROM , TO, idx, askenv, input,...){
   libs   = userlibs,
   askenv = askenv
   )
+  
   sinew_opts$set(pretty_print = pp)
   
   invisible(sapply(seq_along(y),function(x,input) if(length(y[[x]]$new_text)>0){
@@ -93,7 +110,11 @@ pretty_rmd_library <- function(x, FROM , TO, idx, askenv, input,...){
     )
   },input=input))
   
-  y_text <- sapply(y,function(x) if(length(x$new_text)>0) x$namespace[!(x$namespace%in%c(NA,'base'))])
+  y_text <- sapply(y,function(x){
+    if(length(x$new_text)>0){
+      x$namespace[!(x$namespace%in%c(NA,'base'))]
+    } 
+  })
   
   pkgs <- unique(unlist(y_text))
   pkgs <- setdiff(pkgs,userlibs)
@@ -107,13 +128,17 @@ pretty_rmd_library <- function(x, FROM , TO, idx, askenv, input,...){
     
     libs <- paste0(sprintf('library(%s)',pkgs),collapse = '\n')
     
-    x[FROM[1]-1] <- sprintf('```{r sinew libraries}\n%s\n```\n\n%s',libs,x[FROM[1]-1])  
+    x[idx[[1]][1]-1] <- sprintf('```{r sinew libraries}\n%s\n```\n\n%s',libs,x[idx[[1]][1]-1])
   }
   x
 }
 
-
-pretty_rmd_inline <- function(x, FROM , TO, idx, askenv,input,...){
+pretty_rmd_inline <- function(x, idx, askenv,input, chunks,...){
+  
+  if(!is.null(chunks)){
+    idx <- idx[chunks]
+  }
+  
   y <- lapply(idx,function(y){
     tf <- tempfile(fileext = '.R')
     on.exit({unlink(tf)},add = TRUE)
@@ -122,8 +147,9 @@ pretty_rmd_inline <- function(x, FROM , TO, idx, askenv,input,...){
     readLines(tf,warn = FALSE)
   })
   
-  for(i in seq_along(FROM)){
-    x[FROM[i]:TO[i]] <- y[[i]]
-  }  
+  for(i in seq_along(idx)){
+    x[idx[[i]]] <- y[[i]]
+  }
+  
   x
 }
