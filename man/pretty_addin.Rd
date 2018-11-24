@@ -2,7 +2,7 @@
 % Please edit documentation in R/pretty_addin.R
 \name{pretty_addin}
 \alias{pretty_addin}
-\title{Interactively run pretty functions in R files}
+\title{Interactively run pretty functions in R and Rmd files}
 \usage{
 pretty_addin()
 }
@@ -11,7 +11,11 @@ Addin that scans the file source contents and attaches namespace
 information.
 }
 \details{
-Either saved or untitled R files in the source editor may be used.
+Either saved or untitled R or Rmd files in the source editor may be used.
 
-Highlight specific text, or not highlight at all and the whole document will be used.
+In R files Highlight specific text, or not highlight at all and the whole document will be used.
+
+In Rmd files highlight subsets of chunks to add namespaces directly in the chunks, or not
+highlight at all and the whole document will be used to create a new chunk at the top of the
+document with relevant namespaces needed to render the Rmd.
 }
