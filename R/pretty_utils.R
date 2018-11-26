@@ -6,7 +6,17 @@ pretty_parse <- function(txt){
   
   rmParent <- p1$parent[p1$token == "SYMBOL_PACKAGE"]
   
-  p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
+  ret <- p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
+  
+  if(length(ret)>0){
+    #clean out list functions
+    clean_idx <- sapply(sprintf('\\$%s',ret$text),function(p) !any(grepl(pattern = p,x=txt)))
+    if(length(clean_idx)>0){
+      ret <- ret[clean_idx,]
+    }
+  }
+  
+  ret
   
 }
 
@@ -60,11 +70,13 @@ pretty_shift <- function(txt, sym.funs, nm, overwrite, force, ignore){
   } else {
     
     pretty_print(sym.funs,file = nm)
-    writeLines(crayon::white(txt))
+    
+    if(sinew_opts$get('pretty_print'))
+      writeLines(crayon::white(txt))
     
   }
   
-  txt
+  sym.funs
 }
 
 pretty_manip <- function(sym.funs, force, ignore){
@@ -115,13 +127,13 @@ pretty_merge <- function(e1,e2,action = 'relpace'){
 }
 
 #' @importFrom sos findFn
-#' @importFrom utils help.search
-pretty_find <- function(NMPATH, sos, sym.funs, funs){
+#' @importFrom utils help.search menu
+pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
   
   check_global <- ls(envir = get(search()[1]))
   
   if (length(check_global)>0){
-    global.funs <- check_global[sapply(check_global, function(x) class(get(x)) == "function")]
+    global.funs <- check_global[sapply(check_global, function(x) inherits(get(x),what="function"))]
     funs <- funs[!funs %in% global.funs]  
   }
   
@@ -139,7 +151,46 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs){
     for (fun in funs) {
       suppressWarnings(fun.help <- utils::help.search(sprintf("^%s$", fun), ignore.case = FALSE))
       if (nrow(fun.help$matches) > 0) {
-        sym.funs$namespace[sym.funs$text %in% fun] <- fun.help$matches$Package[1]
+        
+        if(length(fun.help$matches$Package)>1&ask){
+          
+          choices <- sprintf('%s::%s',fun.help$matches$Package,fun)
+          
+          persistent_choices <- ls(envir = askenv)
+          
+          intersect_choices <- intersect(persistent_choices,choices)
+          
+          if(length(intersect_choices)>0){
+            
+            choice <- intersect_choices
+            
+          }else{
+          
+            menu_choices <- c(sprintf('%s(*)',choices),choices)
+            
+            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
+            
+            choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
+            
+            choice <- menu_choices[choice_idx]
+            
+            if(grepl('\\(*\\)$',choice)){
+              clean_choice <- gsub('\\(\\*\\)$','',choice)
+              assign(clean_choice,TRUE,askenv)
+            }
+              
+          }
+          
+          pkg_choice <- gsub(':(.*?)$','',choice)  
+          
+        }else{
+          
+          pkg_choice <- fun.help$matches$Package[1]
+          
+        }
+        
+        sym.funs$namespace[sym.funs$text %in% fun] <- pkg_choice
+        
         funs <- funs[-match(fun, funs)]
       }
     }
@@ -154,6 +205,7 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs){
       }
     }
   }
+
   
   sym.funs
   
@@ -165,19 +217,27 @@ enframe_list <- function(x){
 
 #' @importFrom crayon red strip_style
 #' @importFrom cli symbol
-pretty_print <- function(obj,file){
+pretty_print <- function(obj,file,chunk=NULL){
   
   if(!sinew_opts$get('pretty_print'))
     return(NULL)
   
-  if(!grepl('\\.[rR]$',file))
+  if(nrow(obj)==0)
+    return(NULL)
+  
+  if(!grepl('\\.r$|\\.rmd$',tolower(file)))
+
     file <- 'text object'
+
+  if(!is.null(chunk)){
+    file <- sprintf('%s (%s)',file,chunk)
+  }
   
   obj <- obj[!obj$namespace %in% c("base"),]
   
   if(nrow(obj)==0)
     return(NULL)
-    
+
   obj$new_text <- crayon::strip_style(obj$new_text)
   
   obj$symbol <- ifelse(is.na(obj$namespac),crayon::red(cli::symbol$cross),cli::symbol$tick)
@@ -229,12 +289,12 @@ mf <- function(x, pat) {
   ns <- try(
     {
       
-      if(!isNamespaceLoaded(x)){
+      if((!isNamespaceLoaded(x))|(!x%in%basename(searchpaths()))){
         y <- attachNamespace(x)  
       }
       
       ls(
-        envir = sprintf('pacakge:%s',x),
+        name = sprintf('package:%s',x),
         pattern = sprintf("^(%s)$", paste0(pat, collapse = "|"))
         )
     },

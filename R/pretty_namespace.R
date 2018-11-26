@@ -2,6 +2,10 @@
 #' @description Autoappend namespace to functions in script by searchpath order
 #' @param con character, path to file or directory that contains script, Default: NULL
 #' @param text character, vector that contains script, Default: NULL
+#' @param ask boolean, If TRUE then a \code{\link[utils]{menu}} will be created for the use to
+#'  choose between competing namespaces for a function, Default: TRUE
+#' @param askenv environment, environment that stores names of functions to force in ask,
+#'  Default: new.env()
 #' @param force list, named list of functions to force over the
 #'  internal search (seee details), Default: NULL
 #' @param ignore list, named list of functions to ignore (seee details), Default: NULL
@@ -36,10 +40,17 @@
 #' @rdname pretty_namespace
 #' @export
 #' @author Jonathan Sidi
-pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE) {
+pretty_namespace <- function(con = NULL,
+                             text = NULL,
+                             ask = TRUE,
+                             askenv = new.env(),
+                             force = NULL,
+                             ignore = NULL,
+                             overwrite = FALSE,
+                             sos = FALSE) {
   
   if (is.null(text) & is.null(con)) return(NULL)
-
+  
   if (is.null(text)) {
     
     if (length(con) == 1L && file.info(con)$isdir) {
@@ -51,61 +62,18 @@ pretty_namespace <- function(con = NULL, text = NULL, force = NULL, ignore = NUL
       files <- con
       
     }
-
+    
     TXT <- sapply(files, readLines, warn = FALSE, simplify = FALSE)
     
   } else {
     
     if (length(text) == 1) 
       TXT <- strsplit(text, "\n")
-
+    
     names(TXT) <- sprintf("txt%s", 1:length(TXT))
   }
-
-  NMPATH <- loadedNamespaces()
-
-  INST <- rownames(installed.packages())
-
-  DYNPATH <- unlist(sapply(library.dynam(), "[", 2))
-
-  RET <- sapply(names(TXT), function(nm) {
-    
-    txt <- TXT[[nm]]
-
-    sym.funs <- pretty_parse(txt)
-    
-    if (length(sym.funs)==0)
-      return(txt)
-    
-    if (nrow(sym.funs)==0)
-      return(txt)
-    
-    sym.funs$namespace <- NA
-
-    funs <- sym.funs$text[is.na(sym.funs$namespace)]
-
-    if (length(funs)==0)
-      return(txt)
-    
-    sym.funs <- pretty_find(
-      NMPATH = NMPATH,
-      sos = sos,
-      sym.funs = sym.funs,
-      funs = funs
-      )
-
-    pretty_shift(
-      txt = txt,
-      sym.funs = sym.funs,
-      nm = nm,
-      overwrite = overwrite,
-      force = force,
-      ignore = ignore
-      )
-
-  }, simplify = FALSE)
-
-  if (length(RET) == 1) RET <- RET[[1]]
+  
+  RET <- prettify(TXT, force, ignore, overwrite, sos, ask, askenv)
 
   invisible(RET)
 }

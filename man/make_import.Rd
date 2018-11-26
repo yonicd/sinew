@@ -14,7 +14,7 @@ make_import(script, cut = NULL, print = TRUE, format = "oxygen",
 
 \item{print}{boolean, print output to console, Default: TRUE}
 
-\item{format}{character, the output format must be in c('oxygen','description'), Default: 'oxygen'}
+\item{format}{character, the output format must be in c('oxygen','description','import'), Default: 'oxygen'}
 
 \item{desc_loc}{character, path to DESCRIPTION file, if not NULL then the Imports fields in
 the DESCRIPTION file, Default: NULL}
@@ -23,6 +23,7 @@ the DESCRIPTION file, Default: NULL}
 Scrape r script to create namespace calls for roxygen2, namespace or description files
 }
 \examples{
-make_import('R',format = 'oxygen')
-make_import('R',format = 'description')
+makeImport('R',format = 'oxygen')
+makeImport('R',format = 'description')
+makeImport('R',format = 'import')
 }
