@@ -148,7 +148,7 @@ makeImport('R',format = 'description',desc_loc = '.')
 
 ### Update documentation
 
-An important part of maintaining a package is keeping the documentation updated. Using [moga](#moga) we can achieve this painlessly. [moga](#moga) runs the same underlying script as [moga](#moga) but appends new information found into the current [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) header instead of creating a new one.
+An important part of maintaining a package is keeping the documentation updated. Using [moga](#moga) we can achieve this painlessly. [moga](#moga) runs the same underlying script as [makeOxygen](#makeoxygen) but appends new information found into the current [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) header instead of creating a new one.
 
 Lets say we updated `yy.R` to include another param and used another function from the `stats` package. So the [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) header is now out of synch with the current script.
 
