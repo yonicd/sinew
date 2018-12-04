@@ -51,7 +51,7 @@ testthat::describe('setup text',{
 })
 
 testthat::describe('full text',{ 
-  skip_on_cran()
+  
   it('txt',{
     
     txt <- 'patient_summaries <- patient_demogs %>% 
@@ -65,28 +65,20 @@ testthat::describe('full text',{
     x <- pretty_namespace(text = txt,ask = FALSE)
     
     testthat::expect_equal(
-      nrow(x),
-      8)
+      length(x),
+      12)
     
   })
 })
 
 testthat::describe('full file',{
-  skip_on_cran()
+
   it('file',{
     x <- pretty_namespace(con = '../assets')
     
     testthat::expect_equal(
       length(x),
       2)
-    
-    testthat::expect_equal(
-      nrow(x[[1]]),
-      7)
-    
-    testthat::expect_equal(
-      nrow(x[[2]]),
-      7)
     
   })
 })

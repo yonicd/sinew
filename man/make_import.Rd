@@ -23,7 +23,7 @@ the DESCRIPTION file, Default: NULL}
 Scrape r script to create namespace calls for roxygen2, namespace or description files
 }
 \examples{
-makeImport('R',format = 'oxygen')
-makeImport('R',format = 'description')
-makeImport('R',format = 'import')
+make_import('R',format = 'oxygen')
+make_import('R',format = 'description')
+make_import('R',format = 'import')
 }

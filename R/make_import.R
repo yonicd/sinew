@@ -7,18 +7,16 @@
 #' @param desc_loc character, path to DESCRIPTION file, if not NULL then the Imports fields in
 #'  the DESCRIPTION file, Default: NULL
 #' @examples
-#' makeImport('R',format = 'oxygen')
-#' makeImport('R',format = 'description')
-#' makeImport('R',format = 'import')
+#' make_import('R',format = 'oxygen')
+#' make_import('R',format = 'description')
+#' make_import('R',format = 'import')
 #' @export
+#' @rdname make_import
 #' @importFrom utils installed.packages capture.output getParseData
 #' @importFrom tools file_ext
 make_import <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=NULL) {
-
-  fmt <- pmatch(format,c('oxygen','description'))
-  
   rInst <- paste0(row.names(utils::installed.packages()), "::")
-
+  
   if (inherits(script, "function")) {
     file <- tempfile()
     utils::capture.output(print(script), file = file)
@@ -31,24 +29,24 @@ make_import <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=
       file <- list.files(script, full.names = TRUE, pattern = "\\.[R|r]$")
     }
   }
-
+  
   pkg <- sapply(file, function(f) {
     parsed <- utils::getParseData(parse(f))
     parsed_f <- parsed[parsed$parent %in% parsed$parent[grepl("SYMBOL_PACKAGE", parsed$token)], ]
     parsed_f <- parsed_f[!grepl("::", parsed_f$text), c("parent", "token", "text")]
-
+    
     PKGS <- unique(parsed_f$text[grepl("PACKAGE$", parsed_f$token)])
-
+    
     ret <- sapply(PKGS, function(pkg) {
       x <- parsed_f[parsed_f$parent %in% parsed_f$parent[grepl(sprintf("^%s$", pkg), parsed_f$text)], ]
       fns <- unique(x$text[!grepl("SYMBOL_PACKAGE", x$token)])
-
+      
       data.frame(pkg = pkg, fns = fns, stringsAsFactors = FALSE)
     }, simplify = FALSE)
-
+    
     ret <- do.call("rbind", ret)
     rownames(ret) <- NULL
-
+    
     if (format %in% c("oxygen", "import")) {
       ret <- sapply(unique(ret$pkg), function(pkg) {
         fns <- ret$fns[ret$pkg == pkg]
@@ -63,59 +61,42 @@ make_import <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=
         }
         ret
       })
-
+      
       if (print) writeLines(paste(" ", f, paste(ret, collapse = "\n"), sep = "\n"))
     }
-
+    
     return(ret)
   }, simplify = FALSE)
-
+  
   if (format %in% c("oxygen", "import")) ret <- pkg
-
-  if (fmt==2) {
-    
+  
+  if (format == "description") {
     ret <- do.call("rbind", pkg)
-
+    
     ret <- sprintf("Imports: %s", paste(unique(ret$pkg), collapse = ","))
-
+    
     if (print) writeLines(ret)
-
+    
     if (!is.null(desc_loc)) {
       if (file.exists(file.path(desc_loc, "DESCRIPTION"))) {
         desc <- read.dcf(file.path(desc_loc, "DESCRIPTION"))
-
+        
         import_col <- grep("Imports", colnames(desc))
-
+        
         if (length(import_col) == 0) {
           desc <- cbind(desc, gsub("Imports: ", "\n", ret))
-
+          
           colnames(desc)[ncol(desc)] <- "Imports"
         } else {
           desc[, "Imports"] <- gsub("Imports: ", "\n", ret)
         }
-
+        
         write.dcf(desc, file = file.path(desc_loc, "DESCRIPTION"))
       }
     }
   }
-
+  
   if (inherits(script, "function")) unlink(file)
-
+  
   invisible(sapply(ret, paste0, collapse = "\n"))
-}
-
-#' @title Scrape R script to create namespace calls for R documentation
-#' @description Scrape r script to create namespace calls for roxygen2, namespace or description files
-#' @param script_path character, directory path to R scripts. Default: 'R'
-#' @param desc_loc character, path to DESCRIPTION file, if not NULL then the Imports fields in
-#'  the DESCRIPTION file, Default: getwd()
-#' @examples
-#' \dontrun{
-#' make_desc()
-#' }
-#' @export
-make_desc <- function(script_path = 'R', desc_loc = getwd()){
-  
-  make_import(script_path, format="d", desc_loc = desc_loc)
-  
 }
