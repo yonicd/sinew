@@ -3,6 +3,11 @@ Description: Create scaffolding for roxygen2 header
 Binding: oxygenAddin
 Interactive: false
 
+Name: createImport
+Description: Create import roxygen2 tag
+Binding: importAddin
+Interactive: false
+
 Name: interactiveOxygen
 Description: Insert roxygen2 comments interactively
 Binding: interOxyAddIn
