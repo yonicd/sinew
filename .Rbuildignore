@@ -1,1 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+man-roxygen
+README.md
+^cran-comments\.md$
+^\.travis\.yml$
+^appveyor\.yml$
+^.*\.yml$
+News.Rmd
+bookdown*
 ^_pkgdown\.yml$
