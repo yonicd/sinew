@@ -99,15 +99,15 @@ pretty_manip <- function(sym.funs, force, ignore){
 #' @importFrom cli symbol
 pretty_merge <- function(e1,e2,action = 'relpace'){
 
-  #fill in for NULL lists
   e2 <- sapply(names(e2),function(x){
     if(is.null(e2[[x]])){
-      unique(e1$text[e1$namespace%in%names(e2)]) 
+      ls(envir = asNamespace(x))
     }else{
       e2[[x]]
-    } 
-  },simplify = FALSE)
-  
+    }
+  },
+  simplify = FALSE)
+
   e1 <- merge(e1,enframe_list(e2),by = 'text',all.x = TRUE)
   
   e1 <- switch(action,
@@ -168,7 +168,7 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
           
             menu_choices <- c(sprintf('%s(*)',choices),choices)
             
-            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
+            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances\none will omit a namespace',fun)
             
             choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
             
@@ -191,7 +191,7 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
         
         sym.funs$namespace[sym.funs$text %in% fun] <- pkg_choice
         
-        funs <- funs[-match(fun, funs)]
+        funs <- funs[-which(funs%in%fun)]
       }
     }
   }

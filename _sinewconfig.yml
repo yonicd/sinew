@@ -1,2 +1,3 @@
-add_fields: ["author"]
+add_fields: ["author"] # appending
+set_fields: ["details","examples","seealso"] # resetting 
 author: 'Jonathan Sidi'

@@ -27,10 +27,6 @@ moga <- function(path, ..., force.fields=NULL, dry.run=TRUE, overwrite=FALSE) {
 
   oxy_current_names <- names(oxy_list[[1]])
 
-  oxy_list[[1]] <- oxy_list[[1]][-grep("import", oxy_current_names)]
-
-  oxy_current_names <- names(oxy_list[[1]])
-
   if (!is.null(force.fields)) {
     for (f0 in force.fields) {
       f.val <- grep(f0, oxy_current_names, value = TRUE)
