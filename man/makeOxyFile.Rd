@@ -4,16 +4,17 @@
 \alias{makeOxyFile}
 \title{Inserts roxygen2 skeletons in file(s).}
 \usage{
-makeOxyFile(input = NULL, overwrite = FALSE, verbose = TRUE, ...)
+makeOxyFile(input = NULL, overwrite = FALSE, verbose = interactive(),
+  ...)
 }
 \arguments{
 \item{input}{character, vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL}
 
 \item{overwrite}{boolean, If TRUE overwrites file(s), FALSE writes "Oxy"- prefixed files in the same directory, Default: FALSE}
 
-\item{verbose}{boolean, If TRUE will print output to console and open edited files in the editor viewer, Defulat: TRUE}
+\item{verbose}{boolean, If TRUE will print output to console and open edited files in the editor viewer, Defulat: interactive()}
 
-\item{...}{additional parameters passed to \code{makeOxygen}}
+\item{\dots}{additional parameters passed to \code{makeOxygen}}
 }
 \value{
 Nothing. Writes files with roxygen2 comments as a side effect
@@ -43,8 +44,9 @@ if(interactive()){
  }
 }
 \seealso{
-\code{\link{makeOxygen}}
+\link[sinew:makeOxygen]{makeOxygen}
 }
 \author{
 Anton Grishin
 }
+\concept{populate}

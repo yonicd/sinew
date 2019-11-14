@@ -14,7 +14,7 @@ pretty_sinew(con = NULL, text = NULL, dir.out = NULL,
 
 \item{dir.out}{character, path to save new R files, Default: NULL}
 
-\item{keep.body}{boolean, if TRUE all non-functions will be saved to body.R in the parent 
+\item{keep.body}{boolean, if TRUE all non-functions will be saved to body.R in the parent
 directory of dir.out, Default: TRUE}
 }
 \value{
@@ -29,3 +29,4 @@ If dir.out is set to NULL all outputs are redirected into file.path(tempdir(),'s
 \author{
 Jonathan Sidi
 }
+\concept{namespace}

@@ -8,6 +8,7 @@
 #' @rdname create_yml
 #' @export
 #' @author Jonathan Sidi
+#' @concept utility
 #' @importFrom rstudioapi getActiveProject
 create_yml <- function() {
   if (is.null(rstudioapi::getActiveProject())) {

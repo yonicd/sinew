@@ -7,6 +7,7 @@
 #' directory of dir.out, Default: TRUE
 #' @return Nothing, side effects is to create files
 #' @details If dir.out is set to NULL all outputs are redirected into file.path(tempdir(),'sinew')
+#' @concept namespace
 #' @rdname pretty_sinew
 #' @export 
 #' @author Jonathan Sidi

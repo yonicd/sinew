@@ -5,11 +5,15 @@
 #' @param dir.out character, path to save new R files, Default: NULL
 #' @param keep.body boolean, if TRUE all non-functions will be saved to body.R in the parent 
 #' directory of dir.out, Default: TRUE
-#' @details body.R is written to the working directory and not dir.out. Functions that
-#'  are objects in lists are treated as objects and will stay in body.R .
+#' @param dir.body character, path to save body.R files, Default: dirname(dir.out)
+#' @details Functions that are objects in lists are treated as objects and will stay in body.R .
 #' @return list of seperate functions
 #' @examples
-#' \dontrun{
+#' 
+#' test_dir <- file.path(tempdir(),'sinew_test')
+#' 
+#' dir.create(test_dir)
+#' 
 #' txt <- "#some comment
 #' yy <- function(a=4){
 #'  head(runif(10),a)
@@ -26,14 +30,26 @@
 #' zz(v)
 #'
 #' "
-#' untangle(txt,dir.out = 'test')
+#' 
+#' untangle(text = txt,dir.out = test_dir)
+#' 
+#' list.files(tempdir(), recursive = TRUE, pattern = '.R$')
+#' 
+#' cat( readLines(file.path(test_dir,'yy.R')), sep = '\n')
+#' 
+#' cat( readLines(file.path(test_dir,'zz.R')), sep = '\n')
+#' 
+#' cat( readLines(file.path(tempdir(),'body.R')), sep = '\n')
+#' 
+#' unlink(test_dir, force = TRUE, recursive = TRUE)
 #'
-#' }
+#'
 #' @rdname untangle
 #' @export
+#' @concept untangle
 #' @author Jonathan Sidi
 #' @importFrom utils getParseData
-untangle <- function(file = "", text = NULL, dir.out = NULL, keep.body = TRUE) {
+untangle <- function(file = "", text = NULL, dir.out = "", keep.body = TRUE, dir.body = dirname(dir.out)) {
   if (!is.null(text) & length(text) == 1) {
     text <- strsplit(text, "\n")[[1]]
   }
@@ -44,7 +60,7 @@ untangle <- function(file = "", text = NULL, dir.out = NULL, keep.body = TRUE) {
   if (is.null(text)||length(text)==0) 
     return(NULL)
   
-  p <- parse(text = text)
+  p <- parse(text = text,keep.source = TRUE)
   p1 <- utils::getParseData(p)
   p1.filter <- p1$parent[with(p1, text == "function" & terminal == TRUE)]
   p2 <- p1[p1$id %in% (p1.filter + 1), ]
@@ -59,7 +75,7 @@ untangle <- function(file = "", text = NULL, dir.out = NULL, keep.body = TRUE) {
     if (!nzchar(fn.name)) #patch to find functions that are nested in lists that need to stay in the body
       return(list(name = fn.name, text = NULL))
     
-    if (!is.null(dir.out)) {
+    if (nzchar(dir.out)) {
       file.name <- sprintf("%s.R", gsub("[.]", "_", fn.name))
       cat(lout, file = file.path(dir.out, file.name), sep = "\n")
     }
@@ -69,7 +85,7 @@ untangle <- function(file = "", text = NULL, dir.out = NULL, keep.body = TRUE) {
   ret <- sapply(p.split, function(x) text[x$text])
   names(ret) <- sapply(p.split, function(x) x$name)
 
-  if (keep.body) {
+  if (keep.body & nzchar(dir.out)) {
     check.body <- unlist(lapply(p.split, "[", 2))
     if (!is.null(check.body)) {
       body.text <- text[-check.body]
@@ -79,7 +95,7 @@ untangle <- function(file = "", text = NULL, dir.out = NULL, keep.body = TRUE) {
       }
       if (length(body.text) > 0) {
         if (!is.null(dir.out)){
-          cat(body.text, file = file.path(dirname(dir.out), "body.R"), sep = "\n") 
+          cat(body.text, file = file.path(dir.body, "body.R"), sep = "\n") 
         }
         ret$body <- body.text
       }

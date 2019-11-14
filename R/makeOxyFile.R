@@ -2,8 +2,8 @@
 #' @description Applies \code{makeOxygen} function to all functions/dataframes in supplied file(s)
 #' @param input character, vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL
 #' @param overwrite boolean, If TRUE overwrites file(s), FALSE writes "Oxy"- prefixed files in the same directory, Default: FALSE
-#' @param verbose boolean, If TRUE will print output to console and open edited files in the editor viewer, Defulat: TRUE
-#' @param ... additional parameters passed to \code{makeOxygen}
+#' @param verbose boolean, If TRUE will print output to console and open edited files in the editor viewer, Defulat: interactive()
+#' @param \dots additional parameters passed to \code{makeOxygen}
 #' @return Nothing. Writes files with roxygen2 comments as a side effect
 #' @author Anton Grishin
 #' @details If an object cannot be found it will be sourced into a temporary environment.
@@ -25,11 +25,12 @@
 #'  makeOxyFile("./myRfunctions/utils.R", cut = 5)
 #'  }
 #' @export
-#' @seealso \code{\link{makeOxygen}}
+#' @seealso [makeOxygen][sinew::makeOxygen]
 #' @rdname makeOxyFile
+#' @concept populate
 #' @importFrom rstudioapi isAvailable navigateToFile
 
-makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
+makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive(), ...) {
   if (is.null(input)) input <- file.choose()
 
   if (length(input) == 1L && file.info(input)$isdir) {
@@ -82,8 +83,9 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
       "\\1", grep("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines, value = TRUE)
     )
     
+    nenv <- new.env()
+    
     if (!all(objs %in% ls(envir = parent.frame()))) {
-      nenv <- new.env()
       sys.source(FILE, nenv, keep.source = TRUE)
     }
 
@@ -107,7 +109,7 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
 
     oxy_lst <- lapply(objs, function(obj_name, thisenv, ...) {
       assign(obj_name, get(obj_name, envir = thisenv))
-      eval(parse(text = sprintf("makeOxygen(%s,...)", obj_name)))
+      eval(parse(text = sprintf("makeOxygen(%s,...)", obj_name), keep.source = TRUE))
     }, thisenv = nenv, ...)
 
     ins_id <- which(grepl("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines)) - 1L

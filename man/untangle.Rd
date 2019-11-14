@@ -4,7 +4,8 @@
 \alias{untangle}
 \title{Split an R script by functions}
 \usage{
-untangle(file = "", text = NULL, dir.out = NULL, keep.body = TRUE)
+untangle(file = "", text = NULL, dir.out = "", keep.body = TRUE,
+  dir.body = dirname(dir.out))
 }
 \arguments{
 \item{file}{character, path to R file, Default: ''}
@@ -13,8 +14,10 @@ untangle(file = "", text = NULL, dir.out = NULL, keep.body = TRUE)
 
 \item{dir.out}{character, path to save new R files, Default: NULL}
 
-\item{keep.body}{boolean, if TRUE all non-functions will be saved to body.R in the parent 
+\item{keep.body}{boolean, if TRUE all non-functions will be saved to body.R in the parent
 directory of dir.out, Default: TRUE}
+
+\item{dir.body}{character, path to save body.R files, Default: dirname(dir.out)}
 }
 \value{
 list of seperate functions
@@ -23,11 +26,14 @@ list of seperate functions
 Split a R script with multiple functions into multiple single function R files.
 }
 \details{
-body.R is written to the working directory and not dir.out. Functions that
- are objects in lists are treated as objects and will stay in body.R .
+Functions that are objects in lists are treated as objects and will stay in body.R .
 }
 \examples{
-\dontrun{
+
+test_dir <- file.path(tempdir(),'sinew_test')
+
+dir.create(test_dir)
+
 txt <- "#some comment
 yy <- function(a=4){
  head(runif(10),a)
@@ -44,10 +50,22 @@ zz <- function(v=10,a=3){
 zz(v)
 
 "
-untangle(txt,dir.out = 'test')
 
-}
+untangle(text = txt,dir.out = test_dir)
+
+list.files(tempdir(), recursive = TRUE, pattern = '.R$')
+
+cat( readLines(file.path(test_dir,'yy.R')), sep = '\\n')
+
+cat( readLines(file.path(test_dir,'zz.R')), sep = '\\n')
+
+cat( readLines(file.path(tempdir(),'body.R')), sep = '\\n')
+
+unlink(test_dir, force = TRUE, recursive = TRUE)
+
+
 }
 \author{
 Jonathan Sidi
 }
+\concept{untangle}

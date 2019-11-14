@@ -14,11 +14,11 @@
 #' if(interactive()) interOxyAddIn()
 #' @export
 #' @rdname interOxyAddIn
-#' @seealso \code{View(sinew:::oxygenAddin)}
 #' @import rstudioapi
 #' @import shiny
 #' @import miniUI
 #' @importFrom utils find
+#' @concept interactive
 interOxyAddIn <- function() {
   nenv <- new.env()
 
@@ -219,10 +219,10 @@ interOxyAddIn <- function() {
         test <- any(grepl(obj_name, ls(envir = nenv)))
         if (test) {
           assign(obj_name, get(obj_name, envir = nenv))
-          eval(parse(text = sprintf("ins_txt <- makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name)))
+          eval(parse(text = sprintf("ins_txt <- makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
         } else {
           if (length(find(obj_name, mode = "function")) > 0) {
-            eval(parse(text = sprintf("ins_txt <- makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name)))
+            eval(parse(text = sprintf("ins_txt <- makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
           }
         }
         # }
@@ -302,10 +302,10 @@ interOxyAddIn <- function() {
               test <- any(grepl(obj_name, ls(envir = nenv)))
               if (test) {
                 assign(obj_name, get(obj_name, envir = nenv))
-                eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name)))
+                eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
               } else {
                 if (length(find(obj_name, mode = "function")) > 0) {
-                  eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name)))
+                  eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
                 }
               }
             }

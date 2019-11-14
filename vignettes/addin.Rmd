@@ -1,0 +1,70 @@
+---
+title: "Sinew Addins"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Sinew Addin}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+There are three addins in sinew both work off of the same principle.
+
+To access the addins load `sinew` and then three addins are appended to the `Addins menu` of `RStudio`.
+
+## Static
+
+### Namespace
+
+This addin scans the file source contents and attaches namespace information.
+
+  - Either saved or untitled R or Rmd files in the source editor may be used.
+
+  - In R files highlight specific text, or not highlight at all and the whole document will be used.
+
+  - In Rmd files highlight subsets of chunks to add namespaces directly in the chunks, or not
+highlight at all and the whole document will be used to create a new chunk at the top of the
+document with relevant namespaces needed to render the Rmd. 
+
+### createOxygen
+
+This addin will insert above the highlighted text the output of `sinew::makeOxygen`. 
+
+  - It is useful to control the fields and their values with `sinew::sinew_opts`.
+
+<iframe src="https://giphy.com/embed/elbqrgdp24rVgOGAyK" width="445" height="480" frameBorder="1" class="giphy-embed" allowFullScreen></iframe>
+
+## Interactive
+
+### InteractiveOxygen
+
+This addin invokes a shiny gadget.
+
+The user can select to either create a new skeleton or update an existing file. The application search for highlighted text in a number of locations in order to create the documentation.
+
+The application has checkboxes to control what fields are in the documentation, and there is a reactive preview tab to see what the documentation looks like as fields are inserted or removed. It is useful to control the fields checked on by default and their values with `sinew::sinew_opts`.
+
+Once the user is happy with the documention skeleton it can be inserted into the editor.
+
+Creating a new skeleton:
+
+  - Script within the source editor can be in either named tabs (saved files) or unnamed tabs (`untitled1`)
+  - Highlighted text can be functions that are one of following
+    - compiled
+    - uncompiled
+    - attached namespace (package in search path)
+    - unattached namespace (package that is installed)
+    
+Updating existing documentation on disk
+
+  - In this case there has to be a physical location for the application to read. If one can not be found then nothing is displayed in the preview tab.
+
+```{r,echo=FALSE}
+knitr::include_url("https://www.youtube.com/embed/cabOtf191OQ")
+```

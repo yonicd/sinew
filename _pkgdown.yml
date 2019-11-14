@@ -1,0 +1,53 @@
+title: sinew
+development:
+  mode: auto
+navbar:
+  structure:
+    left:
+    - home
+    - reference
+    - articleindex
+    - news
+    right:
+    - github
+    - twitter
+  components:
+    articles: ~
+    articleindex:
+      text: Articles
+      href: articles/index.html
+    twitter:
+      icon: fa-lg fa-twitter
+      href: http://twitter.com/MetrumRG
+  type: inverse
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/metrumresearchgroup/texPreview
+reference:
+- title: Populating
+  contents: has_concept("populate")
+- title: Managing Namespaces
+  contents: has_concept("namespace")
+- title: Untangle Script
+  contents: has_concept("untangle")
+- title: Interactivity
+  contents: has_concept("interactive")
+- title: Options
+  contents: has_concept("opts")
+- title: Utilities
+  contents: has_concept("utility")
+articles:
+- title: Workflow
+  contents:
+  - workflow
+- title: Motivation
+  contents:
+  - motivation
+- title: Utilities
+  contents: 
+  - addin
+  - opts
+template:
+  params:
+    bootswatch: flatly
+

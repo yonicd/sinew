@@ -21,3 +21,4 @@ parameter definitions
 \examples{
 makeDictionary('R')
 }
+\concept{utility}

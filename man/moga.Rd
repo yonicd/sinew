@@ -10,7 +10,7 @@ moga(path, ..., force.fields = NULL, dry.run = TRUE,
 \arguments{
 \item{path}{character path to R file}
 
-\item{...}{arguments to be passed to new makeOxygen}
+\item{\dots}{arguments to be passed to new makeOxygen}
 
 \item{force.fields}{character, vector a field names that are in current header that are to be updated Default: NULL}
 
@@ -29,5 +29,15 @@ Cross references fields already in the roxygen2 header and adds any new ones fro
 To force a change to a field add field name to force.fields.
 }
 \examples{
- moga('https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/R/aesColour.R')
+
+# We want to update the contents of the Roxygen2 with the new parameter "b"
+# without touching the other fields
+
+# Before
+ cat(readLines(system.file('example_moga.R',package = 'sinew')),sep = '\\n')
+
+# After
+ moga(system.file('example_moga.R',package = 'sinew'))
+ 
 }
+\concept{populate}

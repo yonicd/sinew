@@ -25,9 +25,7 @@ Select next object's name. Rinse.Repeat. Click Quit when done with the file.
 \examples{
 if(interactive()) interOxyAddIn()
 }
-\seealso{
-\code{View(sinew:::oxygenAddin)}
-}
 \author{
 Anton Grishin, Jonathan Sidi
 }
+\concept{interactive}

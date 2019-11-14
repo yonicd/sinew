@@ -2,28 +2,49 @@
 % Please edit documentation in R/makeImport.R
 \name{makeImport}
 \alias{makeImport}
-\title{Scrape R script to create namespace calls for R documentation}
+\title{Populate import fields for documentation}
 \usage{
 makeImport(script, cut = NULL, print = TRUE, format = "oxygen",
   desc_loc = NULL)
 }
 \arguments{
-\item{script}{character, connection to pass to readLines, can be file path, directory path, url path}
+\item{script}{character, connection to pass to readLines, can be file path,
+directory path, url path}
 
-\item{cut}{integer, number of functions to write as importFrom until switches to import, Default: NULL}
+\item{cut}{integer, number of functions to write as importFrom until
+switches to import, Default: NULL}
 
 \item{print}{boolean, print output to console, Default: TRUE}
 
-\item{format}{character, the output format must be in c('oxygen','description','import'), Default: 'oxygen'}
+\item{format}{character, the output format must be in
+c('oxygen','description','import'), Default: 'oxygen'}
 
-\item{desc_loc}{character, path to DESCRIPTION file, if not NULL then the Imports fields in
-the DESCRIPTION file, Default: NULL}
+\item{desc_loc}{character, path to DESCRIPTION file,
+if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL}
 }
 \description{
-Scrape r script to create namespace calls for roxygen2, namespace or description files
+Scrape \code{R} script to create import and importFrom calls for
+roxygen2, namespace or description files
 }
 \examples{
-makeImport('R',format = 'oxygen')
-makeImport('R',format = 'description')
-makeImport('R',format = 'import')
+
+file.copy(system.file('pkg',package = 'sinew'),recursive = TRUE,tempdir())
+pkg_dir <- file.path(tempdir(),'pkg')
+pkg_dir_R <- file.path(pkg_dir,'R')
+
+pretty_namespace(pkg_dir_R, overwrite = TRUE)
+
+makeImport(pkg_dir_R,format = 'oxygen')
+
+makeImport(pkg_dir_R,format = 'description')
+
+cat(readLines(file.path(pkg_dir, 'DESCRIPTION')),sep = '\\n')
+
+makeImport(pkg_dir_R,format = 'description', desc_loc = pkg_dir)
+
+cat(readLines(file.path(pkg_dir, 'DESCRIPTION')),sep = '\\n')
+
+unlink(pkg_dir, force = TRUE, recursive = TRUE)
+
 }
+\concept{populate}

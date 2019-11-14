@@ -1,7 +1,7 @@
 #' @title Make Oxygen Great Again
 #' @description Update/append an R file that has roxygen2 headers already with updated information
 #' @param path character path to R file
-#' @param ... arguments to be passed to new makeOxygen
+#' @param \dots arguments to be passed to new makeOxygen
 #' @param force.fields character, vector a field names that are in current header that are to be updated Default: NULL
 #' @param dry.run boolean, write lines to console the output, Default: TRUE
 #' @param overwrite boolean, overwrite contents of input file, Default: FALSE
@@ -9,7 +9,17 @@
 #' @details Cross references fields already in the roxygen2 header and adds any new ones from the updated call.
 #' To force a change to a field add field name to force.fields.
 #' @examples
-#'  moga('https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/R/aesColour.R')
+#' 
+#' # We want to update the contents of the Roxygen2 with the new parameter "b"
+#' # without touching the other fields
+#' 
+#' # Before
+#'  cat(readLines(system.file('example_moga.R',package = 'sinew')),sep = '\n')
+#' 
+#' # After
+#'  moga(system.file('example_moga.R',package = 'sinew'))
+#'  
+#' @concept populate
 #' @rdname moga
 #' @export
 moga <- function(path, ..., force.fields=NULL, dry.run=TRUE, overwrite=FALSE) {
@@ -21,7 +31,7 @@ moga <- function(path, ..., force.fields=NULL, dry.run=TRUE, overwrite=FALSE) {
 
   oxy_new <- c()
 
-  eval(parse(text = sprintf("oxy_new<-makeOxygen(%s,print=FALSE,...)", fn_name)))
+  eval(parse(text = sprintf("oxy_new<-makeOxygen(%s,print=FALSE,...)", fn_name), keep.source = TRUE))
 
   oxy_list <- sapply(c(current = oxy_current, new = oxy_new), get_oxy, simplify = FALSE)
 

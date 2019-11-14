@@ -41,7 +41,7 @@ then the value pairs will be used in place of what was found using the search pa
 If ignore is not NULL but a named list eg list(stats=c('rnorm','runif'),utils = 'head'),
 then if the functions are found they will not have a namespace attached to them.
 
-If you want to toggle off the summary console printing you can set it globally via 
+If you want to toggle off the summary console printing you can set it globally via
 sinew_opts$set(pretty_print=FALSE).
 }
 \examples{
@@ -59,9 +59,9 @@ pretty_namespace(text=txt)
 
 }
 \seealso{
-\code{\link[sos]{findFn}}
- \code{\link[utils]{help.search}}
+\link[sos:findFn]{findFn}, \link[utils:help.search]{help.search}
 }
 \author{
 Jonathan Sidi
 }
+\concept{namespace}

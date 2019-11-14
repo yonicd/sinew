@@ -17,8 +17,7 @@
 #' rstudioapi::navigateToFile(system.file('example.Rmd',package = 'sinew'))
 #' pretty_rmd(input = system.file('example.Rmd',package = 'sinew'))
 #' }
-#' @seealso 
-#'  \code{\link[sinew]{pretty_namespace}}
+#' @seealso [pretty_namespace][sinew::pretty_namespace]
 #' @rdname pretty_rmd
 #' @export 
 #' @importFrom rstudioapi navigateToFile

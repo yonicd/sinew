@@ -10,12 +10,13 @@
 #' dict_loc=file.path(repo,'man-roxygen/Dictionary-1.R')
 #' ls_param(sinew::makeOxygen,dictionary=dict_loc)
 #' @export
+#' @concept utility
 ls_param <- function(obj, dictionary="man-roxygen/Dictionary-1.R", print=TRUE) {
   dictionary_lines <- readLines(dictionary, warn = FALSE)
   dictionary_lines <- grep("#' @param ", dictionary_lines, value = TRUE)
   dictionary_params <- sapply(strsplit(gsub("#' @param ", "", dictionary_lines), " "), "[", 1)
   names(dictionary_lines) <- dictionary_params
-  if (is.character(obj)) obj <- eval(parse(text = obj))
+  if (is.character(obj)) obj <- eval(parse(text = obj, keep.source = TRUE))
   nm <- names(formals(obj))
   out <- dictionary_lines[intersect(nm, dictionary_params)]
   if (print) cat(out, sep = "\n")

@@ -1,6 +1,6 @@
 pretty_parse <- function(txt){
   
-  p <- parse(text = txt)
+  p <- parse(text = txt,keep.source = TRUE)
   
   p1 <- utils::getParseData(p)
   
