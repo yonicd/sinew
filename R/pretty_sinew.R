@@ -1,5 +1,5 @@
 #' @title Convert File to R directory with pretty and oxygen
-#' @description ONe function to run pretty_namespace, untangle and makeOxyFile
+#' @description One function to run [pretty_namespace][sinew::pretty_namespace], [untangle][sinew::untangle] and [makeOxyFile][sinew::makeOxyFile]
 #' @param con character, path to file or directory that contains script, Default: NULL
 #' @param text character, vector that contains script, Default: NULL
 #' @param dir.out character, path to save new R files, Default: NULL

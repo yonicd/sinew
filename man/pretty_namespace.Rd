@@ -4,9 +4,16 @@
 \alias{pretty_namespace}
 \title{Append namespace to functions in script}
 \usage{
-pretty_namespace(con = NULL, text = NULL, ask = TRUE,
-  askenv = new.env(), force = NULL, ignore = NULL,
-  overwrite = FALSE, sos = FALSE)
+pretty_namespace(
+  con = NULL,
+  text = NULL,
+  ask = TRUE,
+  askenv = new.env(),
+  force = NULL,
+  ignore = NULL,
+  overwrite = FALSE,
+  sos = FALSE
+)
 }
 \arguments{
 \item{con}{character, path to file or directory that contains script, Default: NULL}

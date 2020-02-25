@@ -4,8 +4,13 @@
 \alias{makeImport}
 \title{Populate import fields for documentation}
 \usage{
-makeImport(script, cut = NULL, print = TRUE, format = "oxygen",
-  desc_loc = NULL)
+makeImport(
+  script,
+  cut = NULL,
+  print = TRUE,
+  format = "oxygen",
+  desc_loc = NULL
+)
 }
 \arguments{
 \item{script}{character, connection to pass to readLines, can be file path,
@@ -28,22 +33,28 @@ roxygen2, namespace or description files
 }
 \examples{
 
-file.copy(system.file('pkg',package = 'sinew'),recursive = TRUE,tempdir())
+# copy dummy package to tempdir
+file.copy(system.file('pkg',package = 'sinew'),tempdir(),recursive = TRUE)
+
 pkg_dir <- file.path(tempdir(),'pkg')
 pkg_dir_R <- file.path(pkg_dir,'R')
+pkg_dir_DESC <- file.path(pkg_dir,'DESCRIPTION')
 
+# update namespaces in package functions
 pretty_namespace(pkg_dir_R, overwrite = TRUE)
 
+# update imports/importsFrom for roxygen2 tags
 makeImport(pkg_dir_R,format = 'oxygen')
 
+# update Imports for DESCRIPTION file output to console
 makeImport(pkg_dir_R,format = 'description')
 
-cat(readLines(file.path(pkg_dir, 'DESCRIPTION')),sep = '\\n')
-
+# update Imports for DESCRIPTION file overwrite file
 makeImport(pkg_dir_R,format = 'description', desc_loc = pkg_dir)
 
-cat(readLines(file.path(pkg_dir, 'DESCRIPTION')),sep = '\\n')
+cat(readLines(pkg_dir_DESC),sep = '\n')
 
+# cleanup tempdir
 unlink(pkg_dir, force = TRUE, recursive = TRUE)
 
 }

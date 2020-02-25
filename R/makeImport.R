@@ -12,22 +12,28 @@
 #' if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL
 #' @examples
 #' 
-#' file.copy(system.file('pkg',package = 'sinew'),recursive = TRUE,tempdir())
+#' # copy dummy package to tempdir
+#' file.copy(system.file('pkg',package = 'sinew'),tempdir(),recursive = TRUE)
+#' 
 #' pkg_dir <- file.path(tempdir(),'pkg')
 #' pkg_dir_R <- file.path(pkg_dir,'R')
+#' pkg_dir_DESC <- file.path(pkg_dir,'DESCRIPTION')
 #' 
+#' # update namespaces in package functions
 #' pretty_namespace(pkg_dir_R, overwrite = TRUE)
 #' 
+#' # update imports/importsFrom for roxygen2 tags
 #' makeImport(pkg_dir_R,format = 'oxygen')
 #' 
+#' # update Imports for DESCRIPTION file output to console
 #' makeImport(pkg_dir_R,format = 'description')
-#' 
-#' cat(readLines(file.path(pkg_dir, 'DESCRIPTION')),sep = '\n')
-#' 
+#'
+#' # update Imports for DESCRIPTION file overwrite file
 #' makeImport(pkg_dir_R,format = 'description', desc_loc = pkg_dir)
 #' 
-#' cat(readLines(file.path(pkg_dir, 'DESCRIPTION')),sep = '\n')
+#' cat(readLines(pkg_dir_DESC),sep = '\n')
 #' 
+#' # cleanup tempdir
 #' unlink(pkg_dir, force = TRUE, recursive = TRUE)
 #' 
 #' @concept populate
@@ -122,6 +128,39 @@ makeImport <- function(script, cut = NULL, print = TRUE, format = "oxygen", desc
   invisible(sapply(ret, paste0, collapse = "\n"))
 }
 
+#' @title Update Package Description File
+#' @description Update package DESCRIPTION file Imports field
+#' @param path character, path to R folder containing package functions
+#' @param overwrite logical, overwrite the file, Default: TRUE
+#' @return NULL
+#' @details If overwrite is FALSE then the output will be returned to the console.
+#' @examples 
+#' 
+#' # copy dummy package to tempdir
+#' file.copy(system.file('pkg',package = 'sinew'),tempdir(),recursive = TRUE)
+#' 
+#' pkg_dir <- file.path(tempdir(),'pkg')
+#' pkg_dir_R <- file.path(pkg_dir,'R')
+#' pkg_dir_DESC <- file.path(pkg_dir,'DESCRIPTION')
+#' 
+#' # update namespaces in package functions
+#' pretty_namespace(pkg_dir_R,overwrite = TRUE)
+#' 
+#' # send result to the console
+#' update_desc(pkg_dir_R,overwrite = FALSE)
+#' 
+#' # overwrite the Imports field
+#' update_desc(pkg_dir_R,overwrite = TRUE)
+#' 
+#' # view DESCRIPTION file
+#' cat(readLines(pkg_dir_DESC),sep='\n')
+#' 
+#' # cleanup tempdir
+#' unlink(pkg_dir,recursive = TRUE,force = TRUE)
+#' 
+#' @author Jonathan Sidi
+#' @concept populate
+#' @export
 update_desc <- function(path, overwrite = TRUE){
   
   if(overwrite){
@@ -130,6 +169,6 @@ update_desc <- function(path, overwrite = TRUE){
     desc_loc <- NULL
   }
   
-  makeImport(path, print = FALSE, format = 'description', desc_loc = desc_loc)
+  makeImport(path, print = !overwrite, format = 'description', desc_loc = desc_loc)
   
 }

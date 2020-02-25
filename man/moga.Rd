@@ -4,8 +4,7 @@
 \alias{moga}
 \title{Make Oxygen Great Again}
 \usage{
-moga(path, ..., force.fields = NULL, dry.run = TRUE,
-  overwrite = FALSE)
+moga(path, ..., force.fields = NULL, dry.run = TRUE, overwrite = FALSE)
 }
 \arguments{
 \item{path}{character path to R file}
@@ -34,7 +33,7 @@ To force a change to a field add field name to force.fields.
 # without touching the other fields
 
 # Before
- cat(readLines(system.file('example_moga.R',package = 'sinew')),sep = '\\n')
+ cat(readLines(system.file('example_moga.R',package = 'sinew')),sep = '\n')
 
 # After
  moga(system.file('example_moga.R',package = 'sinew'))

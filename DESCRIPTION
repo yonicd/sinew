@@ -16,8 +16,6 @@ Depends: R (>= 3.2.0)
 Imports: 
     rstudioapi,
     utils,
-    shiny,
-    miniUI,
     tools,
     sos,
     stringi,
@@ -28,6 +26,8 @@ Imports:
 License: MIT + file LICENSE
 Suggests: 
     rcmdcheck,
+    shiny,
+    miniUI,
     withr,
     usethis,
     fs,
@@ -41,6 +41,6 @@ BugReports: https://github.com/metrumresearchgroup/sinew/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

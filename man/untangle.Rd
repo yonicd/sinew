@@ -4,8 +4,13 @@
 \alias{untangle}
 \title{Split an R script by functions}
 \usage{
-untangle(file = "", text = NULL, dir.out = "", keep.body = TRUE,
-  dir.body = dirname(dir.out))
+untangle(
+  file = "",
+  text = NULL,
+  dir.out = "",
+  keep.body = TRUE,
+  dir.body = dirname(dir.out)
+)
 }
 \arguments{
 \item{file}{character, path to R file, Default: ''}
@@ -55,11 +60,11 @@ untangle(text = txt,dir.out = test_dir)
 
 list.files(tempdir(), recursive = TRUE, pattern = '.R$')
 
-cat( readLines(file.path(test_dir,'yy.R')), sep = '\\n')
+cat( readLines(file.path(test_dir,'yy.R')), sep = '\n')
 
-cat( readLines(file.path(test_dir,'zz.R')), sep = '\\n')
+cat( readLines(file.path(test_dir,'zz.R')), sep = '\n')
 
-cat( readLines(file.path(tempdir(),'body.R')), sep = '\\n')
+cat( readLines(file.path(tempdir(),'body.R')), sep = '\n')
 
 unlink(test_dir, force = TRUE, recursive = TRUE)
 

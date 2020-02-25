@@ -4,9 +4,14 @@
 \alias{makeOxygen}
 \title{Populate Roxygen2 Skeleton}
 \usage{
-makeOxygen(obj, add_default = TRUE,
-  add_fields = sinew_opts$get("add_fields"), use_dictionary = NULL,
-  print = TRUE, ...)
+makeOxygen(
+  obj,
+  add_default = TRUE,
+  add_fields = sinew_opts$get("add_fields"),
+  use_dictionary = NULL,
+  print = TRUE,
+  ...
+)
 }
 \arguments{
 \item{obj}{function or name of function}
@@ -60,7 +65,7 @@ name              \tab NAME                                        \cr
 rdname            \tab FUNCTION_NAME                               \cr
 references        \tab BIB_CITATION                                \cr
 section           \tab SECTION_NAME                                \cr
-source            \tab \\url{http://somewhere.important.com/}    \cr
+source            \tab \\url\{http://somewhere.important.com/\}    \cr
 slot              \tab SLOTNAME DESCRIPTION                        \cr
 template          \tab FILENAME                                    \cr
 templateVar       \tab NAME VALUE                                  \cr

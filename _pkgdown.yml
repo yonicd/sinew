@@ -47,6 +47,7 @@ articles:
   contents: 
   - addin
   - opts
+  - imports
 template:
   params:
     bootswatch: flatly
