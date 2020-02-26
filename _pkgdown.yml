@@ -22,7 +22,7 @@ navbar:
   type: inverse
   right:
   - icon: fa-github fa-lg
-    href: https://github.com/metrumresearchgroup/texPreview
+    href: https://github.com/metrumresearchgroup/sinew
 reference:
 - title: Populating
   contents: has_concept("populate")

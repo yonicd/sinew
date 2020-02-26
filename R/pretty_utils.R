@@ -6,7 +6,7 @@ pretty_parse <- function(txt){
   
   rmParent <- p1$parent[p1$token == "SYMBOL_PACKAGE"]
   
-  ret <- p1[p1$token == "SYMBOL_FUNCTION_CALL" & !p1$parent %in% rmParent, ]
+  ret <- p1[p1$token %in% c("SYMBOL_FUNCTION_CALL") & !p1$parent %in% rmParent, ]
   
   if(length(ret)>0){
     #clean out list functions
@@ -30,7 +30,7 @@ pretty_shift <- function(txt, sym.funs, nm, overwrite, force, ignore){
     sym.funs$new_text <- crayon::red(sym.funs$new_text)
   }
   
-  idx <- which(!sym.funs$namespace %in% c("base", NA))
+  idx <- which(!sym.funs$namespace %in% c('base','datasets', NA))
   
   sym.funs.i <- split(sym.funs[idx,],sym.funs$line1[idx])
   
@@ -232,7 +232,7 @@ pretty_print <- function(obj,file,chunk=NULL){
     file <- sprintf('%s (%s)',file,chunk)
   }
   
-  obj <- obj[!obj$namespace %in% c("base"),]
+  obj <- obj[!obj$namespace %in% c("base","datasets"),]
   
   if(nrow(obj)==0)
     return(NULL)
