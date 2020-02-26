@@ -16,13 +16,12 @@ navbar:
     articleindex:
       text: Articles
       href: articles/index.html
-    twitter:
-      icon: fa-lg fa-twitter
-      href: http://twitter.com/MetrumRG
   type: inverse
   right:
   - icon: fa-github fa-lg
     href: https://github.com/metrumresearchgroup/sinew
+  - icon: fa-lg fa-twitter
+    href: http://twitter.com/MetrumRG
 reference:
 - title: Populating
   contents: has_concept("populate")
