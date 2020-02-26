@@ -34,10 +34,9 @@
 #'
 #' pretty_namespace(text=txt)
 #'
-#' @seealso
-#'  \code{\link[sos]{findFn}}
-#'  \code{\link[utils]{help.search}}
+#' @seealso [findFn][sos::findFn], [help.search][utils::help.search]
 #' @rdname pretty_namespace
+#' @concept namespace
 #' @export
 #' @author Jonathan Sidi
 pretty_namespace <- function(con = NULL,

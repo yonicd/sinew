@@ -2,33 +2,46 @@
 % Please edit documentation in R/makeOxygen.R
 \name{makeOxygen}
 \alias{makeOxygen}
-\title{Creates skeleton roxygen2 with information from within function script}
+\title{Populate Roxygen2 Skeleton}
 \usage{
-makeOxygen(obj, add_default = TRUE,
-  add_fields = sinew_opts$get("add_fields"), use_dictionary = NULL,
-  print = TRUE, ...)
+makeOxygen(
+  obj,
+  add_default = TRUE,
+  add_fields = sinew_opts$get("add_fields"),
+  use_dictionary = NULL,
+  print = TRUE,
+  ...
+)
 }
 \arguments{
 \item{obj}{function or name of function}
 
-\item{add_default}{boolean to add defaults values to the end of the PARAM fields, Default: TRUE}
+\item{add_default}{boolean to add defaults values to the end of the PARAM
+fields, Default: TRUE}
 
-\item{add_fields}{character vector to add additional roxygen2 fields, Default: c("details","examples","seealso","rdname","export")}
+\item{add_fields}{character vector to add additional roxygen2 fields,
+Default: c("details","examples","seealso","rdname","export")}
 
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
 \item{print}{boolean print output to console, Default: TRUE}
 
-\item{...}{arguments to be passed to makeImport}
+\item{\dots}{arguments to be passed to makeImport}
 }
 \description{
-Creates roxygen2 skeleton including title, description, import and other fields
+Creates roxygen2 skeleton including title,
+description, import and other fields for
+an object in the global environment or a function of an attached namespace.
 }
 \details{
-add_fields can include any slot except for the defaults (title,description,param,return).
-The order in add_fields determines the order of printout. The roxygen2 fields to add are list below,
+add_fields can include any slot except for the
+defaults (title,description,param,return).
+The order in add_fields determines the order of printout.
+The roxygen2 fields to add are list below,
 for more information go to \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}.
-If obj is 'data.frame' or 'tibble' then the fields c('export','examples','seealso','rdname') will be ignored.
+If obj is 'data.frame' or 'tibble' then the fields
+c('export','examples','seealso','rdname') will be ignored.
+
 \tabular{ll}{
 \strong{Field}    \tab \strong{Skeleton}                           \cr
 author            \tab AUTHOR [AUTHOR_2]                           \cr
@@ -62,3 +75,4 @@ useDynLib         \tab PKG [routine_a routine_b]
 \examples{
 makeOxygen(stats::lm)
 }
+\concept{populate}

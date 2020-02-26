@@ -1,20 +1,28 @@
-#' @title Creates skeleton roxygen2 with information from within function script
-#' @description Creates roxygen2 skeleton including title, description, import and other fields
+#' @title Populate Roxygen2 Skeleton
+#' @description Creates roxygen2 skeleton including title, 
+#' description, import and other fields for
+#' an object in the global environment or a function of an attached namespace.
 #' @param obj function or name of function
-#' @param add_default boolean to add defaults values to the end of the PARAM fields, Default: TRUE
-#' @param add_fields character vector to add additional roxygen2 fields, Default: c("details","examples","seealso","rdname","export")
+#' @param add_default boolean to add defaults values to the end of the PARAM 
+#' fields, Default: TRUE
+#' @param add_fields character vector to add additional roxygen2 fields, 
+#' Default: c("details","examples","seealso","rdname","export")
 #' @param use_dictionary character, path_to_dictionary, Default: NULL
 #' @param print boolean print output to console, Default: TRUE
-#' @param ... arguments to be passed to makeImport
-#' @details add_fields can include any slot except for the defaults (title,description,param,return).
-#' The order in add_fields determines the order of printout. The roxygen2 fields to add are list below,
+#' @param \dots arguments to be passed to makeImport
+#' @details add_fields can include any slot except for the 
+#' defaults (title,description,param,return).
+#' The order in add_fields determines the order of printout. 
+#' The roxygen2 fields to add are list below,
 #' for more information go to \href{https://CRAN.R-project.org/package=roxygen2/vignettes/rd.html}{Generating Rd files}.
-#' If obj is 'data.frame' or 'tibble' then the fields c('export','examples','seealso','rdname') will be ignored.
+#' If obj is 'data.frame' or 'tibble' then the fields 
+#' c('export','examples','seealso','rdname') will be ignored.
+#' 
 #' \tabular{ll}{
 #' \strong{Field}    \tab \strong{Skeleton}                           \cr
-#' author            \tab AUTHOR [AUTHOR_2]                           \cr
+#' author            \tab AUTHOR \[AUTHOR_2\]                           \cr
 #' backref           \tab src/filename.cpp                            \cr
-#' concept           \tab CONCEPT_TERM_1 [CONCEPT_TERM_2]             \cr
+#' concept           \tab CONCEPT_TERM_1 \[CONCEPT_TERM_2\]             \cr
 #' describeIn        \tab FUNCTION_NAME DESCRIPTION                   \cr
 #' details           \tab DETAILS                                     \cr
 #' example           \tab path/relative/to/packge/root                \cr
@@ -22,12 +30,12 @@
 #' family            \tab FAMILY_TITLE                                \cr
 #' field             \tab FIELD_IN_S4_RefClass DESCRIPTION            \cr
 #' format            \tab DATA_STRUCTURE                              \cr
-#' importClassesFrom \tab PKG CLASS_a [CLASS_b]                       \cr
-#' importMethodsFrom \tab PKG METHOD_a [METHOD_b]                     \cr
-#' include           \tab FILENAME.R [FILENAME_b.R]                   \cr
-#' inherit           \tab [PKG::]SOURCE_FUNCTION [FIELD_a FIELD_b]    \cr
-#' inheritDotParams  \tab [PKG::]SOURCE_FUNCTION                      \cr
-#' inheritSection    \tab [PKG::]SOURCE_FUNCTION [SECTION_a SECTION_b]\cr
+#' importClassesFrom \tab PKG CLASS_a \[CLASS_b\]                       \cr
+#' importMethodsFrom \tab PKG METHOD_a \[METHOD_b\]                     \cr
+#' include           \tab FILENAME.R \[FILENAME_b.R\]                   \cr
+#' inherit           \tab \[PKG::\]SOURCE_FUNCTION \[FIELD_a FIELD_b\]    \cr
+#' inheritDotParams  \tab \[PKG::\]SOURCE_FUNCTION                      \cr
+#' inheritSection    \tab \[PKG::\]SOURCE_FUNCTION \[SECTION_a SECTION_b\]\cr
 #' keywords          \tab KEYWORD_TERM                                \cr
 #' name              \tab NAME                                        \cr
 #' rdname            \tab FUNCTION_NAME                               \cr
@@ -37,18 +45,19 @@
 #' slot              \tab SLOTNAME DESCRIPTION                        \cr
 #' template          \tab FILENAME                                    \cr
 #' templateVar       \tab NAME VALUE                                  \cr
-#' useDynLib         \tab PKG [routine_a routine_b]
+#' useDynLib         \tab PKG \[routine_a routine_b\]
 #' }
 #' @export
 #' @examples
 #' makeOxygen(stats::lm)
+#' @concept populate
 makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fields"), use_dictionary=NULL, print=TRUE, ...) {
   header_add <- sinew_opts$get()
 
   lbl <- deparse(substitute(obj))
   lbl <- gsub('"', "", lbl)
 
-  if (is.character(obj)) obj <- eval(parse(text = obj))
+  if (is.character(obj)) obj <- eval(parse(text = obj,keep.source = TRUE))
 
   if (inherits(obj, c("data.frame", "tibble"))) {
     cl <- sapply(obj, typeof)

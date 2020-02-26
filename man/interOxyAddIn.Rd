@@ -11,23 +11,34 @@ Nothing. Inserts roxygen2 comments in a file opened in the source editor.
 }
 \description{
 Launches an interactive addin for insertion of roxygen2 comments in files.
-Allows selection of extra parameters for \code{makeOxygen}
+Allows selection of extra parameters for \link[sinew:makeOxygen]{makeOxygen}
 }
 \details{
 Open an .R file in Rstudio's source editor.
-Launch the add-in via Addins -> interactiveOxygen or interOxyAddIn() in the console.
-Add-in opens in the viewer panel.
-Select function's/dataset's name in the source editor.
-If objects cannot be found, the addin prompts to source the file.
-Choose parameters for \code{makeOxygen}. Click Insert.
-Select next object's name. Rinse.Repeat. Click Quit when done with the file.
+
+This addin requires \code{shiny} and \code{miniUI} to be installed (listed as Suggests in Description)
+\itemize{
+\item Launch the add-in via Addins -> interactiveOxygen or interOxyAddIn() in the console.
+\itemize{
+\item Add-in opens in the viewer panel.
+}
+\item Select function's/dataset's name in the source editor.
+\itemize{
+\item If objects cannot be found, the addin prompts to source the file.
+\item Choose parameters for \link[sinew:makeOxygen]{makeOxygen}
+\itemize{
+\item Click Insert
+}
+}
+\item Select next object's name
+\item Rinse/Repeat
+\item Click Quit when done with the file.
+}
 }
 \examples{
 if(interactive()) interOxyAddIn()
 }
-\seealso{
-\code{View(sinew:::oxygenAddin)}
-}
 \author{
 Anton Grishin, Jonathan Sidi
 }
+\concept{interactive}

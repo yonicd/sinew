@@ -1,35 +1,56 @@
 #' @title Inserts roxygen2 skeletons in file(s).
 #' @description Applies \code{makeOxygen} function to all functions/dataframes in supplied file(s)
 #' @param input character, vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL
-#' @param overwrite boolean, If TRUE overwrites file(s), FALSE writes "Oxy"- prefixed files in the same directory, Default: FALSE
-#' @param verbose boolean, If TRUE will print output to console and open edited files in the editor viewer, Defulat: TRUE
-#' @param ... additional parameters passed to \code{makeOxygen}
+#' @param overwrite logical, If TRUE overwrites file(s), FALSE writes "Oxy"- prefixed files in the same directory, Default: FALSE
+#' @param verbose logical, If TRUE will print output to console and open edited files in the editor viewer, Default: interactive()
+#' @param \dots additional parameters passed to \code{makeOxygen}
 #' @return Nothing. Writes files with roxygen2 comments as a side effect
 #' @author Anton Grishin
 #' @details If an object cannot be found it will be sourced into a temporary environment.
 #' If the file already contains roxygen2 comments they will be deleted to avoid duplication.
 #' Some functions may require attaching additional packages. For instance, if functions
 #' were defined with purrr's \code{compose} or \code{partial} functions, omission of \code{purr::} in definitions will
-#' require \code{library(purrr)} before proceding with \code{makeOxyFile}.
+#' require \code{library(purrr)} before proceeding with \code{makeOxyFile}.
 #' @examples
-#' \dontrun{
-#' if(interactive()){
-#'  makeOxyFile() # default args, opens system file selection dialogue
-#'  }
-#'  makeOxyFile("./myRfunctions/utils.R") # on one R file
-#'  makeOxyFile("./myRfunctions/") # on all R files in directory
-#'
+#'  
+#' # copy dummy package to tempdir
+#'   file.copy(system.file('pkg',package = 'sinew'),tempdir(),recursive = TRUE)
+#'   pkg_dir <- file.path(tempdir(),'pkg')
+#'   pkg_dir_R <- file.path(pkg_dir,'R')
+#' 
+#' # update namespaces in package functions
+#'   pretty_namespace(pkg_dir_R, overwrite = TRUE)
+#'    
+#'  # test on one R file 
+#'  # this will create a new R file called 'oxy-yy.R' in the same directory
+#'    makeOxyFile(file.path(pkg_dir_R,'yy.R'))
+#'  
+#'  # Remove the file
+#'    unlink(file.path(pkg_dir_R,'oxy-yy.R'))
+#'  
+#'  # Test on all R files in directory and overwrite the contents
+#'    makeOxyFile(pkg_dir_R, overwrite = TRUE)
+#'  
+
+#'  # Remove Skeleton
+#'    rmOxygen(file.path(pkg_dir_R,'yy.R'))
+#'    rmOxygen(file.path(pkg_dir_R,'zz.R'))
+#'    
 #'  # adds more fields to defaults, passes "cut" to makeImport
-#'
-#'  sinew_opts$append(list(add_fields=c("concept", "describeIn")))
-#'  makeOxyFile("./myRfunctions/utils.R", cut = 5)
-#'  }
+#'    sinew_opts$append(list(add_fields=c("concept", "describeIn")))
+#'    makeOxyFile(file.path(pkg_dir_R,'yy.R'), cut = 5)
+#'  
+#'  # cleanup 
+#'    unlink(pkg_dir, recursive = TRUE, force = TRUE)
+#'    sinew_opts$restore()
+#'    
 #' @export
-#' @seealso \code{\link{makeOxygen}}
+#' @seealso [makeOxygen][sinew::makeOxygen]
 #' @rdname makeOxyFile
+#' @concept populate
 #' @importFrom rstudioapi isAvailable navigateToFile
 
-makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
+makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive(), ...) {
   if (is.null(input)) input <- file.choose()
 
   if (length(input) == 1L && file.info(input)$isdir) {
@@ -82,8 +103,9 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
       "\\1", grep("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines, value = TRUE)
     )
     
+    nenv <- new.env()
+    
     if (!all(objs %in% ls(envir = parent.frame()))) {
-      nenv <- new.env()
       sys.source(FILE, nenv, keep.source = TRUE)
     }
 
@@ -107,7 +129,7 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose=TRUE, ...) {
 
     oxy_lst <- lapply(objs, function(obj_name, thisenv, ...) {
       assign(obj_name, get(obj_name, envir = thisenv))
-      eval(parse(text = sprintf("makeOxygen(%s,...)", obj_name)))
+      eval(parse(text = sprintf("makeOxygen(%s,...)", obj_name), keep.source = TRUE))
     }, thisenv = nenv, ...)
 
     ins_id <- which(grepl("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines)) - 1L

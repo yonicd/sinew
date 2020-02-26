@@ -55,10 +55,12 @@ new_defaults = function(value = list()) {
 #'   you call \code{sinew_opts_current$set()}; you can only query the options via
 #'   \code{sinew_opts_current$get()}.
 #' @export
-#' @examples sinew_opts$get('add_fields')
+#' @concept opts
+#' @examples sinew_opts$get()
 sinew_opts <- new_defaults(list(
   add_fields = c("details", "examples", "seealso", "rdname", "export"),
   pretty_print = TRUE,
+  markdown_links = FALSE,
   author = "AUTHOR [AUTHOR_2]",
   backref = "src/filename.cpp",
   concept = "CONCEPT_TERM_1 [CONCEPT_TERM_2]",

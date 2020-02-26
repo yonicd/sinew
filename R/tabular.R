@@ -2,14 +2,15 @@
 #' @description Convert data.frame to roxygen2 tabular format
 #' @param df data.frame to convert to table
 #' @param header boolean to control if header is created from names(df), Default: TRUE
-#' @param ... arguments to pass to format
+#' @param \dots arguments to pass to format
 #' @return character
-#' @source \href{https://CRAN.R-project.org/package=roxygen2/vignettes/roxygen2.html}{roxygen2 formatting}
-#' @seealso \code{\link[base]{format}}
+#' @source [roxygen2 formatting](https://CRAN.R-project.org/package=roxygen2/vignettes/roxygen2.html)
+#' @seealso [format][base::format]
 #' @export
 #' @examples
-#' cat(tabular(mtcars[1:5, 1:5]))
-#' cat(tabular(mtcars[1:5, 1:5],header=FALSE))
+#' tabular(mtcars[1:5, 1:5])
+#' tabular(mtcars[1:5, 1:5],header=FALSE)
+#' @concept utility
 tabular <- function(df, header=TRUE, ...) {
   stopifnot(is.data.frame(df))
 
@@ -23,5 +24,10 @@ tabular <- function(df, header=TRUE, ...) {
 
   contents <- do.call("paste", c(cols, list(sep = " \\tab ", collapse = "\\cr\n  ")))
 
-  paste("#' \\tabular{", paste(col_align, collapse = ""), "}{\n  ", contents, "\n#'}\n", sep = "")
+  structure(paste("#' \\tabular{", paste(col_align, collapse = ""), "}{\n  ", contents, "\n#'}\n", sep = ""),class = c('sinew_tabular','character'))
+}
+
+#' @export
+print.sinew_tabular <- function(x,...){
+  cat(x)
 }
