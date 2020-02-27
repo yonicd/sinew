@@ -4,8 +4,14 @@
 \alias{pretty_rmd}
 \title{Attach namespacing to Rmarkdown chunks}
 \usage{
-pretty_rmd(input, output = tempfile(fileext = ".Rmd"),
-  open_output = TRUE, create_library = TRUE, chunks = NULL, ...)
+pretty_rmd(
+  input,
+  output = tempfile(fileext = ".Rmd"),
+  open_output = TRUE,
+  create_library = TRUE,
+  chunks = NULL,
+  ...
+)
 }
 \arguments{
 \item{input}{character, path to input Rmd file}
@@ -27,18 +33,20 @@ character
 Apply pretty_namespace to Rmarkdown document
 }
 \details{
-If output is NULL then the returned lines are printed to console. 
+If output is NULL then the returned lines are printed to console.
 If chunks is NULL then all the chunks are used.
 }
 \examples{
-if(interactive()){
-rstudioapi::navigateToFile(system.file('example.Rmd',package = 'sinew'))
-pretty_rmd(input = system.file('example.Rmd',package = 'sinew'))
+\dontrun{
+  if(interactive()){
+    pretty_rmd(input = system.file('example.Rmd',package = 'sinew'))
+  }
 }
 }
 \seealso{
-\code{\link[sinew]{pretty_namespace}}
+\link[sinew:pretty_namespace]{pretty_namespace}
 }
 \author{
 Jonathan Sidi
 }
+\concept{namespace}

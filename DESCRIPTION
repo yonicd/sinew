@@ -1,25 +1,46 @@
 Package: sinew
 Type: Package
-Title: Create 'roxygen2' Skeleton with Information from Function Script
+Title: Package Development Documentation and Namespace Management 
 Version: 0.3.9005
-Date: 2018-12-03
-Author: c(person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut",
-         "cre")), 
-         person("Anton","Grishin",role = "ctb"),
-         person("Lorenzo","Busetto",role = "ctb"),
-         person("Alexey","Shiklomanov",role = "ctb"))
-Maintainer: Jonathan Sidi <yonis@metrumrg.com>
-Description: Create 'roxygen2' skeleton populated with information scraped from the
-         within the function script. Also creates field entries for imports in the
-         'DESCRIPTION' and import in the 'NAMESPACE' files. Can be run from the R
-         console or through the 'RStudio' 'addin' menu.
-Depends: R (>= 2.3.0)
-Imports: rstudioapi,utils,shiny,miniUI,tools,sos,stringi,yaml,crayon,cli,rematch2
-License: GPL-2 | GPL-3
-Suggests: roxygen2,testthat
+Date: 2019-11-13
+Authors@R: c(
+        person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut","cre")), 
+        person("Anton","Grishin",role = "ctb"),
+        person("Lorenzo","Busetto",role = "ctb"),
+        person("Alexey","Shiklomanov",role = "ctb"))
+Description: Manage package documentation and namespaces from the command line. 
+             Programatically attach namespaces in R and Rmd script, populates 
+             Roxygen2 skeletons with information scraped from within functions and 
+             populate the Imports field of the DESCRIPTION file.
+Depends: R (>= 3.2.0)
+Imports: 
+    rstudioapi,
+    utils,
+    tools,
+    sos,
+    stringi,
+    yaml,
+    crayon,
+    cli,
+    rematch2
+License: MIT + file LICENSE
+Suggests: 
+    rcmdcheck,
+    shiny,
+    miniUI,
+    withr,
+    usethis,
+    fs,
+    details,
+    roxygen2,
+    testthat,
+    knitr,
+    rmarkdown
 URL: https://github.com/metrumresearchgroup/sinew
 BugReports: https://github.com/metrumresearchgroup/sinew/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

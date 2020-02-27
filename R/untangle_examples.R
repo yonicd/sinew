@@ -7,6 +7,7 @@
 #' @details If output is set to NULL then output returned as invisible character object.
 #' @export 
 #' @rdname untangle_examples
+#' @concept untangle
 #' @author Jonathan Sidi
 untangle_examples <- function(input, output = './roxy_ex_to_file.R'){
   

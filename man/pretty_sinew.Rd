@@ -4,8 +4,7 @@
 \alias{pretty_sinew}
 \title{Convert File to R directory with pretty and oxygen}
 \usage{
-pretty_sinew(con = NULL, text = NULL, dir.out = NULL,
-  keep.body = TRUE)
+pretty_sinew(con = NULL, text = NULL, dir.out = NULL, keep.body = TRUE)
 }
 \arguments{
 \item{con}{character, path to file or directory that contains script, Default: NULL}
@@ -14,14 +13,14 @@ pretty_sinew(con = NULL, text = NULL, dir.out = NULL,
 
 \item{dir.out}{character, path to save new R files, Default: NULL}
 
-\item{keep.body}{boolean, if TRUE all non-functions will be saved to body.R in the parent 
+\item{keep.body}{boolean, if TRUE all non-functions will be saved to body.R in the parent
 directory of dir.out, Default: TRUE}
 }
 \value{
 Nothing, side effects is to create files
 }
 \description{
-ONe function to run pretty_namespace, untangle and makeOxyFile
+One function to run \link[sinew:pretty_namespace]{pretty_namespace}, \link[sinew:untangle]{untangle} and \link[sinew:makeOxyFile]{makeOxyFile}
 }
 \details{
 If dir.out is set to NULL all outputs are redirected into file.path(tempdir(),'sinew')
@@ -29,3 +28,4 @@ If dir.out is set to NULL all outputs are redirected into file.path(tempdir(),'s
 \author{
 Jonathan Sidi
 }
+\concept{namespace}

@@ -13,13 +13,14 @@
 #' If chunks is NULL then all the chunks are used.
 #' 
 #' @examples 
-#' if(interactive()){
-#' rstudioapi::navigateToFile(system.file('example.Rmd',package = 'sinew'))
-#' pretty_rmd(input = system.file('example.Rmd',package = 'sinew'))
+#' \dontrun{
+#'   if(interactive()){
+#'     pretty_rmd(input = system.file('example.Rmd',package = 'sinew'))
+#'   }
 #' }
-#' @seealso 
-#'  \code{\link[sinew]{pretty_namespace}}
+#' @seealso [pretty_namespace][sinew::pretty_namespace]
 #' @rdname pretty_rmd
+#' @concept namespace
 #' @export 
 #' @importFrom rstudioapi navigateToFile
 #' @importFrom utils select.list
@@ -51,11 +52,14 @@ pretty_rmd <- function(input,
 
   ret <- paste0(x,collapse = '\n')
   
-  cat(ret,file=output,sep = '\n')
-  
-  if(open_output)
-    rstudioapi::navigateToFile(output)
-  
+  if(is.null(output)){
+    output <- ''
+    cat(ret,file=output,sep = '\n')
+  }else{
+    if(open_output)
+      rstudioapi::navigateToFile(output)    
+  }
+
   invisible(x)
 }
 

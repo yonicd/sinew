@@ -14,7 +14,7 @@ tabular(df, header = TRUE, ...)
 
 \item{header}{boolean to control if header is created from names(df), Default: TRUE}
 
-\item{...}{arguments to pass to format}
+\item{\dots}{arguments to pass to format}
 }
 \value{
 character
@@ -23,9 +23,10 @@ character
 Convert data.frame to roxygen2 tabular format
 }
 \examples{
-cat(tabular(mtcars[1:5, 1:5]))
-cat(tabular(mtcars[1:5, 1:5],header=FALSE))
+tabular(mtcars[1:5, 1:5])
+tabular(mtcars[1:5, 1:5],header=FALSE)
 }
 \seealso{
-\code{\link[base]{format}}
+\link[base:format]{format}
 }
+\concept{utility}
