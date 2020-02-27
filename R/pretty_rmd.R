@@ -50,12 +50,13 @@ pretty_rmd <- function(input,
   
   x <- pretty_f(x, idx, askenv, input, chunks,...)
 
-  ret <- paste0(x,collapse = '\n')
-  
   if(is.null(output)){
     output <- ''
-    cat(ret,file=output,sep = '\n')
+    cat(x,file=output,sep = '\n')
   }else{
+    
+    cat(x,file=output, sep = '\n')
+    
     if(open_output)
       rstudioapi::navigateToFile(output)    
   }
