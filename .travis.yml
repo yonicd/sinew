@@ -9,7 +9,7 @@ after_success:
 - Rscript -e 'pkgdown::build_site()'
 deploy:
   provider: pages
-  cleanup: true
+  skip_cleanup: true
   token: "$GITHUB_PAT"
   keep_history: true
   local_dir: docs

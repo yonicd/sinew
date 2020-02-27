@@ -59,6 +59,7 @@ new_defaults = function(value = list()) {
 #' @examples sinew_opts$get()
 sinew_opts <- new_defaults(list(
   add_fields = c("details", "examples", "seealso", "rdname", "export"),
+  cut = NULL,
   pretty_print = TRUE,
   markdown_links = FALSE,
   author = "AUTHOR [AUTHOR_2]",
