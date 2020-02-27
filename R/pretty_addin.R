@@ -49,8 +49,8 @@ pretty_addin_r <- function(adc){
   pretty_namespace(tf,ask = TRUE,overwrite = TRUE)
   
   rstudioapi::modifyRange(
-    location = range_map(rng),
-    text = readLines(tf), 
+    location = rng,
+    text = paste0(readLines(tf),collapse = '\n'), 
     id = adc$id
   )
   
