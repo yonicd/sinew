@@ -1,0 +1,101 @@
+---
+title: "Populating Imports"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Populating Imports}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(sinew)
+```
+
+When you are building a package to submit to CRAN and you need to have namespace calls for any function that is being imported. It is a pain to manually parse through the code looking for all the *::* and writing it in the [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) header. This function does that for you.
+
+You can write normally your script with the __namespace__ calls and in the end run the function and you can paste the output into the header. (or use it as part of `sinew::makeOxygen` or `sinew::makeOxyFile`)
+
+The function is written to work on single files or whole directories, like a package `R` subdirectory.
+
+The output can be set to return the format needed for either an [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) header or the `DESCRIPTION`
+
+## Package Setup
+
+```{r,results='hide'}
+pkg_dir <- file.path(tempdir(),'pkg')
+pkg_dir_r <- file.path(pkg_dir, 'R')
+
+usethis::create_package(path = pkg_dir, open = FALSE)
+withr::with_dir(pkg_dir, usethis::use_data_raw(open = FALSE))
+withr::with_dir(pkg_dir, usethis::use_mit_license(name = "John Doe"))
+withr::with_dir(pkg_dir, usethis::use_roxygen_md())
+
+```
+ 
+```{r}
+example_file <- system.file('example.R', package = 'sinew')
+
+```
+ 
+```{r}
+untangle(
+  file = example_file, 
+  dir.out = pkg_dir_r, 
+  dir.body = file.path(pkg_dir, 'data-raw')
+)
+
+```
+ 
+```{r,results='hide'}
+pretty_namespace(pkg_dir_r,overwrite = TRUE)
+```
+
+## DESCRIPTION
+
+```{r}
+makeImport(script = pkg_dir_r,format = 'description')
+```
+
+To write the output directly into the Imports field of the `DESCRIPTION` file, specify path to `DESCRIPTION` in `desc_loc`
+
+```{r}
+sinew::update_desc(path = pkg_dir_r, overwrite = TRUE)
+```
+
+```{r, echo = FALSE}
+details::details(file.path(pkg_dir,'DESCRIPTION'), summary = 'Click to see DESCRIPTION file',lang = '')
+```
+
+## roxygen2
+
+```{r}
+#single file
+makeImport(script = file.path(pkg_dir_r,'yy.R') ,format = 'oxygen')
+```
+
+```{r}
+#whole directory
+makeImport(script = pkg_dir_r,format = 'oxygen')
+```
+
+## Cutoff
+
+Setting the parameter `cut` to an integer value allows for control of how many functions to list in a package before concatenating the `importFrom` to an import. This is useful when there are many functions being used throughout the package from the same library and it is practically the same as just importing the whole library
+
+```{r}
+#with cut
+makeImport(script=file.path(pkg_dir_r,'yy.R'),format = 'oxygen', cut = 1)
+```
+
+### Cleanup
+
+```{r}
+unlink(pkg_dir, recursive = TRUE, force = TRUE)
+```
