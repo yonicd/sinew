@@ -93,8 +93,14 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/metrumresearchgroup/texPreview">
+  <a href="https://github.com/metrumresearchgroup/sinew">
     <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://twitter.com/MetrumRG">
+    <span class="fa fa-lg fa-twitter"></span>
      
   </a>
 </li>
@@ -148,21 +154,21 @@
 <span class='no'>pkg_dir_DESC</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='no'>pkg_dir</span>,<span class='st'>'DESCRIPTION'</span>)
 
 <span class='co'># update namespaces in package functions</span>
-<span class='fu'><a href='pretty_namespace.html'>pretty_namespace</a></span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
-#&gt; functions changed in '/var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//RtmpScoaoo/pkg/R/yy.R':
+<span class='fu'>pretty_namespace</span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+#&gt; functions changed in '/tmp/RtmpAaHonz/pkg/R/yy.R':
 #&gt; 
-#&gt; ✓: found, <span style='color: #BB0000;'>x</span><span>: not found, (): instances, ☒: user intervention
+#&gt; ✔: found, ✖: not found, (): instances, ☒: user intervention
 #&gt; 
-#&gt;  ✓ utils::head  (1) 
-#&gt;  ✓ stats::runif (1) 
+#&gt;  ✔ utils::head  (1) 
+#&gt;  ✔ stats::runif (1) 
 #&gt; 
 #&gt; 
-#&gt; functions changed in '/var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//RtmpScoaoo/pkg/R/zz.R':
+#&gt; functions changed in '/tmp/RtmpAaHonz/pkg/R/zz.R':
 #&gt; 
-#&gt; ✓: found, </span><span style='color: #BB0000;'>x</span><span>: not found, (): instances, ☒: user intervention
+#&gt; ✔: found, ✖: not found, (): instances, ☒: user intervention
 #&gt; 
-#&gt;  ✓ utils::head  (1) 
-#&gt;  ✓ stats::runif (1) 
+#&gt;  ✔ utils::head  (1) 
+#&gt;  ✔ stats::runif (1) 
 #&gt; </div><div class='input'>
 <span class='co'># send result to the console</span>
 <span class='fu'>update_desc</span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Imports: utils,stats</div><div class='input'>
@@ -184,7 +190,7 @@
 #&gt; RoxygenNote: 6.1.1
 #&gt; Imports: utils,stats</div><div class='input'>
 <span class='co'># cleanup tempdir</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='no'>pkg_dir</span>,<span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='no'>pkg_dir</span>,<span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

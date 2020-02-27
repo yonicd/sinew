@@ -93,8 +93,14 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/metrumresearchgroup/texPreview">
+  <a href="https://github.com/metrumresearchgroup/sinew">
     <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://twitter.com/MetrumRG">
+    <span class="fa fa-lg fa-twitter"></span>
      
   </a>
 </li>
@@ -201,21 +207,21 @@ zz &lt;- function(v=10,a=8){
 <span class='fu'>pretty_namespace</span>(<span class='kw'>text</span><span class='kw'>=</span><span class='no'>txt</span>)</div><div class='output co'>#&gt; 
 #&gt; functions changed in 'text object':
 #&gt; 
-#&gt; ✓: found, <span style='color: #BB0000;'>x</span><span>: not found, (): instances, ☒: user intervention
+#&gt; ✔: found, ✖: not found, (): instances, ☒: user intervention
 #&gt; 
-#&gt;  ✓ utils::head  (2) 
-#&gt;  ✓ stats::runif (2) 
+#&gt;  ✔ utils::head  (2) 
+#&gt;  ✔ stats::runif (2) 
 #&gt; 
-#&gt; </span><span style='color: #BBBBBB;'>#some comment</span><span>
-#&gt; </span><span style='color: #BBBBBB;'>yy &lt;- function(a=4){</span><span>
-#&gt; </span><span style='color: #BBBBBB;'>  </span><span style='color: #BB0000;'>utils::head</span><span style='color: #BBBBBB;'>(</span><span style='color: #BB0000;'>stats::runif</span><span style='color: #BBBBBB;'>(10),a)</span><span>
-#&gt; </span><span style='color: #BBBBBB;'>  # a comment</span><span>
-#&gt; </span><span style='color: #BBBBBB;'>}</span><span>
+#&gt; #some comment
+#&gt; yy &lt;- function(a=4){
+#&gt;   utils::head(stats::runif(10),a)
+#&gt;   # a comment
+#&gt; }
 #&gt; 
-#&gt; </span><span style='color: #BBBBBB;'>zz &lt;- function(v=10,a=8){</span><span>
-#&gt; </span><span style='color: #BBBBBB;'>  </span><span style='color: #BB0000;'>utils::head</span><span style='color: #BBBBBB;'>(</span><span style='color: #BB0000;'>stats::runif</span><span style='color: #BBBBBB;'>(v),a)</span><span>
-#&gt; </span><span style='color: #BBBBBB;'>}</span><span></div><div class='input'>
-</div></span></pre>
+#&gt; zz &lt;- function(v=10,a=8){
+#&gt;   utils::head(stats::runif(v),a)
+#&gt; }</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

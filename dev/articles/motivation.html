@@ -56,8 +56,14 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/metrumresearchgroup/texPreview">
+  <a href="https://github.com/metrumresearchgroup/sinew">
     <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://twitter.com/MetrumRG">
+    <span class="fa fa-lg fa-twitter"></span>
      
   </a>
 </li>
@@ -93,7 +99,7 @@
 <ul>
 <li>You start a new project and open a file to develop your idea. Many functions later at the end of the day you look up and you have created a mess of a file.</li>
 </ul>
-<p><img src="../man/figures/Guy-Tangled-in-Lights.jpg" width="353"></p>
+<p><img src="../man/figures/Guy-Tangled-in-Lights.jpg"><!-- --></p>
 <ul>
 <li>You recieve a mammoth 10,000 line uncommented file to decipher for QC - good luck.</li>
 </ul>
@@ -102,11 +108,11 @@
 <ol style="list-style-type: decimal">
 <li>Create a package project in <code>RStudio</code>.</li>
 <li>Place the file in the <code>data-raw</code> folder.</li>
-<li>Run <code><a href="../reference/untangle.html">sinew::untangle</a></code> on the large script with the destination directory <code>pkg/R</code>. This will separate the core functions in the body into single function files (named as the function) and keep the body in <code>body.R</code>
+<li>Run <code><a href="https://rdrr.io/pkg/sinew/man/untangle.html">sinew::untangle</a></code> on the large script with the destination directory <code>pkg/R</code>. This will separate the core functions in the body into single function files (named as the function) and keep the body in <code>body.R</code>
 </li>
-<li>Run <code><a href="../reference/pretty_namespace.html">sinew::pretty_namespace</a></code> to append namespaces in the function scripts.</li>
-<li>Run <code><a href="../reference/makeOxyFile.html">sinew::makeOxyFile</a></code> to populate the Roxygen2 skeleton.</li>
-<li>Run <code><a href="../reference/makeImport.html">sinew::makeImport</a></code> to populate the <code>Imports</code> field of the <code>DESCRIPTION</code> file.</li>
+<li>Run <code><a href="https://rdrr.io/pkg/sinew/man/pretty_namespace.html">sinew::pretty_namespace</a></code> to append namespaces in the function scripts.</li>
+<li>Run <code><a href="https://rdrr.io/pkg/sinew/man/makeOxyFile.html">sinew::makeOxyFile</a></code> to populate the Roxygen2 skeleton.</li>
+<li>Run <code><a href="https://rdrr.io/pkg/sinew/man/makeImport.html">sinew::makeImport</a></code> to populate the <code>Imports</code> field of the <code>DESCRIPTION</code> file.</li>
 </ol>
 <p>This should get you far enough to make the impossible problem of understanding what is in that file to a manageable task, with the added benefit of producing a new package ready for distribution.</p>
 </div>
@@ -116,81 +122,80 @@
 <p>Lets use a reproducible example - The goal is to convert raw script into a package.</p>
 <p>The script includes two functions <code>yy</code> and <code>zz</code> and some general script that uses them</p>
 <p>To start we create a package with <a href="https://github.com/r-lib/usethis">usethis</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sinew)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pkg_dir &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(),<span class="st">'pkg'</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span>(<span class="dt">path =</span> pkg_dir, <span class="dt">open =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; ✔ Creating '/var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T/RtmpsoVyPy/pkg/'</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T/RtmpsoVyPy/pkg'</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; ✔ Creating 'R/'</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; ✔ Writing 'DESCRIPTION'</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; Package: pkg</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; Title: What the Package Does (One Line, Title Case)</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; Version: 0.0.0.9000</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; Authors@R (parsed):</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt;     * First Last &lt;first.last@example.com&gt; [aut, cre] (&lt;https://orcid.org/YOUR-ORCID-ID&gt;)</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; Description: What the package does (one paragraph).</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;     license</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; Encoding: UTF-8</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; LazyData: true</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; Roxygen: list(markdown = TRUE)</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt; ✔ Writing 'NAMESPACE'</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; ✔ Setting active project to '&lt;no active project&gt;'</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a>withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir, usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data_raw</a></span>(<span class="dt">open =</span> <span class="ot">FALSE</span>))</span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T/RtmpsoVyPy/pkg'</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; ✔ Creating 'data-raw/'</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt; ✔ Adding '^data-raw$' to '.Rbuildignore'</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt; ✔ Writing 'data-raw/DATASET.R'</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt; ● Finish the data preparation script in 'data-raw/DATASET.R'</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; ● Use `usethis::use_data()` to add prepared data to package</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a>withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir, usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license</a></span>(<span class="dt">name =</span> <span class="st">"John Doe"</span>))</span>
-<span id="cb2-28"><a href="#cb2-28"></a><span class="co">#&gt; ✔ Setting License field in DESCRIPTION to 'MIT + file LICENSE'</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a><span class="co">#&gt; ✔ Writing 'LICENSE.md'</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a><span class="co">#&gt; ✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a><span class="co">#&gt; ✔ Writing 'LICENSE'</span></span>
-<span id="cb2-32"><a href="#cb2-32"></a>withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir, usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/use_roxygen_md.html">use_roxygen_md</a></span>())</span>
-<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#&gt; ✔ Setting RoxygenNote field in DESCRIPTION to '7.0.2'</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="co">#&gt; ● Run `devtools::document()`</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir,fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span>())</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; .</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; ├── DESCRIPTION</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; ├── LICENSE</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; ├── LICENSE.md</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; ├── NAMESPACE</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; ├── R</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; └── data-raw</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;     └── DATASET.R</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sinew)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">pkg_dir &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(),<span class="st">'pkg'</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span>(<span class="dt">path =</span> pkg_dir, <span class="dt">open =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; ✔ Creating '/tmp/RtmpZpoJ6X/pkg/'</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; ✔ Setting active project to '/tmp/RtmpZpoJ6X/pkg'</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; ✔ Creating 'R/'</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; ✔ Writing 'DESCRIPTION'</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; Package: pkg</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; Title: What the Package Does (One Line, Title Case)</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; Version: 0.0.0.9000</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; Authors@R (parsed):</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;     * First Last &lt;first.last@example.com&gt; [aut, cre] (&lt;https://orcid.org/YOUR-ORCID-ID&gt;)</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; Description: What the package does (one paragraph).</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; License: What license it uses</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; Encoding: UTF-8</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; LazyData: true</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; ✔ Writing 'NAMESPACE'</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; ✔ Setting active project to '&lt;no active project&gt;'</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir, usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data_raw</a></span>(<span class="dt">open =</span> <span class="ot">FALSE</span>))</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; ✔ Setting active project to '/tmp/RtmpZpoJ6X/pkg'</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; ✔ Creating 'data-raw/'</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; ✔ Adding '^data-raw$' to '.Rbuildignore'</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; ✔ Writing 'data-raw/DATASET.R'</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; ● Finish the data preparation script in 'data-raw/DATASET.R'</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; ● Use `usethis::use_data()` to add prepared data to package</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir, usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license</a></span>(<span class="dt">name =</span> <span class="st">"John Doe"</span>))</a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; ✔ Setting License field in DESCRIPTION to 'MIT + file LICENSE'</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; ✔ Writing 'LICENSE.md'</span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt; ✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'</span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt; ✔ Writing 'LICENSE'</span></a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir, usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/use_roxygen_md.html">use_roxygen_md</a></span>())</a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt; ✔ Setting Roxygen field in DESCRIPTION to 'list(markdown = TRUE)'</span></a>
+<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt; ✔ Setting RoxygenNote field in DESCRIPTION to '7.0.2'</span></a>
+<a class="sourceLine" id="cb2-33" data-line-number="33"><span class="co">#&gt; ● Run `devtools::document()`</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir,fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span>())</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; .</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; ├── DESCRIPTION</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; ├── LICENSE</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; ├── LICENSE.md</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; ├── NAMESPACE</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; ├── R</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; └── data-raw</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;     └── DATASET.R</span></a></code></pre></div>
 <p>Lets create a temporary file that will contain the script.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2"></a>example_file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>(<span class="dt">fileext =</span> <span class="st">'.R'</span>,<span class="dt">tmpdir =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir, <span class="st">'data-raw'</span>))</span>
-<span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a>example_lines &lt;-<span class="st"> "#some comment</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">yy &lt;- function(a=4){</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  head(runif(10),a)</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  # a comment</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="st">}</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="st">zz &lt;- function(v=10,a=8){</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="st">  head(runif(v),a)</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="st">}</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a></span>
-<span id="cb4-14"><a href="#cb4-14"></a></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="st">yy(6)</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="st">zz(30,3)</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="st">"</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(example_lines,<span class="dt">file =</span> example_file)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">example_file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>(<span class="dt">fileext =</span> <span class="st">'.R'</span>,<span class="dt">tmpdir =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir, <span class="st">'data-raw'</span>))</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">example_lines &lt;-<span class="st"> "#some comment</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">yy &lt;- function(a=4){</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  head(runif(10),a)</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  # a comment</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">}</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">zz &lt;- function(v=10,a=8){</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="st">  head(runif(v),a)</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="st">}</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="st">yy(6)</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="st">zz(30,3)</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="st">"</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(example_lines,<span class="dt">file =</span> example_file)</a></code></pre></div>
 </div>
 <div id="untangling-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#untangling-files" class="anchor"></a>Untangling Files</h2>
 <p>One of the first tasks for new developers is to move from long scripts that are intertwined with functions and body code into single function files in a R subdirectory and a clean body script that is easier to read.</p>
-<p>This task is probably a non-starter if you have more than a few hundered lines of code. This is where <code><a href="../reference/untangle.html">sinew::untangle</a></code> can save you time. <code><a href="../reference/untangle.html">sinew::untangle</a></code> will separate the long script into single function files in a subdirectory and keep the body script intact.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>pkg_dir_R &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir,<span class="st">'R'</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>sinew<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/untangle.html">untangle</a></span>(<span class="dt">file =</span> example_file,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>                <span class="dt">dir.out =</span> pkg_dir_R, </span>
-<span id="cb5-4"><a href="#cb5-4"></a>                <span class="dt">dir.body =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir, <span class="st">'data-raw'</span>))</span></code></pre></div>
+<p>This task is probably a non-starter if you have more than a few hundered lines of code. This is where <code><a href="https://rdrr.io/pkg/sinew/man/untangle.html">sinew::untangle</a></code> can save you time. <code><a href="https://rdrr.io/pkg/sinew/man/untangle.html">sinew::untangle</a></code> will separate the long script into single function files in a subdirectory and keep the body script intact.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">pkg_dir_R &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir,<span class="st">'R'</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">sinew<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/untangle.html">untangle</a></span>(<span class="dt">file =</span> example_file,</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                <span class="dt">dir.out =</span> pkg_dir_R, </a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">                <span class="dt">dir.body =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir, <span class="st">'data-raw'</span>))</a></code></pre></div>
 <p>As we can see we got three new files.</p>
 <ul>
 <li>
@@ -200,158 +205,158 @@
 <li>
 <code>zz.R</code> in the <code>R</code> subdirectory</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir,fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span>())</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; .</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; ├── DESCRIPTION</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; ├── LICENSE</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; ├── LICENSE.md</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; ├── NAMESPACE</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; ├── R</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; │   ├── yy.R</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; │   └── zz.R</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; └── data-raw</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;     ├── DATASET.R</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;     ├── body.R</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;     └── file263865026493.R</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_dir.html">with_dir</a></span>(pkg_dir,fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span>())</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; .</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; ├── DESCRIPTION</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; ├── LICENSE</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; ├── LICENSE.md</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; ├── NAMESPACE</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; ├── R</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; │   ├── yy.R</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; │   └── zz.R</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; └── data-raw</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;     ├── DATASET.R</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;     ├── body.R</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;     └── file363e3b8c0916.R</span></a></code></pre></div>
 <details closed><p><summary><span title="Click to Expand"> Click to see body.R </span> </summary></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">yy</span>(<span class="dv">6</span>)</span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">zz</span>(<span class="dv">30</span>,<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">yy</span>(<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">zz</span>(<span class="dv">30</span>,<span class="dv">3</span>)</a></code></pre></div>
 </details><p><br></p>
 <details closed><p><summary><span title="Click to Expand"> Click to see yy.R </span> </summary></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#some comment</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>){</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">10</span>),a)</span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="co"># a comment</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#some comment</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>){</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">10</span>),a)</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="co"># a comment</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">}</a></code></pre></div>
 </details><p><br></p>
 <details closed><p><summary><span title="Click to Expand"> Click to see zz.R </span> </summary></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2"></a>zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){</span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(v),a)</span>
-<span id="cb9-4"><a href="#cb9-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(v),a)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">}</a></code></pre></div>
 </details><p><br></p>
 </div>
 <div id="namespacing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#namespacing" class="anchor"></a>Namespacing</h2>
 <p>It has become common practice to use the namespace in function calls, and it is obligatory in order to pass a cran check. But, not everyone does it and if you’re not use to it, it’s a pain to go back and update your script.</p>
-<p>This is where <code><a href="../reference/pretty_namespace.html">sinew::pretty_namespace</a></code> comes in. This function will go through your script and attach namespaces for you, with the same logic as the search path.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>sinew<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/pretty_namespace.html">pretty_namespace</a></span>(pkg_dir_R,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; </span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; functions changed in '/var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//RtmpsoVyPy/pkg/R/yy.R':</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; </span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; ✓: found, x: not found, (): instances, ☒: user intervention</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; </span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt;  ✓ utils::head  (1) </span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt;  ✓ stats::runif (1) </span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; </span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; </span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; functions changed in '/var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//RtmpsoVyPy/pkg/R/zz.R':</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; </span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; ✓: found, x: not found, (): instances, ☒: user intervention</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; </span></span>
-<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt;  ✓ utils::head  (1) </span></span>
-<span id="cb10-16"><a href="#cb10-16"></a><span class="co">#&gt;  ✓ stats::runif (1)</span></span></code></pre></div>
+<p>This is where <code><a href="https://rdrr.io/pkg/sinew/man/pretty_namespace.html">sinew::pretty_namespace</a></code> comes in. This function will go through your script and attach namespaces for you, with the same logic as the search path.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">sinew<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/pretty_namespace.html">pretty_namespace</a></span>(pkg_dir_R,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; functions changed in '/tmp/RtmpZpoJ6X/pkg/R/yy.R':</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; ✔: found, ✖: not found, (): instances, ☒: user intervention</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;  ✔ utils::head  (1) </span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;  ✔ stats::runif (1) </span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; functions changed in '/tmp/RtmpZpoJ6X/pkg/R/zz.R':</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; ✔: found, ✖: not found, (): instances, ☒: user intervention</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt;  ✔ utils::head  (1) </span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt;  ✔ stats::runif (1)</span></a></code></pre></div>
 <p>So now we have separate files with functions appropriatly associated with namespaces, and now we can add <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> headers.</p>
 </div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#documentation" class="anchor"></a>Documentation</h2>
-<p>Now we are ready to create the function documentation using <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a>. We use <code><a href="../reference/makeOxygen.html">sinew::makeOxygen</a></code> to create a skeleton for <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> documentation. This function returns a skeleton that includes title, description, return, import and other fields populated with information scraped from the function script. We can also run <code><a href="../reference/makeOxygen.html">sinew::makeOxygen</a></code> in batch mode using <code>sinew::makeOxyfile</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>sinew<span class="op">::</span>sinew_opts<span class="op">$</span><span class="kw">set</span>(<span class="dt">markdown_links =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>sinew<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/makeOxyFile.html">makeOxyFile</a></span>(<span class="dt">input =</span> pkg_dir_R, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="co">#&gt; #' @title FUNCTION_TITLE</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co">#&gt; #' @description FUNCTION_DESCRIPTION</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt; #' @param a PARAM_DESCRIPTION, Default: 4</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="co">#&gt; #' @return OUTPUT_DESCRIPTION</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt; #' @details DETAILS</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt; #' @examples </span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt; #' \dontrun{</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt; #' if(interactive()){</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt; #'  #EXAMPLE1</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt; #'  }</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt; #' }</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt; #' @seealso </span></span>
-<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt; #'  [head][utils::head]</span></span>
-<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt; #'  [runif][stats::runif]</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt; #' @rdname yy</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt; #' @export </span></span>
-<span id="cb12-18"><a href="#cb12-18"></a><span class="co">#&gt; #' @importFrom utils head</span></span>
-<span id="cb12-19"><a href="#cb12-19"></a><span class="co">#&gt; #' @importFrom stats runif</span></span>
-<span id="cb12-20"><a href="#cb12-20"></a><span class="co">#&gt; #' @title FUNCTION_TITLE</span></span>
-<span id="cb12-21"><a href="#cb12-21"></a><span class="co">#&gt; #' @description FUNCTION_DESCRIPTION</span></span>
-<span id="cb12-22"><a href="#cb12-22"></a><span class="co">#&gt; #' @param v PARAM_DESCRIPTION, Default: 10</span></span>
-<span id="cb12-23"><a href="#cb12-23"></a><span class="co">#&gt; #' @param a PARAM_DESCRIPTION, Default: 8</span></span>
-<span id="cb12-24"><a href="#cb12-24"></a><span class="co">#&gt; #' @return OUTPUT_DESCRIPTION</span></span>
-<span id="cb12-25"><a href="#cb12-25"></a><span class="co">#&gt; #' @details DETAILS</span></span>
-<span id="cb12-26"><a href="#cb12-26"></a><span class="co">#&gt; #' @examples </span></span>
-<span id="cb12-27"><a href="#cb12-27"></a><span class="co">#&gt; #' \dontrun{</span></span>
-<span id="cb12-28"><a href="#cb12-28"></a><span class="co">#&gt; #' if(interactive()){</span></span>
-<span id="cb12-29"><a href="#cb12-29"></a><span class="co">#&gt; #'  #EXAMPLE1</span></span>
-<span id="cb12-30"><a href="#cb12-30"></a><span class="co">#&gt; #'  }</span></span>
-<span id="cb12-31"><a href="#cb12-31"></a><span class="co">#&gt; #' }</span></span>
-<span id="cb12-32"><a href="#cb12-32"></a><span class="co">#&gt; #' @seealso </span></span>
-<span id="cb12-33"><a href="#cb12-33"></a><span class="co">#&gt; #'  [head][utils::head]</span></span>
-<span id="cb12-34"><a href="#cb12-34"></a><span class="co">#&gt; #'  [runif][stats::runif]</span></span>
-<span id="cb12-35"><a href="#cb12-35"></a><span class="co">#&gt; #' @rdname zz</span></span>
-<span id="cb12-36"><a href="#cb12-36"></a><span class="co">#&gt; #' @export </span></span>
-<span id="cb12-37"><a href="#cb12-37"></a><span class="co">#&gt; #' @importFrom utils head</span></span>
-<span id="cb12-38"><a href="#cb12-38"></a><span class="co">#&gt; #' @importFrom stats runif</span></span></code></pre></div>
+<p>Now we are ready to create the function documentation using <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a>. We use <code><a href="https://rdrr.io/pkg/sinew/man/makeOxygen.html">sinew::makeOxygen</a></code> to create a skeleton for <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> documentation. This function returns a skeleton that includes title, description, return, import and other fields populated with information scraped from the function script. We can also run <code><a href="https://rdrr.io/pkg/sinew/man/makeOxygen.html">sinew::makeOxygen</a></code> in batch mode using <code>sinew::makeOxyfile</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">sinew<span class="op">::</span>sinew_opts<span class="op">$</span><span class="kw">set</span>(<span class="dt">markdown_links =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">sinew<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/makeOxyFile.html">makeOxyFile</a></span>(<span class="dt">input =</span> pkg_dir_R, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; #' @title FUNCTION_TITLE</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; #' @description FUNCTION_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; #' @param a PARAM_DESCRIPTION, Default: 4</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; #' @return OUTPUT_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; #' @details DETAILS</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt; #' @examples </span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; #' \dontrun{</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; #' if(interactive()){</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; #'  #EXAMPLE1</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; #'  }</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt; #' }</span></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt; #' @seealso </span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; #'  [head][utils::head]</span></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; #'  [runif][stats::runif]</span></a>
+<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; #' @rdname yy</span></a>
+<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt; #' @export </span></a>
+<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="co">#&gt; #' @importFrom utils head</span></a>
+<a class="sourceLine" id="cb12-19" data-line-number="19"><span class="co">#&gt; #' @importFrom stats runif</span></a>
+<a class="sourceLine" id="cb12-20" data-line-number="20"><span class="co">#&gt; #' @title FUNCTION_TITLE</span></a>
+<a class="sourceLine" id="cb12-21" data-line-number="21"><span class="co">#&gt; #' @description FUNCTION_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb12-22" data-line-number="22"><span class="co">#&gt; #' @param v PARAM_DESCRIPTION, Default: 10</span></a>
+<a class="sourceLine" id="cb12-23" data-line-number="23"><span class="co">#&gt; #' @param a PARAM_DESCRIPTION, Default: 8</span></a>
+<a class="sourceLine" id="cb12-24" data-line-number="24"><span class="co">#&gt; #' @return OUTPUT_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb12-25" data-line-number="25"><span class="co">#&gt; #' @details DETAILS</span></a>
+<a class="sourceLine" id="cb12-26" data-line-number="26"><span class="co">#&gt; #' @examples </span></a>
+<a class="sourceLine" id="cb12-27" data-line-number="27"><span class="co">#&gt; #' \dontrun{</span></a>
+<a class="sourceLine" id="cb12-28" data-line-number="28"><span class="co">#&gt; #' if(interactive()){</span></a>
+<a class="sourceLine" id="cb12-29" data-line-number="29"><span class="co">#&gt; #'  #EXAMPLE1</span></a>
+<a class="sourceLine" id="cb12-30" data-line-number="30"><span class="co">#&gt; #'  }</span></a>
+<a class="sourceLine" id="cb12-31" data-line-number="31"><span class="co">#&gt; #' }</span></a>
+<a class="sourceLine" id="cb12-32" data-line-number="32"><span class="co">#&gt; #' @seealso </span></a>
+<a class="sourceLine" id="cb12-33" data-line-number="33"><span class="co">#&gt; #'  [head][utils::head]</span></a>
+<a class="sourceLine" id="cb12-34" data-line-number="34"><span class="co">#&gt; #'  [runif][stats::runif]</span></a>
+<a class="sourceLine" id="cb12-35" data-line-number="35"><span class="co">#&gt; #' @rdname zz</span></a>
+<a class="sourceLine" id="cb12-36" data-line-number="36"><span class="co">#&gt; #' @export </span></a>
+<a class="sourceLine" id="cb12-37" data-line-number="37"><span class="co">#&gt; #' @importFrom utils head</span></a>
+<a class="sourceLine" id="cb12-38" data-line-number="38"><span class="co">#&gt; #' @importFrom stats runif</span></a></code></pre></div>
 <details closed><p><summary><span title="Click to Expand"> Click to see yy.R </span> </summary></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#some comment</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#' @title FUNCTION_TITLE</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#' @description FUNCTION_DESCRIPTION</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#' @param a PARAM_DESCRIPTION, Default: 4</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#' @return OUTPUT_DESCRIPTION</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#' @details DETAILS</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#' @examples </span></span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#' \dontrun{</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#' if(interactive()){</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#'  #EXAMPLE1</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#'  }</span></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#' }</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#' @seealso </span></span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#'  [head][utils::head]</span></span>
-<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#'  [runif][stats::runif]</span></span>
-<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#' @rdname yy</span></span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#' @export </span></span>
-<span id="cb13-19"><a href="#cb13-19"></a><span class="co">#' @importFrom utils head</span></span>
-<span id="cb13-20"><a href="#cb13-20"></a><span class="co">#' @importFrom stats runif</span></span>
-<span id="cb13-21"><a href="#cb13-21"></a>yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>){</span>
-<span id="cb13-22"><a href="#cb13-22"></a>  utils<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">10</span>),a)</span>
-<span id="cb13-23"><a href="#cb13-23"></a>  <span class="co"># a comment</span></span>
-<span id="cb13-24"><a href="#cb13-24"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#some comment</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#' @title FUNCTION_TITLE</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#' @description FUNCTION_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#' @param a PARAM_DESCRIPTION, Default: 4</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#' @return OUTPUT_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#' @details DETAILS</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#' @examples </span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#' \dontrun{</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#' if(interactive()){</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#'  #EXAMPLE1</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#'  }</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#' }</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">#' @seealso </span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="co">#'  [head][utils::head]</span></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#'  [runif][stats::runif]</span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#' @rdname yy</span></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#' @export </span></a>
+<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#' @importFrom utils head</span></a>
+<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#' @importFrom stats runif</span></a>
+<a class="sourceLine" id="cb13-21" data-line-number="21">yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>){</a>
+<a class="sourceLine" id="cb13-22" data-line-number="22">  utils<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">10</span>),a)</a>
+<a class="sourceLine" id="cb13-23" data-line-number="23">  <span class="co"># a comment</span></a>
+<a class="sourceLine" id="cb13-24" data-line-number="24">}</a></code></pre></div>
 </details><p><br></p>
 <details closed><p><summary><span title="Click to Expand"> Click to see zz.R </span> </summary></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="co">#' @title FUNCTION_TITLE</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="co">#' @description FUNCTION_DESCRIPTION</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#' @param v PARAM_DESCRIPTION, Default: 10</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#' @param a PARAM_DESCRIPTION, Default: 8</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#' @return OUTPUT_DESCRIPTION</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#' @details DETAILS</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a><span class="co">#' @examples </span></span>
-<span id="cb14-9"><a href="#cb14-9"></a><span class="co">#' \dontrun{</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a><span class="co">#' if(interactive()){</span></span>
-<span id="cb14-11"><a href="#cb14-11"></a><span class="co">#'  #EXAMPLE1</span></span>
-<span id="cb14-12"><a href="#cb14-12"></a><span class="co">#'  }</span></span>
-<span id="cb14-13"><a href="#cb14-13"></a><span class="co">#' }</span></span>
-<span id="cb14-14"><a href="#cb14-14"></a><span class="co">#' @seealso </span></span>
-<span id="cb14-15"><a href="#cb14-15"></a><span class="co">#'  [head][utils::head]</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a><span class="co">#'  [runif][stats::runif]</span></span>
-<span id="cb14-17"><a href="#cb14-17"></a><span class="co">#' @rdname zz</span></span>
-<span id="cb14-18"><a href="#cb14-18"></a><span class="co">#' @export </span></span>
-<span id="cb14-19"><a href="#cb14-19"></a><span class="co">#' @importFrom utils head</span></span>
-<span id="cb14-20"><a href="#cb14-20"></a><span class="co">#' @importFrom stats runif</span></span>
-<span id="cb14-21"><a href="#cb14-21"></a>zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){</span>
-<span id="cb14-22"><a href="#cb14-22"></a>  utils<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(v),a)</span>
-<span id="cb14-23"><a href="#cb14-23"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#' @title FUNCTION_TITLE</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#' @description FUNCTION_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#' @param v PARAM_DESCRIPTION, Default: 10</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#' @param a PARAM_DESCRIPTION, Default: 8</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#' @return OUTPUT_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#' @details DETAILS</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#' @examples </span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#' \dontrun{</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#' if(interactive()){</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#'  #EXAMPLE1</span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#'  }</span></a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#' }</span></a>
+<a class="sourceLine" id="cb14-14" data-line-number="14"><span class="co">#' @seealso </span></a>
+<a class="sourceLine" id="cb14-15" data-line-number="15"><span class="co">#'  [head][utils::head]</span></a>
+<a class="sourceLine" id="cb14-16" data-line-number="16"><span class="co">#'  [runif][stats::runif]</span></a>
+<a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#' @rdname zz</span></a>
+<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#' @export </span></a>
+<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#' @importFrom utils head</span></a>
+<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#' @importFrom stats runif</span></a>
+<a class="sourceLine" id="cb14-21" data-line-number="21">zz &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">v=</span><span class="dv">10</span>,<span class="dt">a=</span><span class="dv">8</span>){</a>
+<a class="sourceLine" id="cb14-22" data-line-number="22">  utils<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(v),a)</a>
+<a class="sourceLine" id="cb14-23" data-line-number="23">}</a></code></pre></div>
 </details><p><br></p>
-<p>The premise of <code><a href="../reference/makeOxygen.html">sinew::makeOxygen</a></code> is to expand on the default skeleton in <code>RStudio</code>, so basic fields are in the output by default. Each field is given with a relevant placeholder giving a hint what is expected. The following is the meat add to these bones:</p>
+<p>The premise of <code><a href="https://rdrr.io/pkg/sinew/man/makeOxygen.html">sinew::makeOxygen</a></code> is to expand on the default skeleton in <code>RStudio</code>, so basic fields are in the output by default. Each field is given with a relevant placeholder giving a hint what is expected. The following is the meat add to these bones:</p>
 <ul>
 <li>param default values:
 <ul>
@@ -373,92 +378,92 @@
 <div id="description-file" class="section level2">
 <h2 class="hasAnchor">
 <a href="#description-file" class="anchor"></a>DESCRIPTION FILE</h2>
-<p>It is also important to update the package <code>DESCRIPTION</code> file <code>Imports</code> field. This can be done for you with <code><a href="../reference/makeImport.html">sinew::makeImport</a></code>, by either creating a new <code>Imports</code> field or updating an existing one.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>sinew<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/makeImport.html">makeImport</a></span>(pkg_dir_R,<span class="dt">format =</span> <span class="st">'description'</span>,<span class="dt">desc_loc =</span> pkg_dir)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; Imports: utils,stats</span></span></code></pre></div>
+<p>It is also important to update the package <code>DESCRIPTION</code> file <code>Imports</code> field. This can be done for you with <code><a href="https://rdrr.io/pkg/sinew/man/makeImport.html">sinew::makeImport</a></code>, by either creating a new <code>Imports</code> field or updating an existing one.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">sinew<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/makeImport.html">makeImport</a></span>(pkg_dir_R,<span class="dt">format =</span> <span class="st">'description'</span>,<span class="dt">desc_loc =</span> pkg_dir)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; Imports: utils,stats</span></a></code></pre></div>
 </div>
 <div id="update-documentation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#update-documentation" class="anchor"></a>Update documentation</h2>
-<p>An important part of maintaining a package is keeping the documentation updated. Using <code><a href="../reference/moga.html">sinew::moga</a></code> we can achieve this painlessly. <code><a href="../reference/moga.html">sinew::moga</a></code> runs the same underlying script as <code><a href="../reference/makeOxygen.html">sinew::makeOxygen</a></code> but appends new information found into the current <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> header instead of creating a new one.</p>
+<p>An important part of maintaining a package is keeping the documentation updated. Using <code><a href="https://rdrr.io/pkg/sinew/man/moga.html">sinew::moga</a></code> we can achieve this painlessly. <code><a href="https://rdrr.io/pkg/sinew/man/moga.html">sinew::moga</a></code> runs the same underlying script as <code><a href="https://rdrr.io/pkg/sinew/man/makeOxygen.html">sinew::makeOxygen</a></code> but appends new information found into the current <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> header instead of creating a new one.</p>
 <p>Lets say we updated <code>yy.R</code> to include another param and used another function from the <code>stats</code> package. So the <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html">roxygen2</a> header is now out of synch with the current script.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>new_yy &lt;-<span class="st"> "#some comment</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="st">#' @title FUNCTION_TITLE</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="st">#' @description FUNCTION_DESCRIPTION</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="st">#' @param a numeric, set the head to trim from random unif Default: 4</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="st">#' @return OUTPUT_DESCRIPTION</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="st">#' @details DETAILS</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a><span class="st">#' @examples </span></span>
-<span id="cb16-8"><a href="#cb16-8"></a><span class="st">#' </span><span class="ch">\\</span><span class="st">dontrun{</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a><span class="st">#' if(interactive()){</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a><span class="st">#'  #EXAMPLE1</span></span>
-<span id="cb16-11"><a href="#cb16-11"></a><span class="st">#'  }</span></span>
-<span id="cb16-12"><a href="#cb16-12"></a><span class="st">#' }</span></span>
-<span id="cb16-13"><a href="#cb16-13"></a><span class="st">#' @seealso </span></span>
-<span id="cb16-14"><a href="#cb16-14"></a><span class="st">#'  </span><span class="ch">\\</span><span class="st">code{</span><span class="ch">\\</span><span class="st">link[utils]{head}}</span></span>
-<span id="cb16-15"><a href="#cb16-15"></a><span class="st">#'  </span><span class="ch">\\</span><span class="st">code{</span><span class="ch">\\</span><span class="st">link[stats]{runif}}</span></span>
-<span id="cb16-16"><a href="#cb16-16"></a><span class="st">#' @rdname yy</span></span>
-<span id="cb16-17"><a href="#cb16-17"></a><span class="st">#' @export </span></span>
-<span id="cb16-18"><a href="#cb16-18"></a><span class="st">#' @author Jonathan Sidi</span></span>
-<span id="cb16-19"><a href="#cb16-19"></a><span class="st">#' @importFrom utils head</span></span>
-<span id="cb16-20"><a href="#cb16-20"></a><span class="st">#' @importFrom stats runif</span></span>
-<span id="cb16-21"><a href="#cb16-21"></a><span class="st">yy &lt;- function(a=4,b=2){</span></span>
-<span id="cb16-22"><a href="#cb16-22"></a><span class="st">  x &lt;- utils::head(stats::runif(10*b),a)</span></span>
-<span id="cb16-23"><a href="#cb16-23"></a><span class="st">  stats::quantile(x,probs=.95)</span></span>
-<span id="cb16-24"><a href="#cb16-24"></a><span class="st">  # a comment</span></span>
-<span id="cb16-25"><a href="#cb16-25"></a><span class="st">}"</span></span>
-<span id="cb16-26"><a href="#cb16-26"></a></span>
-<span id="cb16-27"><a href="#cb16-27"></a></span>
-<span id="cb16-28"><a href="#cb16-28"></a><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(new_yy, <span class="dt">file =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir_R,<span class="st">'yy.R'</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw"><a href="../reference/moga.html">moga</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir_R,<span class="st">'yy.R'</span>),<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&gt; #' @title FUNCTION_TITLE</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="co">#&gt; #' @description FUNCTION_DESCRIPTION</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="co">#&gt; #' @param a numeric, set the head to trim from random unif Default: 4</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a><span class="co">#&gt; #' @param b PARAM_DESCRIPTION, Default: 2</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a><span class="co">#&gt; #' @return OUTPUT_DESCRIPTION</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a><span class="co">#&gt; #' @details DETAILS</span></span>
-<span id="cb17-8"><a href="#cb17-8"></a><span class="co">#&gt; #' @examples </span></span>
-<span id="cb17-9"><a href="#cb17-9"></a><span class="co">#&gt; #' \dontrun{</span></span>
-<span id="cb17-10"><a href="#cb17-10"></a><span class="co">#&gt; #' if(interactive()){</span></span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="co">#&gt; #'  #EXAMPLE1</span></span>
-<span id="cb17-12"><a href="#cb17-12"></a><span class="co">#&gt; #'  }</span></span>
-<span id="cb17-13"><a href="#cb17-13"></a><span class="co">#&gt; #' }</span></span>
-<span id="cb17-14"><a href="#cb17-14"></a><span class="co">#&gt; #' @seealso </span></span>
-<span id="cb17-15"><a href="#cb17-15"></a><span class="co">#&gt; #'  \code{\link[utils]{head}}</span></span>
-<span id="cb17-16"><a href="#cb17-16"></a><span class="co">#&gt; #'  \code{\link[stats]{runif}}</span></span>
-<span id="cb17-17"><a href="#cb17-17"></a><span class="co">#&gt; #' @rdname yy</span></span>
-<span id="cb17-18"><a href="#cb17-18"></a><span class="co">#&gt; #' @export </span></span>
-<span id="cb17-19"><a href="#cb17-19"></a><span class="co">#&gt; #' @author Jonathan Sidi</span></span>
-<span id="cb17-20"><a href="#cb17-20"></a><span class="co">#&gt; #' @importFrom utils head</span></span>
-<span id="cb17-21"><a href="#cb17-21"></a><span class="co">#&gt; #' @importFrom stats runif</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">new_yy &lt;-<span class="st"> "#some comment</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">#' @title FUNCTION_TITLE</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">#' @description FUNCTION_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">#' @param a numeric, set the head to trim from random unif Default: 4</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st">#' @return OUTPUT_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="st">#' @details DETAILS</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="st">#' @examples </span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="st">#' </span><span class="ch">\\</span><span class="st">dontrun{</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="st">#' if(interactive()){</span></a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="st">#'  #EXAMPLE1</span></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="st">#'  }</span></a>
+<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="st">#' }</span></a>
+<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="st">#' @seealso </span></a>
+<a class="sourceLine" id="cb16-14" data-line-number="14"><span class="st">#'  </span><span class="ch">\\</span><span class="st">code{</span><span class="ch">\\</span><span class="st">link[utils]{head}}</span></a>
+<a class="sourceLine" id="cb16-15" data-line-number="15"><span class="st">#'  </span><span class="ch">\\</span><span class="st">code{</span><span class="ch">\\</span><span class="st">link[stats]{runif}}</span></a>
+<a class="sourceLine" id="cb16-16" data-line-number="16"><span class="st">#' @rdname yy</span></a>
+<a class="sourceLine" id="cb16-17" data-line-number="17"><span class="st">#' @export </span></a>
+<a class="sourceLine" id="cb16-18" data-line-number="18"><span class="st">#' @author Jonathan Sidi</span></a>
+<a class="sourceLine" id="cb16-19" data-line-number="19"><span class="st">#' @importFrom utils head</span></a>
+<a class="sourceLine" id="cb16-20" data-line-number="20"><span class="st">#' @importFrom stats runif</span></a>
+<a class="sourceLine" id="cb16-21" data-line-number="21"><span class="st">yy &lt;- function(a=4,b=2){</span></a>
+<a class="sourceLine" id="cb16-22" data-line-number="22"><span class="st">  x &lt;- utils::head(stats::runif(10*b),a)</span></a>
+<a class="sourceLine" id="cb16-23" data-line-number="23"><span class="st">  stats::quantile(x,probs=.95)</span></a>
+<a class="sourceLine" id="cb16-24" data-line-number="24"><span class="st">  # a comment</span></a>
+<a class="sourceLine" id="cb16-25" data-line-number="25"><span class="st">}"</span></a>
+<a class="sourceLine" id="cb16-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb16-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb16-28" data-line-number="28"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(new_yy, <span class="dt">file =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir_R,<span class="st">'yy.R'</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/moga.html">moga</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir_R,<span class="st">'yy.R'</span>),<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co">#&gt; #' @title FUNCTION_TITLE</span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; #' @description FUNCTION_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt; #' @param a numeric, set the head to trim from random unif Default: 4</span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt; #' @param b PARAM_DESCRIPTION, Default: 2</span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co">#&gt; #' @return OUTPUT_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="co">#&gt; #' @details DETAILS</span></a>
+<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt; #' @examples </span></a>
+<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="co">#&gt; #' \dontrun{</span></a>
+<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="co">#&gt; #' if(interactive()){</span></a>
+<a class="sourceLine" id="cb17-11" data-line-number="11"><span class="co">#&gt; #'  #EXAMPLE1</span></a>
+<a class="sourceLine" id="cb17-12" data-line-number="12"><span class="co">#&gt; #'  }</span></a>
+<a class="sourceLine" id="cb17-13" data-line-number="13"><span class="co">#&gt; #' }</span></a>
+<a class="sourceLine" id="cb17-14" data-line-number="14"><span class="co">#&gt; #' @seealso </span></a>
+<a class="sourceLine" id="cb17-15" data-line-number="15"><span class="co">#&gt; #'  \code{\link[utils]{head}}</span></a>
+<a class="sourceLine" id="cb17-16" data-line-number="16"><span class="co">#&gt; #'  \code{\link[stats]{runif}}</span></a>
+<a class="sourceLine" id="cb17-17" data-line-number="17"><span class="co">#&gt; #' @rdname yy</span></a>
+<a class="sourceLine" id="cb17-18" data-line-number="18"><span class="co">#&gt; #' @export </span></a>
+<a class="sourceLine" id="cb17-19" data-line-number="19"><span class="co">#&gt; #' @author Jonathan Sidi</span></a>
+<a class="sourceLine" id="cb17-20" data-line-number="20"><span class="co">#&gt; #' @importFrom utils head</span></a>
+<a class="sourceLine" id="cb17-21" data-line-number="21"><span class="co">#&gt; #' @importFrom stats runif</span></a></code></pre></div>
 <details closed><p><summary><span title="Click to Expand"> Click to see yy.R </span> </summary></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="co">#some comment</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="co">#' @title FUNCTION_TITLE</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="co">#' @description FUNCTION_DESCRIPTION</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="co">#' @param a numeric, set the head to trim from random unif Default: 4</span></span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="co">#' @param b PARAM_DESCRIPTION, Default: 2</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="co">#' @return OUTPUT_DESCRIPTION</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a><span class="co">#' @details DETAILS</span></span>
-<span id="cb18-9"><a href="#cb18-9"></a><span class="co">#' @examples </span></span>
-<span id="cb18-10"><a href="#cb18-10"></a><span class="co">#' \dontrun{</span></span>
-<span id="cb18-11"><a href="#cb18-11"></a><span class="co">#' if(interactive()){</span></span>
-<span id="cb18-12"><a href="#cb18-12"></a><span class="co">#'  #EXAMPLE1</span></span>
-<span id="cb18-13"><a href="#cb18-13"></a><span class="co">#'  }</span></span>
-<span id="cb18-14"><a href="#cb18-14"></a><span class="co">#' }</span></span>
-<span id="cb18-15"><a href="#cb18-15"></a><span class="co">#' @seealso </span></span>
-<span id="cb18-16"><a href="#cb18-16"></a><span class="co">#'  \code{\link[utils]{head}}</span></span>
-<span id="cb18-17"><a href="#cb18-17"></a><span class="co">#'  \code{\link[stats]{runif}}</span></span>
-<span id="cb18-18"><a href="#cb18-18"></a><span class="co">#' @rdname yy</span></span>
-<span id="cb18-19"><a href="#cb18-19"></a><span class="co">#' @export </span></span>
-<span id="cb18-20"><a href="#cb18-20"></a><span class="co">#' @author Jonathan Sidi</span></span>
-<span id="cb18-21"><a href="#cb18-21"></a><span class="co">#' @importFrom utils head</span></span>
-<span id="cb18-22"><a href="#cb18-22"></a><span class="co">#' @importFrom stats runif</span></span>
-<span id="cb18-23"><a href="#cb18-23"></a>yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>,<span class="dt">b=</span><span class="dv">2</span>){</span>
-<span id="cb18-24"><a href="#cb18-24"></a>  x &lt;-<span class="st"> </span>utils<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">10</span><span class="op">*</span>b),a)</span>
-<span id="cb18-25"><a href="#cb18-25"></a>  stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(x,<span class="dt">probs=</span>.<span class="dv">95</span>)</span>
-<span id="cb18-26"><a href="#cb18-26"></a>  <span class="co"># a comment</span></span>
-<span id="cb18-27"><a href="#cb18-27"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co">#some comment</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="co">#' @title FUNCTION_TITLE</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="co">#' @description FUNCTION_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="co">#' @param a numeric, set the head to trim from random unif Default: 4</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#' @param b PARAM_DESCRIPTION, Default: 2</span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#' @return OUTPUT_DESCRIPTION</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">#' @details DETAILS</span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#' @examples </span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#' \dontrun{</span></a>
+<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#' if(interactive()){</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#'  #EXAMPLE1</span></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#'  }</span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#' }</span></a>
+<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#' @seealso </span></a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#'  \code{\link[utils]{head}}</span></a>
+<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#'  \code{\link[stats]{runif}}</span></a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#' @rdname yy</span></a>
+<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#' @export </span></a>
+<a class="sourceLine" id="cb18-20" data-line-number="20"><span class="co">#' @author Jonathan Sidi</span></a>
+<a class="sourceLine" id="cb18-21" data-line-number="21"><span class="co">#' @importFrom utils head</span></a>
+<a class="sourceLine" id="cb18-22" data-line-number="22"><span class="co">#' @importFrom stats runif</span></a>
+<a class="sourceLine" id="cb18-23" data-line-number="23">yy &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">a=</span><span class="dv">4</span>,<span class="dt">b=</span><span class="dv">2</span>){</a>
+<a class="sourceLine" id="cb18-24" data-line-number="24">  x &lt;-<span class="st"> </span>utils<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">10</span><span class="op">*</span>b),a)</a>
+<a class="sourceLine" id="cb18-25" data-line-number="25">  stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(x,<span class="dt">probs=</span>.<span class="dv">95</span>)</a>
+<a class="sourceLine" id="cb18-26" data-line-number="26">  <span class="co"># a comment</span></a>
+<a class="sourceLine" id="cb18-27" data-line-number="27">}</a></code></pre></div>
 </details><p><br></p>
 </div>
 <div id="oxygenize-and-check" class="section level2">
@@ -467,33 +472,33 @@
 <div id="oxygenize" class="section level3">
 <h3 class="hasAnchor">
 <a href="#oxygenize" class="anchor"></a>Oxygenize</h3>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a></span>
-<span id="cb19-2"><a href="#cb19-2"></a>r_env_vars &lt;-<span class="st"> </span><span class="cf">function</span> () {</span>
-<span id="cb19-3"><a href="#cb19-3"></a>    vars &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">R_LIBS =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span>(), <span class="dt">collapse =</span> .Platform<span class="op">$</span>path.sep), </span>
-<span id="cb19-4"><a href="#cb19-4"></a>        <span class="dt">CYGWIN =</span> <span class="st">"nodosfilewarning"</span>, <span class="dt">R_TESTS =</span> <span class="st">""</span>, <span class="dt">R_BROWSER =</span> <span class="st">"false"</span>, </span>
-<span id="cb19-5"><a href="#cb19-5"></a>        <span class="dt">R_PDFVIEWER =</span> <span class="st">"false"</span>)</span>
-<span id="cb19-6"><a href="#cb19-6"></a>    <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"NOT_CRAN"</span>, <span class="dt">unset =</span> <span class="ot">NA</span>))) {</span>
-<span id="cb19-7"><a href="#cb19-7"></a>        vars[[<span class="st">"NOT_CRAN"</span>]] &lt;-<span class="st"> "true"</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>    }</span>
-<span id="cb19-9"><a href="#cb19-9"></a>    vars</span>
-<span id="cb19-10"><a href="#cb19-10"></a>}</span>
-<span id="cb19-11"><a href="#cb19-11"></a></span>
-<span id="cb19-12"><a href="#cb19-12"></a>withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_envvar.html">with_envvar</a></span>(<span class="kw">r_env_vars</span>(), roxygen2<span class="op">::</span><span class="kw"><a href="https://roxygen2.r-lib.org/reference/roxygenize.html">roxygenise</a></span>(pkg_dir))</span>
-<span id="cb19-13"><a href="#cb19-13"></a><span class="co">#&gt; Writing NAMESPACE</span></span>
-<span id="cb19-14"><a href="#cb19-14"></a><span class="co">#&gt; Loading pkg</span></span>
-<span id="cb19-15"><a href="#cb19-15"></a><span class="co">#&gt; Writing NAMESPACE</span></span>
-<span id="cb19-16"><a href="#cb19-16"></a><span class="co">#&gt; Writing yy.Rd</span></span>
-<span id="cb19-17"><a href="#cb19-17"></a><span class="co">#&gt; Writing zz.Rd</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">r_env_vars &lt;-<span class="st"> </span><span class="cf">function</span> () {</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">    vars &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">R_LIBS =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span>(), <span class="dt">collapse =</span> .Platform<span class="op">$</span>path.sep), </a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">        <span class="dt">CYGWIN =</span> <span class="st">"nodosfilewarning"</span>, <span class="dt">R_TESTS =</span> <span class="st">""</span>, <span class="dt">R_BROWSER =</span> <span class="st">"false"</span>, </a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">        <span class="dt">R_PDFVIEWER =</span> <span class="st">"false"</span>)</a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">    <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"NOT_CRAN"</span>, <span class="dt">unset =</span> <span class="ot">NA</span>))) {</a>
+<a class="sourceLine" id="cb19-7" data-line-number="7">        vars[[<span class="st">"NOT_CRAN"</span>]] &lt;-<span class="st"> "true"</span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8">    }</a>
+<a class="sourceLine" id="cb19-9" data-line-number="9">    vars</a>
+<a class="sourceLine" id="cb19-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb19-12" data-line-number="12">withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_envvar.html">with_envvar</a></span>(<span class="kw">r_env_vars</span>(), roxygen2<span class="op">::</span><span class="kw"><a href="https://roxygen2.r-lib.org/reference/roxygenize.html">roxygenise</a></span>(pkg_dir))</a>
+<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt; Writing NAMESPACE</span></a>
+<a class="sourceLine" id="cb19-14" data-line-number="14"><span class="co">#&gt; Loading pkg</span></a>
+<a class="sourceLine" id="cb19-15" data-line-number="15"><span class="co">#&gt; Writing NAMESPACE</span></a>
+<a class="sourceLine" id="cb19-16" data-line-number="16"><span class="co">#&gt; Writing yy.Rd</span></a>
+<a class="sourceLine" id="cb19-17" data-line-number="17"><span class="co">#&gt; Writing zz.Rd</span></a></code></pre></div>
 </div>
 <div id="r-cmd-check" class="section level3">
 <h3 class="hasAnchor">
 <a href="#r-cmd-check" class="anchor"></a>R CMD Check</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>check_res &lt;-<span class="st"> </span>rcmdcheck<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck</a></span>(<span class="dt">path =</span> pkg_dir, <span class="dt">args =</span> <span class="st">'--as-cran'</span>,<span class="dt">quiet =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">check_res &lt;-<span class="st"> </span>rcmdcheck<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck</a></span>(<span class="dt">path =</span> pkg_dir, <span class="dt">args =</span> <span class="st">'--as-cran'</span>,<span class="dt">quiet =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="cleanup" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cleanup" class="anchor"></a>Cleanup</h3>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw"><a href="https://rdrr.io/r/base/unlink.html">unlink</a></span>(pkg_dir, <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/unlink.html">unlink</a></span>(pkg_dir, <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
   </div>

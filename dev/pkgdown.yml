@@ -1,10 +1,5 @@
-pandoc: 2.7.3
+pandoc: '2.2'
 pkgdown: 1.4.1
 pkgdown_sha: ~
-articles:
-  addin: addin.html
-  imports: imports.html
-  motivation: motivation.html
-  opts: opts.html
-  workflow: workflow.html
+articles: []
 
