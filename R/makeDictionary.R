@@ -5,6 +5,7 @@
 #' @param save_path boolean that allows for function to write template to man-roxygen subdirectory, Default: FALSE
 #' @return character/character vector of intersecting parameters
 #' @export
+#' @concept utility
 #' @examples
 #' makeDictionary('R')
 makeDictionary <- function(path, save_path=FALSE) {

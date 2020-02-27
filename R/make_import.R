@@ -1,20 +1,60 @@
-#' @title Scrape R script to create namespace calls for R documentation
-#' @description Scrape r script to create namespace calls for roxygen2, namespace or description files
-#' @param script character, connection to pass to readLines, can be file path, directory path, url path
-#' @param cut integer, number of functions to write as importFrom until switches to import, Default: NULL
+#' @title Populate import fields for documentation
+#' @description Scrape `R` script to create import and importFrom calls for 
+#' roxygen2, namespace or description files
+#' @param script character, connection to pass to readLines, can be file path,
+#'  directory path, url path
+#' @param cut integer, number of functions to write as importFrom until 
+#' switches to import, Default: NULL
 #' @param print boolean, print output to console, Default: TRUE
-#' @param format character, the output format must be in c('oxygen','description','import'), Default: 'oxygen'
-#' @param desc_loc character, path to DESCRIPTION file, if not NULL then the Imports fields in
-#'  the DESCRIPTION file, Default: NULL
+#' @param format character, the output format must be in 
+#' c('oxygen','description','import'), Default: 'oxygen'
+#' @param desc_loc character, path to DESCRIPTION file, 
+#' if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL
 #' @examples
+<<<<<<< HEAD:R/make_import.R
 #' make_import('R',format = 'oxygen')
 #' make_import('R',format = 'description')
 #' make_import('R',format = 'import')
+=======
+#' 
+#' # copy dummy package to tempdir
+#' file.copy(system.file('pkg',package = 'sinew'),tempdir(),recursive = TRUE)
+#' 
+#' pkg_dir <- file.path(tempdir(),'pkg')
+#' pkg_dir_R <- file.path(pkg_dir,'R')
+#' pkg_dir_DESC <- file.path(pkg_dir,'DESCRIPTION')
+#' 
+#' # update namespaces in package functions
+#' pretty_namespace(pkg_dir_R, overwrite = TRUE)
+#' 
+#' # update imports/importsFrom for roxygen2 tags
+#' makeImport(pkg_dir_R,format = 'oxygen')
+#' 
+#' # update Imports for DESCRIPTION file output to console
+#' makeImport(pkg_dir_R,format = 'description')
+#'
+#' # update Imports for DESCRIPTION file overwrite file
+#' makeImport(pkg_dir_R,format = 'description', desc_loc = pkg_dir)
+#' 
+#' cat(readLines(pkg_dir_DESC),sep = '\n')
+#' 
+#' # cleanup tempdir
+#' unlink(pkg_dir, force = TRUE, recursive = TRUE)
+#' 
+#' @concept populate
+>>>>>>> origin/master:R/makeImport.R
 #' @export
 #' @rdname make_import
 #' @importFrom utils installed.packages capture.output getParseData
 #' @importFrom tools file_ext
+<<<<<<< HEAD:R/make_import.R
 make_import <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=NULL) {
+=======
+makeImport <- function(script, cut = NULL, print = TRUE, format = "oxygen", desc_loc = NULL) {
+  
+  on.exit({  if (inherits(script, "function")) unlink(file) },add = TRUE)
+  
+>>>>>>> origin/master:R/makeImport.R
   rInst <- paste0(row.names(utils::installed.packages()), "::")
   
   if (inherits(script, "function")) {
@@ -31,7 +71,7 @@ make_import <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=
   }
   
   pkg <- sapply(file, function(f) {
-    parsed <- utils::getParseData(parse(f))
+    parsed <- utils::getParseData(parse(f, keep.source = TRUE))
     parsed_f <- parsed[parsed$parent %in% parsed$parent[grepl("SYMBOL_PACKAGE", parsed$token)], ]
     parsed_f <- parsed_f[!grepl("::", parsed_f$text), c("parent", "token", "text")]
     
@@ -95,8 +135,58 @@ make_import <- function(script, cut=NULL, print=TRUE, format="oxygen", desc_loc=
       }
     }
   }
+<<<<<<< HEAD:R/make_import.R
   
   if (inherits(script, "function")) unlink(file)
   
   invisible(sapply(ret, paste0, collapse = "\n"))
+=======
+
+  invisible(sapply(ret, paste0, collapse = "\n"))
+}
+
+#' @title Update Package Description File
+#' @description Update package DESCRIPTION file Imports field
+#' @param path character, path to R folder containing package functions
+#' @param overwrite logical, overwrite the file, Default: TRUE
+#' @return NULL
+#' @details If overwrite is FALSE then the output will be returned to the console.
+#' @examples 
+#' 
+#' # copy dummy package to tempdir
+#' file.copy(system.file('pkg',package = 'sinew'),tempdir(),recursive = TRUE)
+#' 
+#' pkg_dir <- file.path(tempdir(),'pkg')
+#' pkg_dir_R <- file.path(pkg_dir,'R')
+#' pkg_dir_DESC <- file.path(pkg_dir,'DESCRIPTION')
+#' 
+#' # update namespaces in package functions
+#' pretty_namespace(pkg_dir_R,overwrite = TRUE)
+#' 
+#' # send result to the console
+#' update_desc(pkg_dir_R,overwrite = FALSE)
+#' 
+#' # overwrite the Imports field
+#' update_desc(pkg_dir_R,overwrite = TRUE)
+#' 
+#' # view DESCRIPTION file
+#' cat(readLines(pkg_dir_DESC),sep='\n')
+#' 
+#' # cleanup tempdir
+#' unlink(pkg_dir,recursive = TRUE,force = TRUE)
+#' 
+#' @author Jonathan Sidi
+#' @concept populate
+#' @export
+update_desc <- function(path, overwrite = TRUE){
+  
+  if(overwrite){
+    desc_loc <- dirname(path)
+  }else{
+    desc_loc <- NULL
+  }
+  
+  makeImport(path, print = !overwrite, format = 'description', desc_loc = desc_loc)
+  
+>>>>>>> origin/master:R/makeImport.R
 }

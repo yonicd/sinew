@@ -1,25 +1,43 @@
 #' @title Interactive add-in
 #' @description Launches an interactive addin for insertion of roxygen2 comments in files.
-#' Allows selection of extra parameters for \code{makeOxygen}
+#' Allows selection of extra parameters for [makeOxygen][sinew::makeOxygen]
 #' @return Nothing. Inserts roxygen2 comments in a file opened in the source editor.
 #' @author Anton Grishin, Jonathan Sidi
 #' @details Open an .R file in Rstudio's source editor.
-#' Launch the add-in via Addins -> interactiveOxygen or interOxyAddIn() in the console.
-#' Add-in opens in the viewer panel.
-#' Select function's/dataset's name in the source editor.
-#' If objects cannot be found, the addin prompts to source the file.
-#' Choose parameters for \code{makeOxygen}. Click Insert.
-#' Select next object's name. Rinse.Repeat. Click Quit when done with the file.
+#' 
+#'  This addin requires `shiny` and `miniUI` to be installed (listed as Suggests in Description)
+#' 
+#'   - Launch the add-in via Addins -> interactiveOxygen or interOxyAddIn() in the console.
+#'     - Add-in opens in the viewer panel.
+#'   - Select function's/dataset's name in the source editor.
+#'     - If objects cannot be found, the addin prompts to source the file.
+#'     - Choose parameters for [makeOxygen][sinew::makeOxygen]
+#'       - Click Insert
+#'   - Select next object's name
+#'   - Rinse/Repeat
+#'   - Click Quit when done with the file.
 #' @examples
 #' if(interactive()) interOxyAddIn()
 #' @export
 #' @rdname interOxyAddIn
+<<<<<<< HEAD
 #' @seealso \code{View(sinew:::oxygenAddin)}
 #' @import shiny
 #' @importFrom miniUI miniPage gadgetTitleBar miniTitleBarButton miniContentPanel
 #' @importFrom rstudioapi getSourceEditorContext getActiveDocumentContext insertText setSelectionRanges
+=======
+#' @import rstudioapi
+>>>>>>> origin/master
 #' @importFrom utils find
+#' @concept interactive
 interOxyAddIn <- function() {
+  
+  if(!try(requireNamespace('shiny',quietly = TRUE)))
+    stop('Shiny must be installed to use this addin')
+  
+  if(!try(requireNamespace('miniUI',quietly = TRUE)))
+    stop('miniUI must be installed to use this addin')
+  
   nenv <- new.env()
 
   # Define checkbox layout ----
@@ -103,10 +121,10 @@ interOxyAddIn <- function() {
         shiny::div(shiny::div(
           shiny::actionLink(
             "butt", "use_dictionary",
-            icon = icon("folder-open", "glyphicons")
+            icon = shiny::icon("folder-open", "glyphicons")
           ),
           shiny::textOutput("dictfile")
-        ), hr())
+        ), shiny::hr())
       } else {
         shiny::p()
       }
@@ -184,7 +202,11 @@ interOxyAddIn <- function() {
 
       if (!searchp || !nzchar(obj)) {
         shiny::showModal(shiny::modalDialog(
+<<<<<<< HEAD
           title = HTML(paste0(
+=======
+          title = shiny::HTML(paste0(
+>>>>>>> origin/master
             "Open an .R file in the source editor and ",
             "<strong><u>select</u></strong> object's name!"
           )),
@@ -192,11 +214,6 @@ interOxyAddIn <- function() {
         ))
       }
 
-      # if (nzchar(obj) && is.null(get0(obj))) {
-      #   output$preview<-shiny::renderText({
-      #     paste(dQuote(obj), "not found! Trying to find source")
-      #   })
-      #   }
     })
 
     # Insert new content above highlighted text ----
@@ -219,10 +236,15 @@ interOxyAddIn <- function() {
         test <- any(grepl(obj_name, ls(envir = nenv)))
         if (test) {
           assign(obj_name, get(obj_name, envir = nenv))
-          eval(parse(text = sprintf("ins_txt <- makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name)))
+          eval(parse(text = sprintf("ins_txt <- makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
         } else {
+<<<<<<< HEAD
           if (length(utils::find(obj_name, mode = "function")) > 0) {
             eval(parse(text = sprintf("ins_txt <- makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name)))
+=======
+          if (length(find(obj_name, mode = "function")) > 0) {
+            eval(parse(text = sprintf("ins_txt <- makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
+>>>>>>> origin/master
           }
         }
         # }
@@ -302,10 +324,15 @@ interOxyAddIn <- function() {
               test <- any(grepl(obj_name, ls(envir = nenv)))
               if (test) {
                 assign(obj_name, get(obj_name, envir = nenv))
-                eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name)))
+                eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
               } else {
+<<<<<<< HEAD
                 if (length(utils::find(obj_name, mode = "function")) > 0) {
                   eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name)))
+=======
+                if (length(find(obj_name, mode = "function")) > 0) {
+                  eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
+>>>>>>> origin/master
                 }
               }
             }

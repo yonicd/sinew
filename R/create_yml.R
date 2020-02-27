@@ -8,7 +8,12 @@
 #' @rdname create_yml
 #' @export
 #' @author Jonathan Sidi
+<<<<<<< HEAD
 #' @importFrom here here
+=======
+#' @concept utility
+#' @importFrom rstudioapi getActiveProject
+>>>>>>> origin/master
 create_yml <- function() {
   
   yml <- here::here("_sinewconfig.yml")

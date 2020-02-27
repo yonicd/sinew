@@ -14,6 +14,7 @@
 #' @return NULL
 #' @rdname pretty_addin
 #' @importFrom rstudioapi getSourceEditorContext sendToConsole
+#' @concept namespace
 #' @export
 pretty_addin <- function(){
   

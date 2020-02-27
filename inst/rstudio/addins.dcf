@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Name: Static oxygen
 Description: Create scaffolding for roxygen2
 Binding: oxygenAddin
@@ -10,5 +11,24 @@ Interactive: false
 
 Name: Interactive oxygen
 Description: Create/Edit scaffolding for roxygen2 interactively
+=======
+Name: namespace
+Description: Attach namespace information to R or Rmd files
+Binding: pretty_addin
+Interactive: false
+
+Name: createOxygen
+Description: Create scaffolding for roxygen2 header
+Binding: oxygenAddin
+Interactive: false
+
+Name: createImport
+Description: Create import roxygen2 tag
+Binding: importAddin
+Interactive: false
+
+Name: interactiveOxygen
+Description: Insert roxygen2 comments interactively
+>>>>>>> origin/master
 Binding: interOxyAddIn
 Interactive: true

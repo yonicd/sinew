@@ -24,3 +24,4 @@ If output is set to NULL then output returned as invisible character object.
 \author{
 Jonathan Sidi
 }
+\concept{untangle}

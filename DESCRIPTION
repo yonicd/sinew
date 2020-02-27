@@ -1,5 +1,6 @@
 Package: sinew
 Type: Package
+<<<<<<< HEAD
 Title: Create 'roxygen2' Skeleton with Information from Function Script
 Version: 0.3.9004
 Date: 2018-12-03
@@ -16,9 +17,49 @@ Depends: R (>= 2.3.0)
 Imports: rstudioapi,utils,shiny,miniUI,tools,sos,stringi,yaml,crayon,cli,rematch2,here
 License: GPL-2 | GPL-3
 Suggests: roxygen2,testthat
+=======
+Title: Package Development Documentation and Namespace Management 
+Version: 0.3.9005
+Date: 2019-11-13
+Authors@R: c(
+        person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut","cre")), 
+        person("Anton","Grishin",role = "ctb"),
+        person("Lorenzo","Busetto",role = "ctb"),
+        person("Alexey","Shiklomanov",role = "ctb"))
+Description: Manage package documentation and namespaces from the command line. 
+             Programatically attach namespaces in R and Rmd script, populates 
+             Roxygen2 skeletons with information scraped from within functions and 
+             populate the Imports field of the DESCRIPTION file.
+Depends: R (>= 3.2.0)
+Imports: 
+    rstudioapi,
+    utils,
+    tools,
+    sos,
+    stringi,
+    yaml,
+    crayon,
+    cli,
+    rematch2
+License: MIT + file LICENSE
+Suggests: 
+    rcmdcheck,
+    shiny,
+    miniUI,
+    withr,
+    usethis,
+    fs,
+    details,
+    roxygen2,
+    testthat,
+    knitr,
+    rmarkdown
+>>>>>>> origin/master
 URL: https://github.com/metrumresearchgroup/sinew
 BugReports: https://github.com/metrumresearchgroup/sinew/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

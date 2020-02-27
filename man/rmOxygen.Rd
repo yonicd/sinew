@@ -25,3 +25,4 @@ rmOxygen("./myRfunctions/function1.R")
 \author{
 Anton Grishin
 }
+\concept{utility}

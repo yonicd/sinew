@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 language: R
 sudo: false
 cache: packages
@@ -6,3 +7,22 @@ after_success:
 - Rscript -e 'devtools::install(); covrpage::covrpage_ci()'
 r_github_packages:
 - yonicd/covrpage
+=======
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+os: linux
+language: r
+r_packages:
+- pkgdown
+cache: packages
+after_success:
+- Rscript -e 'pkgdown::build_site()'
+deploy:
+  provider: pages
+  skip_cleanup: true
+  token: "$GITHUB_PAT"
+  keep_history: true
+  local_dir: docs
+  on:
+    branch: master
+>>>>>>> origin/master

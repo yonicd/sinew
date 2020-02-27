@@ -3,6 +3,8 @@
 .RData
 .Ruserdata
 cran-comments.md
-*.Rproj
 *.DS_Store
 bookdown*
+inst/doc
+doc
+Meta

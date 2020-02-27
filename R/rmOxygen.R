@@ -9,6 +9,7 @@
 #' rmOxygen("./myRfunctions/function1.R")
 #' }
 #' @export
+<<<<<<< HEAD
 #' @importFrom rstudioapi isAvailable navigateToFile
 rmOxygen <- function(.file, showonexit = TRUE) {
   
@@ -26,6 +27,12 @@ rmOxygen <- function(.file, showonexit = TRUE) {
   if (!file.exists(.file)) 
     stop("Enter a valid path to .R file!", call. = FALSE)
   
+=======
+#' @concept utility
+#' @import rstudioapi
+rmOxygen <- function(.file) {
+  if (!file.exists(.file)) stop("Enter a valid path to .R file!", call. = FALSE)
+>>>>>>> origin/master
   if (!endsWith(.file, ".R")) {
     stop(paste0(
       dQuote(basename(.file)),

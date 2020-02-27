@@ -19,3 +19,4 @@ In Rmd files highlight subsets of chunks to add namespaces directly in the chunk
 highlight at all and the whole document will be used to create a new chunk at the top of the
 document with relevant namespaces needed to render the Rmd.
 }
+\concept{namespace}
