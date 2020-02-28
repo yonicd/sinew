@@ -21,8 +21,6 @@ jobs:
     
       - uses: actions/checkout@master
 
-      - uses: r-lib/actions/setup-tinytex@master
-
       - uses: r-lib/actions/setup-pandoc@master
 
       - uses: r-lib/actions/setup-r@master
