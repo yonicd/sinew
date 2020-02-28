@@ -1,0 +1,84 @@
+on: [push, pull_request]
+
+name: R-mac
+  
+jobs:
+  check:
+    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    if: "!contains(github.event.head_commit.message, 'skip osx')"
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - { os: macOS-latest, r: '3.6', args: "--no-manual"}
+
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      CRAN: ${{ matrix.config.cran }}
+      
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: r-lib/actions/setup-pandoc@master
+
+      - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - name: Query dependencies
+        run: |
+          install.packages(c('remotes'))
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-
+
+      - name: Install dependencies
+        run: |
+          library(remotes)
+          deps <- readRDS("depends.Rds")
+          deps[["installed"]] <- vapply(deps[["package"]], remotes:::local_sha, character(1))
+          update(deps)
+          remotes::install_cran("rcmdcheck")
+        shell: Rscript {0}
+
+      - name: Check
+        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
+
+      - name: covr
+        run: |
+          Rscript -e 'remotes::install_github("r-lib/covr@gh-actions")' \
+                  -e 'covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")'
+
+      - name: Install package
+        run: R CMD INSTALL .
+
+      - name: covrpage
+        if: github.ref == 'refs/heads/master'
+        run: |
+          Rscript -e 'remotes::install_github("metrumresearchgroup/covrpage@actions")' \
+                  -e 'covrpage::covrpage_ci()'
+          git commit tests/README.md -m 'Update tests/README.Rmd' || echo "No changes to commit"
+          git push https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git HEAD:${{ github.ref }} || echo "No changes to commit"
+
+      - name: Deploy package
+        if: github.ref == 'refs/heads/master'
+        run: |
+          Rscript -e 'remotes::install_github("metrumresearchgroup/pkgdown")' \
+                  -e "pkgdown:::deploy_local(new_process = FALSE, remote_url = 'https://x-access-token:${{secrets.GITHUB_PAT}}@github.com/${{github.repository}}.git')"          
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          path: check

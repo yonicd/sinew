@@ -1,0 +1,104 @@
+---
+title: "Tests and Coverage"
+date: "`r format(Sys.time(), '%d %B, %Y %H:%M:%S')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{covrpage: Tests and Coverage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+<!--- Placeholder for tests/README.md Do Not Edit--->
+  - [Coverage](#coverage)
+  - [Unit Tests](#unit-tests)
+
+This output is created by
+[covrpage](https://github.com/metrumresearchgroup/covrpage).
+
+## Coverage
+
+Coverage summary is created using the
+[covr](https://github.com/r-lib/covr) package.
+
+| Object                                                | Coverage (%) |
+| :---------------------------------------------------- | :----------: |
+| sinew                                                 |     0.16     |
+| [R/check\_attach.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/check_attach.R)              |     0.00     |
+| [R/create\_yml.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/create_yml.R)                  |     0.00     |
+| [R/get\_oxy.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/get_oxy.R)                        |     0.00     |
+| [R/interOxyAddIn.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/interOxyAddIn.R)             |     0.00     |
+| [R/ls\_param.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/ls_param.R)                      |     0.00     |
+| [R/makeDictionary.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/makeDictionary.R)           |     0.00     |
+| [R/makeImport.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/makeImport.R)                   |     0.00     |
+| [R/makeOxyFile.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/makeOxyFile.R)                 |     0.00     |
+| [R/makeOxygen.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/makeOxygen.R)                   |     0.00     |
+| [R/makeSeeAlso.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/makeSeeAlso.R)                 |     0.00     |
+| [R/moga.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/moga.R)                               |     0.00     |
+| [R/opts\_complete.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/opts_complete.R)            |     0.00     |
+| [R/opts.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/opts.R)                               |     0.00     |
+| [R/oxygenAddin.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/oxygenAddin.R)                 |     0.00     |
+| [R/prettify.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/prettify.R)                       |     0.00     |
+| [R/pretty\_addin\_utils.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/pretty_addin_utils.R) |     0.00     |
+| [R/pretty\_addin.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/pretty_addin.R)              |     0.00     |
+| [R/pretty\_namespace.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/pretty_namespace.R)      |     0.00     |
+| [R/pretty\_rmd.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/pretty_rmd.R)                  |     0.00     |
+| [R/pretty\_sinew.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/pretty_sinew.R)              |     0.00     |
+| [R/pretty\_utils.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/pretty_utils.R)              |     0.00     |
+| [R/rm\_oxylines.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/rm_oxylines.R)                |     0.00     |
+| [R/rmOxygen.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/rmOxygen.R)                       |     0.00     |
+| [R/something.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/something.R)                     |     0.00     |
+| [R/tabular.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/tabular.R)                         |     0.00     |
+| [R/untangle\_examples.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/untangle_examples.R)    |     0.00     |
+| [R/untangle.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/untangle.R)                       |     0.00     |
+| [R/zzz.R](https://github.com/metrumresearchgroup/sinew/tree/actions/R/zzz.R)                                 |    11.11     |
+
+<br>
+
+## Unit Tests
+
+Unit Test summary is created using the
+[testthat](https://github.com/r-lib/testthat) package.
+
+| file                                | n |  time | error | failed | skipped | warning |
+| :---------------------------------- | -: | ----: | ----: | -----: | ------: | ------: |
+| [test-init.R](https://github.com/metrumresearchgroup/sinew/tree/actions/tests/testthat/test-init.R) | 1 | 0.014 |     0 |      0 |       0 |       0 |
+
+<details closed>
+
+<summary> Show Detailed Test Results </summary>
+
+| file                                   | context | test              | status | n |  time |
+| :------------------------------------- | :------ | :---------------- | :----- | -: | ----: |
+| [test-init.R](https://github.com/metrumresearchgroup/sinew/tree/actions/tests/testthat/test-init.R#L6) | init    | first test: dummy | PASS   | 1 | 0.014 |
+
+</details>
+
+<details>
+
+<summary> Session Info </summary>
+
+| Field    | Value                               |
+| :------- | :---------------------------------- |
+| Version  | R version 3.6.1 (2019-07-05)        |
+| Platform | x86\_64-apple-darwin15.6.0 (64-bit) |
+| Running  | macOS Mojave 10.14.5                |
+| Language | en\_US                              |
+| Timezone | America/New\_York                   |
+
+| Package  | Version |
+| :------- | :------ |
+| testthat | 2.2.1   |
+| covr     | 3.3.0   |
+| covrpage | 0.0.70  |
+
+</details>
+
+<!--- Final Status : pass --->
