@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Package Development Documentation and Namespace Management  • sinew</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Package Development Documentation and Namespace Management ">
 <meta property="og:description" content="Manage package documentation and namespaces from the command line. 
@@ -103,13 +103,13 @@
 <div id="cran" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cran" class="anchor"></a>CRAN</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'sinew'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'sinew'</span>)</span></code></pre></div>
 </div>
 <div id="dev" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dev" class="anchor"></a>DEV</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'remotes'</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">'metrumresearchgroup/sinew'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'remotes'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">'metrumresearchgroup/sinew'</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="more-details" class="section level2">
@@ -157,9 +157,11 @@
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=sinew"><img src="http://www.r-pkg.org/badges/version/sinew" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://cran.r-project.org/package=sinew"><img src="https://cranlogs.r-pkg.org/badges/sinew"></a></li>
-<li><a href="https://travis-ci.org/metrumresearchgroup/sinew"><img src="https://travis-ci.org/metrumresearchgroup/sinew.svg?branch=master" alt="Travis-CI Build Status"></a></li>
+<li><a href="https://github.com/metrumresearchgroup/sinew"><img src="https://github.com/metrumresearchgroup/sinew/workflows/R-win/badge.svg" alt="R-win build status"></a></li>
+<li><a href="https://github.com/metrumresearchgroup/sinew"><img src="https://github.com/metrumresearchgroup/sinew/workflows/R-mac/badge.svg" alt="R-mac build status"></a></li>
+<li><a href="https://github.com/metrumresearchgroup/sinew"><img src="https://github.com/metrumresearchgroup/sinew/workflows/R-linux/badge.svg" alt="R-linux build status"></a></li>
 <li><a href="https://codecov.io/github/metrumresearchgroup/sinew?branch=master"><img src="https://img.shields.io/codecov/c/github/metrumresearchgroup/sinew/master.svg" alt="Coverage Status"></a></li>
-<li><a href="https://github.com/metrumresearchgroup/sinew/tree/master/tests/README.md"><img src="https://img.shields.io/badge/covrpage-Initialized-orange.svg" alt="Covrpage Summary"></a></li>
+<li><a href="https://github.com/metrumresearchgroup/sinew/tree/master/tests/README.md"><img src="https://img.shields.io/badge/covrpage-Last_Build_2020_02_28-brightgreen.svg" alt="Covrpage Summary"></a></li>
 </ul>
 </div>
 </div>
@@ -171,7 +173,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>
