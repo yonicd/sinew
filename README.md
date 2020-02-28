@@ -1,12 +1,15 @@
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sinew)](https://cran.r-project.org/package=sinew)
 [![](https://cranlogs.r-pkg.org/badges/sinew)](https://cran.r-project.org/package=sinew)
-[![Travis-CI Build
-Status](https://travis-ci.org/metrumresearchgroup/sinew.svg?branch=master)](https://travis-ci.org/metrumresearchgroup/sinew)
+[![R-win build
+status](https://github.com/metrumresearchgroup/sinew/workflows/R-win/badge.svg)](https://github.com/metrumresearchgroup/sinew)
+[![R-mac build
+status](https://github.com/metrumresearchgroup/sinew/workflows/R-mac/badge.svg)](https://github.com/metrumresearchgroup/sinew)
+[![R-linux build
+status](https://github.com/metrumresearchgroup/sinew/workflows/R-linux/badge.svg)](https://github.com/metrumresearchgroup/sinew)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/metrumresearchgroup/sinew/master.svg)](https://codecov.io/github/metrumresearchgroup/sinew?branch=master)
 [![Covrpage
 Summary](https://img.shields.io/badge/covrpage-Initialized-orange.svg)](https://github.com/metrumresearchgroup/sinew/tree/master/tests/README.md)
-
 
 # Sinew
 

@@ -57,7 +57,6 @@ jobs:
         shell: Rscript {0}
 
       - name: covr
-        if: false
         run: |
           Rscript -e 'remotes::install_github("r-lib/covr@gh-actions")' \
                   -e 'covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")'
