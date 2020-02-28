@@ -1,6 +1,6 @@
 Tests and Coverage
 ================
-28 February, 2020 02:40:16
+28 February, 2020 02:45:46
 
   - [Coverage](#coverage)
   - [Unit Tests](#unit-tests)
@@ -54,7 +54,7 @@ Unit Test summary is created using the
 
 | file                                | n |  time | error | failed | skipped | warning |
 | :---------------------------------- | -: | ----: | ----: | -----: | ------: | ------: |
-| [test-init.R](testthat/test-init.R) | 1 | 0.032 |     0 |      0 |       0 |       0 |
+| [test-init.R](testthat/test-init.R) | 1 | 0.035 |     0 |      0 |       0 |       0 |
 
 <details closed>
 
@@ -62,7 +62,7 @@ Unit Test summary is created using the
 
 | file                                   | context | test              | status | n |  time |
 | :------------------------------------- | :------ | :---------------- | :----- | -: | ----: |
-| [test-init.R](testthat/test-init.R#L6) | init    | first test: dummy | PASS   | 1 | 0.032 |
+| [test-init.R](testthat/test-init.R#L6) | init    | first test: dummy | PASS   | 1 | 0.035 |
 
 </details>
 
@@ -73,7 +73,7 @@ Unit Test summary is created using the
 | Field    | Value                               |                                                                                                                                                                                                                                                                            |
 | :------- | :---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Version  | R version 3.6.2 (2019-12-12)        |                                                                                                                                                                                                                                                                            |
-| Platform | x86\_64-apple-darwin15.6.0 (64-bit) | <a href="https://github.com/metrumresearchgroup/sinew/commit/92ecea725b0f5f0e3a0bfb8cc4b486e8168d8d30/checks" target="_blank"><span title="Built on Github Actions">![](https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true)</span></a> |
+| Platform | x86\_64-apple-darwin15.6.0 (64-bit) | <a href="https://github.com/metrumresearchgroup/sinew/commit/1c2ac0051a3f582e74e4d62d8c870386e4300bc1/checks" target="_blank"><span title="Built on Github Actions">![](https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true)</span></a> |
 | Running  | macOS Catalina 10.15.3              |                                                                                                                                                                                                                                                                            |
 | Language | en\_US                              |                                                                                                                                                                                                                                                                            |
 | Timezone | UTC                                 |                                                                                                                                                                                                                                                                            |
