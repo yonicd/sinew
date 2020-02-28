@@ -47,6 +47,8 @@ articles:
   - addin
   - opts
   - imports
+- title: Unit Tests
+  contents: tests_and_coverage  
 template:
   params:
     bootswatch: flatly
