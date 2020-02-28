@@ -27,7 +27,7 @@ jobs:
 
       - name: Query dependencies
         run: |
-          install.packages(c('remotes'))
+          install.packages(c('remotes','webshot'))
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
         shell: Rscript {0}
 
