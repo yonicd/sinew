@@ -176,7 +176,7 @@ if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL</p></
 
 <span class='co'># update namespaces in package functions</span>
 <span class='fu'>pretty_namespace</span>(<span class='no'>pkg_dir_R</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
-#&gt; functions changed in '/tmp/RtmpUgne6X/pkg/R/yy.R':
+#&gt; functions changed in '/tmp/RtmpbPxht5/pkg/R/yy.R':
 #&gt; 
 #&gt; ✔: found, ✖: not found, (): instances, ☒: user intervention
 #&gt; 
@@ -184,7 +184,7 @@ if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL</p></
 #&gt;  ✔ stats::runif (1) 
 #&gt; 
 #&gt; 
-#&gt; functions changed in '/tmp/RtmpUgne6X/pkg/R/zz.R':
+#&gt; functions changed in '/tmp/RtmpbPxht5/pkg/R/zz.R':
 #&gt; 
 #&gt; ✔: found, ✖: not found, (): instances, ☒: user intervention
 #&gt; 
@@ -193,11 +193,11 @@ if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL</p></
 #&gt; </div><div class='input'>
 <span class='co'># update imports/importsFrom for roxygen2 tags</span>
 <span class='fu'>makeImport</span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>'oxygen'</span>)</div><div class='output co'>#&gt;  
-#&gt; /tmp/RtmpUgne6X/pkg/R/yy.R
+#&gt; /tmp/RtmpbPxht5/pkg/R/yy.R
 #&gt; #' @importFrom utils head
 #&gt; #' @importFrom stats runif
 #&gt;  
-#&gt; /tmp/RtmpUgne6X/pkg/R/zz.R
+#&gt; /tmp/RtmpbPxht5/pkg/R/zz.R
 #&gt; #' @importFrom utils head
 #&gt; #' @importFrom stats runif</div><div class='input'>
 <span class='co'># update Imports for DESCRIPTION file output to console</span>
