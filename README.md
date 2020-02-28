@@ -9,7 +9,7 @@ status](https://github.com/metrumresearchgroup/sinew/workflows/R-linux/badge.svg
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/metrumresearchgroup/sinew/master.svg)](https://codecov.io/github/metrumresearchgroup/sinew?branch=master)
 [![Covrpage
-Summary](https://img.shields.io/badge/covrpage-Initialized-orange.svg)](https://github.com/metrumresearchgroup/sinew/tree/master/tests/README.md)
+Summary](https://img.shields.io/badge/covrpage-Last_Build_2020_02_27-brightgreen.svg)](https://github.com/metrumresearchgroup/sinew/tree/master/tests/README.md)
 
 # Sinew
 

@@ -65,7 +65,7 @@ jobs:
         run: R CMD INSTALL .
 
       - name: covrpage
-        if: false
+        if: github.ref == 'refs/heads/master'
         run: |
           Rscript -e 'remotes::install_github("metrumresearchgroup/covrpage@actions")' \
                   -e 'covrpage::covrpage_ci()'
