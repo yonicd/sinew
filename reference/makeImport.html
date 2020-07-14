@@ -119,7 +119,7 @@ roxygen2, namespace or description files" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Populate import fields for documentation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/metrumresearchgroup/sinew/blob/master/R/makeImport.R'><code>R/makeImport.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/yonicd/sinew/blob/master/R/makeImport.R'><code>R/makeImport.R</code></a></small>
     <div class="hidden name"><code>makeImport.Rd</code></div>
     </div>
 
@@ -176,7 +176,7 @@ if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL</p></
 
 <span class='co'># update namespaces in package functions</span>
 <span class='fu'><a href='pretty_namespace.html'>pretty_namespace</a></span>(<span class='no'>pkg_dir_R</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
-#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpi64xOv/pkg/R/yy.R':
+#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp4hAh1u/pkg/R/yy.R':
 #&gt; 
 #&gt; ✔: found, <span style='color: #BB0000;'>✖</span><span>: not found, (): instances, ☒: user intervention
 #&gt; 
@@ -184,7 +184,7 @@ if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL</p></
 #&gt;  ✔ stats::runif (1) 
 #&gt; 
 #&gt; 
-#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpi64xOv/pkg/R/zz.R':
+#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp4hAh1u/pkg/R/zz.R':
 #&gt; 
 #&gt; ✔: found, </span><span style='color: #BB0000;'>✖</span><span>: not found, (): instances, ☒: user intervention
 #&gt; 
@@ -193,11 +193,11 @@ if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL</p></
 #&gt; </div><div class='input'>
 <span class='co'># update imports/importsFrom for roxygen2 tags</span>
 <span class='fu'>makeImport</span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>'oxygen'</span>)</div><div class='output co'>#&gt;  
-#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpi64xOv/pkg/R/yy.R
+#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp4hAh1u/pkg/R/yy.R
 #&gt; #' @importFrom utils head
 #&gt; #' @importFrom stats runif
 #&gt;  
-#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpi64xOv/pkg/R/zz.R
+#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp4hAh1u/pkg/R/zz.R
 #&gt; #' @importFrom utils head
 #&gt; #' @importFrom stats runif</div><div class='input'>
 <span class='co'># update Imports for DESCRIPTION file output to console</span>
