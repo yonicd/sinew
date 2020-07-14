@@ -20,7 +20,7 @@ directory of dir.out, Default: TRUE}
 Nothing, side effects is to create files
 }
 \description{
-One function to run \link[sinew:pretty_namespace]{pretty_namespace}, \link[sinew:untangle]{untangle} and \link[sinew:makeOxyFile]{makeOxyFile}
+One function to run \link[=pretty_namespace]{pretty_namespace}, \link[=untangle]{untangle} and \link[=makeOxyFile]{makeOxyFile}
 }
 \details{
 If dir.out is set to NULL all outputs are redirected into file.path(tempdir(),'sinew')

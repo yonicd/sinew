@@ -44,7 +44,7 @@ If chunks is NULL then all the chunks are used.
 }
 }
 \seealso{
-\link[sinew:pretty_namespace]{pretty_namespace}
+\link[=pretty_namespace]{pretty_namespace}
 }
 \author{
 Jonathan Sidi

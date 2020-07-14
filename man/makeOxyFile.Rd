@@ -62,7 +62,7 @@ require \code{library(purrr)} before proceeding with \code{makeOxyFile}.
    
 }
 \seealso{
-\link[sinew:makeOxygen]{makeOxygen}
+\link[=makeOxygen]{makeOxygen}
 }
 \author{
 Anton Grishin

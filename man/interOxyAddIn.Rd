@@ -11,7 +11,7 @@ Nothing. Inserts roxygen2 comments in a file opened in the source editor.
 }
 \description{
 Launches an interactive addin for insertion of roxygen2 comments in files.
-Allows selection of extra parameters for \link[sinew:makeOxygen]{makeOxygen}
+Allows selection of extra parameters for \link[=makeOxygen]{makeOxygen}
 }
 \details{
 Open an .R file in Rstudio's source editor.
@@ -25,7 +25,7 @@ This addin requires \code{shiny} and \code{miniUI} to be installed (listed as Su
 \item Select function's/dataset's name in the source editor.
 \itemize{
 \item If objects cannot be found, the addin prompts to source the file.
-\item Choose parameters for \link[sinew:makeOxygen]{makeOxygen}
+\item Choose parameters for \link[=makeOxygen]{makeOxygen}
 \itemize{
 \item Click Insert
 }
