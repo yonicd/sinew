@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The suggested workflow for sinew is an extension of the [alternative documentation workflow](http://r-pkgs.had.co.nz/man.html#man-workflow-2) described in the [R packages](http://r-pkgs.had.co.nz/) book by Hadley Wickham.
+The suggested workflow for sinew is an extension of the [alternative documentation workflow](https://r-pkgs.org/man.html#man-workflow-2) described in the [R packages](https://r-pkgs.org/) book by Hadley Wickham.
 
 **Initial Package Build**
 
