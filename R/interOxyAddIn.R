@@ -16,6 +16,9 @@
 #'   - Select next object's name
 #'   - Rinse/Repeat
 #'   - Click Quit when done with the file.
+#' @param modalonce logical. Let the user decide if the modal helper shall be 
+#' shown every time he selects a function to document. (not recommended for 
+#' usage comfort).
 #' @examples
 #' if(interactive()) interOxyAddIn()
 #' @export
@@ -23,7 +26,7 @@
 #' @import rstudioapi
 #' @importFrom utils find
 #' @concept interactive
-interOxyAddIn <- function() {
+interOxyAddIn <- function(modalonce = TRUE) {
   
   if(!try(requireNamespace('shiny',quietly = TRUE)))
     stop('Shiny must be installed to use this addin')
@@ -32,7 +35,7 @@ interOxyAddIn <- function() {
     stop('miniUI must be installed to use this addin')
   
   nenv <- new.env()
-
+  
   # Define checkbox layout ----
   tweaks <-
     list(shiny::tags$head(shiny::tags$style(shiny::HTML("
@@ -45,7 +48,7 @@ interOxyAddIn <- function() {
                                                         -column-fill: auto;
                                                         } 
                                                         "))))
-
+  
   controls <- list(
     shiny::tags$h3("Select Fields to add to Oxygen Output"),
     shiny::tags$div(
@@ -59,7 +62,7 @@ interOxyAddIn <- function() {
       )
     )
   )
-
+  
   # gadget UI ----
   ui <- miniUI::miniPage(
     tweaks,
@@ -95,10 +98,10 @@ interOxyAddIn <- function() {
       )
     )
   )
-
+  
   # gadget Server -----
-  server <- function(input, output, session) {
-
+  server <- function(input, output, session, modalonce = modalonce) {
+    
     # reactive ui's and helper objects ----
     output$title <- shiny::renderText({
       paste0("Select parameters in makeOxygen(\"", robj()$selection[[1]]$text, "\"...)")
@@ -108,7 +111,8 @@ interOxyAddIn <- function() {
     output$dictfile <- shiny::renderText({
       rfile()
     })
-
+    modalshowcount <- reactiveVal(0)
+    
     output$cutslider <- shiny::renderUI({
       if (dir.exists("./man-roxygen")) {
         shiny::div(shiny::div(
@@ -122,27 +126,27 @@ interOxyAddIn <- function() {
         shiny::p()
       }
     })
-
+    
     shiny::observeEvent(input$qt, {
       shiny::stopApp()
     })
-
+    
     shiny::observeEvent(input$ok, {
       sys.source(
         rstudioapi::getSourceEditorContext()$path,
         nenv,
         keep.source = TRUE
       )
-
+      
       shiny::removeModal()
     })
-
+    
     shiny::observeEvent(input$butt, {
       hh <- NULL
       try(hh <- file.choose(), silent = TRUE)
       rfile(hh)
     })
-
+    
     # Polling ----
     robj <- shiny::reactivePoll(
       1000, session,
@@ -150,50 +154,51 @@ interOxyAddIn <- function() {
       valueFunc = function() {
         this <- rstudioapi::getActiveDocumentContext()
         obj <- this$selection[[1]]$text
-
+        
         if (grepl("::", obj)) {
           check_attach(obj, nenv)
           obj <- gsub("^(.*?)::", "", obj)
         }
-
+        
         this$selection[[1]]$text <- obj
-
+        
         return(this)
       }
     )
-
+    
     # Lookup editor text for available objects ----
     shiny::observeEvent(robj(), {
       path <- robj()$path
       obj <- robj()$selection[[1]]$text
-
+      
       if (!nzchar(path)) {
         td <- file.path(tempdir(), "_sinew")
-
+        
         if (!dir.exists(td)) {
           dir.create(td)
         }
-
+        
         path <- file.path(td, "_tempsrc.R")
-
+        
         cat(robj()$contents, file = path, sep = "\n")
-
+        
         untangle(file = path, dir.out = td, keep.body = FALSE)
-
+        
         FILES <- list.files(td, full.names = TRUE)
-
+        
         FILES <- FILES[-grep("\\_tempsrc\\.R", FILES)]
-
+        
         sapply(FILES, function(idx) sys.source(idx, envir = nenv, keep.source = TRUE))
       } else {
         sys.source(path, nenv, keep.source = TRUE)
       }
-
+      
       search.env <- unlist(c(sapply(search(), function(x) ls(x)), ls(envir = nenv)))
-
+      
       searchp <- any(grepl(obj, search.env))
-
-      if (!searchp || !nzchar(obj)) {
+      
+      if ((!searchp || !nzchar(obj)) &&
+          (isFALSE(modalonce) || modalshowcount() == 0)) {
         shiny::showModal(shiny::modalDialog(
           title = shiny::HTML(paste0(
             "Open an .R file in the source editor and ",
@@ -201,16 +206,17 @@ interOxyAddIn <- function() {
           )),
           easyClose = TRUE
         ))
+        modalshowcount(1)
       }
-
+      
     })
-
+    
     # Insert new content above highlighted text ----
     shiny::observeEvent(input$insrt, {
       rm.oxylines(this = robj())
-
+      
       obj_name <- robj()$selection[[1]]$text
-
+      
       if (!nzchar(obj_name) || (is.null(get0(obj_name)) && "nenv" %in% ls())) {
         shiny::showModal(shiny::modalDialog(
           shiny::tags$h4(style = "color: red;", "Make valid object selection!"),
@@ -218,9 +224,9 @@ interOxyAddIn <- function() {
         ))
       } else {
         ctxt <- rstudioapi::getSourceEditorContext()
-
+        
         ins_txt <- ""
-
+        
         # if (nzchar(obj_name) && is.null(get0(obj_name))) {
         test <- any(grepl(obj_name, ls(envir = nenv)))
         if (test) {
@@ -232,29 +238,29 @@ interOxyAddIn <- function() {
           }
         }
         # }
-
+        
         rstudioapi::insertText(ctxt$selection[[c(1, 1)]], paste0(ins_txt, "\n", obj_name), id = ctxt$id)
-
+        
         new_ctxt <- rstudioapi::getSourceEditorContext()
         new_ctxt$selection[[1]]$range[[1]][[2]] <- ctxt$selection[[1]]$range[[1]][[2]]
         new_ctxt$selection[[1]]$range[[2]][[2]] <- ctxt$selection[[1]]$range[[2]][[2]]
         rstudioapi::setSelectionRanges(new_ctxt$selection[[1]]$range, id = new_ctxt$id)
       }
     })
-
+    
     # read current fields ----
     shiny::observeEvent(c(input$action, robj()), {
       # l <- readLines(robj()$path,warn = FALSE)
       # oxy_current <- paste0(grep("^#'",l,value=TRUE),collapse = '\n')
       new_fields <- switch(input$action, Update = {
         td <- file.path(tempdir(), "_sinew")
-
+        
         if (!dir.exists(td)) {
           dir.create(td)
         }
-
+        
         untangle(file = robj()$path, dir.out = td)
-
+        
         tf <- file.path(tempdir(), "_sinew", sprintf("%s.R", robj()$selection[[1]]$text))
         if (file.exists(tf)) {
           l <- readLines(tf, warn = FALSE)
@@ -270,57 +276,57 @@ interOxyAddIn <- function() {
       )
       shiny::updateCheckboxGroupInput(session = session, inputId = "fields", selected = new_fields)
     })
-
+    
     # Create/Update ----
     shiny::observeEvent(list(input$action, input$fields, robj(), input$cut, input$ok), {
       switch(input$action,
-        Update = {
-          obj_name <- robj()$selection[[1]]$text
-          tf <- file.path(tempdir(), "_sinew", sprintf("%s.R", obj_name))
-
-          params <-
-            list(
-              path = switch(file.exists(tf), tf, robj()$path),
-              add_fields = input$fields,
-              add_default = TRUE,
-              dry.run = FALSE,
-              use_dictionary = rfile(),
-              force.fields = setdiff(c(names(sinew_opts$get())[-1], "seealso"), input$fields),
-              cut = input$cut
-            )
-
-          output$preview <- shiny::renderText({
-            if (length(params$path) > 0) {
-              if (nzchar(params$path)) {
-                # if(length(utils::find(obj_name,mode = 'function'))>0){
-                x <- do.call(moga, params)
-                paste(x, collapse = "\n")
-                # }
-              }
-            }
-          })
-        },
-        Create = {
-          obj_name <- robj()$selection[[1]]$text
-
-          output$preview <- shiny::renderText({
-            if (nzchar(obj_name)) {
-              test <- any(grepl(obj_name, ls(envir = nenv)))
-              if (test) {
-                assign(obj_name, get(obj_name, envir = nenv))
-                eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
-              } else {
-                if (length(find(obj_name, mode = "function")) > 0) {
-                  eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
-                }
-              }
-            }
-          })
-        }
+             Update = {
+               obj_name <- robj()$selection[[1]]$text
+               tf <- file.path(tempdir(), "_sinew", sprintf("%s.R", obj_name))
+               
+               params <-
+                 list(
+                   path = switch(file.exists(tf), tf, robj()$path),
+                   add_fields = input$fields,
+                   add_default = TRUE,
+                   dry.run = FALSE,
+                   use_dictionary = rfile(),
+                   force.fields = setdiff(c(names(sinew_opts$get())[-1], "seealso"), input$fields),
+                   cut = input$cut
+                 )
+               
+               output$preview <- shiny::renderText({
+                 if (length(params$path) > 0) {
+                   if (nzchar(params$path)) {
+                     # if(length(utils::find(obj_name,mode = 'function'))>0){
+                     x <- do.call(moga, params)
+                     paste(x, collapse = "\n")
+                     # }
+                   }
+                 }
+               })
+             },
+             Create = {
+               obj_name <- robj()$selection[[1]]$text
+               
+               output$preview <- shiny::renderText({
+                 if (nzchar(obj_name)) {
+                   test <- any(grepl(obj_name, ls(envir = nenv)))
+                   if (test) {
+                     assign(obj_name, get(obj_name, envir = nenv))
+                     eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
+                   } else {
+                     if (length(find(obj_name, mode = "function")) > 0) {
+                       eval(parse(text = sprintf("makeOxygen(%s,add_fields = input$fields,print=FALSE,cut=input$cut)", obj_name), keep.source = TRUE))
+                     }
+                   }
+                 }
+               })
+             }
       )
     })
   }
-
+  
   # Run Gadget ----
   shiny::runGadget(ui, server, viewer = shiny::paneViewer(minHeight = 450))
   on.exit({
