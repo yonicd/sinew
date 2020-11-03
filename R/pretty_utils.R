@@ -172,12 +172,12 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
             
             choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
             
-            choice <- menu_choices[choice_idx]
-            
-            if(grepl('\\(*\\)$',choice)){
-              clean_choice <- gsub('\\(\\*\\)$','',choice)
-              assign(clean_choice,TRUE,askenv)
-            }
+              choice <- menu_choices[choice_idx]
+              
+              if(grepl('\\(*\\)$',choice)){
+                clean_choice <- gsub('\\(\\*\\)$','',choice)
+                assign(clean_choice,TRUE,askenv)
+              }
               
           }
           
@@ -262,7 +262,7 @@ pretty_print <- function(obj,file,chunk=NULL){
     
   cat(
     sprintf("\nfunctions changed in '%s':\n\n%s: found, %s: not found, (): instances, %s: user intervention\n\n%s\n\n",
-            file,
+            if (grepl("\\_tmp\\_", file)) strsplit(basename(file), "_tmp_")[[1]][1] else file,
             cli::symbol$tick,
             crayon::red(cli::symbol$cross),
             cli::symbol$checkbox_on,
