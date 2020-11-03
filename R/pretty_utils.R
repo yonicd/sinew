@@ -91,7 +91,7 @@ pretty_manip <- function(sym.funs, force, ignore){
     sym.funs <- pretty_merge(sym.funs,ignore,'remove')
   }
   
-    sym.funs$new_text <- sprintf('%s%s',ifelse(nchar(sym.funs$namespace) > 0, paste0(sym.funs$namespace,"::"), ''), sym.funs$text)
+    sym.funs$new_text <- sprintf('%s%s',ifelse(nzchar(sym.funs$namespace), paste0(sym.funs$namespace,"::"), ''), sym.funs$text)
   
   sym.funs
 }
