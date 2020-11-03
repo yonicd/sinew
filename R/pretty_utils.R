@@ -91,7 +91,7 @@ pretty_manip <- function(sym.funs, force, ignore){
     sym.funs <- pretty_merge(sym.funs,ignore,'remove')
   }
   
-  sym.funs$new_text <- sprintf('%s::%s',sym.funs$namespace, sym.funs$text)  
+    sym.funs$new_text <- sprintf('%s%s',ifelse(nchar(sym.funs$namespace) > 0, paste0(sym.funs$namespace,"::"), ''), sym.funs$text)
   
   sym.funs
 }
@@ -168,17 +168,20 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
           
             menu_choices <- c(sprintf('%s(*)',choices),choices)
             
-            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances\none will omit a namespace',fun)
+            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances\n zero `0` will omit a namespace',fun)
             
             choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
             
+            if (choice_idx != 0) {
             choice <- menu_choices[choice_idx]
             
             if(grepl('\\(*\\)$',choice)){
               clean_choice <- gsub('\\(\\*\\)$','',choice)
               assign(clean_choice,TRUE,askenv)
             }
-              
+            } else {
+              choice <- ''
+            }  
           }
           
           pkg_choice <- gsub(':(.*?)$','',choice)  
