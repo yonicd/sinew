@@ -166,7 +166,7 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
             
           }else{
           
-            menu_choices <- c(sprintf('%s(*)', choices), choices, "Ignore Instance", "Ignore All(*)")
+            menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "Ignore Instance", "Ignore All(*)"))
             
             menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
             
