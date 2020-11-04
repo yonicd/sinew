@@ -160,11 +160,15 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
           
           intersect_choices <- intersect(persistent_choices,choices)
           
-          if(length(intersect_choices)>0){
+          
+          
+          if(length(intersect_choices) > 0){
             
             choice <- intersect_choices
             
-          }else{
+          } else if (paste0("Ignore::", fun) %in% persistent_choices) {
+            choice <- ''
+          } else {
           
             menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "Ignore Instance", "Ignore All(*)"))
             
@@ -172,14 +176,16 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
             
             choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
             
-            
-            choice <- menu_choices[choice_idx]
-            
-            if(grepl('\\(*\\)$',choice)){
-              clean_choice <- gsub('\\(\\*\\)$','',choice)
-              assign(clean_choice,TRUE,askenv)
-            }
-            
+              choice <- menu_choices[choice_idx]
+              
+              if(grepl('\\(*\\)$',choice)){
+                clean_choice <- gsub('\\(\\*\\)$','',choice)
+                if (grepl("^Ignore\\sAll", choice)) {
+                  clean_choice <- paste0("Ignore::",fun)
+                }
+                assign(clean_choice,TRUE,askenv)
+              }
+              
           }
           if (grepl("^Ignore\\s", choice)) choice <- ''
           pkg_choice <- gsub(':(.*?)$','',choice)  
