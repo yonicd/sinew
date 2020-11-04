@@ -7,7 +7,7 @@
 parse_check <- function(p, txt) {
   if (inherits(p, "try-error")) {
     .sc <- sys.calls()
-    .tc <- min(which(sapply(.sc, `[[`, 1) %in% c("pretty_rmd", "pretty_namespace", "pretty_sinew")))
+    .tc <- min(which(sapply(.sc, `[[`, 1) %in% c("pretty_rmd", "pretty_namespace")))
     .path <- path.expand(.sc[[.tc]][[2]])
     if (file.exists(.path) && interactive()) {
       x <- readLines(.path)
