@@ -166,24 +166,23 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
             
           }else{
           
-            menu_choices <- c(sprintf('%s(*)',choices),choices)
+            menu_choices <- c(sprintf('%s(*)', choices), choices, "Ignore Instance", "Ignore All(*)")
             
             menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances\n zero `0` will omit a namespace',fun)
             
             choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
             
-            if (choice_idx != 0) {
+            
             choice <- menu_choices[choice_idx]
             
             if(grepl('\\(*\\)$',choice)){
               clean_choice <- gsub('\\(\\*\\)$','',choice)
+              if (grepl("^Ignore\\s", clean_choice)) clean_choice <- ''
               assign(clean_choice,TRUE,askenv)
             }
-            } else {
-              choice <- ''
-            }  
+            
           }
-          
+          if (grepl("^Ignore\\s", choice)) choice <- ''
           pkg_choice <- gsub(':(.*?)$','',choice)  
           
         }else{
