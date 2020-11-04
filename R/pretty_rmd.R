@@ -72,10 +72,10 @@ list_chunks <- function(x){
     FROM <- FROM[!ZERO]
     TO <- TO[!ZERO]
   } 
-  NAMES <- strcapture("(?<=r\\s)(?:\\'|\\\")?([[:alnum:]\\s\\_\\.]+)",x[FROM], data.frame(chunk_title = character()), perl = TRUE)
+  NAMES <- strcapture("(?<=r\\s)(?:\\'|\\\")?([[:alnum:]\\s\\_\\.]+)",x[FROM - 1], data.frame(chunk_title = character()), perl = TRUE)
   NAMES$chunk <- sprintf("%03d", 1:NROW(NAMES))
   NAMES$lines <- paste0("lines", FROM,"-",TO)
-  setNames(mapply(seq,from=FROM,to=TO), with(NAMES, mapply(function(.x, .y, .z) {
+  setNames(mapply(seq,from=FROM,to=TO, SIMPLIFY = FALSE), with(NAMES, mapply(function(.x, .y, .z) {
     out <- paste0("chunk", .x)
     if (!is.na(.y)) out <- paste0(out," - ", .y)
     if (!is.na(.z)) out <- paste0(out," - ",.z)
