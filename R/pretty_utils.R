@@ -177,7 +177,6 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
             
             if(grepl('\\(*\\)$',choice)){
               clean_choice <- gsub('\\(\\*\\)$','',choice)
-              if (grepl("^Ignore\\s", clean_choice)) clean_choice <- ''
               assign(clean_choice,TRUE,askenv)
             }
             
