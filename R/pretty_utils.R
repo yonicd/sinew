@@ -6,17 +6,33 @@
 #' @param x file text
 parse_check <- function(p, txt) {
   if (inherits(p, "try-error")) {
+    .sf <- sys.frames()
     .sc <- sys.calls()
-    .tc <- min(which(sapply(.sc, `[[`, 1) %in% c("pretty_rmd", "pretty_namespace")))
-    .path <- path.expand(.sc[[.tc]][[2]])
-    if (file.exists(.path) && interactive()) {
-      x <- readLines(.path)
+    # get the top level sinew call
+    top_call <- min(which(grepl("pretty", lapply(.sc, `[[`, 1))))
+    if (!any(top_call)) stop(p)
+    # get the object names in that environment
+    .vars <- ls(envir = .sf[min(top_call)][[1]])
+    # get the object name for the connection/input file
+    .var <- grepl("(?:^con$)|(?:^input$)" , .vars, perl = TRUE)
+    if (!any(.var)) stop(p)
+    # get the connection/input filename
+    .path <- get0(.vars[.var], envir = .sf[top_call][[1]], mode = "character")
+    if (interactive() && !is.null(.path)) {
+      if (!file.exists(.path)) stop(p)
+      # get the row & column
       .rc <- as.numeric(strsplit(attr(p, "condition")$message, "\\:")[[1]][2:3])
-      .line <- grep(txt[1], x, fixed = TRUE) + .rc[1]
-      if (utils::askYesNo(paste0("Parse failed at line ", .line,". Rstudio Users: Would you like to open the file before the function quits to correct the error (Rstudio Only)?"))) {
+      # get the line number corresponding to the first line of text & add the rows indicated by the error (may not always be accurate but should work)
+      .line <- agrep(txt[1], readLines(.path), fixed = TRUE) + .rc[1]
+      # Ask if the user wants to go to this line
+      .answer <- utils::askYesNo(paste0("Parse failed at line ", .line,". Rstudio Users: Would you like to open the file before the function quits to correct the error (Rstudio Only)?"))
+      # if yes, go!
+      if (isTRUE(.answer)) {
         rstudioapi::navigateToFile(.path, .line, .rc[2])
       }
     }
+  
+    
     stop(p)
   } else {
     return(p)
