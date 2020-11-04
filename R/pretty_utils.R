@@ -168,7 +168,7 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
           
             menu_choices <- c(sprintf('%s(*)', choices), choices, "Ignore Instance", "Ignore All(*)")
             
-            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances\n zero `0` will omit a namespace',fun)
+            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
             
             choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
             
