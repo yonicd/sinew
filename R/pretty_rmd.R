@@ -66,19 +66,21 @@ pretty_rmd <- function(input,
 list_chunks <- function(x){
   FROM <- grep('^```\\{(.*?)r',x)
   TO <- grep('^```$|^```\\s{1,}$',x)-1
-  NAMES <- strcapture("(?<=r\\s)(?:\\'|\\\")?([[:alnum:]\\s\\_\\.]+)",x[FROM], data.frame(chunk_title = character()), perl = TRUE)
-  NAMES$chunk <- sprintf("%03d", 1:NROW(NAMES))
   FROM <- FROM + 1
   ZERO <- FROM > TO
   if (any(ZERO)) {
     FROM <- FROM[!ZERO]
     TO <- TO[!ZERO]
   } 
-  setNames(mapply(seq,from=FROM,to=TO), with(NAMES, mapply(function(.x, .y) {
+  NAMES <- strcapture("(?<=r\\s)(?:\\'|\\\")?([[:alnum:]\\s\\_\\.]+)",x[FROM], data.frame(chunk_title = character()), perl = TRUE)
+  NAMES$chunk <- sprintf("%03d", 1:NROW(NAMES))
+  NAMES$lines <- paste0("lines", FROM,"-",TO)
+  setNames(mapply(seq,from=FROM,to=TO), with(NAMES, mapply(function(.x, .y, .z) {
     out <- paste0("chunk", .x)
     if (!is.na(.y)) out <- paste0(out," - ", .y)
+    if (!is.na(.z)) out <- paste0(out," - ",.z)
     return(out)
-  }, chunk, chunk_title)))
+  }, chunk, chunk_title, lines)))
 }
 
 rm_lib_chunk <- function(x){
