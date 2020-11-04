@@ -23,12 +23,12 @@ parse_check <- function(p, txt) {
       # get the row & column
       .rc <- as.numeric(strsplit(attr(p, "condition")$message, "\\:")[[1]][2:3])
       # get the line number corresponding to the first line of text & add the rows indicated by the error (may not always be accurate but should work)
-      .line <- agrep(txt[1], readLines(.path), fixed = TRUE) + .rc[1]
+      .line <- grep(txt[1], readLines(.path), fixed = TRUE) + .rc[1]
       # Ask if the user wants to go to this line
-      .answer <- utils::askYesNo(paste0("Parse failed at line ", .line,". Rstudio Users: Would you like to open the file before the function quits to correct the error (Rstudio Only)?"))
+      .answer <- utils::askYesNo(paste0("Parse failed at line(s) ", paste0(.line, collapse = ", "),". Rstudio Users: Would you like to open the file at the line(s) before the function quits to correct the error (Rstudio Only)?"))
       # if yes, go!
       if (isTRUE(.answer)) {
-        rstudioapi::navigateToFile(.path, .line, .rc[2])
+        rstudioapi::navigateToFile(.path, min(.line), .rc[2])
       }
     }
   
