@@ -1,7 +1,32 @@
+#' @title parse_check
+#' @description check for fail of pretty_parse > parse, and offers to open file to offending line
+#' @keywords Internal
+#' @param p result of `pretty_parse` > `parse`
+#' @param txt input text to `pretty_parse` 
+#' @param x file text
+parse_check <- function(p, txt) {
+  if (inherits(p, "try-error")) {
+    .sc <- sys.calls()
+    .tc <- min(which(sapply(.sc, `[[`, 1) %in% c("pretty_rmd", "pretty_namespace", "pretty_sinew")))
+    .path <- path.expand(.sc[[.tc]][[2]])
+    if (file.exists(.path) && interactive()) {
+      x <- readLines(.path)
+      .rc <- as.numeric(strsplit(attr(p, "condition")$message, "\\:")[[1]][2:3])
+      .line <- grep(txt[1], x, fixed = TRUE) + .rc[1]
+      if (utils::askYesNo(paste0("Parse failed at line ", .line,". Rstudio Users: Would you like to open the file before the function quits to correct the error (Rstudio Only)?"))) {
+        rstudioapi::navigateToFile(.path, .line, .rc[2])
+      }
+    }
+    stop(p)
+  } else {
+    return(p)
+  }
+}
+
 pretty_parse <- function(txt){
   
-  p <- parse(text = txt,keep.source = TRUE)
-  
+  p <- try(parse(text = txt,keep.source = TRUE), silent = TRUE)
+  p <- parse_check(p, txt)
   p1 <- utils::getParseData(p)
   
   rmParent <- p1$parent[p1$token == "SYMBOL_PACKAGE"]
