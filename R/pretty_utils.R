@@ -175,18 +175,25 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, txt, ask, askenv){
               menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
               
               choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
-              loc <- regexpr(fun, txt, fixed = TRUE)
-              .l <- which(loc > 0)
-              .context <- txt
-              .context[.l] <- sapply(.l, function(.l){
-                .begin <- loc[.l]
-                .end <- attr(loc, "match.length")[.l]
-                .string_end <- nchar(txt[.l])
-                paste0(crayon::red(crayon::col_substr(txt[.l], .begin, .end)), crayon::col_substr(txt[.l], .end + 1, .string_end))
-              })
+              loc <- gregexpr(paste0(fun,"("), txt, fixed = TRUE)
+              context <- mapply(function(.x, .y) {
+                if (!any(.y > 0)) return(.x)
+                .subs <- data.frame(
+                bs = .y,
+                es = .y + attr(.y, "match.length")
+                )
+                .env <- environment()
+                apply(.subs, 1, function(.l){
+                  .string_end <- nchar(.x)
+                  assign(".x", paste0(crayon::col_substr(.x, 0, .l["bs"] - 1), crayon::red(crayon::col_substr(.x, .l["bs"], .l["es"] - 2)), crayon::col_substr(.x, .l["es"] - 1, .string_end)), .env)
+                })
+                .env$.x
+              }, txt, loc)
+              
+              
               
               choice <- menu_choices[choice_idx]
-              if (choice == "View Context") cat(.context, sep = "\n")
+              if (choice == "View Context") cat(context, sep = "\n")
             }
               
           }
