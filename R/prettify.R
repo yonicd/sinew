@@ -56,6 +56,7 @@ prettify_elem <- function(nm,TXT,NMPATH,INST,DYNPATH,force = NULL, ignore = NULL
     sos = sos,
     sym.funs = sym.funs,
     funs = funs,
+    txt = txt,
     ask = ask,
     askenv = askenv
   )

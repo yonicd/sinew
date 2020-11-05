@@ -128,7 +128,8 @@ pretty_merge <- function(e1,e2,action = 'relpace'){
 
 #' @importFrom sos findFn
 #' @importFrom utils help.search menu
-pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
+#' @importFrom crayon red col_substr
+pretty_find <- function(NMPATH, sos, sym.funs, funs, txt, ask, askenv){
   
   check_global <- ls(envir = get(search()[1]))
   
@@ -164,19 +165,28 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
             
             choice <- intersect_choices
             
-          }else{
-          
-            menu_choices <- c(sprintf('%s(*)',choices),choices)
-            
-            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances\none will omit a namespace',fun)
-            
-            choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
-            
-            choice <- menu_choices[choice_idx]
-            
-            if(grepl('\\(*\\)$',choice)){
-              clean_choice <- gsub('\\(\\*\\)$','',choice)
-              assign(clean_choice,TRUE,askenv)
+          } else if (paste0("Ignore::", fun) %in% persistent_choices) {
+            choice <- ''
+          } else {
+            choice <- "View Context"
+            while (choice == "View Context") {
+              menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "View Context", "Ignore Instance", "Ignore All(*)"))
+              
+              menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
+              
+              choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
+              loc <- regexpr(fun, txt, fixed = TRUE)
+              .l <- which(loc > 0)
+              .context <- txt
+              .context[.l] <- sapply(.l, function(.l){
+                .begin <- loc[.l]
+                .end <- attr(loc, "match.length")[.l]
+                .string_end <- nchar(txt[.l])
+                paste0(crayon::red(crayon::col_substr(txt[.l], .begin, .end)), crayon::col_substr(txt[.l], .end + 1, .string_end))
+              })
+              
+              choice <- menu_choices[choice_idx]
+              if (choice == "View Context") cat(.context, sep = "\n")
             }
               
           }
