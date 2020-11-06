@@ -20,6 +20,98 @@ pretty_parse <- function(txt){
   
 }
 
+#' @importFrom stringi stri_opts_brkiter
+opts <- function (x) 
+{
+  if (identical(x, "")) {
+    stringi:::stri_opts_brkiter(type = "character")
+  }
+  else {
+    attr(x, "options")
+  }
+}
+
+#' @title doc_packages
+#' @keywords Internal
+#' @description A function that finds all packages in a document based on typical methods of loading namespaces in R
+#' @param txt \code{(character)} vector of document text
+#' @details See \href{https://github.com/yonicd/sinew/issues/61}{#61} for a discussion
+#' @return \code{(character)} vector of all packages loaded in the doc
+#' @importFrom stats setNames
+#' @importFrom stringi stri_extract_all_regex
+
+doc_packages <- function(txt) {
+  .load_fns <- c("library", "attach", "attachNamespace", "loadNamespace", "require", "requireNamespace")
+  .arg_names <- c("what", "ns", "package")
+  .load_calls <- paste0("(?<=\\s|\\t|\\n|\\()", .load_fns, "\\([^\\)]+\\)")
+  # get packages from all load calls
+  lines <- unlist(stringi::stri_extract_all_regex(txt, paste0(.load_calls,collapse = "|"), omit_no_match = TRUE))
+  if (length(lines) > 0) {
+    loading_call <- lapply(lines, function(x){
+      lc <- sapply(.load_fns, function(p) {grepl(p, x, perl = TRUE)})
+      names(lc)[max(which(lc))]
+    })
+    pkgs <- mapply(function(x, fun){
+      tp <- parse(text = x)
+      args <- as.list(match.call(match.fun(fun), call = tp))
+      as.character(args[[which(names(args) %in% .arg_names)]])
+    }, lines, loading_call)
+  }
+  
+ pkgs <- unique(c(
+  get0("pkgs", inherits = FALSE)
+  ,
+  # get prefixed packages
+  unlist(stringi::stri_extract_all_regex(
+    txt,
+    "[A-Za-z0-9\\.]+(?=\\:\\:[A-Za-z\\.])",
+    omit_no_match = TRUE
+  ))
+  ,
+  # get imports
+  unlist(stringi::stri_extract_all_regex(
+    txt,
+    "(?<=(?:\\@import\\s)|(?:\\@importFrom\\s))[A-Za-z0-9\\.]+",
+    omit_no_match = TRUE))
+ ))
+  
+  if (length(pkgs) > 0) {
+    pkgs <- stats::setNames(pkgs, pkgs)
+  }
+  pkgs
+}
+
+#' @title namespace_exports
+#' @keywords Internal
+#' @description given a named character vector of packages outputs a list of all package exports
+#' @param ns \code{(character)} vector of package (namespace) names
+#' @return \code{(list)} of character vectors containing all of a package's exported functions
+#' @importFrom utils packageVersion install.packages select.list
+
+namespace_exports <- function(ns) {
+  known <- ip[,"Package"][ip[,"Package"] %in% ns]
+  unknown <- setdiff(ns, known)
+  if (length(unknown) > 0) {
+    sel <- utils::select.list(c("Install All", "None", unknown), title = paste0("The namespaces of the following packages cannot be retrieved, which would you like to install?"), multiple = TRUE)
+    if (sel == "Install All") {
+      sel <- unknown
+    } else if (sel == "None") {
+      sel <- character()
+    }
+    if (length(sel) > 0) {
+      try(utils::install.packages(sel))
+      .check <- sapply(sel, function(x) try(utils::packageVersion(x), silent = TRUE))
+      .failed <- grepl("^Error in", .check)
+      if (any(.failed)) {
+        message("The following packages failed to install. Namespaces will not be loaded: ", paste0(.check[.failed], collapse = ", "))
+      }
+      known <- c(known, sel[!.failed])
+    }
+  }
+  lapply(known, function(.x) try(getNamespaceExports(.x)))
+}
+
+
 #' @importFrom crayon red
 #' @importFrom stringi stri_sub
 pretty_shift <- function(txt, sym.funs, nm, overwrite, force, ignore){
