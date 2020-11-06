@@ -48,6 +48,8 @@ pretty_namespace <- function(con = NULL,
                              overwrite = FALSE,
                              sos = FALSE) {
   
+  validate_force(force)
+  
   if (is.null(text) & is.null(con)) return(NULL)
   
   if (is.null(text)) {

@@ -307,3 +307,23 @@ mf <- function(x, pat) {
   ns
 }
 
+validate_force <- function(x){
+  vec <- unlist(x)
+  ret <- vec[duplicated(vec) | duplicated(vec, fromLast=TRUE)]
+  
+  if(length(ret)>0){
+    ret_df <- enframe_list(x)
+    ret_df <- ret_df[ret_df$text%in%unique(ret),]
+    ret_list <- split(ret_df$force_ns,ret_df$text)
+    ret_chr <- sapply(names(ret_list),function(nm){
+      sprintf('%s: %s',nm,paste(ret_list[[nm]],collapse = ', '))
+    },simplify = TRUE)
+    msg <- paste0(ret_chr,collapse = '\n')
+stop(
+sprintf('Conflicting namespace assignment in force argument\n%s',msg)
+)
+  }else{
+    TRUE
+  }
+
+}
