@@ -3,19 +3,23 @@
 #' @keywords Internal
 #' @param p result of `pretty_parse` > `parse`
 #' @param txt input text to `pretty_parse` 
-#' @param x file text
-parse_check <- function(p, txt) {
+#' @inheritParams pretty_namespace
+#' @importFrom rstudioapi navigateToFile
+#' @importFrom utils::askYesNo
+ 
+parse_check <- function(p, txt, ask) {
   if (inherits(p, "try-error")) {
+    if (!ask) stop(p) 
     .sf <- sys.frames()
     .sc <- sys.calls()
     # get the top level sinew call
-    top_call <- min(which(grepl("pretty", lapply(.sc, `[[`, 1))))
+    top_call <- min(which(grepl("^pretty", lapply(.sc, `[[`, 1))))
     if (!any(top_call)) stop(p)
     # get the object names in that environment
     .vars <- ls(envir = .sf[min(top_call)][[1]])
     # get the object name for the connection/input file
     .var <- grepl("(?:^con$)|(?:^input$)" , .vars, perl = TRUE)
-    if (!any(.var)) stop(p)
+    if (!any(.var)) stop(p) # fail if no suitable con/input found (text was input)
     # get the connection/input filename
     .path <- get0(.vars[.var], envir = .sf[top_call][[1]], mode = "character")
     if (interactive() && !is.null(.path)) {
@@ -39,10 +43,10 @@ parse_check <- function(p, txt) {
   }
 }
 
-pretty_parse <- function(txt){
+pretty_parse <- function(txt, ask){
   
   p <- try(parse(text = txt,keep.source = TRUE), silent = TRUE)
-  p <- parse_check(p, txt)
+  p <- parse_check(p, txt, ask)
   p1 <- utils::getParseData(p)
   
   rmParent <- p1$parent[p1$token == "SYMBOL_PACKAGE"]
