@@ -73,7 +73,7 @@ jobs:
       - name: Deploy package
         if: github.ref == 'refs/heads/master'
         run: |
-          Rscript -e 'remotes::install_github("metrumresearchgroup/pkgdown")' \
+          Rscript -e 'remotes::install_github("yonicd/pkgdown")' \
                   -e "pkgdown:::deploy_local(new_process = FALSE, remote_url = 'https://x-access-token:${{secrets.GITHUB_PAT}}@github.com/${{github.repository}}.git')"          
 
       - name: Upload check results

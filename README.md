@@ -1,15 +1,15 @@
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sinew)](https://cran.r-project.org/package=sinew)
 [![](https://cranlogs.r-pkg.org/badges/sinew)](https://cran.r-project.org/package=sinew)
 [![R-win build
-status](https://github.com/metrumresearchgroup/sinew/workflows/R-win/badge.svg)](https://github.com/metrumresearchgroup/sinew)
+status](https://github.com/yonicd/sinew/workflows/R-win/badge.svg)](https://github.com/yonicd/sinew)
 [![R-mac build
-status](https://github.com/metrumresearchgroup/sinew/workflows/R-mac/badge.svg)](https://github.com/metrumresearchgroup/sinew)
+status](https://github.com/yonicd/sinew/workflows/R-mac/badge.svg)](https://github.com/yonicd/sinew)
 [![R-linux build
-status](https://github.com/metrumresearchgroup/sinew/workflows/R-linux/badge.svg)](https://github.com/metrumresearchgroup/sinew)
+status](https://github.com/yonicd/sinew/workflows/R-linux/badge.svg)](https://github.com/yonicd/sinew)
 [![Coverage
-Status](https://img.shields.io/codecov/c/github/metrumresearchgroup/sinew/master.svg)](https://codecov.io/github/metrumresearchgroup/sinew?branch=master)
+Status](https://img.shields.io/codecov/c/github/yonicd/sinew/master.svg)](https://codecov.io/github/yonicd/sinew?branch=master)
 [![Covrpage
-Summary](https://img.shields.io/badge/covrpage-Last_Build_2020_11_09-brightgreen.svg)](https://github.com/metrumresearchgroup/sinew/tree/master/tests/README.md)
+Summary](https://img.shields.io/badge/covrpage-Last_Build_2020_11_09-brightgreen.svg)](https://github.com/yonicd/sinew/tree/master/tests/README.md)
 
 # Sinew
 
@@ -35,7 +35,7 @@ install.packages('sinew')
 
 ```r
 install.packages('remotes')
-remotes::install_github('metrumresearchgroup/sinew')
+remotes::install_github('yonicd/sinew')
 ```
 
 ## More Details

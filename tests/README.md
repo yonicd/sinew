@@ -6,7 +6,7 @@ Tests and Coverage
   - [Unit Tests](#unit-tests)
 
 This output is created by
-[covrpage](https://github.com/metrumresearchgroup/covrpage).
+[covrpage](https://github.com/yonicd/covrpage).
 
 ## Coverage
 
