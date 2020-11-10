@@ -1,7 +1,7 @@
 testthat::context('check_attach')
 
 testthat::describe('test check attach',{
-  
+  testthat::skip_on_ci()
   nenv <- new.env()
   
   sinew:::check_attach('testthat::test_dir',nenv)
