@@ -26,6 +26,7 @@ Imports:
 License: MIT + file LICENSE
 Suggests: 
     rcmdcheck,
+    git2r,
     shiny,
     miniUI,
     withr,

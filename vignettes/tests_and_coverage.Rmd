@@ -3,7 +3,7 @@ title: "Tests and Coverage"
 date: "`r format(Sys.time(), '%d %B, %Y %H:%M:%S')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{covrpage: Tests and Coverage}
+  %\VignetteIndexEntry{Tests and Coverage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -54,7 +54,7 @@ Coverage summary is created using the
 | [R/zzz.R](https://github.com/yonicd/sinew/tree/master/R/zzz.R)                                 |    11.11     |
 | [R/pretty\_utils.R](https://github.com/yonicd/sinew/tree/master/R/pretty_utils.R)              |    53.93     |
 | [R/make\_seealso.R](https://github.com/yonicd/sinew/tree/master/R/make_seealso.R)              |    58.82     |
-| [R/makeImport.R](https://github.com/yonicd/sinew/tree/master/R/makeImport.R)                   |    61.02     |
+| [R/make_import.R](https://github.com/yonicd/sinew/tree/master/R/make_import.R)                   |    61.02     |
 | [R/pretty\_namespace.R](https://github.com/yonicd/sinew/tree/master/R/pretty_namespace.R)      |    83.33     |
 | [R/tabular.R](https://github.com/yonicd/sinew/tree/master/R/tabular.R)                         |    88.89     |
 | [R/prettify.R](https://github.com/yonicd/sinew/tree/master/R/prettify.R)                       |    94.74     |

@@ -22,7 +22,7 @@ The suggested workflow for sinew is an extension of the [alternative documentati
   1. Develop `R` script for the package using proper namespacing definitions, i.e. `package::function`, or use `sinew::pretty_namespace`. Focus *only* on the function and package logic.
   1. Run `sinew::makeOxygen` (single file) or `sinew::makeOxyFile` (directory) to create skeletons. It is suggested to use the [styler](https://github.com/r-lib/styler) package beforehand to have ensure proper R script syntax conventions.
   1. Fill in the relevant descriptions and examples.
-Run `sinew::makeImport` to create the correct `Imports` in the `DESCRIPTION` file.
+Run `sinew::make_import` to create the correct `Imports` in the `DESCRIPTION` file.
   1. Build the Package
 
 **Package Maintenance**
@@ -30,5 +30,5 @@ Run `sinew::makeImport` to create the correct `Imports` in the `DESCRIPTION` fil
   1. Update functions as needed
   1. Run `sinew::moga` on updated functions
   1. Fill in the relevant descriptions and examples.
-  1. If needed run `sinew::makeImport` to create the correct Imports in the `DESCRIPTION` file.
+  1. If needed run `sinew::make_import` to create the correct Imports in the `DESCRIPTION` file.
   1. Build the Package

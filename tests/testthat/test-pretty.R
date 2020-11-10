@@ -6,10 +6,10 @@ testthat::describe('switches',{
   
   it('force',{
     
-    skip_on_travis()
+    skip_on_ci()
     skip_if_not_rstudio()
     
-    loadNamespace('git2r')
+    require(git2r)
     
     x <- pretty_namespace(con = '../assets',force = list(stats='head'))
     
