@@ -1,6 +1,6 @@
 Tests and Coverage
 ================
-09 November, 2020 20:45:36
+09 November, 2020 20:55:46
 
   - [Coverage](#coverage)
   - [Unit Tests](#unit-tests)
@@ -15,7 +15,7 @@ Coverage summary is created using the
 
 | Object                                                | Coverage (%) |
 | :---------------------------------------------------- | :----------: |
-| sinew                                                 |    19.05     |
+| sinew                                                 |    18.09     |
 | [R/create\_yml.R](../R/create_yml.R)                  |     0.00     |
 | [R/get\_oxy.R](../R/get_oxy.R)                        |     0.00     |
 | [R/interOxyAddIn.R](../R/interOxyAddIn.R)             |     0.00     |
@@ -31,6 +31,7 @@ Coverage summary is created using the
 | [R/pretty\_rmd.R](../R/pretty_rmd.R)                  |     0.00     |
 | [R/pretty\_sinew.R](../R/pretty_sinew.R)              |     0.00     |
 | [R/rm\_oxylines.R](../R/rm_oxylines.R)                |     0.00     |
+| [R/rmOxygen.R](../R/rmOxygen.R)                       |     0.00     |
 | [R/something.R](../R/something.R)                     |     0.00     |
 | [R/untangle\_examples.R](../R/untangle_examples.R)    |     0.00     |
 | [R/untangle.R](../R/untangle.R)                       |     0.00     |
@@ -41,7 +42,6 @@ Coverage summary is created using the
 | [R/makeImport.R](../R/makeImport.R)                   |    61.02     |
 | [R/pretty\_namespace.R](../R/pretty_namespace.R)      |    83.33     |
 | [R/tabular.R](../R/tabular.R)                         |    88.89     |
-| [R/rmOxygen.R](../R/rmOxygen.R)                       |    92.31     |
 | [R/prettify.R](../R/prettify.R)                       |    94.74     |
 | [R/check\_attach.R](../R/check_attach.R)              |    100.00    |
 
@@ -54,10 +54,10 @@ Unit Test summary is created using the
 
 | file                                                 |  n |  time | error | failed | skipped | warning |
 | :--------------------------------------------------- | -: | ----: | ----: | -----: | ------: | ------: |
-| [test-check\_attach.R](testthat/test-check_attach.R) |  2 | 0.015 |     0 |      0 |       0 |       0 |
+| [test-check\_attach.R](testthat/test-check_attach.R) |  2 | 0.013 |     0 |      0 |       0 |       0 |
 | [test-init.R](testthat/test-init.R)                  |  1 | 0.001 |     0 |      0 |       0 |       0 |
-| [test-pretty.R](testthat/test-pretty.R)              | 14 | 0.901 |     0 |      0 |       0 |       0 |
-| [test-rm.R](testthat/test-rm.R)                      |  4 | 0.022 |     0 |      0 |       0 |       0 |
+| [test-pretty.R](testthat/test-pretty.R)              | 14 | 1.664 |     0 |      0 |       0 |       0 |
+| [test-rm.R](testthat/test-rm.R)                      |  4 | 0.066 |     0 |      0 |       0 |       0 |
 | [test-seealso.R](testthat/test-seealso.R)            |  2 | 0.002 |     0 |      0 |       0 |       0 |
 | [test-tabular.R](testthat/test-tabular.R)            |  3 | 0.004 |     0 |      0 |       0 |       0 |
 
@@ -67,31 +67,31 @@ Unit Test summary is created using the
 
 | file                                                  | context       | test                                           | status | n |  time |
 | :---------------------------------------------------- | :------------ | :--------------------------------------------- | :----- | -: | ----: |
-| [test-check\_attach.R](testthat/test-check_attach.R#) | check\_attach | test check attach: already loaded              | PASS   | 1 | 0.014 |
+| [test-check\_attach.R](testthat/test-check_attach.R#) | check\_attach | test check attach: already loaded              | PASS   | 1 | 0.012 |
 | [test-check\_attach.R](testthat/test-check_attach.R#) | check\_attach | test check attach: not already loaded          | PASS   | 1 | 0.001 |
 | [test-init.R](testthat/test-init.R#L6)                | init          | first test: dummy                              | PASS   | 1 | 0.001 |
-| [test-pretty.R](testthat/test-pretty.R#L16)           | pretty        | switches: force                                | PASS   | 2 | 0.265 |
-| [test-pretty.R](testthat/test-pretty.R#L27)           | pretty        | switches: ignore                               | PASS   | 1 | 0.229 |
+| [test-pretty.R](testthat/test-pretty.R#L16)           | pretty        | switches: force                                | PASS   | 2 | 1.152 |
+| [test-pretty.R](testthat/test-pretty.R#L27)           | pretty        | switches: ignore                               | PASS   | 1 | 0.222 |
 | [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup files: length                            | PASS   | 1 | 0.001 |
 | [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup files: class                             | PASS   | 1 | 0.001 |
 | [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup files: names                             | PASS   | 1 | 0.001 |
-| [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup file: length                             | PASS   | 1 | 0.001 |
+| [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup file: length                             | PASS   | 1 | 0.000 |
 | [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup file: class                              | PASS   | 1 | 0.001 |
 | [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup file: names                              | PASS   | 1 | 0.001 |
 | [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup text: length                             | PASS   | 1 | 0.001 |
 | [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup text: class                              | PASS   | 1 | 0.001 |
-| [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup text: names                              | PASS   | 1 | 0.002 |
-| [test-pretty.R](testthat/test-pretty.R#L67_L69)       | pretty        | full text: txt                                 | PASS   | 1 | 0.125 |
-| [test-pretty.R](testthat/test-pretty.R#L79_L81)       | pretty        | full file: file                                | PASS   | 1 | 0.272 |
+| [test-pretty.R](testthat/test-pretty.R#)              | pretty        | setup text: names                              | PASS   | 1 | 0.001 |
+| [test-pretty.R](testthat/test-pretty.R#L67_L69)       | pretty        | full text: txt                                 | PASS   | 1 | 0.095 |
+| [test-pretty.R](testthat/test-pretty.R#L79_L81)       | pretty        | full file: file                                | PASS   | 1 | 0.187 |
 | [test-rm.R](testthat/test-rm.R#L17_L20)               | remove oxygen | rm valid actions: no show file                 | PASS   | 1 | 0.005 |
-| [test-rm.R](testthat/test-rm.R#L27_L30)               | remove oxygen | rm valid actions: show file                    | PASS   | 1 | 0.002 |
-| [test-rm.R](testthat/test-rm.R#L48_L51)               | remove oxygen | rm invalid actions: extension                  | PASS   | 1 | 0.008 |
-| [test-rm.R](testthat/test-rm.R#L57_L60)               | remove oxygen | rm invalid actions: path                       | PASS   | 1 | 0.007 |
+| [test-rm.R](testthat/test-rm.R#L27_L30)               | remove oxygen | rm valid actions: show file                    | PASS   | 1 | 0.029 |
+| [test-rm.R](testthat/test-rm.R#L48_L51)               | remove oxygen | rm invalid actions: extension                  | PASS   | 1 | 0.015 |
+| [test-rm.R](testthat/test-rm.R#L57_L60)               | remove oxygen | rm invalid actions: path                       | PASS   | 1 | 0.017 |
 | [test-seealso.R](testthat/test-seealso.R#)            | make seealso  | cutoff: less than cutoff                       | PASS   | 1 | 0.001 |
 | [test-seealso.R](testthat/test-seealso.R#)            | make seealso  | no cutoff: no elements                         | PASS   | 1 | 0.001 |
-| [test-tabular.R](testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular header: length    | PASS   | 1 | 0.001 |
+| [test-tabular.R](testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular header: length    | PASS   | 1 | 0.002 |
 | [test-tabular.R](testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular header: class     | PASS   | 1 | 0.001 |
-| [test-tabular.R](testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular no header: length | PASS   | 1 | 0.002 |
+| [test-tabular.R](testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular no header: length | PASS   | 1 | 0.001 |
 
 </details>
 
