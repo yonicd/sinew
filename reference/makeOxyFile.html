@@ -93,7 +93,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/metrumresearchgroup/sinew">
+  <a href="https://github.com/yonicd/sinew">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -171,7 +171,7 @@ require <code><a href='https://rdrr.io/r/base/library.html'>library(purrr)</a></
 
 <span class='co'># update namespaces in package functions</span>
   <span class='fu'><a href='pretty_namespace.html'>pretty_namespace</a></span>(<span class='no'>pkg_dir_R</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
-#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpuOLxPg/pkg/R/yy.R':
+#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp7YDt2c/pkg/R/yy.R':
 #&gt; 
 #&gt; ✔: found, <span style='color: #BB0000;'>✖</span><span>: not found, (): instances, ☒: user intervention
 #&gt; 
@@ -179,7 +179,7 @@ require <code><a href='https://rdrr.io/r/base/library.html'>library(purrr)</a></
 #&gt;  ✔ stats::runif (1) 
 #&gt; 
 #&gt; 
-#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpuOLxPg/pkg/R/zz.R':
+#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp7YDt2c/pkg/R/zz.R':
 #&gt; 
 #&gt; ✔: found, </span><span style='color: #BB0000;'>✖</span><span>: not found, (): instances, ☒: user intervention
 #&gt; 
@@ -248,7 +248,7 @@ require <code><a href='https://rdrr.io/r/base/library.html'>library(purrr)</a></
    <span class='fu'><a href='rmOxygen.html'>rmOxygen</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='no'>pkg_dir_R</span>,<span class='st'>'yy.R'</span>))
    <span class='fu'><a href='rmOxygen.html'>rmOxygen</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='no'>pkg_dir_R</span>,<span class='st'>'zz.R'</span>))
 
- <span class='co'># adds more fields to defaults, passes "cut" to makeImport</span>
+ <span class='co'># adds more fields to defaults, passes "cut" to make_import</span>
    <span class='no'>sinew_opts</span>$<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>add_fields</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"concept"</span>, <span class='st'>"describeIn"</span>)))
    <span class='fu'>makeOxyFile</span>(<span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='no'>pkg_dir_R</span>,<span class='st'>'yy.R'</span>), <span class='kw'>cut</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; #' @title FUNCTION_TITLE
 #&gt; #' @description FUNCTION_DESCRIPTION

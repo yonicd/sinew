@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update Package Description File — update_desc • sinew</title>
+<title>Populate import fields for documentation — make_import • sinew</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Update Package Description File — update_desc" />
-<meta property="og:description" content="Update package DESCRIPTION file Imports field" />
+<meta property="og:title" content="Populate import fields for documentation — make_import" />
+<meta property="og:description" content="Scrape R script to create import and importFrom calls for
+roxygen2, namespace or description files" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,33 +118,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update Package Description File</h1>
+    <h1>Populate import fields for documentation</h1>
     <small class="dont-index">Source: <a href='https://github.com/yonicd/sinew/blob/master/R/makeImport.R'><code>R/makeImport.R</code></a></small>
-    <div class="hidden name"><code>update_desc.Rd</code></div>
+    <div class="hidden name"><code>make_import.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Update package DESCRIPTION file Imports field</p>
+    <p>Scrape <code>R</code> script to create import and importFrom calls for
+roxygen2, namespace or description files</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_desc</span>(<span class='no'>path</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>make_import</span>(
+  <span class='no'>script</span>,
+  <span class='kw'>cut</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"oxygen"</span>,
+  <span class='kw'>desc_loc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>character, path to R folder containing package functions</p></td>
+      <th>script</th>
+      <td><p>character, connection to pass to readLines, can be file path,
+directory path, url path</p></td>
     </tr>
     <tr>
-      <th>overwrite</th>
-      <td><p>logical, overwrite the file, Default: TRUE</p></td>
+      <th>cut</th>
+      <td><p>integer, number of functions to write as importFrom until
+switches to import, Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>print</th>
+      <td><p>boolean, print output to console, Default: TRUE</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p>character, the output format must be in
+c('oxygen','description','import'), Default: 'oxygen'</p></td>
+    </tr>
+    <tr>
+      <th>desc_loc</th>
+      <td><p>character, path to DESCRIPTION file,
+if not NULL then the Imports fields in the DESCRIPTION file, Default: NULL</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>If overwrite is FALSE then the output will be returned to the console.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -154,7 +175,7 @@
 <span class='no'>pkg_dir_DESC</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='no'>pkg_dir</span>,<span class='st'>'DESCRIPTION'</span>)
 
 <span class='co'># update namespaces in package functions</span>
-<span class='fu'><a href='pretty_namespace.html'>pretty_namespace</a></span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+<span class='fu'><a href='pretty_namespace.html'>pretty_namespace</a></span>(<span class='no'>pkg_dir_R</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
 #&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp7YDt2c/pkg/R/yy.R':
 #&gt; 
 #&gt; ✔: found, <span style='color: #BB0000;'>✖</span><span>: not found, (): instances, ☒: user intervention
@@ -170,13 +191,20 @@
 #&gt;  ✔ utils::head  (1) 
 #&gt;  ✔ stats::runif (1) 
 #&gt; </div><div class='input'>
-<span class='co'># send result to the console</span>
-<span class='fu'>update_desc</span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Imports: utils,stats</div><div class='input'>
-<span class='co'># overwrite the Imports field</span>
-<span class='fu'>update_desc</span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='co'># view DESCRIPTION file</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>pkg_dir_DESC</span>),<span class='kw'>sep</span><span class='kw'>=</span><span class='st'>'\n'</span>)</div><div class='output co'>#&gt; Package: pkg
+<span class='co'># update imports/importsFrom for roxygen2 tags</span>
+<span class='fu'>make_import</span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>'oxygen'</span>)</div><div class='output co'>#&gt;  
+#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp7YDt2c/pkg/R/yy.R
+#&gt; #' @importFrom utils head
+#&gt; #' @importFrom stats runif
+#&gt;  
+#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp7YDt2c/pkg/R/zz.R
+#&gt; #' @importFrom utils head
+#&gt; #' @importFrom stats runif</div><div class='input'>
+<span class='co'># update Imports for DESCRIPTION file output to console</span>
+<span class='fu'>make_import</span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>'description'</span>)</div><div class='output co'>#&gt; Imports: utils,stats</div><div class='input'>
+<span class='co'># update Imports for DESCRIPTION file overwrite file</span>
+<span class='fu'>make_import</span>(<span class='no'>pkg_dir_R</span>,<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>'description'</span>, <span class='kw'>desc_loc</span> <span class='kw'>=</span> <span class='no'>pkg_dir</span>)</div><div class='output co'>#&gt; Imports: utils,stats</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>pkg_dir_DESC</span>),<span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>'\n'</span>)</div><div class='output co'>#&gt; Package: pkg
 #&gt; Title: What the Package Does (One Line, Title Case)
 #&gt; Version: 0.0.0.9000
 #&gt; Authors@R: person(given = "First", family = "Last", role = c("aut",
@@ -190,18 +218,15 @@
 #&gt; RoxygenNote: 6.1.1
 #&gt; Imports: utils,stats</div><div class='input'>
 <span class='co'># cleanup tempdir</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='no'>pkg_dir</span>,<span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='no'>pkg_dir</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>Jonathan Sidi</p>
   </div>
 </div>
 

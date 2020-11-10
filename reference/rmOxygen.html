@@ -93,7 +93,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/metrumresearchgroup/sinew">
+  <a href="https://github.com/yonicd/sinew">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -126,14 +126,18 @@
     <p>Strips .R files of roxygen2 style comments (#')</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rmOxygen</span>(<span class='no'>.file</span>)</pre>
+    <pre class="usage"><span class='fu'>rmOxygen</span>(<span class='no'>.file</span>, <span class='kw'>showonexit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.file, </th>
-      <td><p>path to an .R file, character vector of length 1</p></td>
+      <th>.file</th>
+      <td><p>character, path to an .R file, character vector of length 1</p></td>
+    </tr>
+    <tr>
+      <th>showonexit</th>
+      <td><p>logical, show file on exit. Default: TRUE</p></td>
     </tr>
     </table>
 
