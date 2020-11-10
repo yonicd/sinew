@@ -2,7 +2,7 @@ testthat::context('make seealso')
 
 testthat::describe('cutoff',{
   
-  ret <- make_seealso(makeOxyFile,2)
+  ret <- make_seealso(makeOxyFile,1)
   
   it('less than cutoff',expect_equal(ret,"\n#'  "))
   
@@ -19,7 +19,7 @@ testthat::describe('no cutoff',{
   
   ret <- make_seealso(makeOxyFile)
   
-  it('simple call',expect_true(grepl('link',ret)))
+  it('simple call',expect_true(grepl('link',ret[1])))
     
 })
   

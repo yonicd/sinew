@@ -8,7 +8,7 @@ testthat::context('remove oxygen')
       from = '../assets/baseline_oxy.R',
       tf_oxy,overwrite = TRUE)
     
- #   skip_if_not_rstudio()
+    skip_if_not_rstudio()
     
     it('no show file',{
       
@@ -35,7 +35,7 @@ testthat::context('remove oxygen')
   
   testthat::describe('rm invalid actions',{
     
- #   skip_if_not_rstudio()
+    skip_if_not_rstudio()
     
     tf_txt <- tempfile(pattern = 'baseline',fileext = '.txt')
     
