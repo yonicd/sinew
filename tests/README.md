@@ -1,6 +1,6 @@
 Tests and Coverage
 ================
-06 August, 2020 16:35:32
+10 November, 2020 02:24:42
 
   - [Coverage](#coverage)
   - [Unit Tests](#unit-tests)
@@ -15,35 +15,35 @@ Coverage summary is created using the
 
 | Object                                                | Coverage (%) |
 | :---------------------------------------------------- | :----------: |
-| sinew                                                 |     0.16     |
+| sinew                                                 |    17.77     |
 | [R/check\_attach.R](../R/check_attach.R)              |     0.00     |
 | [R/create\_yml.R](../R/create_yml.R)                  |     0.00     |
 | [R/get\_oxy.R](../R/get_oxy.R)                        |     0.00     |
 | [R/interOxyAddIn.R](../R/interOxyAddIn.R)             |     0.00     |
 | [R/ls\_param.R](../R/ls_param.R)                      |     0.00     |
 | [R/makeDictionary.R](../R/makeDictionary.R)           |     0.00     |
-| [R/makeImport.R](../R/makeImport.R)                   |     0.00     |
 | [R/makeOxyFile.R](../R/makeOxyFile.R)                 |     0.00     |
 | [R/makeOxygen.R](../R/makeOxygen.R)                   |     0.00     |
-| [R/makeSeeAlso.R](../R/makeSeeAlso.R)                 |     0.00     |
 | [R/moga.R](../R/moga.R)                               |     0.00     |
 | [R/opts\_complete.R](../R/opts_complete.R)            |     0.00     |
-| [R/opts.R](../R/opts.R)                               |     0.00     |
 | [R/oxygenAddin.R](../R/oxygenAddin.R)                 |     0.00     |
-| [R/prettify.R](../R/prettify.R)                       |     0.00     |
 | [R/pretty\_addin\_utils.R](../R/pretty_addin_utils.R) |     0.00     |
 | [R/pretty\_addin.R](../R/pretty_addin.R)              |     0.00     |
-| [R/pretty\_namespace.R](../R/pretty_namespace.R)      |     0.00     |
 | [R/pretty\_rmd.R](../R/pretty_rmd.R)                  |     0.00     |
 | [R/pretty\_sinew.R](../R/pretty_sinew.R)              |     0.00     |
-| [R/pretty\_utils.R](../R/pretty_utils.R)              |     0.00     |
 | [R/rm\_oxylines.R](../R/rm_oxylines.R)                |     0.00     |
 | [R/rmOxygen.R](../R/rmOxygen.R)                       |     0.00     |
 | [R/something.R](../R/something.R)                     |     0.00     |
-| [R/tabular.R](../R/tabular.R)                         |     0.00     |
 | [R/untangle\_examples.R](../R/untangle_examples.R)    |     0.00     |
 | [R/untangle.R](../R/untangle.R)                       |     0.00     |
+| [R/opts.R](../R/opts.R)                               |     5.88     |
 | [R/zzz.R](../R/zzz.R)                                 |    11.11     |
+| [R/pretty\_utils.R](../R/pretty_utils.R)              |    51.69     |
+| [R/makeImport.R](../R/makeImport.R)                   |    62.71     |
+| [R/pretty\_namespace.R](../R/pretty_namespace.R)      |    83.33     |
+| [R/tabular.R](../R/tabular.R)                         |    88.89     |
+| [R/make\_seealso.R](../R/make_seealso.R)              |    94.12     |
+| [R/prettify.R](../R/prettify.R)                       |    94.74     |
 
 <br>
 
@@ -52,17 +52,41 @@ Coverage summary is created using the
 Unit Test summary is created using the
 [testthat](https://github.com/r-lib/testthat) package.
 
-| file                                | n |  time | error | failed | skipped | warning |
-| :---------------------------------- | -: | ----: | ----: | -----: | ------: | ------: |
-| [test-init.R](testthat/test-init.R) | 1 | 0.033 |     0 |      0 |       0 |       0 |
+| file                                      |  n |  time | error | failed | skipped | warning | icon |
+| :---------------------------------------- | -: | ----: | ----: | -----: | ------: | ------: | :--- |
+| [test-pretty.R](testthat/test-pretty.R)   | 13 | 0.802 |     0 |      0 |       1 |       0 | 🔶    |
+| [test-seealso.R](testthat/test-seealso.R) |  3 | 0.007 |     0 |      0 |       0 |       0 |      |
+| [test-tabular.R](testthat/test-tabular.R) |  3 | 0.007 |     0 |      0 |       0 |       0 |      |
 
-<details closed>
+<details open>
 
 <summary> Show Detailed Test Results </summary>
 
-| file                                   | context | test              | status | n |  time |
-| :------------------------------------- | :------ | :---------------- | :----- | -: | ----: |
-| [test-init.R](testthat/test-init.R#L6) | init    | first test: dummy | PASS   | 1 | 0.033 |
+| file                                            | context      | test                                           | status  | n |  time | icon |
+| :---------------------------------------------- | :----------- | :--------------------------------------------- | :------ | -: | ----: | :--- |
+| [test-pretty.R](testthat/test-pretty.R#L9)      | pretty       | switches: force                                | SKIPPED | 1 | 0.021 | 🔶    |
+| [test-pretty.R](testthat/test-pretty.R#L27)     | pretty       | switches: ignore                               | PASS    | 1 | 0.405 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup files: length                            | PASS    | 1 | 0.001 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup files: class                             | PASS    | 1 | 0.160 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup files: names                             | PASS    | 1 | 0.002 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup file: length                             | PASS    | 1 | 0.001 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup file: class                              | PASS    | 1 | 0.005 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup file: names                              | PASS    | 1 | 0.001 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup text: length                             | PASS    | 1 | 0.001 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup text: class                              | PASS    | 1 | 0.006 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup text: names                              | PASS    | 1 | 0.001 |      |
+| [test-pretty.R](testthat/test-pretty.R#L67_L69) | pretty       | full text: txt                                 | PASS    | 1 | 0.108 |      |
+| [test-pretty.R](testthat/test-pretty.R#L79_L81) | pretty       | full file: file                                | PASS    | 1 | 0.090 |      |
+| [test-seealso.R](testthat/test-seealso.R#)      | make seealso | cutoff: less than cutoff                       | PASS    | 1 | 0.001 |      |
+| [test-seealso.R](testthat/test-seealso.R#)      | make seealso | no cutoff: no elements                         | PASS    | 1 | 0.001 |      |
+| [test-seealso.R](testthat/test-seealso.R#)      | make seealso | no cutoff: simple call                         | PASS    | 1 | 0.005 |      |
+| [test-tabular.R](testthat/test-tabular.R#)      | tabular      | convert dataframe to tabular header: length    | PASS    | 1 | 0.001 |      |
+| [test-tabular.R](testthat/test-tabular.R#)      | tabular      | convert dataframe to tabular header: class     | PASS    | 1 | 0.004 |      |
+| [test-tabular.R](testthat/test-tabular.R#)      | tabular      | convert dataframe to tabular no header: length | PASS    | 1 | 0.002 |      |
+
+| Failed | Warning | Skipped |
+| :----- | :------ | :------ |
+| 🛑      | ⚠️      | 🔶       |
 
 </details>
 
@@ -70,20 +94,20 @@ Unit Test summary is created using the
 
 <summary> Session Info </summary>
 
-| Field    | Value                               |                                                                                                                                                                                                                                                               |
-| :------- | :---------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Version  | R version 3.6.3 (2020-02-29)        |                                                                                                                                                                                                                                                               |
-| Platform | x86\_64-apple-darwin15.6.0 (64-bit) | <a href="https://github.com/yonicd/sinew/commit/d05d28692008ecd71e4cb5826146a3f2d3c5498f/checks" target="_blank"><span title="Built on Github Actions">![](https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true)</span></a> |
-| Running  | macOS Catalina 10.15.6              |                                                                                                                                                                                                                                                               |
-| Language | en\_US                              |                                                                                                                                                                                                                                                               |
-| Timezone | UTC                                 |                                                                                                                                                                                                                                                               |
+| Field    | Value                             |                                                                                                                                                                                                                                                               |
+| :------- | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Version  | R version 4.0.3 (2020-10-10)      |                                                                                                                                                                                                                                                               |
+| Platform | x86\_64-apple-darwin17.0 (64-bit) | <a href="https://github.com/yonicd/sinew/commit/47633c4b7cf4c4558f3e46b153039fe371df7fb6/checks" target="_blank"><span title="Built on Github Actions">![](https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true)</span></a> |
+| Running  | macOS Catalina 10.15.7            |                                                                                                                                                                                                                                                               |
+| Language | en\_US                            |                                                                                                                                                                                                                                                               |
+| Timezone | UTC                               |                                                                                                                                                                                                                                                               |
 
 | Package  | Version |
 | :------- | :------ |
-| testthat | 2.3.2   |
+| testthat | 3.0.0   |
 | covr     | 3.3.2   |
 | covrpage | 0.0.71  |
 
 </details>
 
-<!--- Final Status : pass --->
+<!--- Final Status : skipped/warning --->

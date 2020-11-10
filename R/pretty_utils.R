@@ -91,7 +91,7 @@ pretty_manip <- function(sym.funs, force, ignore){
     sym.funs <- pretty_merge(sym.funs,ignore,'remove')
   }
   
-  sym.funs$new_text <- sprintf('%s::%s',sym.funs$namespace, sym.funs$text)  
+    sym.funs$new_text <- sprintf('%s%s',ifelse(nzchar(sym.funs$namespace), paste0(sym.funs$namespace,"::"), ''), sym.funs$text)
   
   sym.funs
 }
@@ -160,15 +160,19 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
           
           intersect_choices <- intersect(persistent_choices,choices)
           
-          if(length(intersect_choices)>0){
+          
+          
+          if(length(intersect_choices) > 0){
             
             choice <- intersect_choices
             
-          }else{
+          } else if (paste0("Ignore::", fun) %in% persistent_choices) {
+            choice <- ''
+          } else {
           
-            menu_choices <- c(sprintf('%s(*)',choices),choices)
+            menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "Ignore Instance", "Ignore All(*)"))
             
-            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances\none will omit a namespace',fun)
+            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
             
             choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
             
@@ -176,11 +180,16 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
               
               if(grepl('\\(*\\)$',choice)){
                 clean_choice <- gsub('\\(\\*\\)$','',choice)
+
+                if (grepl("^Ignore\\sAll", choice)) {
+                  clean_choice <- paste0("Ignore::",fun)
+                }
+
                 assign(clean_choice,TRUE,askenv)
               }
               
           }
-          
+          if (grepl("^Ignore\\s", choice)) choice <- ''
           pkg_choice <- gsub(':(.*?)$','',choice)  
           
         }else{
@@ -307,3 +316,23 @@ mf <- function(x, pat) {
   ns
 }
 
+validate_force <- function(x){
+  vec <- unlist(x)
+  ret <- vec[duplicated(vec) | duplicated(vec, fromLast=TRUE)]
+  
+  if(length(ret)>0){
+    ret_df <- enframe_list(x)
+    ret_df <- ret_df[ret_df$text%in%unique(ret),]
+    ret_list <- split(ret_df$force_ns,ret_df$text)
+    ret_chr <- sapply(names(ret_list),function(nm){
+      sprintf('%s: %s',nm,paste(ret_list[[nm]],collapse = ', '))
+    },simplify = TRUE)
+    msg <- paste0(ret_chr,collapse = '\n')
+stop(
+sprintf('Conflicting namespace assignment in force argument\n%s',msg)
+)
+  }else{
+    TRUE
+  }
+
+}

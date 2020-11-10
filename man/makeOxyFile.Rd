@@ -52,7 +52,7 @@ require \code{library(purrr)} before proceeding with \code{makeOxyFile}.
    rmOxygen(file.path(pkg_dir_R,'yy.R'))
    rmOxygen(file.path(pkg_dir_R,'zz.R'))
    
- # adds more fields to defaults, passes "cut" to makeImport
+ # adds more fields to defaults, passes "cut" to make_import
    sinew_opts$append(list(add_fields=c("concept", "describeIn")))
    makeOxyFile(file.path(pkg_dir_R,'yy.R'), cut = 5)
  
