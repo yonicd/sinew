@@ -91,7 +91,7 @@ pretty_manip <- function(sym.funs, force, ignore){
     sym.funs <- pretty_merge(sym.funs,ignore,'remove')
   }
   
-  sym.funs$new_text <- sprintf('%s::%s',sym.funs$namespace, sym.funs$text)  
+    sym.funs$new_text <- sprintf('%s%s',ifelse(nzchar(sym.funs$namespace), paste0(sym.funs$namespace,"::"), ''), sym.funs$text)
   
   sym.funs
 }
@@ -160,27 +160,34 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
           
           intersect_choices <- intersect(persistent_choices,choices)
           
-          if(length(intersect_choices)>0){
+          
+          
+          if(length(intersect_choices) > 0){
             
             choice <- intersect_choices
             
-          }else{
+          } else if (paste0("Ignore::", fun) %in% persistent_choices) {
+            choice <- ''
+          } else {
           
-            menu_choices <- c(sprintf('%s(*)',choices),choices)
+            menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "Ignore Instance", "Ignore All(*)"))
             
-            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances\none will omit a namespace',fun)
+            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
             
             choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
             
-            choice <- menu_choices[choice_idx]
-            
-            if(grepl('\\(*\\)$',choice)){
-              clean_choice <- gsub('\\(\\*\\)$','',choice)
-              assign(clean_choice,TRUE,askenv)
-            }
+              choice <- menu_choices[choice_idx]
+              
+              if(grepl('\\(*\\)$',choice)){
+                clean_choice <- gsub('\\(\\*\\)$','',choice)
+                if (grepl("^Ignore\\sAll", choice)) {
+                  clean_choice <- paste0("Ignore::",fun)
+                }
+                assign(clean_choice,TRUE,askenv)
+              }
               
           }
-          
+          if (grepl("^Ignore\\s", choice)) choice <- ''
           pkg_choice <- gsub(':(.*?)$','',choice)  
           
         }else{
