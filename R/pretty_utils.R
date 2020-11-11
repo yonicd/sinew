@@ -13,7 +13,7 @@ parse_check <- function(p, txt, ask) {
     .sf <- sys.frames()
     .sc <- sys.calls()
     # get the top level sinew call
-    top_call <- min(which(grepl("^pretty", lapply(.sc, `[[`, 1))))
+    top_call <- min(which(grepl("^(?:sinew\\:\\:)?pretty", lapply(.sc, `[[`, 1))))
     if (!any(top_call)) stop(p)
     # get the object names in that environment
     .vars <- ls(envir = .sf[min(top_call)][[1]])
