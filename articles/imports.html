@@ -102,14 +102,14 @@
 <span id="cb2-2"><a href="#cb2-2"></a>pkg_dir_r &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir, <span class="st">'R'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
 <span id="cb2-4"><a href="#cb2-4"></a>usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span>(<span class="dt">path =</span> pkg_dir, <span class="dt">open =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; ✔ Creating '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmptBbBvB/pkg/'</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmptBbBvB/pkg'</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; ✔ Creating '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmphVmedr/pkg/'</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmphVmedr/pkg'</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; ✔ Creating 'R/'</span></span>
 <span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; ✔ Writing 'DESCRIPTION'</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; ✔ Writing 'NAMESPACE'</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; ✔ Setting active project to '&lt;no active project&gt;'</span></span>
 <span id="cb2-11"><a href="#cb2-11"></a>withr<span class="op">::</span><span class="kw"><a href="https://withr.r-lib.org/reference/with_dir.html">with_dir</a></span>(pkg_dir, usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data_raw</a></span>(<span class="dt">open =</span> <span class="ot">FALSE</span>))</span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmptBbBvB/pkg'</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmphVmedr/pkg'</span></span>
 <span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; ✔ Creating 'data-raw/'</span></span>
 <span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; ✔ Adding '^data-raw$' to '.Rbuildignore'</span></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; ✔ Writing 'data-raw/DATASET.R'</span></span>
@@ -160,17 +160,17 @@ Imports: utils,stats
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#single file</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="kw"><a href="../reference/make_import.html">make_import</a></span>(<span class="dt">script =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir_r,<span class="st">'yy.R'</span>) ,<span class="dt">format =</span> <span class="st">'oxygen'</span>)</span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt;  </span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptBbBvB/pkg/R/yy.R</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmphVmedr/pkg/R/yy.R</span></span>
 <span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt; #' @importFrom utils head</span></span>
 <span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt; #' @importFrom stats runif</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#whole directory</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="kw"><a href="../reference/make_import.html">make_import</a></span>(<span class="dt">script =</span> pkg_dir_r,<span class="dt">format =</span> <span class="st">'oxygen'</span>)</span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt;  </span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptBbBvB/pkg/R/yy.R</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmphVmedr/pkg/R/yy.R</span></span>
 <span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; #' @importFrom utils head</span></span>
 <span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; #' @importFrom stats runif</span></span>
 <span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt;  </span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptBbBvB/pkg/R/zz.R</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmphVmedr/pkg/R/zz.R</span></span>
 <span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; #' @importFrom utils head</span></span>
 <span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; #' @importFrom stats runif</span></span></code></pre></div>
 </div>
@@ -181,7 +181,7 @@ Imports: utils,stats
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#with cut</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="kw"><a href="../reference/make_import.html">make_import</a></span>(<span class="dt">script=</span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(pkg_dir_r,<span class="st">'yy.R'</span>),<span class="dt">format =</span> <span class="st">'oxygen'</span>, <span class="dt">cut =</span> <span class="dv">1</span>)</span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="co">#&gt;  </span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmptBbBvB/pkg/R/yy.R</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt; /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmphVmedr/pkg/R/yy.R</span></span>
 <span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt; #' @import utils</span></span>
 <span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; #' @import stats</span></span></code></pre></div>
 <div id="cleanup" class="section level3">

@@ -125,8 +125,8 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sinew)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pkg_dir &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(),<span class="st">'pkg'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a>usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span>(<span class="dt">path =</span> pkg_dir, <span class="dt">open =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; ✔ Creating '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpqsI4Dm/pkg/'</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpqsI4Dm/pkg'</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; ✔ Creating '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpQmm7Gd/pkg/'</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpQmm7Gd/pkg'</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; ✔ Creating 'R/'</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; ✔ Writing 'DESCRIPTION'</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; Package: pkg</span></span>
@@ -144,7 +144,7 @@
 <span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; ✔ Writing 'NAMESPACE'</span></span>
 <span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt; ✔ Setting active project to '&lt;no active project&gt;'</span></span>
 <span id="cb2-21"><a href="#cb2-21"></a>withr<span class="op">::</span><span class="kw"><a href="https://withr.r-lib.org/reference/with_dir.html">with_dir</a></span>(pkg_dir, usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data_raw</a></span>(<span class="dt">open =</span> <span class="ot">FALSE</span>))</span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpqsI4Dm/pkg'</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; ✔ Setting active project to '/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpQmm7Gd/pkg'</span></span>
 <span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt; ✔ Creating 'data-raw/'</span></span>
 <span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt; ✔ Adding '^data-raw$' to '.Rbuildignore'</span></span>
 <span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt; ✔ Writing 'data-raw/DATASET.R'</span></span>
@@ -217,7 +217,7 @@
 <span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; └── data-raw</span></span>
 <span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;     ├── DATASET.R</span></span>
 <span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;     ├── body.R</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;     └── filebad42a7d1b0.R</span></span></code></pre></div>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;     └── filee8338cd415d.R</span></span></code></pre></div>
 <details closed><p><summary><span title="Click to Expand"> Click to see body.R </span> </summary></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a></span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
@@ -246,7 +246,7 @@
 <p>This is where <code><a href="../reference/pretty_namespace.html">sinew::pretty_namespace</a></code> comes in. This function will go through your script and attach namespaces for you, with the same logic as the search path.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>sinew<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sinew/man/pretty_namespace.html">pretty_namespace</a></span>(pkg_dir_R,<span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; </span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpqsI4Dm/pkg/R/yy.R':</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpQmm7Gd/pkg/R/yy.R':</span></span>
 <span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; </span></span>
 <span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; ✔: found, ✖: not found, (): instances, ☒: user intervention</span></span>
 <span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; </span></span>
@@ -254,7 +254,7 @@
 <span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt;  ✔ stats::runif (1) </span></span>
 <span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; </span></span>
 <span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; </span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpqsI4Dm/pkg/R/zz.R':</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; functions changed in '/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpQmm7Gd/pkg/R/zz.R':</span></span>
 <span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; </span></span>
 <span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; ✔: found, ✖: not found, (): instances, ☒: user intervention</span></span>
 <span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; </span></span>
