@@ -10,6 +10,7 @@ pretty_rmd(
   open_output = TRUE,
   create_library = TRUE,
   chunks = NULL,
+  lookup_order = c("searchpath", "document", "library", "sos"),
   ...
 )
 }
@@ -23,6 +24,8 @@ pretty_rmd(
 \item{create_library}{boolean, create library chunk, Default: TRUE}
 
 \item{chunks}{numeric, indicies of chunks to run on, Default: NULL}
+
+\item{lookup_order}{locations in which namespaces should be searched/used. Respects the order of namespaces found in each location when namespacing functions and \code{ask = FALSE}.}
 
 \item{\dots}{arguments to pass to pretty_namespace}
 }
