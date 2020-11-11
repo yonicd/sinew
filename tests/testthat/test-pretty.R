@@ -6,7 +6,6 @@ testthat::describe('switches',{
   
   it('force',{
     
-    skip_on_ci()
     skip_if_not_rstudio()
     
     require(git2r)
@@ -20,7 +19,7 @@ testthat::describe('switches',{
   
   it('ignore',{
     
-    loadNamespace('git2r')
+    require('git2r')
     
     x <- pretty_namespace(con = '../assets',ignore  = list(git2r='head'))
     
@@ -54,19 +53,21 @@ testthat::describe('full text',{
   
   it('txt',{
     
-    txt <- 'patient_summaries <- patient_demogs %>% 
-  mutate(x = 
-    paste0(x + paste0(2)) # script should ignore base ns
-  ) %>%
-  gather(cov, value) %>%
-  group_by(cov) %>%
-  mutate_at(vars(value), funs(q10, q25, q50, q75, q90))'
+    txt <- 
+  'patient_summaries <- patient_demogs %>% 
+      mutate(x = 
+        paste0(x + paste0(2)) # script should ignore base ns
+      ) %>%
+      pivot_longer(cov) %>%
+      group_by(cov) %>%
+      mutate(across(value, list(q10, q25, q50, q75, q90)))'
     
     x <- pretty_namespace(text = txt,ask = FALSE)
     
-    testthat::expect_equal(
-      length(x),
-      12)
+    x1 <- x[x$namespace!='base',]
+    
+    testthat::expect_equal(nrow(x),8)
+    testthat::expect_equal(nrow(x1),5)
     
   })
 })
