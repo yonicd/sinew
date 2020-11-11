@@ -26,7 +26,7 @@ Default: c("details","examples","seealso","rdname","export")}
 
 \item{print}{boolean print output to console, Default: TRUE}
 
-\item{\dots}{arguments to be passed to makeImport}
+\item{\dots}{arguments to be passed to make_import}
 }
 \description{
 Creates roxygen2 skeleton including title,

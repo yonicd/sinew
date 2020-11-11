@@ -43,7 +43,7 @@ if(file.exists('../reference/figures/Guy-Tangled-in-Lights.jpg')){
   3. Run `sinew::untangle` on the large script with the destination directory `pkg/R`. This will separate the core functions in the body into single function files (named as the function) and keep the body in `body.R`
   4. Run `sinew::pretty_namespace` to append namespaces in the function scripts.
   5. Run `sinew::makeOxyFile` to populate the Roxygen2 skeleton.
-  6. Run `sinew::makeImport` to populate the `Imports` field of the `DESCRIPTION` file.
+  6. Run `sinew::make_import` to populate the `Imports` field of the `DESCRIPTION` file.
   
 This should get you far enough to make the impossible problem of understanding what is in that file to a manageable task, with the added benefit of producing a new package ready for distribution.
 
@@ -171,16 +171,16 @@ The premise of `sinew::makeOxygen` is to expand on the default skeleton in `RStu
   - param default values:
     - If a default value is set for a function parameter it will be added to the end `@param` line.
   - import/importFrom
-    - The package scrapes the script with makeImport looking for declared namespaces to create the proper calls for `@import` and `@importFrom` which are placed at the bottom of the output.
+    - The package scrapes the script with make_import looking for declared namespaces to create the proper calls for `@import` and `@importFrom` which are placed at the bottom of the output.
   - seealso
     - linking to other packages is also taken care of when adding the field `@seealso`. Any functions that are included in `@importFrom` will have a link to them by default.
 
 ## DESCRIPTION FILE
 
-It is also important to update the package `DESCRIPTION` file `Imports` field. This can be done for you with `sinew::makeImport`, by either creating a new `Imports` field or updating an existing one.
+It is also important to update the package `DESCRIPTION` file `Imports` field. This can be done for you with `sinew::make_import`, by either creating a new `Imports` field or updating an existing one.
 
 ```{r}
-sinew::makeImport(pkg_dir_R,format = 'description',desc_loc = pkg_dir)
+sinew::make_import(pkg_dir_R,format = 'description',desc_loc = pkg_dir)
 ```
 
 

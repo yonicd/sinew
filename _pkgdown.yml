@@ -19,7 +19,7 @@ navbar:
   type: inverse
   right:
   - icon: fa-github fa-lg
-    href: https://github.com/metrumresearchgroup/sinew
+    href: https://github.com/yonicd/sinew
   - icon: fa-lg fa-twitter
     href: http://twitter.com/MetrumRG
 reference:

@@ -23,13 +23,13 @@
 #' pretty_namespace(pkg_dir_R, overwrite = TRUE)
 #' 
 #' # update imports/importsFrom for roxygen2 tags
-#' makeImport(pkg_dir_R,format = 'oxygen')
+#' make_import(pkg_dir_R,format = 'oxygen')
 #' 
 #' # update Imports for DESCRIPTION file output to console
-#' makeImport(pkg_dir_R,format = 'description')
+#' make_import(pkg_dir_R,format = 'description')
 #'
 #' # update Imports for DESCRIPTION file overwrite file
-#' makeImport(pkg_dir_R,format = 'description', desc_loc = pkg_dir)
+#' make_import(pkg_dir_R,format = 'description', desc_loc = pkg_dir)
 #' 
 #' cat(readLines(pkg_dir_DESC),sep = '\n')
 #' 
@@ -40,7 +40,7 @@
 #' @export
 #' @importFrom utils installed.packages capture.output getParseData
 #' @importFrom tools file_ext
-makeImport <- function(script, cut = NULL, print = TRUE, format = "oxygen", desc_loc = NULL) {
+make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", desc_loc = NULL) {
   
   on.exit({  if (inherits(script, "function")) unlink(file) },add = TRUE)
   
@@ -169,6 +169,6 @@ update_desc <- function(path, overwrite = TRUE){
     desc_loc <- NULL
   }
   
-  makeImport(path, print = !overwrite, format = 'description', desc_loc = desc_loc)
+  make_import(path, print = !overwrite, format = 'description', desc_loc = desc_loc)
   
 }

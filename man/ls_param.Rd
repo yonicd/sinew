@@ -21,7 +21,7 @@ Return roxygen2 parameter calls from the intersection of the parameters listed i
 the package dictionary and the formals of a function
 }
 \examples{
-repo='https://raw.githubusercontent.com/metrumresearchgroup/sinew/master/'
+repo='https://raw.githubusercontent.com/yonicd/sinew/master/'
 dict_loc=file.path(repo,'man-roxygen/Dictionary-1.R')
 ls_param(sinew::makeOxygen,dictionary=dict_loc)
 }

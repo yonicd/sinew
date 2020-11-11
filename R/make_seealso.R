@@ -1,6 +1,6 @@
 #' @importFrom utils help.search
-makeSeeAlso <- function(obj, cutOFF=3) {
-  x <- makeImport(obj, cut = cutOFF, print = FALSE)
+make_seealso <- function(obj, cutOFF=3) {
+  x <- make_import(obj, cut = cutOFF, print = FALSE)
   x <- grep("importFrom", strsplit(x, "#'")[[1]], value = TRUE)
   x <- sapply(x, function(y) {
     

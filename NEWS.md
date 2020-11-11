@@ -9,11 +9,11 @@ Sinew News
 
   - `NEWS.md` file to track changes to the
     package.
-  - [pretty\_namespaces](https://metrumresearchgroup.github.io/sinew/pretty-namespace.html)
+  - [pretty\_namespaces](https://yonicd.github.io/sinew/pretty-namespace.html)
       - Function that autoappends namespace to functions in script by
         searchpath
     order.
-  - [create\_yml](https://metrumresearchgroup.github.io/sinew/using-sinewconfig-yml.html)
+  - [create\_yml](https://yonicd.github.io/sinew/using-sinewconfig-yml.html)
       - Functions that creates `_sinewconfig.yml` in the current project
         root directory, and updates
     `.Rbuildignore`.
@@ -24,10 +24,10 @@ Sinew News
 
 <summary>Updated</summary>
 
-  - [makeImport](https://metrumresearchgroup.github.io/sinew/makeimport.html)
+  - [makeImport](https://yonicd.github.io/sinew/makeimport.html)
       - Writes directly to DESCRIPTION
     file.
-  - [untangle](https://metrumresearchgroup.github.io/sinew/untangle.html)
+  - [untangle](https://yonicd.github.io/sinew/untangle.html)
       - Create the `body.R` file in the working directory instead of the
         directory where the functions are created.
       - Naming scheme for files is updated to replace all `.` in
@@ -40,7 +40,7 @@ Sinew News
 
 <summary>Removed</summary>
 
-  - [makeImport](https://metrumresearchgroup.github.io/sinew/makeimport.html)
+  - [makeImport](https://yonicd.github.io/sinew/makeimport.html)
       - does not create namespace output
 
 </details>

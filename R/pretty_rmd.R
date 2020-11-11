@@ -51,8 +51,7 @@ pretty_rmd <- function(input,
   x <- pretty_f(x, idx, askenv, input, chunks,...)
 
   if(is.null(output)){
-    output <- ''
-    cat(x,file=output,sep = '\n')
+    cat(x, sep = '\n')
   }else{
     
     cat(x,file=output, sep = '\n')
@@ -65,11 +64,23 @@ pretty_rmd <- function(input,
 }
 
 list_chunks <- function(x){
-  
-  FROM <- grep('^```\\{(.*?)r',x)+1
+  FROM <- grep('^```\\{(.*?)r',x)
   TO <- grep('^```$|^```\\s{1,}$',x)-1
-  
-  mapply(seq,from=FROM,to=TO)
+  FROM <- FROM + 1
+  ZERO <- FROM > TO
+  if (any(ZERO)) {
+    FROM <- FROM[!ZERO]
+    TO <- TO[!ZERO]
+  } 
+  NAMES <- strcapture("(?<=r\\s)(?:\\'|\\\")?([[:alnum:]\\s\\_\\.]+)",x[FROM - 1], data.frame(chunk_title = character()), perl = TRUE)
+  NAMES$chunk <- sprintf("%03d", 1:NROW(NAMES))
+  NAMES$lines <- paste0("lines", FROM,"-",TO)
+  setNames(mapply(seq,from=FROM,to=TO, SIMPLIFY = FALSE), with(NAMES, mapply(function(.x, .y, .z) {
+    out <- paste0("chunk", .x)
+    if (!is.na(.y)) out <- paste0(out," - ", .y)
+    if (!is.na(.z)) out <- paste0(out," - ",.z)
+    return(out)
+  }, chunk, chunk_title, lines)))
 }
 
 rm_lib_chunk <- function(x){
@@ -144,13 +155,13 @@ pretty_rmd_inline <- function(x, idx, askenv,input, chunks,...){
     idx <- idx[chunks]
   }
   
-  y <- lapply(idx,function(y){
-    tf <- tempfile(fileext = '.R')
+  y <- mapply(function(y, nm){
+    tf <- tempfile(paste0(nm,"_tmp_"), fileext = '.R')
     on.exit({unlink(tf)},add = TRUE)
     cat(x[y],file = tf,sep = '\n')
     pretty_namespace(con = tf,...,overwrite = TRUE, askenv = askenv)
     readLines(tf,warn = FALSE)
-  })
+  }, idx, names(idx))
   
   for(i in seq_along(idx)){
     x[idx[[i]]] <- y[[i]]

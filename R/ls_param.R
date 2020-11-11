@@ -6,7 +6,7 @@
 #' @param print boolean print output to console, Default: TRUE
 #' @return character vector
 #' @examples
-#' repo='https://raw.githubusercontent.com/metrumresearchgroup/sinew/master/'
+#' repo='https://raw.githubusercontent.com/yonicd/sinew/master/'
 #' dict_loc=file.path(repo,'man-roxygen/Dictionary-1.R')
 #' ls_param(sinew::makeOxygen,dictionary=dict_loc)
 #' @export

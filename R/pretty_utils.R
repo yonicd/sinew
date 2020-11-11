@@ -84,20 +84,27 @@ pretty_manip <- function(sym.funs, force, ignore){
   sym.funs$action <- ''
   
   if(!is.null(force)){
-    sym.funs <- pretty_merge(sym.funs,force,'replace')
+    sym.funs <- pretty_merge(sym.funs, force)
   }
   
   if(!is.null(ignore)){
-    sym.funs <- pretty_merge(sym.funs,ignore,'remove')
+    sym.funs <- pretty_merge(sym.funs, ignore)
   }
   
-  sym.funs$new_text <- sprintf('%s::%s',sym.funs$namespace, sym.funs$text)  
+    sym.funs$new_text <- sprintf('%s%s',ifelse(nzchar(sym.funs$namespace), paste0(sym.funs$namespace,"::"), ''), sym.funs$text)
   
   sym.funs
 }
 
+ 
+
+#' @title pretty_merge
+#' @description handles `force` and `ignore` arguments
+#' @param e1 \code{(data.frame)} typically `sym.funs` with list of all parsed functions in `txt`
+#' @param e2 \code{(list)} typically `force` or `ignore` with list of namespaces and the respective functions to force or ignore
 #' @importFrom cli symbol
-pretty_merge <- function(e1,e2,action = 'relpace'){
+
+pretty_merge <- function(e1, e2){
 
   e2 <- sapply(names(e2),function(x){
     if(is.null(e2[[x]])){
@@ -110,12 +117,14 @@ pretty_merge <- function(e1,e2,action = 'relpace'){
   
   e1 <- merge(e1,enframe_list(e2),by = 'text',all.x = TRUE)
   
+  action <- deparse(match.call()$e2)
+  
   e1 <- switch(action,
-         'replace'={
+         'force'={
            e1$namespace[!is.na(e1$force_ns)] <- e1$force_ns[!is.na(e1$force_ns)]
            e1
          },
-         'remove'={
+         'ignore'={
            e1[is.na(e1$force_ns),]
          })
 
@@ -124,6 +133,7 @@ pretty_merge <- function(e1,e2,action = 'relpace'){
   e1$force_ns <- NULL
   
   e1[order(e1$id),]
+  
 }
 
 #' @importFrom sos findFn
@@ -161,16 +171,18 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, txt, ask, askenv){
           
           intersect_choices <- intersect(persistent_choices,choices)
           
-          if(length(intersect_choices)>0){
+          
+          
+          if(length(intersect_choices) > 0){
             
             choice <- intersect_choices
             
           } else if (paste0("Ignore::", fun) %in% persistent_choices) {
             choice <- ''
           } else {
-            choice <- "View Context"
-            while (choice == "View Context") {
-              menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "View Context", "Ignore Instance", "Ignore All(*)"))
+            choice <- "Print Context"
+            while (choice == "Print Context") {
+              menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "Print Context", "Ignore Instance", "Ignore All(*)"))
               
               menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
               
@@ -193,11 +205,19 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, txt, ask, askenv){
               
               
               choice <- menu_choices[choice_idx]
-              if (choice == "View Context") cat(context, sep = "\n")
+              if (choice == "Print Context") cat(context, sep = "\n")
             }
               
+              if(grepl('\\(*\\)$',choice)){
+                clean_choice <- gsub('\\(\\*\\)$','',choice)
+                if (grepl("^Ignore\\sAll", choice)) {
+                  clean_choice <- paste0("Ignore::",fun)
+                }
+                assign(clean_choice,TRUE,askenv)
+              }
+              
           }
-          
+          if (grepl("^Ignore\\s", choice)) choice <- ''
           pkg_choice <- gsub(':(.*?)$','',choice)  
           
         }else{
@@ -279,7 +299,7 @@ pretty_print <- function(obj,file,chunk=NULL){
     
   cat(
     sprintf("\nfunctions changed in '%s':\n\n%s: found, %s: not found, (): instances, %s: user intervention\n\n%s\n\n",
-            file,
+            if (grepl("\\_tmp\\_", file)) strsplit(basename(file), "_tmp_")[[1]][1] else file,
             cli::symbol$tick,
             crayon::red(cli::symbol$cross),
             cli::symbol$checkbox_on,
@@ -324,3 +344,23 @@ mf <- function(x, pat) {
   ns
 }
 
+validate_force <- function(x){
+  vec <- unlist(x)
+  ret <- vec[duplicated(vec) | duplicated(vec, fromLast=TRUE)]
+  
+  if(length(ret)>0){
+    ret_df <- enframe_list(x)
+    ret_df <- ret_df[ret_df$text%in%unique(ret),]
+    ret_list <- split(ret_df$force_ns,ret_df$text)
+    ret_chr <- sapply(names(ret_list),function(nm){
+      sprintf('%s: %s',nm,paste(ret_list[[nm]],collapse = ', '))
+    },simplify = TRUE)
+    msg <- paste0(ret_chr,collapse = '\n')
+stop(
+sprintf('Conflicting namespace assignment in force argument\n%s',msg)
+)
+  }else{
+    TRUE
+  }
+
+}

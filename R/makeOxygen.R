@@ -9,7 +9,7 @@
 #' Default: c("details","examples","seealso","rdname","export")
 #' @param use_dictionary character, path_to_dictionary, Default: NULL
 #' @param print boolean print output to console, Default: TRUE
-#' @param \dots arguments to be passed to makeImport
+#' @param \dots arguments to be passed to make_import
 #' @details add_fields can include any slot except for the 
 #' defaults (title,description,param,return).
 #' The order in add_fields determines the order of printout. 
@@ -95,12 +95,12 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
     importList <- list(...)
     importList$script <- obj
     importList$print <- FALSE
-    import <- do.call("makeImport", importList)
+    import <- do.call("make_import", importList)
     if (import == "list()") import <- ""
 
     cutOFF <- switch("cut" %in% names(importList), importList$cut, 3)
     if (import == "") add_fields <- add_fields[!grepl("seealso", add_fields)]
-    if ("seealso" %in% add_fields) header_add <- c(header_add, seealso = paste0(makeSeeAlso(obj, cutOFF = cutOFF), collapse = "\n"))
+    if ("seealso" %in% add_fields) header_add <- c(header_add, seealso = paste0(make_seealso(obj, cutOFF = cutOFF), collapse = "\n"))
 
     param_desc <- NULL
     if (!is.null(use_dictionary)) param_desc <- ls_param(obj = obj, dictionary = use_dictionary, print = FALSE)

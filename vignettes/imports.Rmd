@@ -60,7 +60,7 @@ pretty_namespace(pkg_dir_r,overwrite = TRUE)
 ## DESCRIPTION
 
 ```{r}
-makeImport(script = pkg_dir_r,format = 'description')
+make_import(script = pkg_dir_r,format = 'description')
 ```
 
 To write the output directly into the Imports field of the `DESCRIPTION` file, specify path to `DESCRIPTION` in `desc_loc`
@@ -77,12 +77,12 @@ details::details(file.path(pkg_dir,'DESCRIPTION'), summary = 'Click to see DESCR
 
 ```{r}
 #single file
-makeImport(script = file.path(pkg_dir_r,'yy.R') ,format = 'oxygen')
+make_import(script = file.path(pkg_dir_r,'yy.R') ,format = 'oxygen')
 ```
 
 ```{r}
 #whole directory
-makeImport(script = pkg_dir_r,format = 'oxygen')
+make_import(script = pkg_dir_r,format = 'oxygen')
 ```
 
 ## Cutoff
@@ -91,7 +91,7 @@ Setting the parameter `cut` to an integer value allows for control of how many f
 
 ```{r}
 #with cut
-makeImport(script=file.path(pkg_dir_r,'yy.R'),format = 'oxygen', cut = 1)
+make_import(script=file.path(pkg_dir_r,'yy.R'),format = 'oxygen', cut = 1)
 ```
 
 ### Cleanup
