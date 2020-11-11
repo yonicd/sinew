@@ -44,7 +44,7 @@ make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", des
   
   on.exit({  if (inherits(script, "function")) unlink(file) },add = TRUE)
   
-  rInst <- paste0(row.names(ip), "::")
+  rInst <- paste0(.packages(all.available = TRUE), "::")
 
   if (inherits(script, "function")) {
     file <- tempfile()
