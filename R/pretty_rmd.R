@@ -161,7 +161,7 @@ pretty_rmd_inline <- function(x, idx, askenv,input, chunks,...){
     cat(x[y],file = tf,sep = '\n')
     pretty_namespace(con = tf,...,overwrite = TRUE, askenv = askenv)
     readLines(tf,warn = FALSE)
-  }, idx, names(idx))
+  }, idx, names(idx), SIMPLIFY = FALSE)
   
   for(i in seq_along(idx)){
     x[idx[[i]]] <- y[[i]]
