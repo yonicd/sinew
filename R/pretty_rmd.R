@@ -32,11 +32,16 @@ pretty_rmd <- function(input,
                        chunks = NULL,
                        ...){
   
-  x        <- readLines(input,warn = FALSE)
+  xo        <- readLines(input,warn = FALSE)
   
-  x        <- rm_lib_chunk(x)
+  x        <- rm_lib_chunk(xo)
   
   idx      <- list_chunks(x)
+  
+  if (is.null(idx)) {
+    warning("No chunks found - returning as-is.")
+    invisible(xo)
+  }
   
   askenv   <- new.env()
   
@@ -65,6 +70,7 @@ pretty_rmd <- function(input,
 
 list_chunks <- function(x){
   FROM <- grep('^```\\{(.*?)r',x)
+  if (length(FROM) == 0) return(NULL)
   TO <- grep('^```$|^```\\s{1,}$',x)-1
   FROM <- FROM + 1
   ZERO <- FROM > TO
