@@ -38,13 +38,13 @@
 #' 
 #' @concept populate
 #' @export
-#' @importFrom utils installed.packages capture.output getParseData
+#' @importFrom utils capture.output getParseData
 #' @importFrom tools file_ext
 make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", desc_loc = NULL) {
   
   on.exit({  if (inherits(script, "function")) unlink(file) },add = TRUE)
   
-  rInst <- paste0(row.names(utils::installed.packages()), "::")
+  rInst <- paste0(row.names(ip), "::")
 
   if (inherits(script, "function")) {
     file <- tempfile()

@@ -5,7 +5,7 @@ prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = F
   
   NMPATH <- c(SPATH,setdiff(loadedNamespaces(),SPATH))
   
-  INST <- rownames(installed.packages())
+  INST <- rownames(ip)
   
   DYNPATH <- unlist(sapply(library.dynam(), "[", 2))
   
