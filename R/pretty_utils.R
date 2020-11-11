@@ -84,11 +84,11 @@ pretty_manip <- function(sym.funs, force, ignore){
   sym.funs$action <- ''
   
   if(!is.null(force)){
-    sym.funs <- pretty_merge(sym.funs,force,'replace')
+    sym.funs <- pretty_merge(sym.funs, force)
   }
   
   if(!is.null(ignore)){
-    sym.funs <- pretty_merge(sym.funs,ignore,'remove')
+    sym.funs <- pretty_merge(sym.funs, ignore)
   }
   
     sym.funs$new_text <- sprintf('%s%s',ifelse(nzchar(sym.funs$namespace), paste0(sym.funs$namespace,"::"), ''), sym.funs$text)
@@ -96,8 +96,15 @@ pretty_manip <- function(sym.funs, force, ignore){
   sym.funs
 }
 
+ 
+
+#' @title pretty_merge
+#' @description handles `force` and `ignore` arguments
+#' @param e1 \code{(data.frame)} typically `sym.funs` with list of all parsed functions in `txt`
+#' @param e2 \code{(list)} typically `force` or `ignore` with list of namespaces and the respective functions to force or ignore
 #' @importFrom cli symbol
-pretty_merge <- function(e1,e2,action = 'relpace'){
+
+pretty_merge <- function(e1, e2){
 
   e2 <- sapply(names(e2),function(x){
     if(is.null(e2[[x]])){
@@ -110,12 +117,14 @@ pretty_merge <- function(e1,e2,action = 'relpace'){
   
   e1 <- merge(e1,enframe_list(e2),by = 'text',all.x = TRUE)
   
+  action <- deparse(match.call()$e2)
+  
   e1 <- switch(action,
-         'replace'={
+         'force'={
            e1$namespace[!is.na(e1$force_ns)] <- e1$force_ns[!is.na(e1$force_ns)]
            e1
          },
-         'remove'={
+         'ignore'={
            e1[is.na(e1$force_ns),]
          })
 
@@ -124,6 +133,7 @@ pretty_merge <- function(e1,e2,action = 'relpace'){
   e1$force_ns <- NULL
   
   e1[order(e1$id),]
+  
 }
 
 #' @importFrom sos findFn
