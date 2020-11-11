@@ -41,7 +41,7 @@ opts <- function (x)
 #' @importFrom stringi stri_extract_all_regex
 
 doc_packages <- function(txt) {
-  .load_fns <- c("library", "attach", "attachNamespace", "loadNamespace", "require", "requireNamespace")
+  .load_fns <- c("library", "require", "attachNamespace", "loadNamespace", "requireNamespace")
   .arg_names <- c("what", "ns", "package")
   .load_calls <- paste0("(?<=\\s|\\t|\\n|\\()", .load_fns, "\\([^\\)]+\\)")
   # get packages from all load calls

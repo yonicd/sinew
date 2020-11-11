@@ -30,6 +30,7 @@ pretty_rmd <- function(input,
                        open_output = TRUE, 
                        create_library = TRUE,
                        chunks = NULL,
+                       lookup_order = c("searchpath", "document", "library", "sos"),
                        ...){
   
   x        <- readLines(input,warn = FALSE)
