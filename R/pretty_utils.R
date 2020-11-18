@@ -5,7 +5,7 @@
 #' @param txt input text to `pretty_parse` 
 #' @inheritParams pretty_namespace
 #' @importFrom rstudioapi navigateToFile
-#' @importFrom utils::askYesNo
+#' @importFrom utils askYesNo
  
 parse_check <- function(p, txt, ask) {
   if (inherits(p, "try-error")) {
@@ -29,7 +29,7 @@ parse_check <- function(p, txt, ask) {
       # get the line number corresponding to the first line of text & add the rows indicated by the error (may not always be accurate but should work)
       .line <- grep(txt[1], readLines(.path), fixed = TRUE) + .rc[1]
       # Ask if the user wants to go to this line
-      .answer <- utils::askYesNo(paste0("Parse failed at line(s) ", paste0(.line, collapse = ", "),". Rstudio Users: Would you like to open the file at the line(s) before the function quits to correct the error (Rstudio Only)?"))
+      .answer <- utils::askYesNo(paste0("Parse failed at line(s) ", paste0(.line, collapse = ", "),". Open the file in RStudio?"))
       # if yes, go!
       if (isTRUE(.answer)) {
         rstudioapi::navigateToFile(.path, min(.line), .rc[2])

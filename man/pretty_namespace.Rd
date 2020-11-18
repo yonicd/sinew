@@ -42,14 +42,14 @@ character
 Autoappend namespace to functions in script by searchpath order
 }
 \details{
-Searches for functions in the loadedNamespace, help.search and then \code{\link[sos]{findFn}}.
-If force is not NULL but a named list eg list(stats=c('rnorm','runif'),utils = 'head'),
+Searches for functions in the \code{loadedNamespace}, \code{help.search} and then \code{\link[sos]{findFn}}.
+If force is not NULL but a named list eg \code{list(stats=c('rnorm','runif'),utils = 'head')},
 then the value pairs will be used in place of what was found using the search path.
-If ignore is not NULL but a named list eg list(stats=c('rnorm','runif'),utils = 'head'),
+If ignore is not NULL but a named list eg \code{list(stats=c('rnorm','runif'),utils = 'head')},
 then if the functions are found they will not have a namespace attached to them.
 
 If you want to toggle off the summary console printing you can set it globally via
-sinew_opts$set(pretty_print=FALSE).
+\code{sinew_opts$set(pretty_print=FALSE)}.
 }
 \examples{
 txt <- '#some comment
