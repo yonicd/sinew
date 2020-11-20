@@ -1,7 +1,52 @@
-pretty_parse <- function(txt){
+#' @title parse_check
+#' @description check for fail of pretty_parse > parse, and offers to open file to offending line
+#' @keywords Internal
+#' @param p result of `pretty_parse` > `parse`
+#' @param txt input text to `pretty_parse` 
+#' @inheritParams pretty_namespace
+#' @importFrom rstudioapi navigateToFile
+#' @importFrom utils askYesNo
+ 
+parse_check <- function(p, txt, ask) {
+  if (inherits(p, "try-error")) {
+    if (!ask) stop(p) 
+    .sf <- sys.frames()
+    .sc <- sys.calls()
+    # get the top level sinew call
+    top_call <- min(which(grepl("^(?:sinew\\:\\:)?pretty", lapply(.sc, `[[`, 1))))
+    if (!any(top_call)) stop(p)
+    # get the object names in that environment
+    .vars <- ls(envir = .sf[min(top_call)][[1]])
+    # get the object name for the connection/input file
+    .var <- grepl("(?:^con$)|(?:^input$)" , .vars, perl = TRUE)
+    if (!any(.var)) stop(p) # fail if no suitable con/input found (text was input)
+    # get the connection/input filename
+    .path <- get0(.vars[.var], envir = .sf[top_call][[1]], mode = "character")
+    if (interactive() && !is.null(.path)) {
+      if (!file.exists(.path)) stop(p)
+      # get the row & column
+      .rc <- as.numeric(strsplit(attr(p, "condition")$message, "\\:")[[1]][2:3])
+      # get the line number corresponding to the first line of text & add the rows indicated by the error (may not always be accurate but should work)
+      .line <- grep(txt[1], readLines(.path), fixed = TRUE) + .rc[1]
+      # Ask if the user wants to go to this line
+      .answer <- utils::askYesNo(paste0("Parse failed at line(s) ", paste0(.line, collapse = ", "),". Open the file in RStudio?"))
+      # if yes, go!
+      if (isTRUE(.answer)) {
+        rstudioapi::navigateToFile(.path, min(.line), .rc[2])
+      }
+    }
   
-  p <- parse(text = txt,keep.source = TRUE)
+    
+    stop(p)
+  } else {
+    return(p)
+  }
+}
+
+pretty_parse <- function(txt, ask){
   
+  p <- try(parse(text = txt,keep.source = TRUE), silent = TRUE)
+  p <- parse_check(p, txt, ask)
   p1 <- utils::getParseData(p)
   
   rmParent <- p1$parent[p1$token == "SYMBOL_PACKAGE"]
