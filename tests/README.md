@@ -1,6 +1,6 @@
 Tests and Coverage
 ================
-13 November, 2020 01:22:33
+20 November, 2020 11:20:05
 
   - [Coverage](#coverage)
   - [Unit Tests](#unit-tests)
@@ -54,8 +54,8 @@ Unit Test summary is created using the
 
 | file                                      |  n |  time | error | failed | skipped | warning | icon |
 | :---------------------------------------- | -: | ----: | ----: | -----: | ------: | ------: | :--- |
-| [test-pretty.R](testthat/test-pretty.R)   | 14 | 0.803 |     0 |      0 |       1 |       0 | 🔶    |
-| [test-seealso.R](testthat/test-seealso.R) |  3 | 0.007 |     0 |      0 |       0 |       0 |      |
+| [test-pretty.R](testthat/test-pretty.R)   | 14 | 0.754 |     0 |      0 |       1 |       0 | 🔶    |
+| [test-seealso.R](testthat/test-seealso.R) |  3 | 0.009 |     0 |      0 |       0 |       0 |      |
 | [test-tabular.R](testthat/test-tabular.R) |  3 | 0.007 |     0 |      0 |       0 |       0 |      |
 
 <details open>
@@ -64,21 +64,21 @@ Unit Test summary is created using the
 
 | file                                            | context      | test                                           | status  | n |  time | icon |
 | :---------------------------------------------- | :----------- | :--------------------------------------------- | :------ | -: | ----: | :--- |
-| [test-pretty.R](testthat/test-pretty.R#L9)      | pretty       | switches: force                                | SKIPPED | 1 | 0.018 | 🔶    |
-| [test-pretty.R](testthat/test-pretty.R#L26)     | pretty       | switches: ignore                               | PASS    | 1 | 0.354 |      |
+| [test-pretty.R](testthat/test-pretty.R#L9)      | pretty       | switches: force                                | SKIPPED | 1 | 0.020 | 🔶    |
+| [test-pretty.R](testthat/test-pretty.R#L26)     | pretty       | switches: ignore                               | PASS    | 1 | 0.358 |      |
 | [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup files: length                            | PASS    | 1 | 0.001 |      |
-| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup files: class                             | PASS    | 1 | 0.132 |      |
-| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup files: names                             | PASS    | 1 | 0.002 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup files: class                             | PASS    | 1 | 0.140 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup files: names                             | PASS    | 1 | 0.001 |      |
 | [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup file: length                             | PASS    | 1 | 0.001 |      |
-| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup file: class                              | PASS    | 1 | 0.013 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup file: class                              | PASS    | 1 | 0.006 |      |
 | [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup file: names                              | PASS    | 1 | 0.001 |      |
-| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup text: length                             | PASS    | 1 | 0.001 |      |
-| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup text: class                              | PASS    | 1 | 0.006 |      |
-| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup text: names                              | PASS    | 1 | 0.002 |      |
-| [test-pretty.R](testthat/test-pretty.R#L69)     | pretty       | full text: txt                                 | PASS    | 2 | 0.120 |      |
-| [test-pretty.R](testthat/test-pretty.R#L80_L82) | pretty       | full file: file                                | PASS    | 1 | 0.152 |      |
-| [test-seealso.R](testthat/test-seealso.R#)      | make seealso | cutoff: less than cutoff                       | PASS    | 1 | 0.001 |      |
-| [test-seealso.R](testthat/test-seealso.R#)      | make seealso | no cutoff: no elements                         | PASS    | 1 | 0.001 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup text: length                             | PASS    | 1 | 0.007 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup text: class                              | PASS    | 1 | 0.005 |      |
+| [test-pretty.R](testthat/test-pretty.R#)        | pretty       | setup text: names                              | PASS    | 1 | 0.001 |      |
+| [test-pretty.R](testthat/test-pretty.R#L69)     | pretty       | full text: txt                                 | PASS    | 2 | 0.098 |      |
+| [test-pretty.R](testthat/test-pretty.R#L80_L82) | pretty       | full file: file                                | PASS    | 1 | 0.115 |      |
+| [test-seealso.R](testthat/test-seealso.R#)      | make seealso | cutoff: less than cutoff                       | PASS    | 1 | 0.002 |      |
+| [test-seealso.R](testthat/test-seealso.R#)      | make seealso | no cutoff: no elements                         | PASS    | 1 | 0.002 |      |
 | [test-seealso.R](testthat/test-seealso.R#)      | make seealso | no cutoff: simple call                         | PASS    | 1 | 0.005 |      |
 | [test-tabular.R](testthat/test-tabular.R#)      | tabular      | convert dataframe to tabular header: length    | PASS    | 1 | 0.001 |      |
 | [test-tabular.R](testthat/test-tabular.R#)      | tabular      | convert dataframe to tabular header: class     | PASS    | 1 | 0.005 |      |
@@ -97,7 +97,7 @@ Unit Test summary is created using the
 | Field    | Value                             |                                                                                                                                                                                                                                                               |
 | :------- | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Version  | R version 4.0.3 (2020-10-10)      |                                                                                                                                                                                                                                                               |
-| Platform | x86\_64-apple-darwin17.0 (64-bit) | <a href="https://github.com/yonicd/sinew/commit/2f0633f2092b41bb9ebf508fa4167400ec9a52e0/checks" target="_blank"><span title="Built on Github Actions">![](https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true)</span></a> |
+| Platform | x86\_64-apple-darwin17.0 (64-bit) | <a href="https://github.com/yonicd/sinew/commit/e80ab444c877a0a2133cfc3cc02057236be329c7/checks" target="_blank"><span title="Built on Github Actions">![](https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true)</span></a> |
 | Running  | macOS Catalina 10.15.7            |                                                                                                                                                                                                                                                               |
 | Language | en\_US                            |                                                                                                                                                                                                                                                               |
 | Timezone | UTC                               |                                                                                                                                                                                                                                                               |
