@@ -182,13 +182,13 @@ internal search (seee details), Default: NULL</p></td>
     <p>character</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Searches for functions in the loadedNamespace, help.search and then <code><a href='https://rdrr.io/pkg/sos/man/findFn.html'>findFn</a></code>.
-If force is not NULL but a named list eg list(stats=c('rnorm','runif'),utils = 'head'),
+    <p>Searches for functions in the <code>loadedNamespace</code>, <code>help.search</code> and then <code><a href='https://rdrr.io/pkg/sos/man/findFn.html'>findFn</a></code>.
+If force is not NULL but a named list eg <code><a href='https://rdrr.io/r/base/list.html'>list(stats=c('rnorm','runif'),utils = 'head')</a></code>,
 then the value pairs will be used in place of what was found using the search path.
-If ignore is not NULL but a named list eg list(stats=c('rnorm','runif'),utils = 'head'),
+If ignore is not NULL but a named list eg <code><a href='https://rdrr.io/r/base/list.html'>list(stats=c('rnorm','runif'),utils = 'head')</a></code>,
 then if the functions are found they will not have a namespace attached to them.</p>
 <p>If you want to toggle off the summary console printing you can set it globally via
-sinew_opts$set(pretty_print=FALSE).</p>
+<code>sinew_opts$set(pretty_print=FALSE)</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rdrr.io/pkg/sos/man/findFn.html'>findFn</a>, <a href='https://rdrr.io/r/utils/help.search.html'>help.search</a></p></div>
