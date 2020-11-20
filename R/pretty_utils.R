@@ -138,7 +138,8 @@ pretty_merge <- function(e1, e2){
 
 #' @importFrom sos findFn
 #' @importFrom utils help.search menu
-pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
+#' @importFrom crayon red col_substr
+pretty_find <- function(NMPATH, sos, sym.funs, funs, txt, ask, askenv){
   
   check_global <- ls(envir = get(search()[1]))
   
@@ -179,22 +180,39 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
           } else if (paste0("Ignore::", fun) %in% persistent_choices) {
             choice <- ''
           } else {
-          
-            menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "Ignore Instance", "Ignore All(*)"))
-            
-            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
-            
-            choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
-            
+            choice <- "Print Context"
+            while (choice == "Print Context") {
+              menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "Print Context", "Ignore Instance", "Ignore All(*)"))
+              
+              menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
+              
+              choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
+              loc <- gregexpr(paste0(fun,"("), txt, fixed = TRUE)
+              context <- mapply(function(.x, .y) {
+                if (!any(.y > 0)) return(.x)
+                .subs <- data.frame(
+                bs = .y,
+                es = .y + attr(.y, "match.length")
+                )
+                .env <- environment()
+                apply(.subs, 1, function(.l){
+                  .string_end <- nchar(.x)
+                  assign(".x", paste0(crayon::col_substr(.x, 0, .l["bs"] - 1), crayon::red(crayon::col_substr(.x, .l["bs"], .l["es"] - 2)), crayon::col_substr(.x, .l["es"] - 1, .string_end)), .env)
+                })
+                .env$.x
+              }, txt, loc)
+              
+              
+              
               choice <- menu_choices[choice_idx]
+              if (choice == "Print Context") cat(context, sep = "\n")
+            }
               
               if(grepl('\\(*\\)$',choice)){
                 clean_choice <- gsub('\\(\\*\\)$','',choice)
-
                 if (grepl("^Ignore\\sAll", choice)) {
                   clean_choice <- paste0("Ignore::",fun)
                 }
-
                 assign(clean_choice,TRUE,askenv)
               }
               
