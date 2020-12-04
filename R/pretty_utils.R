@@ -1,7 +1,52 @@
-pretty_parse <- function(txt){
+#' @title parse_check
+#' @description check for fail of pretty_parse > parse, and offers to open file to offending line
+#' @keywords Internal
+#' @param p result of `pretty_parse` > `parse`
+#' @param txt input text to `pretty_parse` 
+#' @inheritParams pretty_namespace
+#' @importFrom rstudioapi navigateToFile
+#' @importFrom utils askYesNo
+ 
+parse_check <- function(p, txt, ask) {
+  if (inherits(p, "try-error")) {
+    if (!ask) stop(p) 
+    .sf <- sys.frames()
+    .sc <- sys.calls()
+    # get the top level sinew call
+    top_call <- min(which(grepl("^(?:sinew\\:\\:)?pretty", lapply(.sc, `[[`, 1))))
+    if (!any(top_call)) stop(p)
+    # get the object names in that environment
+    .vars <- ls(envir = .sf[min(top_call)][[1]])
+    # get the object name for the connection/input file
+    .var <- grepl("(?:^con$)|(?:^input$)" , .vars, perl = TRUE)
+    if (!any(.var)) stop(p) # fail if no suitable con/input found (text was input)
+    # get the connection/input filename
+    .path <- get0(.vars[.var], envir = .sf[top_call][[1]], mode = "character")
+    if (interactive() && !is.null(.path)) {
+      if (!file.exists(.path)) stop(p)
+      # get the row & column
+      .rc <- as.numeric(strsplit(attr(p, "condition")$message, "\\:")[[1]][2:3])
+      # get the line number corresponding to the first line of text & add the rows indicated by the error (may not always be accurate but should work)
+      .line <- grep(txt[1], readLines(.path), fixed = TRUE) + .rc[1]
+      # Ask if the user wants to go to this line
+      .answer <- utils::askYesNo(paste0("Parse failed at line(s) ", paste0(.line, collapse = ", "),". Open the file in RStudio?"))
+      # if yes, go!
+      if (isTRUE(.answer)) {
+        rstudioapi::navigateToFile(.path, min(.line), .rc[2])
+      }
+    }
   
-  p <- parse(text = txt,keep.source = TRUE)
+    
+    stop(p)
+  } else {
+    return(p)
+  }
+}
+
+pretty_parse <- function(txt, ask){
   
+  p <- try(parse(text = txt,keep.source = TRUE), silent = TRUE)
+  p <- parse_check(p, txt, ask)
   p1 <- utils::getParseData(p)
   
   rmParent <- p1$parent[p1$token == "SYMBOL_PACKAGE"]
@@ -138,7 +183,8 @@ pretty_merge <- function(e1, e2){
 
 #' @importFrom sos findFn
 #' @importFrom utils help.search menu
-pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
+#' @importFrom crayon red col_substr
+pretty_find <- function(NMPATH, sos, sym.funs, funs, txt, ask, askenv){
   
   check_global <- ls(envir = get(search()[1]))
   
@@ -179,22 +225,39 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, ask, askenv){
           } else if (paste0("Ignore::", fun) %in% persistent_choices) {
             choice <- ''
           } else {
-          
-            menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "Ignore Instance", "Ignore All(*)"))
-            
-            menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
-            
-            choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
-            
+            choice <- "Print Context"
+            while (choice == "Print Context") {
+              menu_choices <- unique(c(sprintf('%s(*)', choices), choices, "Print Context", "Ignore Instance", "Ignore All(*)"))
+              
+              menu_title <- sprintf('Select which namespace to use for "%s"\n(*) if you want it to persist for all subsequent instances',fun)
+              
+              choice_idx <- utils::menu(choices = menu_choices,title=menu_title)
+              loc <- gregexpr(paste0(fun,"("), txt, fixed = TRUE)
+              context <- mapply(function(.x, .y) {
+                if (!any(.y > 0)) return(.x)
+                .subs <- data.frame(
+                bs = .y,
+                es = .y + attr(.y, "match.length")
+                )
+                .env <- environment()
+                apply(.subs, 1, function(.l){
+                  .string_end <- nchar(.x)
+                  assign(".x", paste0(crayon::col_substr(.x, 0, .l["bs"] - 1), crayon::red(crayon::col_substr(.x, .l["bs"], .l["es"] - 2)), crayon::col_substr(.x, .l["es"] - 1, .string_end)), .env)
+                })
+                .env$.x
+              }, txt, loc)
+              
+              
+              
               choice <- menu_choices[choice_idx]
+              if (choice == "Print Context") cat(context, sep = "\n")
+            }
               
               if(grepl('\\(*\\)$',choice)){
                 clean_choice <- gsub('\\(\\*\\)$','',choice)
-
                 if (grepl("^Ignore\\sAll", choice)) {
                   clean_choice <- paste0("Ignore::",fun)
                 }
-
                 assign(clean_choice,TRUE,askenv)
               }
               

@@ -36,7 +36,7 @@ prettify_elem <- function(nm,TXT,NMPATH,INST,DYNPATH,force = NULL, ignore = NULL
   
   txt <- TXT[[nm]]
   
-  sym.funs <- pretty_parse(txt)
+  sym.funs <- pretty_parse(txt, ask)
   
   if (length(sym.funs)==0)
     return(NULL)
@@ -56,6 +56,7 @@ prettify_elem <- function(nm,TXT,NMPATH,INST,DYNPATH,force = NULL, ignore = NULL
     sos = sos,
     sym.funs = sym.funs,
     funs = funs,
+    txt = txt,
     ask = ask,
     askenv = askenv
   )

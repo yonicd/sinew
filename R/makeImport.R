@@ -101,10 +101,9 @@ make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", des
 
   if (format == "description") {
     ret <- do.call("rbind", pkg)
+    ret <- paste(sort(unique(ret$pkg)), collapse = ",\n\t")
 
-    ret <- sprintf("Imports: %s", paste(unique(ret$pkg), collapse = ","))
-
-    if (print) writeLines(ret)
+    if (print) writeLines(sprintf("Imports:\n\t%s", ret))
 
     if (!is.null(desc_loc)) {
       if (file.exists(file.path(desc_loc, "DESCRIPTION"))) {
@@ -113,11 +112,11 @@ make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", des
         import_col <- grep("Imports", colnames(desc))
 
         if (length(import_col) == 0) {
-          desc <- cbind(desc, gsub("Imports: ", "\n", ret))
+          desc <- cbind(desc, gsub("Imports: ", "\n\t", ret))
 
           colnames(desc)[ncol(desc)] <- "Imports"
         } else {
-          desc[, "Imports"] <- gsub("Imports: ", "\n", ret)
+          desc[, "Imports"] <- gsub("Imports: ", "\n\t", ret)
         }
 
         write.dcf(desc, file = file.path(desc_loc, "DESCRIPTION"))
