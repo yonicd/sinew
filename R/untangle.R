@@ -72,35 +72,69 @@ untangle <- function(file = "", text = NULL, dir.out = "", keep.body = TRUE, dir
     lout <- lines[y1]
     fn.name <- p1$text[which(p1$id == x) + 1]
     
-    if (!nzchar(fn.name)) #patch to find functions that are nested in lists that need to stay in the body
+    # patch to find functions that are nested in lists that need to stay in the body
+    if (!nzchar(fn.name)) 
       return(list(name = fn.name, text = NULL))
-    
-    if (nzchar(dir.out)) {
-      file.name <- sprintf("%s.R", gsub("[.]", "_", fn.name))
-      cat(lout, file = file.path(dir.out, file.name), sep = "\n")
-    }
+
     return(list(name = fn.name, text = y1))
   }, lines = text, simplify = FALSE)
 
-  ret <- sapply(p.split, function(x) text[x$text])
-  names(ret) <- sapply(p.split, function(x) x$name)
+  # prune nested functions
+  p.split.idx <- which.parents(lapply(p.split, function(x) x$text))
+  p.split <- p.split[p.split.idx]
 
-  if (keep.body & nzchar(dir.out)) {
-    check.body <- unlist(lapply(p.split, "[", 2))
-    if (!is.null(check.body)) {
-      body.text <- text[-check.body]
-      rm.empty <- grep("^$", body.text)
-      if (length(rm.empty) > 0) {
-        body.text <- body.text[-rm.empty[diff(rm.empty) == 1]]
-      }
-      if (length(body.text) > 0) {
-        if (!is.null(dir.out)){
-          cat(body.text, file = file.path(dir.body, "body.R"), sep = "\n") 
+  ret <- lapply(p.split, function(x) text[x$text])
+  names(ret) <- lapply(p.split, function(x) x$name)
+  
+  # writing to disk
+  
+  if (nzchar(dir.out)) {
+    invisible({
+      lapply(p.split,function(x, dir.out, text){
+        file_name <- sprintf("%s.R", gsub("[.]", "_", x$name))
+        file_path <- file.path(dir.out, file_name)
+        cat(text[x$text], file = file_path, sep = "\n")
+      },dir.out = dir.out, text = text)    
+    })
+    
+    if (keep.body) {
+      check.body <- unlist(lapply(p.split, "[", 2))
+      if (!is.null(check.body)) {
+        body.text <- text[-check.body]
+        rm.empty <- grep("^$", body.text)
+        if (length(rm.empty) > 0) {
+          body.text <- body.text[-rm.empty[diff(rm.empty) == 1]]
         }
-        ret$body <- body.text
+        if (length(body.text) > 0) {
+          if (!is.null(dir.out)){
+            cat(body.text, file = file.path(dir.body, "body.R"), sep = "\n") 
+          }
+          ret$body <- body.text
+        }
       }
     }
   }
 
   invisible(ret)
+}
+
+which.parents <- function(obj){
+  which(obj %in% find.parents(obj))
+}
+
+find.parents <- function(obj){
+  i <- 1
+  flag <- TRUE
+  while(flag & i <= length(obj)){
+    rem_i <- vector(mode = 'numeric')
+    for(ii in (i+1):length(obj)){
+      if(length(setdiff(obj[[ii]],obj[[i]]))==0){
+        rem_i <- c(rem_i,ii)
+      }
+    }
+    flag <- length(rem_i)>0
+    obj[rem_i] <- NULL
+    i <- i + 1
+  }
+  obj
 }
