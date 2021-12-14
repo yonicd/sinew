@@ -85,7 +85,7 @@ pretty_namespace <- function(con = NULL,
 
 #' @title Create lists of `package` exports 
 #' @description Useful for supplying packages to the `force` argument to `pretty_namespace`.
-#' @param packages \code{(character)} packages to include in list, order of packages determines which function will be selected first.
+#' @param packages \code{(character)} packages to include in list. When duplicate function names exist the order of packages determines which function will be selected first - IE the first package with the function name will include that function, the second package with the function name will not have it listed.
 #'
 #' @return \code{(named list)} with package names as names as all exports as a character vector
 #' @export
