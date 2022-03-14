@@ -68,6 +68,7 @@ pretty_rmd <- function(input,
   invisible(x)
 }
 
+#' @importFrom utils strcapture
 list_chunks <- function(x){
   FROM <- grep('^```\\{(.*?)r',x)
   if (length(FROM) == 0) return(NULL)
@@ -78,7 +79,7 @@ list_chunks <- function(x){
     FROM <- FROM[!ZERO]
     TO <- TO[!ZERO]
   } 
-  NAMES <- strcapture("(?<=r\\s)(?:\\'|\\\")?([[:alnum:]\\s\\_\\.]+)",x[FROM - 1], data.frame(chunk_title = character()), perl = TRUE)
+  NAMES <- utils::strcapture("(?<=r\\s)(?:\\'|\\\")?([[:alnum:]\\s\\_\\.]+)",x[FROM - 1], data.frame(chunk_title = character()), perl = TRUE)
   NAMES$chunk <- sprintf("%03d", 1:NROW(NAMES))
   NAMES$lines <- paste0("lines", FROM,"-",TO)
   setNames(mapply(seq,from=FROM,to=TO, SIMPLIFY = FALSE), with(NAMES, mapply(function(.x, .y, .z) {
