@@ -34,7 +34,7 @@ pkg_dir_r <- file.path(pkg_dir, 'R')
 
 usethis::create_package(path = pkg_dir, open = FALSE)
 withr::with_dir(pkg_dir, usethis::use_data_raw(open = FALSE))
-withr::with_dir(pkg_dir, usethis::use_mit_license(name = "John Doe"))
+withr::with_dir(pkg_dir, usethis::use_mit_license(copyright_holder = "John Doe"))
 withr::with_dir(pkg_dir, usethis::use_roxygen_md())
 
 ```

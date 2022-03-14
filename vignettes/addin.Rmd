@@ -2,7 +2,7 @@
 title: "Sinew Addins"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Sinew Addin}
+  %\VignetteIndexEntry{Sinew Addins}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
