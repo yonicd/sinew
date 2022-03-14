@@ -12,10 +12,11 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - { os: windows-latest, r: '4.0'}
+        - { os: windows-latest, r: '4.1.0'}
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       CRAN: ${{ matrix.config.cran }}
+      GITHUB_PAT: ${{secrets.GH_PAT}}
       
     steps:
     
