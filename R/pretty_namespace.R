@@ -91,16 +91,16 @@ pretty_namespace <- function(con = NULL,
 #' @export
 #'
 #' @examples
-#' force_pkgs(c("dplyr"))
+#' make_force_packages(c("utils"))
+#' @rdname make_force_packages
 
-
-force_pkgs <- function (packages) {
+make_force_packages <- function (packages) {
   names(packages) <- packages
   force <- 
     lapply(packages, function(.x) getNamespaceExports(.x)[!grepl("^\\.", getNamespaceExports(.x))])
   if (length(force) > 1) {
     end_idx <- ifelse(length(force) == 1, 1, length(force) - 1)
-    # USe first packag
+    # Use first package
     for (idx in 1:end_idx) {
       pkg <- force[[idx]]
       for (fn in pkg) {

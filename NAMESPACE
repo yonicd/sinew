@@ -2,12 +2,12 @@
 
 S3method(print,sinew_tabular)
 export(create_yml)
-export(force_pkgs)
 export(interOxyAddIn)
 export(ls_param)
 export(makeDictionary)
 export(makeOxyFile)
 export(makeOxygen)
+export(make_force_packages)
 export(make_import)
 export(moga)
 export(pretty_addin)

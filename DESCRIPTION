@@ -1,13 +1,14 @@
 Package: sinew
 Type: Package
 Title: Package Development Documentation and Namespace Management 
-Version: 0.3.91
-Date: 2020-11-06
+Version: 0.3.92
+Date: 2022-03-14
 Authors@R: c(
         person("Jonathan", "Sidi", email = "yonicd@gmail.com", role = c("aut","cre")), 
         person("Anton","Grishin",role = "ctb"),
         person("Lorenzo","Busetto",role = "ctb"),
-        person("Alexey","Shiklomanov",role = "ctb"))
+        person("Alexey","Shiklomanov",role = "ctb"),
+        person("Stephen","Holsenbeck",role = "ctb"))
 Description: Manage package documentation and namespaces from the command line. 
              Programatically attach namespaces in R and Rmd script, populates 
              Roxygen2 skeletons with information scraped from within functions and 
