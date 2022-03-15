@@ -5,8 +5,6 @@
 #' @param open_output boolean, open the output on.exit, Default: TRUE
 #' @param create_library boolean, create library chunk, Default: TRUE
 #' @param chunks numeric, indicies of chunks to run on, Default: NULL
-#' @param lookup_order locations in which namespaces should be searched/used. Respects the order of namespaces found in each location when namespacing functions and `ask = FALSE`. 
-#COMBAK Finish explanation if accepted.
 #' @param \dots arguments to pass to pretty_namespace
 #' @return character
 #' @details 
@@ -32,7 +30,6 @@ pretty_rmd <- function(input,
                        open_output = TRUE, 
                        create_library = TRUE,
                        chunks = NULL,
-                       lookup_order = c("searchpath", "document", "library", "sos"),
                        ...){
   
   x        <- readLines(input,warn = FALSE)
