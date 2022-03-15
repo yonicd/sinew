@@ -20,11 +20,11 @@ pretty_parse <- function(txt){
   
 }
 
-#' @importFrom stringi stri_opts_brkiter
+
 opts <- function (x) 
 {
   if (identical(x, "")) {
-    stringi:::stri_opts_brkiter(type = "character")
+    list(type = "character")
   }
   else {
     attr(x, "options")
@@ -37,17 +37,15 @@ opts <- function (x)
 #' @param txt \code{(character)} vector of document text
 #' @details See \href{https://github.com/yonicd/sinew/issues/61}{#61} for a discussion
 #' @return \code{(character)} vector of all packages loaded in the doc
-#' @importFrom stats setNames
-#' @importFrom stringi stri_extract_all_regex
 
 doc_packages <- function(txt) {
   .load_fns <- c("library", "require", "attachNamespace", "loadNamespace", "requireNamespace")
   .arg_names <- c("what", "ns", "package")
   .load_calls <- paste0("(?<=\\s|\\t|\\n|\\()", .load_fns, "\\([^\\)]+\\)")
   # get packages from all load calls
-  lines <- unlist(stringi::stri_extract_all_regex(txt, paste0(.load_calls,collapse = "|"), omit_no_match = TRUE))
-  if (length(lines) > 0) {
-    loading_call <- lapply(lines, function(x){
+  .lines <- unlist(stringi::stri_extract_all_regex(txt, paste0(.load_calls,collapse = "|"), omit_no_match = TRUE))
+  if (length(.lines) > 0) {
+    loading_call <- lapply(.lines, function(x){
       lc <- sapply(.load_fns, function(p) {grepl(p, x, perl = TRUE)})
       names(lc)[max(which(lc))]
     })
@@ -55,7 +53,7 @@ doc_packages <- function(txt) {
       tp <- parse(text = x)
       args <- as.list(match.call(match.fun(fun), call = tp))
       as.character(args[[which(names(args) %in% .arg_names)]])
-    }, lines, loading_call)
+    }, .lines, loading_call)
   }
   
  pkgs <- unique(c(
