@@ -87,26 +87,11 @@ doc_packages <- function(txt) {
 #' @importFrom utils packageVersion install.packages select.list
 
 namespace_exports <- function(ns) {
-  known <- ip[,"Package"][ip[,"Package"] %in% ns]
-  unknown <- setdiff(ns, known)
-  if (length(unknown) > 0) {
-    sel <- utils::select.list(c("Install All", "None", unknown), title = paste0("The namespaces of the following packages cannot be retrieved, which would you like to install?"), multiple = TRUE)
-    if (sel == "Install All") {
-      sel <- unknown
-    } else if (sel == "None") {
-      sel <- character()
-    }
-    if (length(sel) > 0) {
-      try(utils::install.packages(sel))
-      .check <- sapply(sel, function(x) try(utils::packageVersion(x), silent = TRUE))
-      .failed <- grepl("^Error in", .check)
-      if (any(.failed)) {
-        message("The following packages failed to install. Namespaces will not be loaded: ", paste0(.check[.failed], collapse = ", "))
-      }
-      known <- c(known, sel[!.failed])
-    }
-  }
-  lapply(known, function(.x) try(getNamespaceExports(.x)))
+  ns_exports <- sapply(ns, function(x) try(getNamespaceExports(x), silent = TRUE))
+  .missing <- sapply(ns_exports, \(x) {inherits(x, "try-error")})
+  if (any(.missing))
+    stop("The following packages need to be installed: ", paste0(ns[.missing], collapse = ", "))
+  ns_exports[!.missing]
 }
 
 
