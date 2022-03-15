@@ -84,7 +84,7 @@ doc_packages <- function(txt) {
 #' @description given a named character vector of packages outputs a list of all package exports
 #' @param ns \code{(character)} vector of package (namespace) names
 #' @return \code{(list)} of character vectors containing all of a package's exported functions
-#' @importFrom utils packageVersion install.packages select.list
+
 
 namespace_exports <- function(ns) {
   ns_exports <- sapply(ns, function(x) try(getNamespaceExports(x), silent = TRUE))
