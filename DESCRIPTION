@@ -10,7 +10,7 @@ Authors@R: c(
         person("Alexey","Shiklomanov",role = "ctb"),
         person("Stephen","Holsenbeck",role = "ctb"))
 Description: Manage package documentation and namespaces from the command line. 
-             Programatically attach namespaces in R and Rmd script, populates 
+             Programmatically attach namespaces in R and Rmd script, populates 
              Roxygen2 skeletons with information scraped from within functions and 
              populate the Imports field of the DESCRIPTION file.
 Depends: R (>= 3.2.0)
