@@ -75,7 +75,7 @@ Updated
 
 </details>
 
-## 0.3.7
+## 0.4.0
 
 <details>
 <summary>
