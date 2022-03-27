@@ -1,8 +1,8 @@
 Package: sinew
 Type: Package
 Title: Package Development Documentation and Namespace Management 
-Version: 0.3.92
-Date: 2022-03-14
+Version: 0.3.7
+Date: 2022-03-27
 Authors@R: c(
         person("Jonathan", "Sidi", email = "yonicd@gmail.com", role = c("aut","cre")), 
         person("Anton","Grishin",role = "ctb"),
