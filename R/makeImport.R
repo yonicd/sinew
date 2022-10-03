@@ -57,6 +57,9 @@ make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", des
     } else {
       file <- list.files(script, full.names = TRUE, pattern = "\\.[R|r]$")
     }
+    if (length(file) == 0) {
+      cli::cli_abort("No R files in {.path {script}}, are you sure you selected the right folder?")
+    }
   }
 
   pkg <- sapply(file, function(f) {
