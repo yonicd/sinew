@@ -22,7 +22,7 @@ Imports:
     stringi,
     yaml,
     crayon,
-    cli,
+    cli (>= 3.4.1),
     rematch2
 License: MIT + file LICENSE
 Suggests: 
