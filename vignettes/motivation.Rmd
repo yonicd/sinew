@@ -2,7 +2,7 @@
 title: "Motivation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction}
+  %\VignetteIndexEntry{Motivation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -64,7 +64,7 @@ library(sinew)
 pkg_dir <- file.path(tempdir(),'pkg')
 usethis::create_package(path = pkg_dir, open = FALSE)
 withr::with_dir(pkg_dir, usethis::use_data_raw(open = FALSE))
-withr::with_dir(pkg_dir, usethis::use_mit_license(name = "John Doe"))
+withr::with_dir(pkg_dir, usethis::use_mit_license(copyright_holder = "John Doe"))
 withr::with_dir(pkg_dir, usethis::use_roxygen_md())
 ```
 

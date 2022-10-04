@@ -17,8 +17,8 @@ knitr::opts_chunk$set(
 ```
 
 <!--- Placeholder for tests/README.md Do Not Edit--->
-  - [Coverage](#coverage)
-  - [Unit Tests](#unit-tests)
+-   [Coverage](#coverage)
+-   [Unit Tests](#unit-tests)
 
 This output is created by
 [covrpage](https://github.com/yonicd/covrpage).
@@ -29,36 +29,36 @@ Coverage summary is created using the
 [covr](https://github.com/r-lib/covr) package.
 
 | Object                                                | Coverage (%) |
-| :---------------------------------------------------- | :----------: |
-| sinew                                                 |    18.09     |
-| [R/create\_yml.R](https://github.com/yonicd/sinew/tree/master/R/create_yml.R)                  |     0.00     |
-| [R/get\_oxy.R](https://github.com/yonicd/sinew/tree/master/R/get_oxy.R)                        |     0.00     |
-| [R/interOxyAddIn.R](https://github.com/yonicd/sinew/tree/master/R/interOxyAddIn.R)             |     0.00     |
-| [R/ls\_param.R](https://github.com/yonicd/sinew/tree/master/R/ls_param.R)                      |     0.00     |
-| [R/makeDictionary.R](https://github.com/yonicd/sinew/tree/master/R/makeDictionary.R)           |     0.00     |
-| [R/makeOxyFile.R](https://github.com/yonicd/sinew/tree/master/R/makeOxyFile.R)                 |     0.00     |
-| [R/makeOxygen.R](https://github.com/yonicd/sinew/tree/master/R/makeOxygen.R)                   |     0.00     |
-| [R/moga.R](https://github.com/yonicd/sinew/tree/master/R/moga.R)                               |     0.00     |
-| [R/opts\_complete.R](https://github.com/yonicd/sinew/tree/master/R/opts_complete.R)            |     0.00     |
-| [R/oxygenAddin.R](https://github.com/yonicd/sinew/tree/master/R/oxygenAddin.R)                 |     0.00     |
-| [R/pretty\_addin\_utils.R](https://github.com/yonicd/sinew/tree/master/R/pretty_addin_utils.R) |     0.00     |
-| [R/pretty\_addin.R](https://github.com/yonicd/sinew/tree/master/R/pretty_addin.R)              |     0.00     |
-| [R/pretty\_rmd.R](https://github.com/yonicd/sinew/tree/master/R/pretty_rmd.R)                  |     0.00     |
-| [R/pretty\_sinew.R](https://github.com/yonicd/sinew/tree/master/R/pretty_sinew.R)              |     0.00     |
-| [R/rm\_oxylines.R](https://github.com/yonicd/sinew/tree/master/R/rm_oxylines.R)                |     0.00     |
-| [R/rmOxygen.R](https://github.com/yonicd/sinew/tree/master/R/rmOxygen.R)                       |     0.00     |
-| [R/something.R](https://github.com/yonicd/sinew/tree/master/R/something.R)                     |     0.00     |
-| [R/untangle\_examples.R](https://github.com/yonicd/sinew/tree/master/R/untangle_examples.R)    |     0.00     |
-| [R/untangle.R](https://github.com/yonicd/sinew/tree/master/R/untangle.R)                       |     0.00     |
-| [R/opts.R](https://github.com/yonicd/sinew/tree/master/R/opts.R)                               |     5.88     |
-| [R/zzz.R](https://github.com/yonicd/sinew/tree/master/R/zzz.R)                                 |    11.11     |
-| [R/pretty\_utils.R](https://github.com/yonicd/sinew/tree/master/R/pretty_utils.R)              |    53.93     |
-| [R/make\_seealso.R](https://github.com/yonicd/sinew/tree/master/R/make_seealso.R)              |    58.82     |
-| [R/make_import.R](https://github.com/yonicd/sinew/tree/master/R/make_import.R)                   |    61.02     |
-| [R/pretty\_namespace.R](https://github.com/yonicd/sinew/tree/master/R/pretty_namespace.R)      |    83.33     |
-| [R/tabular.R](https://github.com/yonicd/sinew/tree/master/R/tabular.R)                         |    88.89     |
-| [R/prettify.R](https://github.com/yonicd/sinew/tree/master/R/prettify.R)                       |    94.74     |
-| [R/check\_attach.R](https://github.com/yonicd/sinew/tree/master/R/check_attach.R)              |    100.00    |
+|:------------------------------------------------------|:------------:|
+| sinew                                                 |    21.62     |
+| [R/create\_yml.R](https://github.com/yonicd/sinew/blob/master/R/create_yml.R)                  |     0.00     |
+| [R/get\_oxy.R](https://github.com/yonicd/sinew/blob/master/R/get_oxy.R)                        |     0.00     |
+| [R/interOxyAddIn.R](https://github.com/yonicd/sinew/blob/master/R/interOxyAddIn.R)             |     0.00     |
+| [R/ls\_param.R](https://github.com/yonicd/sinew/blob/master/R/ls_param.R)                      |     0.00     |
+| [R/makeDictionary.R](https://github.com/yonicd/sinew/blob/master/R/makeDictionary.R)           |     0.00     |
+| [R/makeOxyFile.R](https://github.com/yonicd/sinew/blob/master/R/makeOxyFile.R)                 |     0.00     |
+| [R/makeOxygen.R](https://github.com/yonicd/sinew/blob/master/R/makeOxygen.R)                   |     0.00     |
+| [R/moga.R](https://github.com/yonicd/sinew/blob/master/R/moga.R)                               |     0.00     |
+| [R/opts\_complete.R](https://github.com/yonicd/sinew/blob/master/R/opts_complete.R)            |     0.00     |
+| [R/oxygenAddin.R](https://github.com/yonicd/sinew/blob/master/R/oxygenAddin.R)                 |     0.00     |
+| [R/pretty\_addin\_utils.R](https://github.com/yonicd/sinew/blob/master/R/pretty_addin_utils.R) |     0.00     |
+| [R/pretty\_addin.R](https://github.com/yonicd/sinew/blob/master/R/pretty_addin.R)              |     0.00     |
+| [R/pretty\_rmd.R](https://github.com/yonicd/sinew/blob/master/R/pretty_rmd.R)                  |     0.00     |
+| [R/pretty\_sinew.R](https://github.com/yonicd/sinew/blob/master/R/pretty_sinew.R)              |     0.00     |
+| [R/rm\_oxylines.R](https://github.com/yonicd/sinew/blob/master/R/rm_oxylines.R)                |     0.00     |
+| [R/rmOxygen.R](https://github.com/yonicd/sinew/blob/master/R/rmOxygen.R)                       |     0.00     |
+| [R/something.R](https://github.com/yonicd/sinew/blob/master/R/something.R)                     |     0.00     |
+| [R/untangle\_examples.R](https://github.com/yonicd/sinew/blob/master/R/untangle_examples.R)    |     0.00     |
+| [R/opts.R](https://github.com/yonicd/sinew/blob/master/R/opts.R)                               |     5.88     |
+| [R/zzz.R](https://github.com/yonicd/sinew/blob/master/R/zzz.R)                                 |    11.11     |
+| [R/pretty\_namespace.R](https://github.com/yonicd/sinew/blob/master/R/pretty_namespace.R)      |    43.48     |
+| [R/pretty\_utils.R](https://github.com/yonicd/sinew/blob/master/R/pretty_utils.R)              |    46.08     |
+| [R/make\_seealso.R](https://github.com/yonicd/sinew/blob/master/R/make_seealso.R)              |    58.82     |
+| [R/makeImport.R](https://github.com/yonicd/sinew/blob/master/R/makeImport.R)                   |    61.02     |
+| [R/tabular.R](https://github.com/yonicd/sinew/blob/master/R/tabular.R)                         |    88.89     |
+| [R/prettify.R](https://github.com/yonicd/sinew/blob/master/R/prettify.R)                       |    94.83     |
+| [R/untangle.R](https://github.com/yonicd/sinew/blob/master/R/untangle.R)                       |    96.67     |
+| [R/check\_attach.R](https://github.com/yonicd/sinew/blob/master/R/check_attach.R)              |    100.00    |
 
 <br>
 
@@ -67,67 +67,72 @@ Coverage summary is created using the
 Unit Test summary is created using the
 [testthat](https://github.com/r-lib/testthat) package.
 
-| file                                                 |  n |  time | error | failed | skipped | warning |
-| :--------------------------------------------------- | -: | ----: | ----: | -----: | ------: | ------: |
-| [test-check\_attach.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-check_attach.R) |  2 | 0.013 |     0 |      0 |       0 |       0 |
-| [test-init.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-init.R)                  |  1 | 0.001 |     0 |      0 |       0 |       0 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R)              | 14 | 1.664 |     0 |      0 |       0 |       0 |
-| [test-rm.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-rm.R)                      |  4 | 0.066 |     0 |      0 |       0 |       0 |
-| [test-seealso.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-seealso.R)            |  2 | 0.002 |     0 |      0 |       0 |       0 |
-| [test-tabular.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-tabular.R)            |  3 | 0.004 |     0 |      0 |       0 |       0 |
+| file                                                 |   n |  time | error | failed | skipped | warning |
+|:-----------------------------------------------------|----:|------:|------:|-------:|--------:|--------:|
+| [test-check\_attach.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-check_attach.R) |   2 | 0.099 |     0 |      0 |       0 |       0 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R)              |  15 | 1.806 |     0 |      0 |       0 |       0 |
+| [test-rm.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-rm.R)                      |   4 | 0.082 |     0 |      0 |       0 |       0 |
+| [test-seealso.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-seealso.R)            |   2 | 0.002 |     0 |      0 |       0 |       0 |
+| [test-tabular.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-tabular.R)            |   3 | 0.124 |     0 |      0 |       0 |       0 |
+| [test-untangle.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R)          |   6 | 0.013 |     0 |      0 |       0 |       0 |
 
 <details closed>
+<summary>
+Show Detailed Test Results
+</summary>
 
-<summary> Show Detailed Test Results </summary>
-
-| file                                                  | context       | test                                           | status | n |  time |
-| :---------------------------------------------------- | :------------ | :--------------------------------------------- | :----- | -: | ----: |
-| [test-check\_attach.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-check_attach.R#) | check\_attach | test check attach: already loaded              | PASS   | 1 | 0.012 |
-| [test-check\_attach.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-check_attach.R#) | check\_attach | test check attach: not already loaded          | PASS   | 1 | 0.001 |
-| [test-init.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-init.R#L6)                | init          | first test: dummy                              | PASS   | 1 | 0.001 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#L16)           | pretty        | switches: force                                | PASS   | 2 | 1.152 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#L27)           | pretty        | switches: ignore                               | PASS   | 1 | 0.222 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#)              | pretty        | setup files: length                            | PASS   | 1 | 0.001 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#)              | pretty        | setup files: class                             | PASS   | 1 | 0.001 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#)              | pretty        | setup files: names                             | PASS   | 1 | 0.001 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#)              | pretty        | setup file: length                             | PASS   | 1 | 0.000 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#)              | pretty        | setup file: class                              | PASS   | 1 | 0.001 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#)              | pretty        | setup file: names                              | PASS   | 1 | 0.001 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#)              | pretty        | setup text: length                             | PASS   | 1 | 0.001 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#)              | pretty        | setup text: class                              | PASS   | 1 | 0.001 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#)              | pretty        | setup text: names                              | PASS   | 1 | 0.001 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#L67_L69)       | pretty        | full text: txt                                 | PASS   | 1 | 0.095 |
-| [test-pretty.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#L79_L81)       | pretty        | full file: file                                | PASS   | 1 | 0.187 |
-| [test-rm.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-rm.R#L17_L20)               | remove oxygen | rm valid actions: no show file                 | PASS   | 1 | 0.005 |
-| [test-rm.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-rm.R#L27_L30)               | remove oxygen | rm valid actions: show file                    | PASS   | 1 | 0.029 |
-| [test-rm.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-rm.R#L48_L51)               | remove oxygen | rm invalid actions: extension                  | PASS   | 1 | 0.015 |
-| [test-rm.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-rm.R#L57_L60)               | remove oxygen | rm invalid actions: path                       | PASS   | 1 | 0.017 |
-| [test-seealso.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-seealso.R#)            | make seealso  | cutoff: less than cutoff                       | PASS   | 1 | 0.001 |
-| [test-seealso.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-seealso.R#)            | make seealso  | no cutoff: no elements                         | PASS   | 1 | 0.001 |
-| [test-tabular.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular header: length    | PASS   | 1 | 0.002 |
-| [test-tabular.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular header: class     | PASS   | 1 | 0.001 |
-| [test-tabular.R](https://github.com/yonicd/sinew/tree/master/tests/testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular no header: length | PASS   | 1 | 0.001 |
+| file                                                  | context       | test                                           | status |   n |  time |
+|:------------------------------------------------------|:--------------|:-----------------------------------------------|:-------|----:|------:|
+| [test-check\_attach.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-check_attach.R#) | check\_attach | test check attach: already loaded              | PASS   |   1 | 0.093 |
+| [test-check\_attach.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-check_attach.R#) | check\_attach | test check attach: not already loaded          | PASS   |   1 | 0.006 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L15)           | pretty        | switches: force                                | PASS   |   2 | 1.144 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L26)           | pretty        | switches: ignore                               | PASS   |   1 | 0.181 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#)              | pretty        | setup files: length                            | PASS   |   1 | 0.003 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#)              | pretty        | setup files: class                             | PASS   |   1 | 0.185 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#)              | pretty        | setup files: names                             | PASS   |   1 | 0.002 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#)              | pretty        | setup file: length                             | PASS   |   1 | 0.002 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#)              | pretty        | setup file: class                              | PASS   |   1 | 0.009 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#)              | pretty        | setup file: names                              | PASS   |   1 | 0.002 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#)              | pretty        | setup text: length                             | PASS   |   1 | 0.001 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#)              | pretty        | setup text: class                              | PASS   |   1 | 0.007 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#)              | pretty        | setup text: names                              | PASS   |   1 | 0.002 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L69)           | pretty        | full text: txt                                 | PASS   |   2 | 0.100 |
+| [test-pretty.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L80_L82)       | pretty        | full file: file                                | PASS   |   1 | 0.168 |
+| [test-rm.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-rm.R#L17_L20)               | remove oxygen | rm valid actions: no show file                 | PASS   |   1 | 0.058 |
+| [test-rm.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-rm.R#L27_L30)               | remove oxygen | rm valid actions: show file                    | PASS   |   1 | 0.004 |
+| [test-rm.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-rm.R#L48_L51)               | remove oxygen | rm invalid actions: extension                  | PASS   |   1 | 0.013 |
+| [test-rm.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-rm.R#L57_L60)               | remove oxygen | rm invalid actions: path                       | PASS   |   1 | 0.007 |
+| [test-seealso.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-seealso.R#)            | make seealso  | cutoff: less than cutoff                       | PASS   |   1 | 0.001 |
+| [test-seealso.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-seealso.R#)            | make seealso  | no cutoff: no elements                         | PASS   |   1 | 0.001 |
+| [test-tabular.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular header: length    | PASS   |   1 | 0.002 |
+| [test-tabular.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular header: class     | PASS   |   1 | 0.120 |
+| [test-tabular.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-tabular.R#)            | tabular       | convert dataframe to tabular no header: length | PASS   |   1 | 0.002 |
+| [test-untangle.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L42)       | untangle      | parent functions: find the parents             | PASS   |   1 | 0.002 |
+| [test-untangle.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L46)       | untangle      | parent functions: parent indicies              | PASS   |   1 | 0.002 |
+| [test-untangle.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L53)       | untangle      | untangle inputs: empty                         | PASS   |   1 | 0.005 |
+| [test-untangle.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L58_L59)   | untangle      | untangle inputs: text functions                | PASS   |   1 | 0.002 |
+| [test-untangle.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L63_L64)   | untangle      | untangle inputs: text body                     | PASS   |   1 | 0.001 |
+| [test-untangle.R](https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L69_L72)   | untangle      | untangle inputs: file                          | PASS   |   1 | 0.001 |
 
 </details>
-
 <details>
+<summary>
+Session Info
+</summary>
 
-<summary> Session Info </summary>
-
-| Field    | Value                               |
-| :------- | :---------------------------------- |
-| Version  | R version 3.6.3 (2020-02-29)        |
-| Platform | x86\_64-apple-darwin15.6.0 (64-bit) |
-| Running  | macOS Catalina 10.15.7              |
-| Language | en\_US                              |
-| Timezone | America/New\_York                   |
+| Field    | Value                             |
+|:---------|:----------------------------------|
+| Version  | R version 4.1.0 (2021-05-18)      |
+| Platform | x86\_64-apple-darwin17.0 (64-bit) |
+| Running  | macOS Big Sur 11.6                |
+| Language | en\_US                            |
+| Timezone | America/New\_York                 |
 
 | Package  | Version |
-| :------- | :------ |
-| testthat | 2.3.2   |
-| covr     | 3.5.0   |
-| covrpage | 0.0.70  |
+|:---------|:--------|
+| testthat | 3.1.2   |
+| covr     | 3.5.1   |
+| covrpage | 0.1     |
 
 </details>
-
 <!--- Final Status : pass --->

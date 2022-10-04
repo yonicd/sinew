@@ -78,3 +78,38 @@ pretty_namespace <- function(con = NULL,
 
   invisible(RET)
 }
+
+
+
+
+
+#' @title Create lists of `package` exports 
+#' @description Useful for supplying packages to the `force` argument to `pretty_namespace`.
+#' @param packages \code{(character)} packages to include in list. When duplicate function names exist the order of packages determines which function will be selected first - IE the first package with the function name will include that function, the second package with the function name will not have it listed.
+#'
+#' @return \code{(named list)} with package names as names as all exports as a character vector
+#' @export
+#'
+#' @examples
+#' make_force_packages(c("utils"))
+#' @rdname make_force_packages
+
+make_force_packages <- function (packages) {
+  names(packages) <- packages
+  force <- 
+    lapply(packages, function(.x) getNamespaceExports(.x)[!grepl("^\\.", getNamespaceExports(.x))])
+  if (length(force) > 1) {
+    end_idx <- ifelse(length(force) == 1, 1, length(force) - 1)
+    # Use first package
+    for (idx in 1:end_idx) {
+      pkg <- force[[idx]]
+      for (fn in pkg) {
+        for (p_idx in (idx + 1):length(force)) {
+          force[[p_idx]] <- force[[p_idx]][!grepl(paste0("^",fn,"$"), force[[p_idx]])]
+        }
+      }
+    }
+  }
+  
+  force
+}

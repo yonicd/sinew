@@ -9,7 +9,7 @@ status](https://github.com/yonicd/sinew/workflows/R-linux/badge.svg)](https://gi
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/yonicd/sinew/master.svg)](https://codecov.io/github/yonicd/sinew?branch=master)
 [![Covrpage
-Summary](https://img.shields.io/badge/covrpage-Last_Build_2020_11_09-brightgreen.svg)](https://github.com/yonicd/sinew/tree/master/tests/README.md)
+Summary](https://img.shields.io/badge/covrpage-Last_Build_2022_03_26-brightgreen.svg)](https://github.com/yonicd/sinew/tree/master/tests/README.md)
 
 # Sinew
 

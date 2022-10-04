@@ -382,7 +382,7 @@ mf <- function(x, pat) {
     silent = TRUE
   )
   
-  if (class(ns) == "try-error") {
+  if (inherits(ns,"try-error")) {
     ns <- vector("character")
   }
   
