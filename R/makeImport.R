@@ -119,7 +119,7 @@ make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", des
           desc[, "Imports"] <- gsub("Imports: ", "\n\t", ret)
         }
 
-        write.dcf(desc, file = file.path(desc_loc, "DESCRIPTION"))
+        write.dcf(desc, file = file.path(desc_loc, "DESCRIPTION"), keep.white = c("Imports", "Suggests", "Remotes"))
       }
     }
   }
