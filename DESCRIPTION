@@ -10,7 +10,8 @@ Description: Manage package documentation and namespaces from the command line. 
              Rmd script, populates Roxygen2 skeletons with information scraped from within functions and populate the
              Imports field of the DESCRIPTION file.
 Depends: R (>= 3.2.0)
-Imports: cli,
+Imports: 
+  cli,
 	crayon,
 	miniUI,
 	rematch2,
