@@ -201,6 +201,6 @@ order_desc <- function(path = ".", order_fields = c("Imports", "Suggests", "Remo
     cat(paste0("\n",fld, ":"), desc[,fld])
   }
   if (overwrite)
-    write.dcf(desc, .path, keep.white = to_order)
+    write.dcf(desc, .path, keep.white = c(order_fields, "Collate"))
   
 }
