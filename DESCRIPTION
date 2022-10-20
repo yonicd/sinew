@@ -3,15 +3,17 @@ Type: Package
 Title: Package Development Documentation and Namespace Management
 Version: 0.4.0
 Date: 2022-03-27
-Authors@R: c( person("Jonathan", "Sidi", email = "yonicd@gmail.com", role = c("aut","cre")), person("Anton","Grishin",role
-             = "ctb"), person("Lorenzo","Busetto",role = "ctb"), person("Alexey","Shiklomanov",role = "ctb"),
-             person("Stephen","Holsenbeck", email = "sholsen@alumni.emory.edu", role = "ctb"))
-Description: Manage package documentation and namespaces from the command line. Programmatically attach namespaces in R and
-             Rmd script, populates Roxygen2 skeletons with information scraped from within functions and populate the
-             Imports field of the DESCRIPTION file.
+Authors@R: c( person("Jonathan", "Sidi", email = "yonicd@gmail.com", role =
+         c("aut","cre")), person("Anton","Grishin",role = "ctb"),
+         person("Lorenzo","Busetto",role = "ctb"), person("Alexey","Shiklomanov",role =
+         "ctb"), person("Stephen","Holsenbeck", email = "sholsen@alumni.emory.edu",
+         role = "ctb"))
+Description: Manage package documentation and namespaces from the command line.
+         Programmatically attach namespaces in R and Rmd script, populates Roxygen2
+         skeletons with information scraped from within functions and populate the
+         Imports field of the DESCRIPTION file.
 Depends: R (>= 3.2.0)
-Imports: 
-  cli,
+Imports: cli,
 	crayon,
 	miniUI,
 	rematch2,
@@ -23,18 +25,18 @@ Imports:
 	utils,
 	yaml
 License: MIT + file LICENSE
-Suggests: rcmdcheck,
- git2r,
- shiny,
- miniUI,
- withr,
- usethis,
- fs,
- details,
- roxygen2,
- testthat,
- knitr,
- rmarkdown
+Suggests: details,
+	fs,
+	git2r,
+	knitr,
+	miniUI,
+	rcmdcheck,
+	rmarkdown,
+	roxygen2,
+	shiny,
+	testthat,
+	usethis,
+	withr
 URL: https://github.com/yonicd/sinew
 BugReports: https://github.com/yonicd/sinew/issues
 LazyData: true
