@@ -174,3 +174,33 @@ update_desc <- function(path, overwrite = TRUE){
   make_import(path, print = !overwrite, format = 'description', desc_loc = desc_loc)
   
 }
+
+
+#' Order Package Description File Fields
+#'
+#' @param path \code{chr} path to directory in which _DESCRIPTION_ file resides
+#' @param order_fields \code{chr} Fields to be ordered alphabetically
+#' @param overwrite \code{lgl} Whether to overwrite with the ordered values
+#'
+#' @return \code{msg} prints the fields to console. If `overwrite = TRUE` also writes the ordered fields to _DESCRIPTION_
+#' @export
+#'
+
+order_desc <- function(path = ".", order_fields = c("Imports", "Suggests", "Remotes"), overwrite = TRUE) {
+  .path <- file.path(path, "DESCRIPTION")
+  
+  desc <- read.dcf(.path)
+  to_order <- intersect(order_fields, colnames(desc))
+  sorted <- lapply(to_order, \(x) {
+    paste0(sort(strsplit(desc[, x], "[,\n\t]+")[[1]]), collapse = ",\n\t")
+  })
+  names(sorted) <- to_order
+  
+  for (fld in to_order) {
+    desc[,fld] <- sorted[[fld]]
+    cat(paste0("\n",fld, ":"), desc[,fld])
+  }
+  if (overwrite)
+    write.dcf(desc, .path, keep.white = to_order)
+  
+}
