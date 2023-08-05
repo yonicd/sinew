@@ -5,7 +5,8 @@ Version: 0.4.0
 Date: 2022-03-27
 Authors@R: c( person("Jonathan", "Sidi", email = "yonicd@gmail.com", role = c("aut","cre")), person("Anton","Grishin",role
              = "ctb"), person("Lorenzo","Busetto",role = "ctb"), person("Alexey","Shiklomanov",role = "ctb"),
-             person("Stephen","Holsenbeck", email = "sholsen@alumni.emory.edu", role = "ctb"))
+             person("Stephen","Holsenbeck", email = "sholsen@alumni.emory.edu", role = "ctb"),
+             person("Eli", "Pousson", , "eli.pousson@gmail.com", role = "ctb"))
 Description: Manage package documentation and namespaces from the command line. Programmatically attach namespaces in R and
              Rmd script, populates Roxygen2 skeletons with information scraped from within functions and populate the
              Imports field of the DESCRIPTION file.
@@ -13,10 +14,9 @@ Depends: R (>= 3.2.0)
 Imports: 
   cli,
 	crayon,
-	miniUI,
 	rematch2,
+	rlang,
 	rstudioapi,
-	shiny,
 	sos,
 	stringi,
 	tools,
@@ -34,12 +34,15 @@ Suggests: rcmdcheck,
  roxygen2,
  testthat,
  knitr,
- rmarkdown
+ rmarkdown,
+ roxygen2md,
+ clipr
 URL: https://github.com/yonicd/sinew
 BugReports: https://github.com/yonicd/sinew/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
+Encoding: UTF-8

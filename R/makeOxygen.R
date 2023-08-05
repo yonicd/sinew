@@ -8,7 +8,10 @@
 #' @param add_fields character vector to add additional roxygen2 fields, 
 #' Default: c("details","examples","seealso","rdname","export")
 #' @param use_dictionary character, path_to_dictionary, Default: NULL
+#' @param use_md boolean to return roxygen2 skeleton with Markdown formatting,
+#'   Default: FALSE
 #' @param print boolean print output to console, Default: TRUE
+#' @param copy boolean copy output to clipboard, Default: [is_interactive()]
 #' @param \dots arguments to be passed to make_import
 #' @details add_fields can include any slot except for the 
 #' defaults (title,description,param,return).
@@ -51,7 +54,9 @@
 #' @examples
 #' makeOxygen(stats::lm)
 #' @concept populate
-makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fields"), use_dictionary=NULL, print=TRUE, ...) {
+#' @importFrom rlang is_interactive is_installed
+#' @importFrom cli cli_code cli_alert_success
+makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fields"), use_dictionary=NULL, use_md=FALSE, print=TRUE, copy=is_interactive(), ...) {
   header_add <- sinew_opts$get()
 
   lbl <- deparse(substitute(obj))
@@ -137,7 +142,7 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
       description = "#' @description FUNCTION_DESCRIPTION"
     )
 
-    footer <- c(return = "#' @return OUTPUT_DESCRIPTION")
+    footer <- c(return = "#' @returns OUTPUT_DESCRIPTION")
 
     ret <- sprintf(
       "%s\n%s\n%s\n%s\n%s",
@@ -157,8 +162,17 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
       import
     )
   }
+  
+  if (use_md && is_installed("roxygen2md")) {
+    ret <- roxygen2md::markdownify(ret)
+  }
 
-  if (print) writeLines(ret)
+  if (print) cli_code(ret)
+  
+  if (copy && is_installed("clipr") && clipr::clipr_available()) {
+    clipr::write_clip(ret)
+    cli_alert_success("Copied to clipboard")
+  }
 
   invisible(ret)
 }

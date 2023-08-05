@@ -9,7 +9,9 @@ makeOxygen(
   add_default = TRUE,
   add_fields = sinew_opts$get("add_fields"),
   use_dictionary = NULL,
+  use_md = FALSE,
   print = TRUE,
+  copy = is_interactive(),
   ...
 )
 }
@@ -24,7 +26,12 @@ Default: c("details","examples","seealso","rdname","export")}
 
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
+\item{use_md}{boolean to return roxygen2 skeleton with Markdown formatting,
+Default: FALSE}
+
 \item{print}{boolean print output to console, Default: TRUE}
+
+\item{copy}{boolean copy output to clipboard, Default: \code{\link[=is_interactive]{is_interactive()}}}
 
 \item{\dots}{arguments to be passed to make_import}
 }
