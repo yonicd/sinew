@@ -14,13 +14,14 @@ complete_token <- get(".completeToken", asNamespace("utils"))
 # context, than R's standard completions are used.
 # @param ... One or more completion functions specified as named parameters.
 #' @importFrom utils modifyList
+#' @importFrom cli cli_abort
 register_completion <- function(...) {
   funs <- list(...)
   
   nms <- names(funs)
   if (is.null(nms) || any(nms == "" | is.na(nms))) {
     wch <- if (is.null(nms)) 1 else which(nms == "" | is.na(nms))
-    stop("All arguments must be named")
+    cli_abort("All arguments must be named")
   }
   
   old <- the$completions
@@ -45,7 +46,7 @@ completeme <- function(env) {
   
   # if in the IDE, throw an error to fallback on normal completion
   if (rstudioapi::isAvailable()) {
-    stop("No custom completions")
+    cli_abort("No custom completions")
   }
   
   # If on the command line, fall back to using the default completer

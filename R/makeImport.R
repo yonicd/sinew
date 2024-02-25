@@ -40,6 +40,7 @@
 #' @export
 #' @importFrom utils capture.output getParseData
 #' @importFrom tools file_ext
+#' @importFrom cli cli_abort
 make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", desc_loc = NULL) {
   
   on.exit({  if (inherits(script, "function")) unlink(file) },add = TRUE)
@@ -58,7 +59,7 @@ make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", des
       file <- list.files(script, full.names = TRUE, pattern = "\\.[R|r]$")
     }
     if (length(file) == 0) {
-      cli::cli_abort("No R files in {.path {script}}, are you sure you selected the right folder?")
+      cli_abort("No R files in {.path {script}}, are you sure you selected the right folder?")
     }
   }
 

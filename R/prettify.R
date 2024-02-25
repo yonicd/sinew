@@ -23,7 +23,7 @@ prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = F
                 simplify = FALSE)
   
   RET <- lapply(RET,function(x){
-    x$new_text <- cli::ansi_strip(string = x$new_text)
+    x$new_text <- ansi_strip(string = x$new_text)
     x
   })
   
