@@ -31,6 +31,7 @@ register_completion <- function(...) {
 }
 
 #' @importFrom utils rc.options
+#' @importFrom cli cli_abort
 completeme <- function(env) {
   env$fileName <- FALSE
   for (fun in the$completions) {
