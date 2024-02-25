@@ -2,9 +2,25 @@
 % Please edit documentation in R/makeOxygen.R
 \name{makeOxygen}
 \alias{makeOxygen}
+\alias{make_oxygen}
 \title{Populate Roxygen2 Skeleton}
 \usage{
 makeOxygen(
+  obj,
+  title = NULL,
+  description = NULL,
+  add_default = TRUE,
+  add_fields = sinew_opts$get("add_fields"),
+  use_dictionary = NULL,
+  use_labels = FALSE,
+  markdown = FALSE,
+  scope = c("full", "simple", "unlink", "indent", "none"),
+  print = TRUE,
+  copy = interactive(),
+  ...
+)
+
+make_oxygen(
   obj,
   title = NULL,
   description = NULL,
