@@ -9,10 +9,20 @@
 #' @examples
 #' makeDictionary('R')
 makeDictionary <- function(path, save_path=FALSE) {
-  if (is.null(names(path))) names(path) <- sprintf("Dictionary-%s", 1:length(path))
+  if (!is.character(path)) {
+    cli_abort("{.arg path} must be a character vector of file or directory paths")
+  }
+  
+  if (is.null(names(path))) names(path) <- sprintf("Dictionary-%s", seq_along(path))
 
   ret <- sapply(names(path), function(p) {
-    l <- list.files(path[[p]], full.names = TRUE)
+    
+    if (dir.exists(path[[p]])) {
+      l <- list.files(path[[p]], pattern = "\\.[r|R]$", full.names = TRUE)
+    } else if (file.exists(path[[p]])) {
+      l <- path[[p]]
+    }
+    
     ret <- sapply(l, function(x) {
       grep("^#' @param", readLines(x, warn = FALSE), value = TRUE)
     })
@@ -28,5 +38,11 @@ makeDictionary <- function(path, save_path=FALSE) {
     }
     ret
   })
+  
   invisible(ret)
 }
+
+#' @rdname makeDictionary
+#' @name make_dictionary
+#' @export
+make_dictionary <- makeDictionary
