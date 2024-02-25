@@ -72,7 +72,7 @@ pretty_shift <- function(txt, sym.funs, nm, overwrite, force, ignore){
   sym.funs <- pretty_manip(sym.funs, force, ignore)
   
   if(!overwrite){
-    sym.funs$new_text <- crayon::red(sym.funs$new_text)
+    sym.funs$new_text <- cli::col_red(sym.funs$new_text)
   }
   
   idx <- which(!sym.funs$namespace %in% c('base','datasets', NA))
@@ -117,7 +117,7 @@ pretty_shift <- function(txt, sym.funs, nm, overwrite, force, ignore){
     pretty_print(sym.funs,file = nm)
     
     if(sinew_opts$get('pretty_print'))
-      writeLines(crayon::white(txt))
+      writeLines(cli::col_white(txt))
     
   }
   
@@ -183,7 +183,6 @@ pretty_merge <- function(e1, e2){
 
 #' @importFrom sos findFn
 #' @importFrom utils help.search menu
-#' @importFrom crayon red col_substr
 pretty_find <- function(NMPATH, sos, sym.funs, funs, txt, ask, askenv){
   
   check_global <- ls(envir = get(search()[1]))
@@ -242,7 +241,7 @@ pretty_find <- function(NMPATH, sos, sym.funs, funs, txt, ask, askenv){
                 .env <- environment()
                 apply(.subs, 1, function(.l){
                   .string_end <- nchar(.x)
-                  assign(".x", paste0(crayon::col_substr(.x, 0, .l["bs"] - 1), crayon::red(crayon::col_substr(.x, .l["bs"], .l["es"] - 2)), crayon::col_substr(.x, .l["es"] - 1, .string_end)), .env)
+                  assign(".x", paste0(cli::ansi_substr(.x, 0, .l["bs"] - 1), cli::col_red(cli::ansi_substr(.x, .l["bs"], .l["es"] - 2)), cli::ansi_substr(.x, .l["es"] - 1, .string_end)), .env)
                 })
                 .env$.x
               }, txt, loc)
@@ -297,7 +296,6 @@ enframe_list <- function(x){
   do.call('rbind',lapply(names(x),function(y) data.frame(force_ns = y, text = x[[y]],stringsAsFactors = FALSE)))
 }
 
-#' @importFrom crayon red strip_style
 #' @importFrom cli symbol
 pretty_print <- function(obj,file,chunk=NULL){
   
@@ -319,9 +317,9 @@ pretty_print <- function(obj,file,chunk=NULL){
   if(nrow(obj)==0)
     return(NULL)
    
-  obj$new_text <- crayon::strip_style(obj$new_text)
+  obj$new_text <- cli::ansi_strip(obj$new_text)
   
-  obj$symbol <- ifelse(is.na(obj$namespac),crayon::red(cli::symbol$cross),cli::symbol$tick)
+  obj$symbol <- ifelse(is.na(obj$namespac),cli::col_red(cli::symbol$cross),cli::symbol$tick)
   
   obj$new_text <- gsub('^NA::','',obj$new_text)
 
@@ -346,7 +344,7 @@ pretty_print <- function(obj,file,chunk=NULL){
     sprintf("\nfunctions changed in '%s':\n\n%s: found, %s: not found, (): instances, %s: user intervention\n\n%s\n\n",
             if (grepl("\\_tmp\\_", file)) strsplit(basename(file), "_tmp_")[[1]][1] else file,
             cli::symbol$tick,
-            crayon::red(cli::symbol$cross),
+            cli::col_red(cli::symbol$cross),
             cli::symbol$checkbox_on,
             paste0(obj$out_text,collapse = '\n')
     )
