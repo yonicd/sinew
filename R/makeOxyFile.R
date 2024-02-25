@@ -53,7 +53,7 @@
 makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive(), ...) {
   if (is.null(input)) input <- file.choose()
 
-  if (length(input) == 1L && file.info(input)$isdir) {
+  if (length(input) == 1L && dir.exists(input)) {
     files <- list.files(path = input, pattern = ".+\\.[rR]$", full.names = TRUE)
     files <- grep("/(?!Oxy)\\w+\\.[rR]$", files, perl = TRUE, value = TRUE)
   } else {
@@ -61,7 +61,7 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive()
   }
 
   if (!all(grepl("\\.[rR]$", basename(files)))) {
-    stop("Supplied file(s) is not an .R file!", call. = FALSE)
+    cli::cli_abort("Supplied file(s) is not an .R file!", call. = FALSE)
   }
 
   neg_msg <- "No functions found in\n"
@@ -161,10 +161,11 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive()
         file.show(oxyfiles)
       }
 
-      message(
-        "File(s) with roxygen2 comment templates have been written to:\n",
-        paste0(normalizePath(oxyfiles, winslash = "/"), collapse = "\n")
+      cli::cli_alert_info("File(s) with roxygen2 comment templates written to:")
+      cli::cli_bullets(
+        normalizePath(oxyfiles, winslash = "/") 
       )
+      
     }
   }
   
