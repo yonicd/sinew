@@ -1,5 +1,5 @@
-obj_lbl <- function(obj) {
-  gsub('"', "", deparse(substitute(obj)))
+obj_lbl <- function(obj, env = parent.frame()) {
+  gsub('"', "", deparse(substitute(obj, env = env)))
 }
 
 #' @title Populate Roxygen2 Skeleton
@@ -13,6 +13,8 @@ obj_lbl <- function(obj) {
 #' @param add_fields character vector to add additional roxygen2 fields, 
 #' Default: c("details","examples","seealso","rdname","export")
 #' @param use_dictionary character, path_to_dictionary, Default: NULL
+#' @param use_labels boolean to use label attribute of data frame columns to
+#'   fill column description values. Default: FALSE.
 #' @param markdown boolean to return roxygen2 skeleton with Markdown formatting,
 #'   Default: FALSE
 #' @param print boolean print output to console, Default: TRUE
@@ -67,6 +69,7 @@ makeOxygen <- function(
     add_default=TRUE,
     add_fields=sinew_opts$get("add_fields"),
     use_dictionary=NULL,
+    use_labels=FALSE,
     markdown=FALSE,
     scope = c("full", "simple", "unlink", "indent", "none"),
     print=TRUE,
@@ -78,13 +81,13 @@ makeOxygen <- function(
   if (is.character(obj)) obj <- eval(parse(text = obj,keep.source = TRUE))
 
   if (inherits(obj, c("data.frame", "tibble"))) {
-    ret <- prep_fn_roxy(
+    ret <- prep_tbl_roxy(
       obj,
       title = title,
       description = description,
-      add_default = add_default,
       add_fields = add_fields,
-      header_add = header_add
+      header_add = header_add,
+      ...
     )
   }
 
@@ -123,8 +126,9 @@ prep_fn_roxy <- function(obj,
                          add_fields=sinew_opts$get("add_fields"),
                          use_dictionary=NULL,
                          header_add = sinew_opts$get(),
+                         env = parent.frame(),
                          ...) {
-  lbl <- obj_lbl(obj)
+  lbl <- obj_lbl(obj, env = env)
   
   importList <- list(...)
   importList$script <- obj
@@ -170,14 +174,15 @@ prep_fn_roxy <- function(obj,
   header <- set_roxy_header(
     title = title,
     description = description,
-    defaults = c("FUNCTION_TITLE", "FUNCTION_DESCRIPTION")
+    defaults = c("FUNCTION_TITLE", "FUNCTION_DESCRIPTION"),
+    collapse = "\n"
   )
   
   footer <- c(return = "#' @returns OUTPUT_DESCRIPTION")
   
   sprintf(
     "%s\n%s\n%s\n%s\n%s",
-    paste(header, collapse = "\n"),
+    header,
     paste(params, collapse = "\n"),
     footer,
     ifelse(!is.null(add_fields), {
@@ -198,27 +203,36 @@ prep_fn_roxy <- function(obj,
 prep_tbl_roxy <- function(obj,
                           title = NULL,
                           description = NULL,
+                          use_labels = TRUE,
                           add_fields=sinew_opts$get("add_fields"),
-                          header_add = sinew_opts$get()) {
-  lbl <- obj_lbl(obj)
+                          header_add = sinew_opts$get(),
+                          env = parent.frame()) {
+  lbl <- obj_lbl(obj, env = env)
   
   cl <- sapply(obj, typeof)
+  cl_desc <- rep("COLUMN_DESCRIPTION", ncol(obj))
+  
+  if (use_labels) {
+    cl_desc <- as.character(lapply(obj, \(x) {attr(x, "label", exact = TRUE)}))
+    cl_desc[cl_desc == "NULL"] <- "COLUMN_DESCRIPTION"
+  }
   
   # Write individual item description templates
-  items <- paste0(sprintf("#'   \\item{\\code{%s}}{%s COLUMN_DESCRIPTION}", names(cl), cl), collapse = "\n")
+  items <- paste0(sprintf("#'   \\item{\\code{%s}}{%s %s}", names(cl), cl, cl_desc), collapse = "\n")
   
   header <- set_roxy_header(
     title = title,
     description = description,
     defaults = c("DATASET_TITLE", "DATASET_DESCRIPTION"),
-    format = sprintf("#' @format A data frame with %s rows and %s variables:", nrow(obj), length(cl))
+    format = sprintf("#' @format A data frame with %s rows and %s variables:", nrow(obj), length(cl)),
+    collapse = "\n"
   )
   
   add_fields <- setdiff(add_fields,c('export','examples','seealso','rdname'))
   
   sprintf(
     "%s\n%s\n%s%s",
-    paste(header, collapse = "\n"),
+    header,
     sprintf("#' \\describe{\n%s \n#'}", items),
     ifelse(!is.null(add_fields), {
       paste(
@@ -235,7 +249,7 @@ prep_tbl_roxy <- function(obj,
 }
 
 #' @noRd
-set_roxy_header <- function(title = NULL, description = NULL, ..., defaults = list()) {
+set_roxy_header <- function(title = NULL, description = NULL, ..., defaults = list(), collapse = "\n") {
   if (is.null(title)) {
     title <- defaults[[1]]
   }
@@ -244,9 +258,11 @@ set_roxy_header <- function(title = NULL, description = NULL, ..., defaults = li
     description <- defaults[[2]]
   }
   
-  c(
+  header <- c(
     title = paste0("#' @title ", title),
     description = paste0("#' @description ", description),
     ...
   )
+  
+  paste0(header, collapse = collapse)
 }

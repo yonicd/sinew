@@ -11,6 +11,7 @@ makeOxygen(
   add_default = TRUE,
   add_fields = sinew_opts$get("add_fields"),
   use_dictionary = NULL,
+  use_labels = FALSE,
   markdown = FALSE,
   scope = c("full", "simple", "unlink", "indent", "none"),
   print = TRUE,
@@ -30,6 +31,9 @@ fields, Default: TRUE}
 Default: c("details","examples","seealso","rdname","export")}
 
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
+
+\item{use_labels}{boolean to use label attribute of data frame columns to
+fill column description values. Default: FALSE.}
 
 \item{markdown}{boolean to return roxygen2 skeleton with Markdown formatting,
 Default: FALSE}
