@@ -6,12 +6,15 @@
 \usage{
 makeOxygen(
   obj,
+  title = NULL,
+  description = NULL,
   add_default = TRUE,
   add_fields = sinew_opts$get("add_fields"),
   use_dictionary = NULL,
-  use_md = FALSE,
+  markdown = FALSE,
+  scope = c("full", "simple", "unlink", "indent", "none"),
   print = TRUE,
-  copy = is_interactive(),
+  copy = interactive(),
   ...
 )
 }
@@ -26,7 +29,7 @@ Default: c("details","examples","seealso","rdname","export")}
 
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
-\item{use_md}{boolean to return roxygen2 skeleton with Markdown formatting,
+\item{markdown}{boolean to return roxygen2 skeleton with Markdown formatting,
 Default: FALSE}
 
 \item{print}{boolean print output to console, Default: TRUE}
