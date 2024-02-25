@@ -21,6 +21,8 @@ makeOxygen(
 \arguments{
 \item{obj}{function or name of function}
 
+\item{title, description}{Optional title and description values to use}
+
 \item{add_default}{boolean to add defaults values to the end of the PARAM
 fields, Default: TRUE}
 
@@ -34,7 +36,7 @@ Default: FALSE}
 
 \item{print}{boolean print output to console, Default: TRUE}
 
-\item{copy}{boolean copy output to clipboard, Default: \code{\link[=is_interactive]{is_interactive()}}}
+\item{copy}{boolean copy output to clipboard, Default: \code{\link[=interactive]{interactive()}}}
 
 \item{\dots}{arguments to be passed to make_import}
 }

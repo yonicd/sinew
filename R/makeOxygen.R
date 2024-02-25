@@ -7,6 +7,7 @@ obj_lbl <- function(obj) {
 #' description, import and other fields for
 #' an object in the global environment or a function of an attached namespace.
 #' @param obj function or name of function
+#' @param title,description Optional title and description values to use
 #' @param add_default boolean to add defaults values to the end of the PARAM 
 #' fields, Default: TRUE
 #' @param add_fields character vector to add additional roxygen2 fields, 
@@ -15,7 +16,7 @@ obj_lbl <- function(obj) {
 #' @param markdown boolean to return roxygen2 skeleton with Markdown formatting,
 #'   Default: FALSE
 #' @param print boolean print output to console, Default: TRUE
-#' @param copy boolean copy output to clipboard, Default: [is_interactive()]
+#' @param copy boolean copy output to clipboard, Default: [interactive()]
 #' @param \dots arguments to be passed to make_import
 #' @details add_fields can include any slot except for the 
 #' defaults (title,description,param,return).
@@ -73,7 +74,7 @@ makeOxygen <- function(
     ...
 ) {
   header_add <- sinew_opts$get()
-
+  
   if (is.character(obj)) obj <- eval(parse(text = obj,keep.source = TRUE))
 
   if (inherits(obj, c("data.frame", "tibble"))) {
@@ -82,7 +83,8 @@ makeOxygen <- function(
       title = title,
       description = description,
       add_default = add_default,
-      add_fields = add_fields
+      add_fields = add_fields,
+      header_add = header_add
     )
   }
 
@@ -94,6 +96,7 @@ makeOxygen <- function(
       add_default = add_default,
       add_fields = add_fields,
       use_dictionary = use_dictionary,
+      header_add = header_add,
       ...
     )
   }
@@ -119,6 +122,7 @@ prep_fn_roxy <- function(obj,
                          add_default = TRUE,
                          add_fields=sinew_opts$get("add_fields"),
                          use_dictionary=NULL,
+                         header_add = sinew_opts$get(),
                          ...) {
   lbl <- obj_lbl(obj)
   
@@ -194,7 +198,8 @@ prep_fn_roxy <- function(obj,
 prep_tbl_roxy <- function(obj,
                           title = NULL,
                           description = NULL,
-                          add_fields=sinew_opts$get("add_fields")) {
+                          add_fields=sinew_opts$get("add_fields"),
+                          header_add = sinew_opts$get()) {
   lbl <- obj_lbl(obj)
   
   cl <- sapply(obj, typeof)
