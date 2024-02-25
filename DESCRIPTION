@@ -22,20 +22,21 @@ Imports:
 	utils,
 	yaml
 License: MIT + file LICENSE
-Suggests: rcmdcheck,
- git2r,
- shiny,
- miniUI,
- withr,
- usethis,
- fs,
- details,
- roxygen2,
- testthat,
- knitr,
- rmarkdown,
- roxygen2md,
- clipr
+Suggests: 
+    rcmdcheck,
+    git2r,
+    shiny,
+    miniUI,
+    withr,
+    usethis,
+    fs,
+    details,
+    roxygen2,
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    roxygen2md,
+    clipr
 URL: https://github.com/yonicd/sinew
 BugReports: https://github.com/yonicd/sinew/issues
 LazyData: true
@@ -45,3 +46,4 @@ RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
+Config/testthat/edition: 3
