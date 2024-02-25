@@ -76,7 +76,6 @@ makeOxygen <- function(
     copy=interactive(),
     ...
 ) {
-  header_add <- sinew_opts$get()
   
   if (is.character(obj)) obj <- eval(parse(text = obj,keep.source = TRUE))
 
@@ -86,7 +85,6 @@ makeOxygen <- function(
       title = title,
       description = description,
       add_fields = add_fields,
-      header_add = header_add,
       ...
     )
   }
@@ -99,7 +97,6 @@ makeOxygen <- function(
       add_default = add_default,
       add_fields = add_fields,
       use_dictionary = use_dictionary,
-      header_add = header_add,
       ...
     )
   }
@@ -118,6 +115,11 @@ makeOxygen <- function(
   invisible(ret)
 }
 
+#' @rdname makeOxygen
+#' @name make_oxygen
+#' @export
+make_oxygen <- makeOxygen
+
 #' @noRd
 prep_fn_roxy <- function(obj,
                          title = NULL,
@@ -128,8 +130,6 @@ prep_fn_roxy <- function(obj,
                          header_add = sinew_opts$get(),
                          env = parent.frame(),
                          ...) {
-  lbl <- obj_lbl(obj, env = env)
-  
   importList <- list(...)
   importList$script <- obj
   importList$print <- FALSE
@@ -143,8 +143,6 @@ prep_fn_roxy <- function(obj,
   param_desc <- NULL
   if (!is.null(use_dictionary)) param_desc <- ls_param(obj = obj, dictionary = use_dictionary, print = FALSE)
   fn <- as.list(formals(obj))
-  
-  if ("rdname" %in% add_fields) header_add["rdname"] <- lbl
   
   out <- sapply(names(fn), function(name_y) {
     cl <- class(fn[[name_y]])
@@ -168,8 +166,8 @@ prep_fn_roxy <- function(obj,
     
     return(out)
   })
-  params <- sprintf("#' @param %s %s", names(out), out)
   
+  params <- sprintf("#' @param %s %s", names(out), out)
   
   header <- set_roxy_header(
     title = title,
@@ -180,21 +178,19 @@ prep_fn_roxy <- function(obj,
   
   footer <- c(return = "#' @returns OUTPUT_DESCRIPTION")
   
+  if ("rdname" %in% add_fields) header_add["rdname"] <- obj_lbl(obj, env = env)
+  
+  add_fields <- set_roxy_add_fields(
+    add_fields = add_fields,
+    header_add = header_add
+  )
+  
   sprintf(
     "%s\n%s\n%s\n%s\n%s",
     header,
     paste(params, collapse = "\n"),
     footer,
-    ifelse(!is.null(add_fields), {
-      paste(
-        sprintf(
-          "#' @%s %s",
-          names(header_add[add_fields]),
-          header_add[add_fields]
-        ),
-        collapse = "\n"
-      )
-    }, ""),
+    add_fields,
     import
   )
 }
@@ -207,9 +203,7 @@ prep_tbl_roxy <- function(obj,
                           add_fields=sinew_opts$get("add_fields"),
                           header_add = sinew_opts$get(),
                           env = parent.frame()) {
-  lbl <- obj_lbl(obj, env = env)
-  
-  cl <- sapply(obj, typeof)
+  cl <- vapply(obj, typeof, character(1))
   cl_desc <- rep("COLUMN_DESCRIPTION", ncol(obj))
   
   if (use_labels) {
@@ -228,23 +222,17 @@ prep_tbl_roxy <- function(obj,
     collapse = "\n"
   )
   
-  add_fields <- setdiff(add_fields,c('export','examples','seealso','rdname'))
+  add_fields <- set_roxy_add_fields(
+    add_fields = setdiff(add_fields, c('export','examples','seealso','rdname')),
+    header_add = header_add
+  ) 
   
   sprintf(
     "%s\n%s\n%s%s",
     header,
     sprintf("#' \\describe{\n%s \n#'}", items),
-    ifelse(!is.null(add_fields), {
-      paste(
-        sprintf(
-          "#' @%s %s",
-          names(header_add[add_fields]),
-          header_add[add_fields]
-        ),
-        collapse = "\n"
-      )
-    }, ""),
-    sprintf('\n"%s"', lbl)
+    add_fields,
+    sprintf('\n"%s"', obj_lbl(obj, env = env))
   )
 }
 
@@ -265,4 +253,19 @@ set_roxy_header <- function(title = NULL, description = NULL, ..., defaults = li
   )
   
   paste0(header, collapse = collapse)
+}
+
+#' @noRd
+set_roxy_add_fields <- function(add_fields = NULL, header_add = sinew_opts$get()) {
+  if (is.null(add_fields)) {
+    return("")
+  }
+    paste(
+      sprintf(
+        "#' @%s %s",
+        names(header_add[add_fields]),
+        header_add[add_fields]
+      ),
+      collapse = "\n"
+    )
 }
