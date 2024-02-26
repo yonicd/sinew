@@ -46,7 +46,8 @@ fields, Default: TRUE}
 Default: c("details","examples","seealso","rdname","export")}
     \item{\code{use_dictionary}}{character, path_to_dictionary, Default: NULL}
     \item{\code{use_labels}}{boolean to use label attribute of data frame columns to
-fill column description values. Default: FALSE.}
+fill column description values. Ignored if obj is a function or vector.
+Default: FALSE.}
   }}
 }
 \value{

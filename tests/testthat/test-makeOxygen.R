@@ -6,6 +6,7 @@ test_that("makeOxygen works", {
   
   expect_type(makeOxygen(df), "character")
   expect_type(makeOxygen(makeOxygen), "character")
+  expect_type(makeOxygen(LETTERS), "character")
   
   skip_if_not(interactive())
   expect_message(makeOxygen(df), class = "cli")

@@ -36,7 +36,8 @@ make_oxygen(
 )
 }
 \arguments{
-\item{obj}{function or name of function}
+\item{obj}{function or name of function, a data frame, or a vector (strings
+are interpreted as function names).}
 
 \item{title, description}{Optional title and description values to use}
 
@@ -49,7 +50,8 @@ Default: c("details","examples","seealso","rdname","export")}
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
 \item{use_labels}{boolean to use label attribute of data frame columns to
-fill column description values. Default: FALSE.}
+fill column description values. Ignored if obj is a function or vector.
+Default: FALSE.}
 
 \item{markdown}{boolean to return roxygen2 skeleton with Markdown formatting,
 Default: FALSE}
@@ -61,9 +63,9 @@ Default: FALSE}
 \item{\dots}{arguments to be passed to make_import}
 }
 \description{
-Creates roxygen2 skeleton including title,
-description, import and other fields for
-an object in the global environment or a function of an attached namespace.
+Creates roxygen2 skeleton including title, description, import
+and other fields for an object in the global environment or a function of
+an attached namespace.
 }
 \details{
 add_fields can include any slot except for the

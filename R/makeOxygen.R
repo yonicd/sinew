@@ -3,10 +3,11 @@ obj_lbl <- function(obj, env = parent.frame()) {
 }
 
 #' @title Populate Roxygen2 Skeleton
-#' @description Creates roxygen2 skeleton including title, 
-#' description, import and other fields for
-#' an object in the global environment or a function of an attached namespace.
-#' @param obj function or name of function
+#' @description Creates roxygen2 skeleton including title, description, import
+#'   and other fields for an object in the global environment or a function of
+#'   an attached namespace.
+#' @param obj function or name of function, a data frame, or a vector (strings
+#'   are interpreted as function names).
 #' @param title,description Optional title and description values to use
 #' @param add_default boolean to add defaults values to the end of the PARAM 
 #' fields, Default: TRUE
@@ -14,7 +15,8 @@ obj_lbl <- function(obj, env = parent.frame()) {
 #' Default: c("details","examples","seealso","rdname","export")
 #' @param use_dictionary character, path_to_dictionary, Default: NULL
 #' @param use_labels boolean to use label attribute of data frame columns to
-#'   fill column description values. Default: FALSE.
+#'   fill column description values. Ignored if obj is a function or vector.
+#'   Default: FALSE.
 #' @param markdown boolean to return roxygen2 skeleton with Markdown formatting,
 #'   Default: FALSE
 #' @param print boolean print output to console, Default: TRUE
@@ -77,8 +79,20 @@ makeOxygen <- function(
     ...
 ) {
   
-  if (is.character(obj)) obj <- eval(parse(text = obj,keep.source = TRUE))
+  if (is.character(obj) && length(obj) == 1) {
+    obj <- eval(parse(text = obj,keep.source = TRUE))
+  }
 
+  if (inherits(obj, "vector")) {
+    ret <- prep_tbl_roxy(
+      obj,
+      title = title,
+      description = description,
+      add_fields = add_fields,
+      ...
+    )
+  }
+  
   if (inherits(obj, c("data.frame", "tibble"))) {
     ret <- prep_tbl_roxy(
       obj,
@@ -231,6 +245,39 @@ prep_tbl_roxy <- function(obj,
     "%s\n%s\n%s%s",
     header,
     sprintf("#' \\describe{\n%s \n#'}", items),
+    add_fields,
+    sprintf('\n"%s"', obj_lbl(obj, env = env))
+  )
+}
+
+prep_vec_roxy <- function(obj,
+                          title = NULL,
+                          description = NULL,
+                          add_fields=sinew_opts$get("add_fields"),
+                          header_add = sinew_opts$get(),
+                          env = parent.frame()) {
+  obj_type <- typeof(obj)
+  
+  if (obj_type != "list") {
+    obj_type <- paste0(obj_type, " vector")
+  }
+  
+  header <- set_roxy_header(
+    title = title,
+    description = description,
+    defaults = c("DATASET_TITLE", "DATASET_DESCRIPTION"),
+    format = sprintf("#' @format A %s-length %s", length(obj), obj_type),
+    collapse = "\n"
+  )
+  
+  add_fields <- set_roxy_add_fields(
+    add_fields = setdiff(add_fields, c('export','examples','seealso','rdname')),
+    header_add = header_add
+  ) 
+  
+  sprintf(
+    "%s\n%s\n%s%s",
+    header,
     add_fields,
     sprintf('\n"%s"', obj_lbl(obj, env = env))
   )
