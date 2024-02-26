@@ -23,7 +23,6 @@ Depends:
 Imports: 
     cli,
     rematch2,
-    rlang,
     rstudioapi,
     sos,
     stringi,

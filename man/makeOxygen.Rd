@@ -56,6 +56,11 @@ Default: FALSE.}
 \item{markdown}{boolean to return roxygen2 skeleton with Markdown formatting,
 Default: FALSE}
 
+\item{scope}{The scope of transformations: \code{"simple"} runs only transformations
+that shouldn't substantially change the resulting \code{.Rd} files, \code{"full"} runs
+all transformations. In larger packages, run \code{"none"}, double-check and track
+the changes, and then run \code{"simple"} and then \code{"full"}.}
+
 \item{print}{boolean print output to console, Default: TRUE}
 
 \item{copy}{boolean copy output to clipboard, Default: \code{\link[=interactive]{interactive()}}}

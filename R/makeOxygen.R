@@ -21,6 +21,7 @@ obj_lbl <- function(obj, env = parent.frame()) {
 #'   Default: FALSE
 #' @param print boolean print output to console, Default: TRUE
 #' @param copy boolean copy output to clipboard, Default: [interactive()]
+#' @inheritParams roxygen2md::markdownify
 #' @param \dots arguments to be passed to make_import
 #' @details add_fields can include any slot except for the 
 #' defaults (title,description,param,return).
@@ -83,8 +84,8 @@ makeOxygen <- function(
     obj <- eval(parse(text = obj,keep.source = TRUE))
   }
 
-  if (inherits(obj, "vector")) {
-    ret <- prep_tbl_roxy(
+  if (is.vector(obj)) {
+    ret <- prep_vec_roxy(
       obj,
       title = title,
       description = description,
@@ -115,13 +116,13 @@ makeOxygen <- function(
     )
   }
   
-  if (markdown && require("roxygen2md", character.only = TRUE)) {
+  if (markdown && requireNamespace("roxygen2md", quietly = TRUE)) {
     ret <- roxygen2md::markdownify(ret, scope = scope)
   }
 
   if (print) cli_code(ret)
   
-  if (copy && require("clipr", character.only = TRUE) && clipr::clipr_available()) {
+  if (copy && requireNamespace("clipr", quietly = TRUE) && clipr::clipr_available()) {
    suppressPackageStartupMessages(clipr::write_clip(ret))
     cli_alert_success("Copied to clipboard")
   }
@@ -250,6 +251,7 @@ prep_tbl_roxy <- function(obj,
   )
 }
 
+#' @noRd
 prep_vec_roxy <- function(obj,
                           title = NULL,
                           description = NULL,
@@ -266,7 +268,7 @@ prep_vec_roxy <- function(obj,
     title = title,
     description = description,
     defaults = c("DATASET_TITLE", "DATASET_DESCRIPTION"),
-    format = sprintf("#' @format A %s-length %s", length(obj), obj_type),
+    format = sprintf("#' @format A length %s %s.", length(obj), obj_type),
     collapse = "\n"
   )
   
@@ -276,7 +278,7 @@ prep_vec_roxy <- function(obj,
   ) 
   
   sprintf(
-    "%s\n%s\n%s%s",
+    "%s\n%s%s",
     header,
     add_fields,
     sprintf('\n"%s"', obj_lbl(obj, env = env))

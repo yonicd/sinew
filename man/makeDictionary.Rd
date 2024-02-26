@@ -22,6 +22,10 @@ Given list of R files function returns roxygen2 template consisting of intersect
 parameter definitions
 }
 \examples{
-makeDictionary('R')
+\dontrun{
+if(interactive()){
+  makeDictionary('R')
+ }
+}
 }
 \concept{utility}

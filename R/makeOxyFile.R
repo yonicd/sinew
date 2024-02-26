@@ -5,6 +5,7 @@
 #' @param verbose logical, If TRUE will print output to console and open edited files in the editor viewer, Default: interactive()
 #' @param print boolean print output from each processed file to console. Default: FALSE
 #' @inheritParams makeOxygen
+#' @param dir.out character, path to save new R files, Default: NULL
 #' @inheritDotParams makeOxygen -obj -copy -title -description
 #' @return Nothing. Writes files with roxygen2 comments as a side effect
 #' @author Anton Grishin

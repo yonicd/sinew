@@ -37,6 +37,8 @@ make_oxy_file(
 \item{markdown}{boolean to return roxygen2 skeleton with Markdown formatting,
 Default: FALSE}
 
+\item{dir.out}{character, path to save new R files, Default: NULL}
+
 \item{...}{
   Arguments passed on to \code{\link[=makeOxygen]{makeOxygen}}
   \describe{
@@ -48,6 +50,10 @@ Default: c("details","examples","seealso","rdname","export")}
     \item{\code{use_labels}}{boolean to use label attribute of data frame columns to
 fill column description values. Ignored if obj is a function or vector.
 Default: FALSE.}
+    \item{\code{scope}}{The scope of transformations: \code{"simple"} runs only transformations
+that shouldn't substantially change the resulting \code{.Rd} files, \code{"full"} runs
+all transformations. In larger packages, run \code{"none"}, double-check and track
+the changes, and then run \code{"simple"} and then \code{"full"}.}
   }}
 }
 \value{

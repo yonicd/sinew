@@ -7,7 +7,11 @@
 #' @export
 #' @concept utility
 #' @examples
-#' makeDictionary('R')
+#' \dontrun{
+#' if(interactive()){
+#'   makeDictionary('R')
+#'  }
+#' }
 makeDictionary <- function(path, save_path=FALSE) {
   if (!is.character(path)) {
     cli_abort("{.arg path} must be a character vector of file or directory paths")
