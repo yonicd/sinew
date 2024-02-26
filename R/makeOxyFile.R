@@ -51,8 +51,14 @@
 #' @rdname makeOxyFile
 #' @concept populate
 #' @importFrom rstudioapi isAvailable navigateToFile
-#' @importFrom cli cli_abort cli_alert_info cli_bullets
-makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive(), print = FALSE, markdown = FALSE, ...) {
+#' @importFrom cli cli_abort cli_alert_info cli_bullets cli_alert_warning
+makeOxyFile <- function(input = NULL,
+                        overwrite = FALSE,
+                        verbose = interactive(),
+                        print = FALSE,
+                        markdown = FALSE,
+                        dir.out = NULL,
+                        ...) {
   if (is.null(input)) input <- file.choose()
   
   if (!is.character(input)) {
@@ -155,18 +161,30 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive()
     for (i in rev(ins_id)) {
       lines <- append_to_lines(i, lines)
     }
+    
+    if (is.null(dir.out)) {
+      dir.out <- dirname(FILE)
+    }
+    
     new_name <- if (overwrite) {
       FILE
     } else {
-      file.path(dirname(FILE), paste("oxy", basename(FILE), sep = "-"))
+      file.path(dir.out, paste("oxy", basename(FILE), sep = "-"))
     }
     writeLines(lines, new_name)
+  }
+  
+  if (is.null(dir.out)) {
+    dir.out <- dirname(files)
+  } else if (overwrite) {
+    cli::cli_alert_warning(
+      "{.arg dir.out} is ignored when {.arg overwrite} is {.code TRUE}")
   }
   
   oxyfiles <- if (overwrite) {
     files
   } else {
-    file.path(dirname(files), paste("oxy", basename(files), sep = "-"))
+    file.path(dir.out, paste("oxy", basename(files), sep = "-"))
   }
   
   if (length(input) > 0L) {

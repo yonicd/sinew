@@ -11,6 +11,7 @@ makeOxyFile(
   verbose = interactive(),
   print = FALSE,
   markdown = FALSE,
+  dir.out = NULL,
   ...
 )
 
@@ -20,6 +21,7 @@ make_oxy_file(
   verbose = interactive(),
   print = FALSE,
   markdown = FALSE,
+  dir.out = NULL,
   ...
 )
 }
