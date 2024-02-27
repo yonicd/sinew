@@ -14,3 +14,4 @@ pretty_merge(e1, e2)
 \description{
 handles \code{force} and \code{ignore} arguments
 }
+\keyword{internal}

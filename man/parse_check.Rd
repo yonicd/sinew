@@ -17,4 +17,4 @@ choose between competing namespaces for a function, Default: TRUE}
 \description{
 check for fail of pretty_parse > parse, and offers to open file to offending line
 }
-\keyword{Internal}
+\keyword{internal}

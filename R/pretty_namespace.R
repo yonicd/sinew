@@ -89,7 +89,7 @@ pretty_namespace <- function(con = NULL,
 #'
 #' @return \code{(named list)} with package names as names as all exports as a character vector
 #' @export
-#'
+#' @concept namespace
 #' @examples
 #' make_force_packages(c("utils"))
 #' @rdname make_force_packages

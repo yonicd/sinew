@@ -1,6 +1,6 @@
 #' @title parse_check
 #' @description check for fail of pretty_parse > parse, and offers to open file to offending line
-#' @keywords Internal
+#' @keywords internal
 #' @param p result of `pretty_parse` > `parse`
 #' @param txt input text to `pretty_parse` 
 #' @inheritParams pretty_namespace
@@ -148,6 +148,7 @@ pretty_manip <- function(sym.funs, force, ignore){
 #' @param e1 \code{(data.frame)} typically `sym.funs` with list of all parsed functions in `txt`
 #' @param e2 \code{(list)} typically `force` or `ignore` with list of namespaces and the respective functions to force or ignore
 #' @importFrom cli symbol
+#' @keywords internal
 
 pretty_merge <- function(e1, e2){
 

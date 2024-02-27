@@ -18,3 +18,4 @@ Useful for supplying packages to the \code{force} argument to \code{pretty_names
 \examples{
 make_force_packages(c("utils"))
 }
+\concept{namespace}
