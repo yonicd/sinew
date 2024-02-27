@@ -6,19 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sinew Addins • sinew</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Sinew Addins">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="sinew">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sinew</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.91</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -55,13 +51,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/yonicd/sinew">
+  <a href="https://github.com/yonicd/sinew" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="http://twitter.com/MetrumRG">
+  <a href="http://twitter.com/MetrumRG" class="external-link">
     <span class="fa fa-lg fa-twitter"></span>
      
   </a>
@@ -76,14 +72,13 @@
 
       
 
-      </header><script src="addin_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="addin_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="addin_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="addin_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Sinew Addins</h1>
+      <h1 data-toc-skip>Sinew Addins</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/yonicd/sinew/blob/master/vignettes/addin.Rmd"><code>vignettes/addin.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/yonicd/sinew/blob/HEAD/vignettes/addin.Rmd" class="external-link"><code>vignettes/addin.Rmd</code></a></small>
       <div class="hidden name"><code>addin.Rmd</code></div>
 
     </div>
@@ -92,12 +87,12 @@
     
 <p>There are three addins in sinew both work off of the same principle.</p>
 <p>To access the addins load <code>sinew</code> and then three addins are appended to the <code>Addins menu</code> of <code>RStudio</code>.</p>
-<div id="static" class="section level2">
-<h2 class="hasAnchor">
-<a href="#static" class="anchor"></a>Static</h2>
-<div id="namespace" class="section level3">
-<h3 class="hasAnchor">
-<a href="#namespace" class="anchor"></a>Namespace</h3>
+<div class="section level2">
+<h2 id="static">Static<a class="anchor" aria-label="anchor" href="#static"></a>
+</h2>
+<div class="section level3">
+<h3 id="namespace">Namespace<a class="anchor" aria-label="anchor" href="#namespace"></a>
+</h3>
 <p>This addin scans the file source contents and attaches namespace information.</p>
 <ul>
 <li><p>Either saved or untitled R or Rmd files in the source editor may be used.</p></li>
@@ -105,9 +100,9 @@
 <li><p>In Rmd files highlight subsets of chunks to add namespaces directly in the chunks, or not highlight at all and the whole document will be used to create a new chunk at the top of the document with relevant namespaces needed to render the Rmd.</p></li>
 </ul>
 </div>
-<div id="createoxygen" class="section level3">
-<h3 class="hasAnchor">
-<a href="#createoxygen" class="anchor"></a>createOxygen</h3>
+<div class="section level3">
+<h3 id="createoxygen">createOxygen<a class="anchor" aria-label="anchor" href="#createoxygen"></a>
+</h3>
 <p>This addin will insert above the highlighted text the output of <code><a href="../reference/makeOxygen.html">sinew::makeOxygen</a></code>.</p>
 <ul>
 <li>It is useful to control the fields and their values with <code><a href="../reference/sinew_opts.html">sinew::sinew_opts</a></code>.</li>
@@ -116,12 +111,12 @@
 </iframe>
 </div>
 </div>
-<div id="interactive" class="section level2">
-<h2 class="hasAnchor">
-<a href="#interactive" class="anchor"></a>Interactive</h2>
-<div id="interactiveoxygen" class="section level3">
-<h3 class="hasAnchor">
-<a href="#interactiveoxygen" class="anchor"></a>InteractiveOxygen</h3>
+<div class="section level2">
+<h2 id="interactive">Interactive<a class="anchor" aria-label="anchor" href="#interactive"></a>
+</h2>
+<div class="section level3">
+<h3 id="interactiveoxygen">InteractiveOxygen<a class="anchor" aria-label="anchor" href="#interactiveoxygen"></a>
+</h3>
 <p>This addin invokes a shiny gadget.</p>
 <p>The user can select to either create a new skeleton or update an existing file. The application search for highlighted text in a number of locations in order to create the documentation.</p>
 <p>The application has checkboxes to control what fields are in the documentation, and there is a reactive preview tab to see what the documentation looks like as fields are inserted or removed. It is useful to control the fields checked on by default and their values with <code><a href="../reference/sinew_opts.html">sinew::sinew_opts</a></code>.</p>
@@ -142,34 +137,30 @@
 <ul>
 <li>In this case there has to be a physical location for the application to read. If one can not be found then nothing is displayed in the preview tab.</li>
 </ul>
-<iframe src="https://www.youtube.com/embed/cabOtf191OQ" width="700" height="400px">
+<iframe src="https://www.youtube.com/embed/cabOtf191OQ" width="700" height="400px" data-external="1">
 </iframe>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#static">Static</a></li>
-      <li><a href="#interactive">Interactive</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
 
 
       <footer><div class="copyright">
-  <p>Developed by Jonathan Sidi.</p>
+  <p></p>
+<p>Developed by Jonathan Sidi.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -177,6 +168,8 @@
 
   
 
+
+  
 
   </body>
 </html>

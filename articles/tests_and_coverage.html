@@ -6,19 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tests and Coverage • sinew</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Tests and Coverage">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="sinew">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sinew</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.91</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -55,13 +51,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/yonicd/sinew">
+  <a href="https://github.com/yonicd/sinew" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="http://twitter.com/MetrumRG">
+  <a href="http://twitter.com/MetrumRG" class="external-link">
     <span class="fa fa-lg fa-twitter"></span>
      
   </a>
@@ -76,15 +72,14 @@
 
       
 
-      </header><script src="tests_and_coverage_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tests_and_coverage_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="tests_and_coverage_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="tests_and_coverage_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Tests and Coverage</h1>
+      <h1 data-toc-skip>Tests and Coverage</h1>
             
-            <h4 class="date">20 November, 2020 11:37:06</h4>
+            <h4 data-toc-skip class="date">27 February, 2024 14:47:59</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/yonicd/sinew/blob/master/vignettes/tests_and_coverage.Rmd"><code>vignettes/tests_and_coverage.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/yonicd/sinew/blob/HEAD/vignettes/tests_and_coverage.Rmd" class="external-link"><code>vignettes/tests_and_coverage.Rmd</code></a></small>
       <div class="hidden name"><code>tests_and_coverage.Rmd</code></div>
 
     </div>
@@ -96,11 +91,11 @@
 <li><a href="#coverage">Coverage</a></li>
 <li><a href="#unit-tests">Unit Tests</a></li>
 </ul>
-<p>This output is created by <a href="https://github.com/metrumresearchgroup/covrpage">covrpage</a>.</p>
-<div id="coverage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#coverage" class="anchor"></a>Coverage</h2>
-<p>Coverage summary is created using the <a href="https://github.com/r-lib/covr">covr</a> package.</p>
+<p>This output is created by <a href="https://github.com/yonicd/covrpage" class="external-link">covrpage</a>.</p>
+<div class="section level2">
+<h2 id="coverage">Coverage<a class="anchor" aria-label="anchor" href="#coverage"></a>
+</h2>
+<p>Coverage summary is created using the <a href="https://github.com/r-lib/covr" class="external-link">covr</a> package.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Object</th>
@@ -109,128 +104,128 @@
 <tbody>
 <tr class="odd">
 <td align="left">sinew</td>
-<td align="center">17.38</td>
+<td align="center">31.20</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/check_attach.R">R/check_attach.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/check_attach.R" class="external-link">R/check_attach.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/create_yml.R">R/create_yml.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/create_yml.R" class="external-link">R/create_yml.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/get_oxy.R">R/get_oxy.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/get_oxy.R" class="external-link">R/get_oxy.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/interOxyAddIn.R">R/interOxyAddIn.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/interOxyAddIn.R" class="external-link">R/interOxyAddIn.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/ls_param.R">R/ls_param.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/ls_param.R" class="external-link">R/ls_param.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/makeDictionary.R">R/makeDictionary.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/makeDictionary.R" class="external-link">R/makeDictionary.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/makeOxyFile.R">R/makeOxyFile.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/moga.R" class="external-link">R/moga.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/makeOxygen.R">R/makeOxygen.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/opts_complete.R" class="external-link">R/opts_complete.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/moga.R">R/moga.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/oxygenAddin.R" class="external-link">R/oxygenAddin.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/opts_complete.R">R/opts_complete.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/pretty_addin_utils.R" class="external-link">R/pretty_addin_utils.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/oxygenAddin.R">R/oxygenAddin.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/pretty_addin.R" class="external-link">R/pretty_addin.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/pretty_addin_utils.R">R/pretty_addin_utils.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/pretty_rmd.R" class="external-link">R/pretty_rmd.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/pretty_addin.R">R/pretty_addin.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/pretty_sinew.R" class="external-link">R/pretty_sinew.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/pretty_rmd.R">R/pretty_rmd.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/rm_oxylines.R" class="external-link">R/rm_oxylines.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/pretty_sinew.R">R/pretty_sinew.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/rmOxygen.R" class="external-link">R/rmOxygen.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/rm_oxylines.R">R/rm_oxylines.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/something.R" class="external-link">R/something.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/rmOxygen.R">R/rmOxygen.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/untangle_examples.R" class="external-link">R/untangle_examples.R</a></td>
 <td align="center">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/something.R">R/something.R</a></td>
-<td align="center">0.00</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/untangle_examples.R">R/untangle_examples.R</a></td>
-<td align="center">0.00</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/untangle.R">R/untangle.R</a></td>
-<td align="center">0.00</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/opts.R">R/opts.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/opts.R" class="external-link">R/opts.R</a></td>
 <td align="center">5.88</td>
 </tr>
-<tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/zzz.R">R/zzz.R</a></td>
+<tr class="even">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/zzz.R" class="external-link">R/zzz.R</a></td>
 <td align="center">11.11</td>
 </tr>
+<tr class="odd">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/pretty_namespace.R" class="external-link">R/pretty_namespace.R</a></td>
+<td align="center">43.48</td>
+</tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/pretty_utils.R">R/pretty_utils.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/pretty_utils.R" class="external-link">R/pretty_utils.R</a></td>
 <td align="center">44.24</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/makeImport.R">R/makeImport.R</a></td>
-<td align="center">62.71</td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/makeOxygen.R" class="external-link">R/makeOxygen.R</a></td>
+<td align="center">52.63</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/pretty_namespace.R">R/pretty_namespace.R</a></td>
-<td align="center">83.33</td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/makeImport.R" class="external-link">R/makeImport.R</a></td>
+<td align="center">60.66</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/tabular.R">R/tabular.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/makeOxyFile.R" class="external-link">R/makeOxyFile.R</a></td>
+<td align="center">76.19</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/tabular.R" class="external-link">R/tabular.R</a></td>
 <td align="center">88.89</td>
 </tr>
-<tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/make_seealso.R">R/make_seealso.R</a></td>
+<tr class="odd">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/make_seealso.R" class="external-link">R/make_seealso.R</a></td>
 <td align="center">94.12</td>
 </tr>
-<tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/R/prettify.R">R/prettify.R</a></td>
+<tr class="even">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/prettify.R" class="external-link">R/prettify.R</a></td>
 <td align="center">94.83</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/R/untangle.R" class="external-link">R/untangle.R</a></td>
+<td align="center">96.67</td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 </div>
-<div id="unit-tests" class="section level2">
-<h2 class="hasAnchor">
-<a href="#unit-tests" class="anchor"></a>Unit Tests</h2>
-<p>Unit Test summary is created using the <a href="https://github.com/r-lib/testthat">testthat</a> package.</p>
+<div class="section level2">
+<h2 id="unit-tests">Unit Tests<a class="anchor" aria-label="anchor" href="#unit-tests"></a>
+</h2>
+<p>Unit Test summary is created using the <a href="https://github.com/r-lib/testthat" class="external-link">testthat</a> package.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">file</th>
@@ -244,9 +239,29 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-makeOxyFile.R" class="external-link">test-makeOxyFile.R</a></td>
+<td align="right">3</td>
+<td align="right">0.058</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-makeOxygen.R" class="external-link">test-makeOxygen.R</a></td>
+<td align="right">4</td>
+<td align="right">0.098</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="left">🔶</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R" class="external-link">test-pretty.R</a></td>
 <td align="right">14</td>
-<td align="right">0.739</td>
+<td align="right">0.171</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -254,9 +269,9 @@
 <td align="left">🔶</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-seealso.R">test-seealso.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-seealso.R" class="external-link">test-seealso.R</a></td>
 <td align="right">3</td>
-<td align="right">0.007</td>
+<td align="right">0.009</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -264,9 +279,19 @@
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-tabular.R">test-tabular.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-tabular.R" class="external-link">test-tabular.R</a></td>
 <td align="right">3</td>
-<td align="right">0.007</td>
+<td align="right">0.009</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R" class="external-link">test-untangle.R</a></td>
+<td align="right">6</td>
+<td align="right">0.022</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -278,12 +303,12 @@
 <details open><p><summary> Show Detailed Test Results </summary></p>
 <table class="table">
 <colgroup>
-<col width="38%">
+<col width="40%">
 <col width="9%">
-<col width="37%">
+<col width="35%">
 <col width="5%">
 <col width="1%">
-<col width="4%">
+<col width="3%">
 <col width="3%">
 </colgroup>
 <thead><tr class="header">
@@ -297,88 +322,106 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#L9">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-makeOxyFile.R#L2" class="external-link">test-makeOxyFile.R</a></td>
+<td align="left">makeOxyFile</td>
+<td align="left">makeOxyFile works</td>
+<td align="left">PASS</td>
+<td align="right">3</td>
+<td align="right">0.058</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-makeOxygen.R#L7" class="external-link">test-makeOxygen.R</a></td>
+<td align="left">makeOxygen</td>
+<td align="left">makeOxygen works</td>
+<td align="left">SKIPPED</td>
+<td align="right">4</td>
+<td align="right">0.098</td>
+<td align="left">🔶</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L9" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">switches: force</td>
 <td align="left">SKIPPED</td>
 <td align="right">1</td>
-<td align="right">0.018</td>
+<td align="right">0.002</td>
 <td align="left">🔶</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#L26">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L26" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">switches: ignore</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.357</td>
+<td align="right">0.082</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L33" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">setup files: length</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.002</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L34" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">setup files: class</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.138</td>
+<td align="right">0.004</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L35" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">setup files: names</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.003</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L40" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">setup file: length</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.002</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L41" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">setup file: class</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.005</td>
+<td align="right">0.004</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L42" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">setup file: names</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.003</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L47" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">setup text: length</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.002</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L48" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">setup text: class</td>
 <td align="left">PASS</td>
@@ -387,84 +430,138 @@
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L49" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">setup text: names</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.002</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#L69">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L69" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">full text: txt</td>
 <td align="left">PASS</td>
 <td align="right">2</td>
-<td align="right">0.094</td>
+<td align="right">0.023</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-pretty.R#L80_L82">test-pretty.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-pretty.R#L80_L82" class="external-link">test-pretty.R</a></td>
 <td align="left">pretty</td>
 <td align="left">full file: file</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.116</td>
+<td align="right">0.037</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-seealso.R#">test-seealso.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-seealso.R#L7" class="external-link">test-seealso.R</a></td>
 <td align="left">make seealso</td>
 <td align="left">cutoff: less than cutoff</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.002</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-seealso.R#">test-seealso.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-seealso.R#L16" class="external-link">test-seealso.R</a></td>
 <td align="left">make seealso</td>
 <td align="left">no cutoff: no elements</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.003</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-seealso.R#">test-seealso.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-seealso.R#L22" class="external-link">test-seealso.R</a></td>
 <td align="left">make seealso</td>
 <td align="left">no cutoff: simple call</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.005</td>
+<td align="right">0.004</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-tabular.R#">test-tabular.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-tabular.R#L7" class="external-link">test-tabular.R</a></td>
 <td align="left">tabular</td>
 <td align="left">convert dataframe to tabular header: length</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.003</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-tabular.R#">test-tabular.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-tabular.R#L8" class="external-link">test-tabular.R</a></td>
 <td align="left">tabular</td>
 <td align="left">convert dataframe to tabular header: class</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.005</td>
+<td align="right">0.004</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://github.com/yonicd/sinew/tree/master/tests/testthat/test-tabular.R#">test-tabular.R</a></td>
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-tabular.R#L16" class="external-link">test-tabular.R</a></td>
 <td align="left">tabular</td>
 <td align="left">convert dataframe to tabular no header: length</td>
 <td align="left">PASS</td>
 <td align="right">1</td>
-<td align="right">0.001</td>
+<td align="right">0.002</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L42" class="external-link">test-untangle.R</a></td>
+<td align="left">untangle</td>
+<td align="left">parent functions: find the parents</td>
+<td align="left">PASS</td>
+<td align="right">1</td>
+<td align="right">0.006</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L46" class="external-link">test-untangle.R</a></td>
+<td align="left">untangle</td>
+<td align="left">parent functions: parent indicies</td>
+<td align="left">PASS</td>
+<td align="right">1</td>
+<td align="right">0.003</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L53" class="external-link">test-untangle.R</a></td>
+<td align="left">untangle</td>
+<td align="left">untangle inputs: empty</td>
+<td align="left">PASS</td>
+<td align="right">1</td>
+<td align="right">0.004</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L58_L59" class="external-link">test-untangle.R</a></td>
+<td align="left">untangle</td>
+<td align="left">untangle inputs: text functions</td>
+<td align="left">PASS</td>
+<td align="right">1</td>
+<td align="right">0.003</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L63_L64" class="external-link">test-untangle.R</a></td>
+<td align="left">untangle</td>
+<td align="left">untangle inputs: text body</td>
+<td align="left">PASS</td>
+<td align="right">1</td>
+<td align="right">0.003</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://github.com/yonicd/sinew/blob/master/tests/testthat/test-untangle.R#L69_L72" class="external-link">test-untangle.R</a></td>
+<td align="left">untangle</td>
+<td align="left">untangle inputs: file</td>
+<td align="left">PASS</td>
+<td align="right">1</td>
+<td align="right">0.003</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -490,22 +587,22 @@
 <tbody>
 <tr class="odd">
 <td align="left">Version</td>
-<td align="left">R version 4.0.3 (2020-10-10)</td>
+<td align="left">R version 4.3.2 (2023-10-31)</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">Platform</td>
-<td align="left">x86_64-apple-darwin17.0 (64-bit)</td>
-<td align="left"><a href="https://github.com/yonicd/sinew/commit/9db092a92d7eab1d565562e15711369054baf9b5/checks" target="_blank"><span title="Built on Github Actions"><img src="https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true"></span></a></td>
+<td align="left">x86_64-pc-linux-gnu (64-bit)</td>
+<td align="left"><a href="https://github.com/yonicd/sinew/commit/d008070b388c1ca20d8c801d8f5b8d562a81296d/checks" target="_blank" class="external-link"><span title="Built on Github Actions"><img src="https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true"></span></a></td>
 </tr>
 <tr class="odd">
 <td align="left">Running</td>
-<td align="left">macOS Catalina 10.15.7</td>
+<td align="left">Ubuntu 22.04.4 LTS</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">Language</td>
-<td align="left">en_US</td>
+<td align="left">C</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -523,43 +620,39 @@
 <tbody>
 <tr class="odd">
 <td align="left">testthat</td>
-<td align="left">3.0.0</td>
+<td align="left">3.2.1</td>
 </tr>
 <tr class="even">
 <td align="left">covr</td>
-<td align="left">3.3.2</td>
+<td align="left">3.6.4</td>
 </tr>
 <tr class="odd">
 <td align="left">covrpage</td>
-<td align="left">0.0.71</td>
+<td align="left">0.2</td>
 </tr>
 </tbody>
 </table></details><!--- Final Status : skipped/warning --->
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#coverage">Coverage</a></li>
-      <li><a href="#unit-tests">Unit Tests</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
 
 
       <footer><div class="copyright">
-  <p>Developed by Jonathan Sidi.</p>
+  <p></p>
+<p>Developed by Jonathan Sidi.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -567,6 +660,8 @@
 
   
 
+
+  
 
   </body>
 </html>
