@@ -1,6 +1,6 @@
 Tests and Coverage
 ================
-27 February, 2024 14:47:16
+27 February, 2024 15:04:01
 
   - [Coverage](#coverage)
   - [Unit Tests](#unit-tests)
@@ -54,12 +54,12 @@ Unit Test summary is created using the
 
 | file                                              |  n |  time | error | failed | skipped | warning | icon |
 | :------------------------------------------------ | -: | ----: | ----: | -----: | ------: | ------: | :--- |
-| [test-makeOxyFile.R](testthat/test-makeOxyFile.R) |  3 | 0.058 |     0 |      0 |       0 |       0 |      |
-| [test-makeOxygen.R](testthat/test-makeOxygen.R)   |  4 | 0.098 |     0 |      0 |       1 |       0 | 🔶    |
-| [test-pretty.R](testthat/test-pretty.R)           | 14 | 0.171 |     0 |      0 |       1 |       0 | 🔶    |
-| [test-seealso.R](testthat/test-seealso.R)         |  3 | 0.009 |     0 |      0 |       0 |       0 |      |
+| [test-makeOxyFile.R](testthat/test-makeOxyFile.R) |  3 | 0.057 |     0 |      0 |       0 |       0 |      |
+| [test-makeOxygen.R](testthat/test-makeOxygen.R)   |  4 | 0.093 |     0 |      0 |       1 |       0 | 🔶    |
+| [test-pretty.R](testthat/test-pretty.R)           | 14 | 0.177 |     0 |      0 |       1 |       0 | 🔶    |
+| [test-seealso.R](testthat/test-seealso.R)         |  3 | 0.008 |     0 |      0 |       0 |       0 |      |
 | [test-tabular.R](testthat/test-tabular.R)         |  3 | 0.009 |     0 |      0 |       0 |       0 |      |
-| [test-untangle.R](testthat/test-untangle.R)       |  6 | 0.022 |     0 |      0 |       0 |       0 |      |
+| [test-untangle.R](testthat/test-untangle.R)       |  6 | 0.020 |     0 |      0 |       0 |       0 |      |
 
 <details open>
 
@@ -67,33 +67,33 @@ Unit Test summary is created using the
 
 | file                                                 | context      | test                                           | status  | n |  time | icon |
 | :--------------------------------------------------- | :----------- | :--------------------------------------------- | :------ | -: | ----: | :--- |
-| [test-makeOxyFile.R](testthat/test-makeOxyFile.R#L2) | makeOxyFile  | makeOxyFile works                              | PASS    | 3 | 0.058 |      |
-| [test-makeOxygen.R](testthat/test-makeOxygen.R#L7)   | makeOxygen   | makeOxygen works                               | SKIPPED | 4 | 0.098 | 🔶    |
-| [test-pretty.R](testthat/test-pretty.R#L9)           | pretty       | switches: force                                | SKIPPED | 1 | 0.002 | 🔶    |
+| [test-makeOxyFile.R](testthat/test-makeOxyFile.R#L2) | makeOxyFile  | makeOxyFile works                              | PASS    | 3 | 0.057 |      |
+| [test-makeOxygen.R](testthat/test-makeOxygen.R#L7)   | makeOxygen   | makeOxygen works                               | SKIPPED | 4 | 0.093 | 🔶    |
+| [test-pretty.R](testthat/test-pretty.R#L9)           | pretty       | switches: force                                | SKIPPED | 1 | 0.003 | 🔶    |
 | [test-pretty.R](testthat/test-pretty.R#L26)          | pretty       | switches: ignore                               | PASS    | 1 | 0.082 |      |
 | [test-pretty.R](testthat/test-pretty.R#L33)          | pretty       | setup files: length                            | PASS    | 1 | 0.002 |      |
 | [test-pretty.R](testthat/test-pretty.R#L34)          | pretty       | setup files: class                             | PASS    | 1 | 0.004 |      |
 | [test-pretty.R](testthat/test-pretty.R#L35)          | pretty       | setup files: names                             | PASS    | 1 | 0.003 |      |
-| [test-pretty.R](testthat/test-pretty.R#L40)          | pretty       | setup file: length                             | PASS    | 1 | 0.002 |      |
+| [test-pretty.R](testthat/test-pretty.R#L40)          | pretty       | setup file: length                             | PASS    | 1 | 0.003 |      |
 | [test-pretty.R](testthat/test-pretty.R#L41)          | pretty       | setup file: class                              | PASS    | 1 | 0.004 |      |
 | [test-pretty.R](testthat/test-pretty.R#L42)          | pretty       | setup file: names                              | PASS    | 1 | 0.003 |      |
-| [test-pretty.R](testthat/test-pretty.R#L47)          | pretty       | setup text: length                             | PASS    | 1 | 0.002 |      |
-| [test-pretty.R](testthat/test-pretty.R#L48)          | pretty       | setup text: class                              | PASS    | 1 | 0.005 |      |
-| [test-pretty.R](testthat/test-pretty.R#L49)          | pretty       | setup text: names                              | PASS    | 1 | 0.002 |      |
-| [test-pretty.R](testthat/test-pretty.R#L69)          | pretty       | full text: txt                                 | PASS    | 2 | 0.023 |      |
+| [test-pretty.R](testthat/test-pretty.R#L47)          | pretty       | setup text: length                             | PASS    | 1 | 0.003 |      |
+| [test-pretty.R](testthat/test-pretty.R#L48)          | pretty       | setup text: class                              | PASS    | 1 | 0.006 |      |
+| [test-pretty.R](testthat/test-pretty.R#L49)          | pretty       | setup text: names                              | PASS    | 1 | 0.003 |      |
+| [test-pretty.R](testthat/test-pretty.R#L69)          | pretty       | full text: txt                                 | PASS    | 2 | 0.024 |      |
 | [test-pretty.R](testthat/test-pretty.R#L80_L82)      | pretty       | full file: file                                | PASS    | 1 | 0.037 |      |
-| [test-seealso.R](testthat/test-seealso.R#L7)         | make seealso | cutoff: less than cutoff                       | PASS    | 1 | 0.002 |      |
-| [test-seealso.R](testthat/test-seealso.R#L16)        | make seealso | no cutoff: no elements                         | PASS    | 1 | 0.003 |      |
-| [test-seealso.R](testthat/test-seealso.R#L22)        | make seealso | no cutoff: simple call                         | PASS    | 1 | 0.004 |      |
+| [test-seealso.R](testthat/test-seealso.R#L7)         | make seealso | cutoff: less than cutoff                       | PASS    | 1 | 0.003 |      |
+| [test-seealso.R](testthat/test-seealso.R#L16)        | make seealso | no cutoff: no elements                         | PASS    | 1 | 0.002 |      |
+| [test-seealso.R](testthat/test-seealso.R#L22)        | make seealso | no cutoff: simple call                         | PASS    | 1 | 0.003 |      |
 | [test-tabular.R](testthat/test-tabular.R#L7)         | tabular      | convert dataframe to tabular header: length    | PASS    | 1 | 0.003 |      |
 | [test-tabular.R](testthat/test-tabular.R#L8)         | tabular      | convert dataframe to tabular header: class     | PASS    | 1 | 0.004 |      |
 | [test-tabular.R](testthat/test-tabular.R#L16)        | tabular      | convert dataframe to tabular no header: length | PASS    | 1 | 0.002 |      |
 | [test-untangle.R](testthat/test-untangle.R#L42)      | untangle     | parent functions: find the parents             | PASS    | 1 | 0.006 |      |
 | [test-untangle.R](testthat/test-untangle.R#L46)      | untangle     | parent functions: parent indicies              | PASS    | 1 | 0.003 |      |
-| [test-untangle.R](testthat/test-untangle.R#L53)      | untangle     | untangle inputs: empty                         | PASS    | 1 | 0.004 |      |
-| [test-untangle.R](testthat/test-untangle.R#L58_L59)  | untangle     | untangle inputs: text functions                | PASS    | 1 | 0.003 |      |
-| [test-untangle.R](testthat/test-untangle.R#L63_L64)  | untangle     | untangle inputs: text body                     | PASS    | 1 | 0.003 |      |
-| [test-untangle.R](testthat/test-untangle.R#L69_L72)  | untangle     | untangle inputs: file                          | PASS    | 1 | 0.003 |      |
+| [test-untangle.R](testthat/test-untangle.R#L53)      | untangle     | untangle inputs: empty                         | PASS    | 1 | 0.005 |      |
+| [test-untangle.R](testthat/test-untangle.R#L58_L59)  | untangle     | untangle inputs: text functions                | PASS    | 1 | 0.002 |      |
+| [test-untangle.R](testthat/test-untangle.R#L63_L64)  | untangle     | untangle inputs: text body                     | PASS    | 1 | 0.002 |      |
+| [test-untangle.R](testthat/test-untangle.R#L69_L72)  | untangle     | untangle inputs: file                          | PASS    | 1 | 0.002 |      |
 
 | Failed | Warning | Skipped |
 | :----- | :------ | :------ |
@@ -108,7 +108,7 @@ Unit Test summary is created using the
 | Field    | Value                         |                                                                                                                                                                                                                                                               |
 | :------- | :---------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Version  | R version 4.3.2 (2023-10-31)  |                                                                                                                                                                                                                                                               |
-| Platform | x86\_64-pc-linux-gnu (64-bit) | <a href="https://github.com/yonicd/sinew/commit/d008070b388c1ca20d8c801d8f5b8d562a81296d/checks" target="_blank"><span title="Built on Github Actions">![](https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true)</span></a> |
+| Platform | x86\_64-pc-linux-gnu (64-bit) | <a href="https://github.com/yonicd/sinew/commit/f845d208218d8eceefc2de9b4c6d38b8f70667c1/checks" target="_blank"><span title="Built on Github Actions">![](https://github.com/metrumresearchgroup/covrpage/blob/actions/inst/logo/gh.png?raw=true)</span></a> |
 | Running  | Ubuntu 22.04.4 LTS            |                                                                                                                                                                                                                                                               |
 | Language | C                             |                                                                                                                                                                                                                                                               |
 | Timezone | UTC                           |                                                                                                                                                                                                                                                               |
