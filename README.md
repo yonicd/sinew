@@ -1,11 +1,7 @@
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sinew)](https://cran.r-project.org/package=sinew)
 [![](https://cranlogs.r-pkg.org/badges/sinew)](https://cran.r-project.org/package=sinew)
-[![R-win build
-status](https://github.com/yonicd/sinew/workflows/R-win/badge.svg)](https://github.com/yonicd/sinew)
-[![R-mac build
-status](https://github.com/yonicd/sinew/workflows/R-mac/badge.svg)](https://github.com/yonicd/sinew)
-[![R-linux build
-status](https://github.com/yonicd/sinew/workflows/R-linux/badge.svg)](https://github.com/yonicd/sinew)
+[![R-check build
+status](https://github.com/yonicd/sinew/workflows/R-check/badge.svg)](https://github.com/yonicd/sinew)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/yonicd/sinew/master.svg)](https://codecov.io/github/yonicd/sinew?branch=master)
 [![Covrpage
