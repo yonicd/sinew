@@ -2,19 +2,44 @@
 % Please edit documentation in R/makeOxygen.R
 \name{makeOxygen}
 \alias{makeOxygen}
+\alias{make_oxygen}
 \title{Populate Roxygen2 Skeleton}
 \usage{
 makeOxygen(
   obj,
+  title = NULL,
+  description = NULL,
   add_default = TRUE,
   add_fields = sinew_opts$get("add_fields"),
   use_dictionary = NULL,
+  use_labels = FALSE,
+  markdown = FALSE,
+  scope = c("full", "simple", "unlink", "indent", "none"),
   print = TRUE,
+  copy = interactive(),
+  ...
+)
+
+make_oxygen(
+  obj,
+  title = NULL,
+  description = NULL,
+  add_default = TRUE,
+  add_fields = sinew_opts$get("add_fields"),
+  use_dictionary = NULL,
+  use_labels = FALSE,
+  markdown = FALSE,
+  scope = c("full", "simple", "unlink", "indent", "none"),
+  print = TRUE,
+  copy = interactive(),
   ...
 )
 }
 \arguments{
-\item{obj}{function or name of function}
+\item{obj}{function or name of function, a data frame, or a vector (strings
+are interpreted as function names).}
+
+\item{title, description}{Optional title and description values to use}
 
 \item{add_default}{boolean to add defaults values to the end of the PARAM
 fields, Default: TRUE}
@@ -24,14 +49,28 @@ Default: c("details","examples","seealso","rdname","export")}
 
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
+\item{use_labels}{boolean to use label attribute of data frame columns to
+fill column description values. Ignored if obj is a function or vector.
+Default: FALSE.}
+
+\item{markdown}{boolean to return roxygen2 skeleton with Markdown formatting,
+Default: FALSE}
+
+\item{scope}{The scope of transformations: \code{"simple"} runs only transformations
+that shouldn't substantially change the resulting \code{.Rd} files, \code{"full"} runs
+all transformations. In larger packages, run \code{"none"}, double-check and track
+the changes, and then run \code{"simple"} and then \code{"full"}.}
+
 \item{print}{boolean print output to console, Default: TRUE}
+
+\item{copy}{boolean copy output to clipboard, Default: \code{\link[=interactive]{interactive()}}}
 
 \item{\dots}{arguments to be passed to make_import}
 }
 \description{
-Creates roxygen2 skeleton including title,
-description, import and other fields for
-an object in the global environment or a function of an attached namespace.
+Creates roxygen2 skeleton including title, description, import
+and other fields for an object in the global environment or a function of
+an attached namespace.
 }
 \details{
 add_fields can include any slot except for the

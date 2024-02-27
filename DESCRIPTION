@@ -1,45 +1,54 @@
-Package: sinew
 Type: Package
+Package: sinew
 Title: Package Development Documentation and Namespace Management
-Version: 0.4.0
+Version: 0.5.0
 Date: 2022-03-27
-Authors@R: c( person("Jonathan", "Sidi", email = "yonicd@gmail.com", role = c("aut","cre")), person("Anton","Grishin",role
-             = "ctb"), person("Lorenzo","Busetto",role = "ctb"), person("Alexey","Shiklomanov",role = "ctb"),
-             person("Stephen","Holsenbeck", email = "sholsen@alumni.emory.edu", role = "ctb"))
-Description: Manage package documentation and namespaces from the command line. Programmatically attach namespaces in R and
-             Rmd script, populates Roxygen2 skeletons with information scraped from within functions and populate the
-             Imports field of the DESCRIPTION file.
-Depends: R (>= 3.2.0)
-Imports: 
-  cli,
-	crayon,
-	miniUI,
-	rematch2,
-	rstudioapi,
-	shiny,
-	sos,
-	stringi,
-	tools,
-	utils,
-	yaml
+Authors@R: c(
+    person("Jonathan", "Sidi", , "yonicd@gmail.com", role = c("aut", "cre")),
+    person("Anton", "Grishin", role = "ctb"),
+    person("Lorenzo", "Busetto", role = "ctb"),
+    person("Alexey", "Shiklomanov", role = "ctb"),
+    person("Stephen", "Holsenbeck", , "sholsen@alumni.emory.edu", role = "ctb"),
+    person("Eli", "Pousson", , "eli.pousson@gmail.com", role = "ctb")
+  )
+Description: Manage package documentation and namespaces from the command
+    line. Programmatically attach namespaces in R and Rmd script,
+    populates Roxygen2 skeletons with information scraped from within
+    functions and populate the Imports field of the DESCRIPTION file.
 License: MIT + file LICENSE
-Suggests: rcmdcheck,
- git2r,
- shiny,
- miniUI,
- withr,
- usethis,
- fs,
- details,
- roxygen2,
- testthat,
- knitr,
- rmarkdown
 URL: https://github.com/yonicd/sinew
 BugReports: https://github.com/yonicd/sinew/issues
+Depends: 
+    R (>= 3.2.0)
+Imports: 
+    cli,
+    rematch2,
+    rstudioapi,
+    sos,
+    stringi,
+    tools,
+    utils,
+    yaml
+Suggests: 
+    clipr,
+    details,
+    fs,
+    git2r,
+    knitr,
+    miniUI,
+    rcmdcheck,
+    rmarkdown,
+    roxygen2,
+    roxygen2md,
+    shiny,
+    testthat,
+    usethis,
+    withr
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 7.1.2
-VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

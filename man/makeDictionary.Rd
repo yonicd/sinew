@@ -2,9 +2,12 @@
 % Please edit documentation in R/makeDictionary.R
 \name{makeDictionary}
 \alias{makeDictionary}
+\alias{make_dictionary}
 \title{Parse package R files to create dictionary of unique parameter definitions}
 \usage{
 makeDictionary(path, save_path = FALSE)
+
+make_dictionary(path, save_path = FALSE)
 }
 \arguments{
 \item{path}{character or character vector of paths to files to parse}
@@ -19,6 +22,10 @@ Given list of R files function returns roxygen2 template consisting of intersect
 parameter definitions
 }
 \examples{
-makeDictionary('R')
+\dontrun{
+if(interactive()){
+  makeDictionary('R')
+ }
+}
 }
 \concept{utility}

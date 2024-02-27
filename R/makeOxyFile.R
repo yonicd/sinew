@@ -3,7 +3,10 @@
 #' @param input character, vector of path(s) to one or more .R files, a path to directory containing .R files, Default: NULL
 #' @param overwrite logical, If TRUE overwrites file(s), FALSE writes "Oxy"- prefixed files in the same directory, Default: FALSE
 #' @param verbose logical, If TRUE will print output to console and open edited files in the editor viewer, Default: interactive()
-#' @param \dots additional parameters passed to \code{makeOxygen}
+#' @param print boolean print output from each processed file to console. Default: FALSE
+#' @inheritParams makeOxygen
+#' @param dir.out character, path to save new R files, Default: NULL
+#' @inheritDotParams makeOxygen -obj -copy -title -description
 #' @return Nothing. Writes files with roxygen2 comments as a side effect
 #' @author Anton Grishin
 #' @details If an object cannot be found it will be sourced into a temporary environment.
@@ -49,11 +52,25 @@
 #' @rdname makeOxyFile
 #' @concept populate
 #' @importFrom rstudioapi isAvailable navigateToFile
-
-makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive(), ...) {
+#' @importFrom cli cli_abort cli_alert_info cli_bullets cli_alert_warning
+makeOxyFile <- function(input = NULL,
+                        overwrite = FALSE,
+                        verbose = interactive(),
+                        print = FALSE,
+                        markdown = FALSE,
+                        dir.out = NULL,
+                        ...) {
   if (is.null(input)) input <- file.choose()
-
-  if (length(input) == 1L && file.info(input)$isdir) {
+  
+  if (!is.character(input)) {
+    cli_abort("{.arg input} must be a character vector, not {.obj_type_friendly {input}}")
+  }
+  
+  if (!is.logical(overwrite)) {
+    cli_abort("{.arg overwrite} must be {.code TRUE} or {.code FALSE}, not {.obj_type_friendly {overwrite}}")
+  }
+  
+  if (length(input) == 1L && dir.exists(input)) {
     files <- list.files(path = input, pattern = ".+\\.[rR]$", full.names = TRUE)
     files <- grep("/(?!Oxy)\\w+\\.[rR]$", files, perl = TRUE, value = TRUE)
   } else {
@@ -61,7 +78,7 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive()
   }
 
   if (!all(grepl("\\.[rR]$", basename(files)))) {
-    stop("Supplied file(s) is not an .R file!", call. = FALSE)
+    cli_abort("Supplied file(s) is not an .R file!")
   }
 
   neg_msg <- "No functions found in\n"
@@ -129,7 +146,13 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive()
 
     oxy_lst <- lapply(objs, function(obj_name, thisenv, ...) {
       assign(obj_name, get(obj_name, envir = thisenv))
-      eval(parse(text = sprintf("makeOxygen(%s,...)", obj_name), keep.source = TRUE))
+      eval(
+        parse(
+          text = sprintf(
+            "makeOxygen(%s,..., title=NULL, description=NULL, markdown=%s, print=%s, copy=FALSE)",
+            obj_name, markdown, print
+          ),
+          keep.source = TRUE))
     }, thisenv = nenv, ...)
 
     ins_id <- which(grepl("^\\s*[[:alnum:]._]+\\s*(<-|=)", lines)) - 1L
@@ -139,18 +162,30 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive()
     for (i in rev(ins_id)) {
       lines <- append_to_lines(i, lines)
     }
+    
+    if (is.null(dir.out)) {
+      dir.out <- dirname(FILE)
+    }
+    
     new_name <- if (overwrite) {
       FILE
     } else {
-      file.path(dirname(FILE), paste("oxy", basename(FILE), sep = "-"))
+      file.path(dir.out, paste("oxy", basename(FILE), sep = "-"))
     }
     writeLines(lines, new_name)
+  }
+  
+  if (is.null(dir.out)) {
+    dir.out <- dirname(files)
+  } else if (overwrite) {
+    cli::cli_alert_warning(
+      "{.arg dir.out} is ignored when {.arg overwrite} is {.code TRUE}")
   }
   
   oxyfiles <- if (overwrite) {
     files
   } else {
-    file.path(dirname(files), paste("oxy", basename(files), sep = "-"))
+    file.path(dir.out, paste("oxy", basename(files), sep = "-"))
   }
   
   if (length(input) > 0L) {
@@ -161,15 +196,23 @@ makeOxyFile <- function(input = NULL, overwrite = FALSE, verbose = interactive()
         file.show(oxyfiles)
       }
 
-      message(
-        "File(s) with roxygen2 comment templates have been written to:\n",
-        paste0(normalizePath(oxyfiles, winslash = "/"), collapse = "\n")
+      cli_alert_info("File(s) with roxygen2 comment templates written to:")
+      cli_bullets(
+        normalizePath(oxyfiles, winslash = "/") 
       )
+      
     }
   }
   
+  invisible(oxyfiles)
 }
 
+#' @rdname makeOxyFile
+#' @name make_oxy_file
+#' @export
+make_oxy_file <- makeOxyFile
+
+#' @importFrom cli cli_warn
 scan_for_content <- function(FILE, neg_msg = "No functions found in\n"){
   
   lines <- readLines(FILE, warn = FALSE)
@@ -184,7 +227,7 @@ scan_for_content <- function(FILE, neg_msg = "No functions found in\n"){
   res <- length(objs) == 0L
   
   if(res)
-    warning(neg_msg, normalizePath(FILE), call. = FALSE)
+    cli_warn(neg_msg, normalizePath(FILE))
   
   return(!res)
 }

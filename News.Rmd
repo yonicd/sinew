@@ -78,3 +78,30 @@ Added
     -   create lists for usage with `pretty_namespace` force argument.
 
 </details>
+
+## 0.5.0
+
+<details>
+<summary>Added</summary>
+
+  - Add snakecase versions of function names `make_dictionary()`, `make_oxygen()`, and `make_oxy_file()`
+  - `makeOxygen()`
+    - Create column descrition for data frame documentation using column label attributes if `use_labels = TRUE` 
+    - Add support for documenting vector data objects
+    - Copy documentation to clipbboard with `{clipr}` (#74) if `copy = TRUE` 
+    - Add option to use Markdown-style documentation (converted with `{roxygen2md}` (#78)  if `markdown = TRUE`
+    - Add title and description argument to optionally override placeholder values
+  - `makeOxyFile()`
+    - Expose added parameters from `makeOxygen()`: `print` (default to `FALSE`) and `markdown`
+    - Add `dir.out` parameter to allow saving to custom directory
+    
+</details>
+
+<details>
+<summary>Updated</summary>
+
+  - Adopt `{cli}` package for errors, warnings, and messages and drop `{crayon}` package
+  - `makeDictionary()`
+    - Fixed bug with handling of file path inputs
+
+</details>

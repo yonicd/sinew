@@ -1,4 +1,4 @@
-#' @importFrom crayon strip_style
+#' @importFrom cli ansi_strip
 prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = FALSE, ask = TRUE,askenv = NULL){
   
   SPATH <- basename(grep('library',searchpaths(),value = TRUE))
@@ -23,7 +23,7 @@ prettify <- function(TXT,force = NULL, ignore = NULL, overwrite = FALSE, sos = F
                 simplify = FALSE)
   
   RET <- lapply(RET,function(x){
-    x$new_text <- crayon::strip_style(string = x$new_text)
+    x$new_text <- ansi_strip(string = x$new_text)
     x
   })
   

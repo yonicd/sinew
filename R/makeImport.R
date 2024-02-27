@@ -40,6 +40,7 @@
 #' @export
 #' @importFrom utils capture.output getParseData
 #' @importFrom tools file_ext
+#' @importFrom cli cli_abort
 make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", desc_loc = NULL) {
   
   on.exit({  if (inherits(script, "function")) unlink(file) },add = TRUE)
@@ -58,7 +59,7 @@ make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", des
       file <- list.files(script, full.names = TRUE, pattern = "\\.[R|r]$")
     }
     if (length(file) == 0) {
-      cli::cli_abort("No R files in {.path {script}}, are you sure you selected the right folder?")
+      cli_abort("No R files in {.path {script}}, are you sure you selected the right folder?")
     }
   }
 
@@ -94,7 +95,7 @@ make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", des
         ret
       })
 
-      if (print) writeLines(paste(" ", f, paste(ret, collapse = "\n"), sep = "\n"))
+      if (print) cli_code(paste(" ", f, paste(ret, collapse = "\n"), sep = "\n"))
     }
 
     return(ret)
@@ -106,7 +107,7 @@ make_import <- function(script, cut = NULL, print = TRUE, format = "oxygen", des
     ret <- do.call("rbind", pkg)
     ret <- paste(sort(unique(ret$pkg)), collapse = ",\n\t")
 
-    if (print) writeLines(sprintf("Imports:\n\t%s", ret))
+    if (print) cli_code(sprintf("Imports:\n\t%s", ret))
 
     if (!is.null(desc_loc)) {
       if (file.exists(file.path(desc_loc, "DESCRIPTION"))) {

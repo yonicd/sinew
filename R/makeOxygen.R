@@ -1,14 +1,27 @@
+obj_lbl <- function(obj, env = parent.frame()) {
+  gsub('"', "", deparse(substitute(obj, env = env)))
+}
+
 #' @title Populate Roxygen2 Skeleton
-#' @description Creates roxygen2 skeleton including title, 
-#' description, import and other fields for
-#' an object in the global environment or a function of an attached namespace.
-#' @param obj function or name of function
+#' @description Creates roxygen2 skeleton including title, description, import
+#'   and other fields for an object in the global environment or a function of
+#'   an attached namespace.
+#' @param obj function or name of function, a data frame, or a vector (strings
+#'   are interpreted as function names).
+#' @param title,description Optional title and description values to use
 #' @param add_default boolean to add defaults values to the end of the PARAM 
 #' fields, Default: TRUE
 #' @param add_fields character vector to add additional roxygen2 fields, 
 #' Default: c("details","examples","seealso","rdname","export")
 #' @param use_dictionary character, path_to_dictionary, Default: NULL
+#' @param use_labels boolean to use label attribute of data frame columns to
+#'   fill column description values. Ignored if obj is a function or vector.
+#'   Default: FALSE.
+#' @param markdown boolean to return roxygen2 skeleton with Markdown formatting,
+#'   Default: FALSE
 #' @param print boolean print output to console, Default: TRUE
+#' @param copy boolean copy output to clipboard, Default: [interactive()]
+#' @inheritParams roxygen2md::markdownify
 #' @param \dots arguments to be passed to make_import
 #' @details add_fields can include any slot except for the 
 #' defaults (title,description,param,return).
@@ -51,114 +64,257 @@
 #' @examples
 #' makeOxygen(stats::lm)
 #' @concept populate
-makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fields"), use_dictionary=NULL, print=TRUE, ...) {
-  header_add <- sinew_opts$get()
+#' @importFrom cli cli_code cli_alert_success
+makeOxygen <- function(
+    obj,
+    title = NULL,
+    description = NULL,
+    add_default=TRUE,
+    add_fields=sinew_opts$get("add_fields"),
+    use_dictionary=NULL,
+    use_labels=FALSE,
+    markdown=FALSE,
+    scope = c("full", "simple", "unlink", "indent", "none"),
+    print=TRUE,
+    copy=interactive(),
+    ...
+) {
+  
+  if (is.character(obj) && length(obj) == 1) {
+    obj <- eval(parse(text = obj,keep.source = TRUE))
+  }
 
-  lbl <- deparse(substitute(obj))
-  lbl <- gsub('"', "", lbl)
-
-  if (is.character(obj)) obj <- eval(parse(text = obj,keep.source = TRUE))
-
-  if (inherits(obj, c("data.frame", "tibble"))) {
-    cl <- sapply(obj, typeof)
-
-    # Write individual item description templates
-    items <- paste0(sprintf("#'   \\item{\\code{%s}}{%s COLUMN_DESCRIPTION}", names(cl), cl), collapse = "\n")
-
-    header <- c(
-      title = "#' @title DATASET_TITLE",
-      description = "#' @description DATASET_DESCRIPTION",
-      format = sprintf("#' @format A data frame with %s rows and %s variables:", nrow(obj), length(cl))
+  if (is.vector(obj)) {
+    ret <- prep_vec_roxy(
+      obj,
+      title = title,
+      description = description,
+      add_fields = add_fields,
+      ...
     )
-
-    add_fields <- setdiff(add_fields,c('export','examples','seealso','rdname'))
-    
-    ret <- sprintf(
-      "%s\n%s\n%s%s",
-      paste(header, collapse = "\n"),
-      sprintf("#' \\describe{\n%s \n#'}", items),
-      ifelse(!is.null(add_fields), {
-        paste(
-          sprintf(
-            "#' @%s %s",
-            names(header_add[add_fields]),
-            header_add[add_fields]
-          ),
-          collapse = "\n"
-        )
-      }, ""),
-      sprintf('\n"%s"', lbl)
+  }
+  
+  if (inherits(obj, c("data.frame", "tibble"))) {
+    ret <- prep_tbl_roxy(
+      obj,
+      title = title,
+      description = description,
+      add_fields = add_fields,
+      ...
     )
   }
 
   if (inherits(obj, c("function"))) {
-    importList <- list(...)
-    importList$script <- obj
-    importList$print <- FALSE
-    import <- do.call("make_import", importList)
-    if (import == "list()") import <- ""
-
-    cutOFF <- switch("cut" %in% names(importList), importList$cut, 3)
-    if (import == "") add_fields <- add_fields[!grepl("seealso", add_fields)]
-    if ("seealso" %in% add_fields) header_add <- c(header_add, seealso = paste0(make_seealso(obj, cutOFF = cutOFF), collapse = "\n"))
-
-    param_desc <- NULL
-    if (!is.null(use_dictionary)) param_desc <- ls_param(obj = obj, dictionary = use_dictionary, print = FALSE)
-    fn <- as.list(formals(obj))
-
-    if ("rdname" %in% add_fields) header_add["rdname"] <- lbl
-
-    out <- sapply(names(fn), function(name_y) {
-      cl <- class(fn[[name_y]])
-      out <- as.character(fn[[name_y]])
-      if (cl == "NULL") out <- "NULL"
-      if (cl == "character") out <- sprintf("'%s'", as.character(fn[[name_y]]))
-      if (cl %in% c("if", "call")) out <- deparse(fn[[name_y]])
-      out <- paste0(out, collapse = "\n#'")
-      if (add_default) {
-        if (nchar(out) > 0) {
-          out <- sprintf(", Default: %s", out)
-        }
-
-        if (!is.null(use_dictionary) & name_y %in% names(param_desc)) {
-          p_desc <- param_desc[name_y]
-        } else {
-          p_desc <- "PARAM_DESCRIPTION"
-        }
-        str_out <- sprintf("%s%s", p_desc, out)
-      }
-
-      return(str_out)
-    })
-    params <- sprintf("#' @param %s %s", names(out), out)
-
-    header <- c(
-      title = "#' @title FUNCTION_TITLE",
-      description = "#' @description FUNCTION_DESCRIPTION"
-    )
-
-    footer <- c(return = "#' @return OUTPUT_DESCRIPTION")
-
-    ret <- sprintf(
-      "%s\n%s\n%s\n%s\n%s",
-      paste(header, collapse = "\n"),
-      paste(params, collapse = "\n"),
-      footer,
-      ifelse(!is.null(add_fields), {
-        paste(
-          sprintf(
-            "#' @%s %s",
-            names(header_add[add_fields]),
-            header_add[add_fields]
-          ),
-          collapse = "\n"
-        )
-      }, ""),
-      import
+    ret <- prep_fn_roxy(
+      obj,
+      title = title,
+      description = description,
+      add_default = add_default,
+      add_fields = add_fields,
+      use_dictionary = use_dictionary,
+      ...
     )
   }
+  
+  if (markdown && requireNamespace("roxygen2md", quietly = TRUE)) {
+    ret <- roxygen2md::markdownify(ret, scope = scope)
+  }
 
-  if (print) writeLines(ret)
+  if (print) cli_code(ret)
+  
+  if (copy && requireNamespace("clipr", quietly = TRUE) && clipr::clipr_available()) {
+   suppressPackageStartupMessages(clipr::write_clip(ret))
+    cli_alert_success("Copied to clipboard")
+  }
 
   invisible(ret)
+}
+
+#' @rdname makeOxygen
+#' @name make_oxygen
+#' @export
+make_oxygen <- makeOxygen
+
+#' @noRd
+prep_fn_roxy <- function(obj,
+                         title = NULL,
+                         description = NULL,
+                         add_default = TRUE,
+                         add_fields=sinew_opts$get("add_fields"),
+                         use_dictionary=NULL,
+                         header_add = sinew_opts$get(),
+                         env = parent.frame(),
+                         ...) {
+  importList <- list(...)
+  importList$script <- obj
+  importList$print <- FALSE
+  import <- do.call("make_import", importList)
+  if (import == "list()") import <- ""
+  
+  cutOFF <- switch("cut" %in% names(importList), importList$cut, 3)
+  if (import == "") add_fields <- add_fields[!grepl("seealso", add_fields)]
+  if ("seealso" %in% add_fields) header_add <- c(header_add, seealso = paste0(make_seealso(obj, cutOFF = cutOFF), collapse = "\n"))
+  
+  param_desc <- NULL
+  if (!is.null(use_dictionary)) param_desc <- ls_param(obj = obj, dictionary = use_dictionary, print = FALSE)
+  fn <- as.list(formals(obj))
+  
+  out <- sapply(names(fn), function(name_y) {
+    cl <- class(fn[[name_y]])
+    out <- as.character(fn[[name_y]])
+    if (cl == "NULL") out <- "NULL"
+    if (cl == "character") out <- sprintf("'%s'", as.character(fn[[name_y]]))
+    if (cl %in% c("if", "call")) out <- deparse(fn[[name_y]])
+    out <- paste0(out, collapse = "\n#'")
+    if (add_default) {
+      if (nchar(out) > 0) {
+        out <- sprintf(", Default: %s", out)
+      }
+      
+      if (!is.null(use_dictionary) & name_y %in% names(param_desc)) {
+        p_desc <- param_desc[name_y]
+      } else {
+        p_desc <- "PARAM_DESCRIPTION"
+      }
+      out <- sprintf("%s%s", p_desc, out)
+    }
+    
+    return(out)
+  })
+  
+  params <- sprintf("#' @param %s %s", names(out), out)
+  
+  header <- set_roxy_header(
+    title = title,
+    description = description,
+    defaults = c("FUNCTION_TITLE", "FUNCTION_DESCRIPTION"),
+    collapse = "\n"
+  )
+  
+  footer <- c(return = "#' @returns OUTPUT_DESCRIPTION")
+  
+  if ("rdname" %in% add_fields) header_add["rdname"] <- obj_lbl(obj, env = env)
+  
+  add_fields <- set_roxy_add_fields(
+    add_fields = add_fields,
+    header_add = header_add
+  )
+  
+  sprintf(
+    "%s\n%s\n%s\n%s\n%s",
+    header,
+    paste(params, collapse = "\n"),
+    footer,
+    add_fields,
+    import
+  )
+}
+
+#' @noRd
+prep_tbl_roxy <- function(obj,
+                          title = NULL,
+                          description = NULL,
+                          use_labels = TRUE,
+                          add_fields=sinew_opts$get("add_fields"),
+                          header_add = sinew_opts$get(),
+                          env = parent.frame()) {
+  cl <- vapply(obj, typeof, character(1))
+  cl_desc <- rep("COLUMN_DESCRIPTION", ncol(obj))
+  
+  if (use_labels) {
+    cl_desc <- as.character(lapply(obj, \(x) {attr(x, "label", exact = TRUE)}))
+    cl_desc[cl_desc == "NULL"] <- "COLUMN_DESCRIPTION"
+  }
+  
+  # Write individual item description templates
+  items <- paste0(sprintf("#'   \\item{\\code{%s}}{%s %s}", names(cl), cl, cl_desc), collapse = "\n")
+  
+  header <- set_roxy_header(
+    title = title,
+    description = description,
+    defaults = c("DATASET_TITLE", "DATASET_DESCRIPTION"),
+    format = sprintf("#' @format A data frame with %s rows and %s variables:", nrow(obj), length(cl)),
+    collapse = "\n"
+  )
+  
+  add_fields <- set_roxy_add_fields(
+    add_fields = setdiff(add_fields, c('export','examples','seealso','rdname')),
+    header_add = header_add
+  ) 
+  
+  sprintf(
+    "%s\n%s\n%s%s",
+    header,
+    sprintf("#' \\describe{\n%s \n#'}", items),
+    add_fields,
+    sprintf('\n"%s"', obj_lbl(obj, env = env))
+  )
+}
+
+#' @noRd
+prep_vec_roxy <- function(obj,
+                          title = NULL,
+                          description = NULL,
+                          add_fields=sinew_opts$get("add_fields"),
+                          header_add = sinew_opts$get(),
+                          env = parent.frame()) {
+  obj_type <- typeof(obj)
+  
+  if (obj_type != "list") {
+    obj_type <- paste0(obj_type, " vector")
+  }
+  
+  header <- set_roxy_header(
+    title = title,
+    description = description,
+    defaults = c("DATASET_TITLE", "DATASET_DESCRIPTION"),
+    format = sprintf("#' @format A length %s %s.", length(obj), obj_type),
+    collapse = "\n"
+  )
+  
+  add_fields <- set_roxy_add_fields(
+    add_fields = setdiff(add_fields, c('export','examples','seealso','rdname')),
+    header_add = header_add
+  ) 
+  
+  sprintf(
+    "%s\n%s%s",
+    header,
+    add_fields,
+    sprintf('\n"%s"', obj_lbl(obj, env = env))
+  )
+}
+
+#' @noRd
+set_roxy_header <- function(title = NULL, description = NULL, ..., defaults = list(), collapse = "\n") {
+  if (is.null(title)) {
+    title <- defaults[[1]]
+  }
+  
+  if (is.null(description)) {
+    description <- defaults[[2]]
+  }
+  
+  header <- c(
+    title = paste0("#' @title ", title),
+    description = paste0("#' @description ", description),
+    ...
+  )
+  
+  paste0(header, collapse = collapse)
+}
+
+#' @noRd
+set_roxy_add_fields <- function(add_fields = NULL, header_add = sinew_opts$get()) {
+  if (is.null(add_fields)) {
+    return("")
+  }
+    paste(
+      sprintf(
+        "#' @%s %s",
+        names(header_add[add_fields]),
+        header_add[add_fields]
+      ),
+      collapse = "\n"
+    )
 }
