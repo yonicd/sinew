@@ -8,3 +8,4 @@ bookdown*
 inst/doc
 doc
 Meta
+*.old
